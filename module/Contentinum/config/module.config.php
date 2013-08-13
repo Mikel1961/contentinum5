@@ -17,7 +17,7 @@ return array (
 		'service_manager' => array (
 				
 				'factories' => array (
-						'Contentinum\Configure' => 'Contentinum\Service\ConfigServiceFactory',
+						'Contentinum\Configure' => 'Contentinum\Service\ConfigServiceFactory', 
 						'Contentinum\Logs' => 'Contentinum\Service\LogServiceFactory',
 						'Contentinum\Logs\Applog' => 'Contentinum\Service\ApplogServiceFactory',
 				),
