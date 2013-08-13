@@ -44,7 +44,7 @@ class ConfigServiceFactory implements FactoryInterface
 	const CONTENTINUM_CONFIG = 'contentinum_config';
 	
 	/**
-	 * (non-PHPdoc)
+	 * Get contentinum configuration parameters
 	 * @see \Zend\ServiceManager\FactoryInterface::createService()
 	 * @return array
 	 */
