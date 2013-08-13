@@ -37,8 +37,9 @@ interface ApplogAwareInterface
 	 * Set log messages
 	 * @param int $priority log priority
 	 * @param string $message log messages
+	 * @param array $extra | Transversale
 	 */
-	public function log($priority,$message);
+	public function log($priority, $message, $extra = array());
 	/**
 	 * Set logger adjustments
 	 * @param array $options

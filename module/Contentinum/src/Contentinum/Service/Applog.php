@@ -107,12 +107,84 @@ class Applog implements ApplogAwareInterface
 	 * Set log messages
 	 * @see \Contentinum\Service\ApplogAwareInterface::log()
 	 */
-	public function log($priority, $message) 
+	public function log($priority, $message, $extra = array()) 
 	{
 		if ( $priority <= $this->priority ){
-			$this->logger->log($priority, $message);
+			$this->logger->log($priority, $message, $extra);
 		}
 	}
+	
+	/**
+	 * @param string $message
+	 * @param array|Traversable $extra
+	 */
+	public function emerg($message, $extra = array())
+	{
+		$this->log(self::EMERG, $message, $extra);
+	}
+
+	/**
+	 * @param string $message
+	 * @param array|Traversable $extra
+	 */	
+	public function alert($message, $extra = array())
+	{
+		$this->log(self::ALERT, $message, $extra);
+	}
+	
+	/**
+	 * @param string $message
+	 * @param array|Traversable $extra
+	 */
+	public function crit($message, $extra = array())
+	{
+		$this->log(self::CRIT, $message, $extra);
+	}
+	
+	/**
+	 * @param string $message
+	 * @param array|Traversable $extra
+	 */	
+	public function err($message, $extra = array())
+	{
+		$this->log(self::ERR, $message, $extra);
+	}	
+
+	/**
+	 * @param string $message
+	 * @param array|Traversable $extra
+	 */	
+	public function warn($message, $extra = array())
+	{
+		$this->log(self::WARN, $message, $extra);
+	}	
+
+	/**
+	 * @param string $message
+	 * @param array|Traversable $extra
+	 */	
+	public function notice($message, $extra = array())
+	{
+		$this->log(self::NOTICE, $message, $extra);
+	}	
+
+	/**
+	 * @param string $message
+	 * @param array|Traversable $extra
+	 */	
+	public function info($message, $extra = array())
+	{
+		$this->log(self::INFO, $message, $extra);
+	}	
+
+	/**
+	 * @param string $message
+	 * @param array|Traversable $extra
+	 */	
+	public function debug($message, $extra = array())
+	{
+		$this->log(self::DEBUG, $message, $extra);
+	}	
 	
 	/**
 	 * Get logger priority adjustment
