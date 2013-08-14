@@ -57,5 +57,19 @@ class Module
     public function getConfig()
     {
     	return include __DIR__ . '/config/module.config.php';
-    }   
+    }
+    
+	public function getControllerPluginConfig()
+	{
+		return array (
+				'invokables' => array (
+						'IsAllowed' => 'Contentinum\Controller\Plugin\IsAllowed' 
+				) 
+		);
+	}
+	
+	public function getViewHelperConfig()
+	{
+		return include __DIR__ . '/config/viewhelper.config.php';
+	}	
 }
