@@ -11,19 +11,56 @@ return array (
 												'action' => 'index' 
 										) 
 								) 
-						) 
+						),
+						'home_app' => array (
+								'type' => 'Literal',
+								'options' => array (
+										'route' => '/app',
+										'defaults' => array (
+												'controller' => 'Contentinum\Controller\App',
+												'action' => 'index' 
+										) 
+								) 
+						)
+						 
 				) 
 		),
 		'service_manager' => array (
-				
 				'factories' => array (
 						'Contentinum\Configure' => 'Contentinum\Service\ConfigServiceFactory',
 						'Contentinum\Logs' => 'Contentinum\Service\LogServiceFactory',
 						'Contentinum\Logs\Applog' => 'Contentinum\Service\ApplogServiceFactory',
+						'Contentinum\Acl' => 'Contentinum\Service\AclSettingsServiceFactory',
+						'Contentinum\Acl\Acl' => 'Contentinum\Service\AclServiceFactory',
+						'Contentinum\Acl\DefaultRole' => 'Contentinum\Service\AclDefaultRoleServiceFactory',
+						'Contentinum\Cache\Filesystem7200' => function ($sm) {
+							$cache = Zend\Cache\StorageFactory::factory ( array (
+									'adapter' => array (
+											'name' => 'filesystem',
+											'ttl' => 7200,
+											'options' => array (
+													'namespace' => 'mcwork',
+													'cache_dir' => CON_ROOT_PATH . '/data/cache' 
+											) 
+									)
+									,
+									'plugins' => array (
+											// Don't throw exceptions on cache errors
+											'exception_handler' => array (
+													'throw_exceptions' => true 
+											),
+											'serializer' 
+									) 
+							)
+							 );
+							return $cache;
+						},
+						'Contentinum\Htmlwidgets' => 'Contentinum\Service\HtmlwidgetsServiceFactory', 
+						'Contentinum\Htmllayouts' => 'Contentinum\Service\HtmllayoutsServiceFactory',
 				),
 				'aliases' => array (
 						'translator' => 'MvcTranslator' 
-				),		
+				) 
 		),
 		'translator' => array (
 				'locale' => 'de_DE',
@@ -37,7 +74,8 @@ return array (
 		),
 		'controllers' => array (
 				'invokables' => array (
-						'Contentinum\Controller\Index' => 'Contentinum\Controller\IndexController' 
+						'Contentinum\Controller\Index' => 'Contentinum\Controller\IndexController',
+						'Contentinum\Controller\App' => 'Contentinum\Controller\ApplicationController' 
 				) 
 		),
 		'view_manager' => array (
@@ -57,16 +95,30 @@ return array (
 				) 
 		),
 		'contentinum_config' => array (
+				'templates_files' => array(
+			            'htmlwidgets' => CON_ROOT_PATH . '/data/locale/etc/templates/htmlwidgets.library.xml',
+						'htmllayouts' => CON_ROOT_PATH . '/data/locale/etc/templates/htmllayouts.library.xml',
+		         ),
 				'log_configure' => array (
 						'log_priority' => 6,
-						'log_writer' => array(
-						'application' => CON_ROOT_PATH . '/data/logs/application.log',
-						'error' =>  CON_ROOT_PATH . '/data/logs/errors.application.log',
+						'log_writer' => array (
+								'application' => CON_ROOT_PATH . '/data/logs/application.log',
+								'error' => CON_ROOT_PATH . '/data/logs/errors.application.log' 
 						),
-						'log_filter' => array(
-							'application' => array('priority' => array(  'priority' => Zend\Log\Logger::WARN, 'operator' => '>=')),
-							'error' => array('priority' => array( 'priority' => Zend\Log\Logger::ERR, 'operator' => '<='))
-						),
+						'log_filter' => array (
+								'application' => array (
+										'priority' => array (
+												'priority' => Zend\Log\Logger::WARN,
+												'operator' => '>=' 
+										) 
+								),
+								'error' => array (
+										'priority' => array (
+												'priority' => Zend\Log\Logger::ERR,
+												'operator' => '<=' 
+										) 
+								) 
+						) 
 				),
 				'contentinum_acl' => array (
 						'acl_default_role' => 'guest',

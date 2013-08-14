@@ -17,6 +17,7 @@
 		"BSD"
 	],
 	"require" : {
+		"contentinum/contentinum-components" : "dev-master",
 		"php" : ">=5.3.3",
 		"zendframework/zendframework" : "2.2.*"
 	},
@@ -25,5 +26,8 @@
 			"Contentinum" : "module/Contentinum/src"
 		}
 	},
-	"minimum-stability" : "dev"
+	"minimum-stability" : "dev",
+	"replace" : {
+		"content-managment/contentinum" : "self.version"
+	}
 }
