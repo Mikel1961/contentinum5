@@ -23,11 +23,17 @@
 	},
 	"autoload" : {
 		"psr-0" : {
-			"Contentinum" : "module/Contentinum/src"
+			"Contentinum" : "module/Contentinum/src",
+			"Mcuser" : "module/Mcuser/src/",
+			"Mcevent" : "module/Mcevent/src/",
+			"Mcwork" : "module/Mcwork/src/"
 		}
 	},
 	"minimum-stability" : "dev",
 	"replace" : {
-		"content-managment/contentinum" : "self.version"
+		"content-managment/contentinum-users" : "self.version",
+		"content-managment/contentinum-backend" : "self.version",
+		"content-managment/contentinum" : "self.version",
+		"content-managment/contentinum-events" : "self.version"
 	}
 }
