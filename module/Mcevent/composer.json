@@ -1,0 +1,29 @@
+{
+	"name" : "content-managment/contentinum-events",
+	"description" : "calendar and events adminstration contentinum content managment",
+	"authors" : [{
+			"name" : "Michael Jochum",
+			"email" : "michael.jochum@jochum-mediaservices.de",
+			"homepage" : "http://jochum-mediaservices.de/"
+		}
+	],
+	"keywords" : [
+		"contentinum",
+		"users"
+	],
+	"license" : [
+		"BSD"
+	],
+	"require" : {
+		"php" : ">=5.3.3",
+		"zendframework/zendframework" : "2.2.*"
+	},
+	"autoload" : {
+		"psr-0" : {
+			"Mcevent" : "src/"
+		},
+		"classmap" : [
+			"./Module.php"
+		]
+	}
+}
