@@ -1,0 +1,29 @@
+{
+	"name" : "content-managment/contentinum-users",
+	"description" : "users adminstration contentinum content managment",
+	"authors" : [{
+			"name" : "Michael Jochum",
+			"email" : "michael.jochum@jochum-mediaservices.de",
+			"homepage" : "http://jochum-mediaservices.de/"
+		}
+	],
+	"keywords" : [
+		"contentinum",
+		"users"
+	],
+	"license" : [
+		"BSD"
+	],
+	"require" : {
+		"php" : ">=5.3.3",
+		"zendframework/zendframework" : "2.2.*"
+	},
+	"autoload" : {
+		"psr-0" : {
+			"Mcuser" : "src/"
+		},
+		"classmap" : [
+			"./Module.php"
+		]
+	}
+}
