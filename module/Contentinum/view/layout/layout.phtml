@@ -2,23 +2,20 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <?php echo $this->headTitle('contentinum '. $this->translate('manage your internet content'))->setSeparator(' - ')->setAutoEscape(false) ?>
-        
-        <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
-        
-        <?php 
-             echo $this->headlink()->appendStylesheet($this->basePath() . '/default/css/normalize.css');
-             echo $this->headlink()->prependStylesheet($this->basePath() . '/default/css/main.css'); 
-
-             echo $this->headScript()->prependFile($this->basePath() . '/default/js/vendor/modernizr-2.6.2.min.js'); 
-         ?>
-        
-    </head>
-    <body>
-        <?php echo $this->content;  ?>     
-        <?php echo $this->inlineScript() ?>
-    </body>
+<!--[if gt IE 8]><!--> <html<?php echo $this->htmlTagAttribs; ?>> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<?php 
+echo $this->headTitle()->setAutoEscape(false) . "\n";
+echo $this->headMeta() . "\n";
+echo $this->headlink()  . "\n";
+echo $this->headScript()  . "\n";
+?>
+</head>
+<body<?php echo $this->bodyTagAttribs; ?>>
+<?php
+echo $this->content;     
+echo "\n" . $this->inlineScript(); 
+?>
+</body>
 </html>
