@@ -8,63 +8,77 @@ return array (
 						array (
 								'label' => 'Content',
 								'route' => 'mcwork_content',
+								'resource' => 'authorresource',
 								'pages' => array (
 										array (
 												'label' => 'Pages',
-												'route' => 'mcwork_pages' 
+												'route' => 'mcwork_pages',
+												'resource' => 'publisherresource',
 										),
 										array (
 												'label' => 'PageContent',
-												'route' => 'mcwork_pagecontent' 
+												'route' => 'mcwork_pagecontent',
+												'resource' => 'authorresource',
+												 
 										),
 										array (
 												'label' => 'Contributions',
-												'route' => 'mcwork_contribution' 
+												'route' => 'mcwork_contribution',
+												'resource' => 'authorresource',
 										),
 										array (
 												'label' => 'Navigation',
-												'route' => 'mcwork_navigation' 
+												'route' => 'mcwork_navigation',
+												'resource' => 'publisherresource',
 										),
 										array (
 												'label' => 'Menues',
-												'route' => 'mcwork_menue' 
+												'route' => 'mcwork_menue',
+												'resource' => 'publisherresource',
 										),
 										array(
 	                                            'label' => 'Medias',
-												'route' => 'mcwork_medias'
+												'route' => 'mcwork_medias',
+												'resource' => 'authorresource',
                                         )									 
 								) 
-						)
-						,
+						),
 						array (
 								'label' => 'Configuration',
 								'route' => 'mcwork_configuration',
+								'resource' => 'adminresource',
 								'pages' => array (
 										array (
 												'label' => 'Fieldtypes',
-												'route' => 'mcwork_fieldtypes' 
+												'route' => 'mcwork_fieldtypes', 
+												'resource' => 'adminresource',
 										),
 										array (
 												'label' => 'Fieldmetas',
-												'route' => 'mcwork_fieldmetas' 
+												'route' => 'mcwork_fieldmetas',
+												'resource' => 'adminresource',
 										) 
 								) 
 						),
 						array (
 								'label' => 'Administration',
 								'route' => 'mcwork_administration',
+								'resource' => 'authorresource',
 								'pages' => array (
 										array (
 												'label' => 'Acconts',
-												'route' => 'mcwork_accounts' 
+												'route' => 'mcwork_accounts' ,
+												'resource' => 'adminresource',
 										),
 										array (
 												'label' => 'Contacts',
-												'route' => 'mcwork_contacts' 
+												'route' => 'mcwork_contacts',
+												'resource' => 'authorresource',
 										),
 										array (
 												'label' => 'Users',
-												'route' => 'mcwork_users' 
+												'route' => 'mcwork_users',
+												'resource' => 'managerresource',
 										) 
 								) 
 						) 

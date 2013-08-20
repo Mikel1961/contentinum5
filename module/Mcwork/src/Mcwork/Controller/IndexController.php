@@ -1,4 +1,5 @@
 <?php
+
 /**
  * contentinum - accessibility websites
  *
@@ -32,13 +33,39 @@ use Zend\View\Model\ViewModel;
 
 /**
  * Dashboard controller backend
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
-class IndexController extends AbstractContentinumController
+class IndexController extends AbstractContentinumController 
 {
-    public function indexAction()
-    {
-        $this->adminlayout($this->layout(),'mcwork/layout/admin','Mcwork\Controller\Index');
-        return new ViewModel();
-    }
+	/**
+	 * Backend start page / dashboard
+	 * 
+	 * @see \Zend\Mvc\Controller\AbstractActionController::indexAction()
+	 */
+	public function indexAction() 
+	{
+		$this->adminlayout ( $this->layout (), 'mcwork/layout/admin', 'Mcwork\Controller\Index', $this->getDefaultRole (), $this->getAclService () );
+		return new ViewModel ();
+	}
+	
+	/**
+	 * Default user role
+	 * 
+	 * @return Ambigous <object, multitype:, \Contentinum\Acl\DefaultRole>
+	 */
+	protected function getDefaultRole() 
+	{
+		return $this->getServiceLocator ()->get ( 'Contentinum\Acl\DefaultRole' );
+	}
+	
+	/**
+	 * Acl configuration
+	 * 
+	 * @return Ambigous <object, multitype:, \Contentinum\Acl\Acl>
+	 */
+	protected function getAclService() 
+	{
+		return $this->getServiceLocator ()->get ( 'Contentinum\Acl\Acl' );
+	}
 }

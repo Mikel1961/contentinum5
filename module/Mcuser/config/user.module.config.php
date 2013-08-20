@@ -4,16 +4,24 @@ return array (
 		'navigation' => array (
 				'mcusermenue' => array (
 						array (
+								'label' => 'Login',
+								'route' => 'mcuser',
+								'resource' => 'index',
+						),						
+						array (
 								'label' => 'Profil',
-								'route' => 'mcuser_profil' 
+								'route' => 'mcuser_profil',
+								'resource' => 'memberresource',
 						),
 						array (
 								'label' => 'Avatar',
-								'route' => 'mcuser_avatar' 
+								'route' => 'mcuser_avatar',
+								'resource' => 'memberresource', 
 						),
 						array (
 								'label' => 'Logout',
-								'route' => 'mcuser_logout' 
+								'route' => 'mcuser_logout',
+								'resource' => 'memberresource',
 						) 
 				)
 				 

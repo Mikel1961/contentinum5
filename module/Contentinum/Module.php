@@ -64,7 +64,8 @@ class Module
 		return array (
 				'invokables' => array (
 						'IsAllowed' => 'Contentinum\Controller\Plugin\IsAllowed',
-						'Pagemetas' => 'Contentinum\Controller\Plugin\Pagemetas'
+						'Pagemetas' => 'Contentinum\Controller\Plugin\Pagemetas',
+						'Htmlwidgets' => 'Contentinum\Controller\Plugin\Htmlwidgets'
 				) 
 		);
 	}

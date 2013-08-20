@@ -27,28 +27,23 @@
  */
 namespace Mcuser\Controller;
 
-use ContentinumComponents\Controller\AbstractContentinumController;
-use Zend\Mvc\MvcEvent;
+use ContentinumComponents\Controller\AbstractBackendController;
 use Zend\View\Model\ViewModel;
 
 /**
- * Dashboard controller backend
+ * Mcuser module application controller
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
-class McuserappController extends AbstractContentinumController
+class McuserappController extends AbstractBackendController
 {
-	public function onDispatch(MvcEvent $e)
-	{
-		$page = $e->getRouteMatch()->getParam('controller');
-		$e->getRouteMatch()->setParam ( 'action', 'application' );
-		$e->setResult($this->application($page));
-	}
-	
-	public function application($page)
+	/**
+	 * Page application
+	 * @see \ContentinumComponents\Controller\AbstractBackendController::application()
+	 */    
+	protected function application($page, $role = null, $acl = null)
 	{
 		$this->adminlayout($this->layout(),'mcwork/layout/admin',$page);
 		return new ViewModel(array('page' => $page));
 
 	}
-
 }

@@ -30,15 +30,21 @@ namespace Mcwork\Controller\Plugin;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 
 /**
- * Access review
+ * Set layout configuration
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class Adminlayout extends AbstractPlugin
 {
 
-	public function __invoke($layout,$param, $ctrl)
+	public function __invoke($layout,$param, $ctrl, $role = null, $acl = null)
 	{
 		$layout->setcontroller = $ctrl;
+		if (null !== $role){
+			$layout->role = $role;
+		}
+		if (null !== $acl){
+			$layout->acl = $acl;
+		}		
 		$layout->setTemplate($param);
 	}
 }

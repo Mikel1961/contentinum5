@@ -10,18 +10,25 @@ return array (
 												'controller' => 'Contentinum\Controller\Index',
 												'action' => 'index' 
 										) 
-								) 
-						),
-						'home_app' => array (
-								'type' => 'Literal',
+								),
+						
+						
+						
+			            ),
+						'page_app' => array (
+								'type' => 'Zend\Mvc\Router\Http\Segment',
 								'options' => array (
-										'route' => '/app',
+										'route' => '/:pages[/:sub]',
+										'constraints' => array(
+												'pages' => '[a-zA-Z0-9._-]+',
+												'sub' => '[a-zA-Z0-9_-]+',
+										),
 										'defaults' => array (
 												'controller' => 'Contentinum\Controller\App',
-												'action' => 'index' 
-										) 
-								) 
-						)
+												'action' => 'index'
+										)
+								)
+						)						
 						 
 				) 
 		),
@@ -75,7 +82,7 @@ return array (
 		'controllers' => array (
 				'invokables' => array (
 						'Contentinum\Controller\Index' => 'Contentinum\Controller\IndexController',
-						'Contentinum\Controller\App' => 'Contentinum\Controller\ApplicationController' 
+						'Contentinum\Controller\App' => 'Contentinum\Controller\ApplicationController'
 				) 
 		),
 		'view_manager' => array (
@@ -121,7 +128,7 @@ return array (
 						) 
 				),
 				'contentinum_acl' => array (
-						'acl_default_role' => 'guest',
+						'acl_default_role' => 'manager',
 						'acl_settings' => array (
 								'roles' => array (
 										'guest',

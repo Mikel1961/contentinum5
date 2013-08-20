@@ -6,36 +6,44 @@ return array (
 						array (
 								'label' => 'Kalender',
 								'route' => 'mcevent_calendar',
+								'resource' => 'memberresource',
 								'pages' => array (
 										array (
 												'label' => 'Events',
-												'route' => 'mcevent_events' 
+												'route' => 'mcevent_events', 
+												'resource' => 'publisherresource',
 										),
 										array (
 												'label' => 'Organizer',
-												'route' => 'mcevent_organizer' 
+												'route' => 'mcevent_organizer', 
+												'resource' => 'publisherresource',
 										),
 										array (
 												'label' => 'Resources',
 												'route' => 'mcevent_resources',
+												'resource' => 'publisherresource',
 												'pages' => array (
 														array (
 																'label' => 'Types',
-																'route' => 'mcevent_resources_types' 
+																'route' => 'mcevent_resources_types', 
+																'resource' => 'managerresource',
 														) 
 												) 
 										),
 										array (
 												'label' => 'Configuration',
 												'route' => 'mcevent_configuration',
+												'resource' => 'managerresource',
 												'pages' => array (
 														array (
 																'label' => 'Types',
-																'route' => 'mcevent_calendar_types' 
+																'route' => 'mcevent_calendar_types',
+																'resource' => 'managerresource',
 														),
 														array (
 																'label' => 'Groups',
-																'route' => 'mcevent_calendar_groups' 
+																'route' => 'mcevent_calendar_groups',
+																'resource' => 'managerresource',
 														) 
 												) 
 										) 

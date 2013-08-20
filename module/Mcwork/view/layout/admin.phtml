@@ -16,7 +16,7 @@
 </head>
 <body>
      <?php 
-     echo $this->navigation('mcusermenue')->menu();
+     echo $this->navigation('mcusermenue')->setAcl($this->acl)->setRole($this->role)->menu();
      echo $this->navigation('navigation')->menu()->setMaxDepth(0); 
      
      ?>
@@ -25,15 +25,8 @@
 			<h1>Welcome to Foundation and contentinum backend</h1>
 			<p>This is version 4.3.1.</p>
 			<hr />
-			<p>?:  <?php
-			
-			echo strrpos ( $this->setcontroller, '\\' );
-			
-			echo $this->setcontroller;
-			
-			echo '<br />' . substr ( $this->setcontroller, 0, strrpos ( $this->setcontroller, '\\' ) );
-			
-			?></p>
+			<p>?:  <?php echo $this->setcontroller;?></p>
+			<p>Role: <?php echo $this->role; ?>
 		</div>
 	</div>
 	<?php

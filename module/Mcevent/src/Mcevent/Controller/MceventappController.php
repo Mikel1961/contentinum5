@@ -27,28 +27,23 @@
  */
 namespace Mcevent\Controller;
 
-use ContentinumComponents\Controller\AbstractContentinumController;
-use Zend\Mvc\MvcEvent;
+use ContentinumComponents\Controller\AbstractBackendController;
 use Zend\View\Model\ViewModel;
 
 /**
- * Dashboard controller backend
+ * Mcevent module application controller
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
-class MceventappController extends AbstractContentinumController
+class MceventappController extends AbstractBackendController
 {
-	public function onDispatch(MvcEvent $e)
+	/**
+	 * Page application
+	 * @see \ContentinumComponents\Controller\AbstractBackendController::application()
+	 */
+	protected function application($page, $role = null, $acl = null) 
 	{
-		$page = $e->getRouteMatch()->getParam('controller');
-		$e->getRouteMatch()->setParam ( 'action', 'application' );
-		$e->setResult($this->application($page));
-	}
-	
-	public function application($page)
-	{
-		$this->adminlayout($this->layout(),'mcwork/layout/admin',$page);
+		$this->adminlayout($this->layout(),'mcwork/layout/admin',$page,$role,$acl);
 		return new ViewModel(array('page' => $page));
-
+		
 	}
-
 }

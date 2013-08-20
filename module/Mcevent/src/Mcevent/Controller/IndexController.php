@@ -38,7 +38,8 @@ class IndexController extends AbstractContentinumController
 {
     public function indexAction()
     {
-    	$this->adminlayout($this->layout(),'mcwork/layout/admin','Mcevent\Controller\Index');
+    	$acl = $this->getServiceLocator()->get('Contentinum\Acl\Acl');
+    	$this->adminlayout($this->layout(),'mcwork/layout/admin','Mcevent\Controller\Index',$this->getServiceLocator()->get('Contentinum\Acl\DefaultRole'),$acl);
     	return new ViewModel();
     }
 }
