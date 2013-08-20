@@ -249,5 +249,5 @@ return array (
 				'template_path_stack' => array (
 						'mcwork' => __DIR__ . '/../view' 
 				) 
-		) 
+		),
 );
