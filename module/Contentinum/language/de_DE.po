@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: contentinum 5\n"
 "POT-Creation-Date: 2013-08-12 12:04+0100\n"
-"PO-Revision-Date: 2013-08-12 12:22+0100\n"
+"PO-Revision-Date: 2013-09-17 16:49+0100\n"
 "Last-Translator: Michael Jochum <michael.jochum@jochum-mediaservices.de>\n"
 "Language-Team: jochum-mediaservices <hallo@jochum-mediaservices.de>\n"
 "MIME-Version: 1.0\n"
@@ -89,3 +89,49 @@ msgstr "wird aufgelöst in %s"
 #: ../view/error/404.phtml:51
 msgid "Exception"
 msgstr "Ausnahme"
+
+#: mcwork controllers
+msgid "Mcwork_Controller_Index"
+msgstr "Dashboard"
+
+msgid "Mcwork_Controller_Content"
+msgstr "Inhalte"
+
+msgid "Mcwork_Controller_Content_Pages"
+msgstr "Seiten"
+
+msgid "Mcwork_Controller_Content_PageContent"
+msgstr "Inhalte zu Seiten"
+
+msgid "Mcwork_Controller_Content_Contribution"
+msgstr "Beiträge"
+
+msgid "Mcwork_Controller_Content_Navigation"
+msgstr "Navigationen"
+
+msgid "Mcwork_Controller_Content_Menue"
+msgstr "Menuebäume"
+
+msgid "Mcwork_Controller_Content_Medias"
+msgstr "Medien"
+
+msgid "Mcwork_Controller_Conf"
+msgstr "Konfiguration"
+
+msgid "Mcwork_Controller_Conf_Fieldtypes"
+msgstr "Inhalts Typ"
+
+msgid "Mcwork_Controller_Conf_Fieldmetas"
+msgstr "Inhalts Konfiguration"
+
+msgid "Mcwork_Controller_Admin"
+msgstr "Administration"
+
+msgid "Mcwork_Controller_Admin_Accounts"
+msgstr "Konto Gruppen"
+
+msgid "Mcwork_Controller_Admin_Contacts"
+msgstr "Kontakte, Ressource"
+
+msgid "Mcwork_Controller_Admin_Users"
+msgstr "Benutzer"
