@@ -152,6 +152,11 @@ class Pagemetas extends AbstractPlugin
 	 */	
 	protected function setHeadLink($headLink, array $styles) 
 	{
+		
+		if (isset($styles['assets']) && '1' == $styles['assets']){
+			return false;
+		}
+		
 		foreach ( $styles ['style'] as $style ) {
 			if (isset ( $style ['href'] )) {
 				$headLink->appendStylesheet ( $style ['href'] );
@@ -166,6 +171,11 @@ class Pagemetas extends AbstractPlugin
 	 */	
 	protected function setHeadScript($headScript, array $scripts)
 	{
+		
+		if (isset($scripts['assets']) && '1' == $scripts['assets']){
+			return false;
+		}		
+		
 		foreach ($scripts['script'] as $script){
 			if ( isset($script['src']) ){
 				$headScript->appendFile($script['src']);
@@ -180,6 +190,11 @@ class Pagemetas extends AbstractPlugin
 	 */
 	protected function setInlineScript($inlineScript, array $scripts) 
 	{
+		
+		if (isset($scripts['assets']) && '1' == $scripts['assets']){
+			return false;
+		}
+				
 		foreach ( $scripts ['script'] as $script ) {
 			if (isset ( $script ['src'] )) {
 				$inlineScript->appendFile ( $script ['src'] );

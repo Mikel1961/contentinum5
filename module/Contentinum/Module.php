@@ -74,4 +74,5 @@ class Module
 	{
 		return include __DIR__ . '/config/viewhelper.config.php';
 	}	
+	
 }

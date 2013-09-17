@@ -128,7 +128,7 @@ return array (
 						) 
 				),
 				'contentinum_acl' => array (
-						'acl_default_role' => 'manager',
+						'acl_default_role' => 'admin',
 						'acl_settings' => array (
 								'roles' => array (
 										'guest',
@@ -189,5 +189,71 @@ return array (
 								) 
 						) 
 				) 
-		) 
+		),
+		'assetic_configuration' => array(
+				'debug' => true,
+				'buildOnRequest' => true,
+				'combine' => true,
+				'webPath' => realpath('public/assets'),
+				'basePath' => 'assets',
+				'cachePath'	=> 'data/cache',
+		
+				'controllers' => array(
+						'Contentinum\Controller\Index' => array(
+								'@core',
+								'@head_modernizr',
+								'@scripts',
+						),
+						'Contentinum\Controller\App' => array(
+								'@core',
+								'@head_modernizr',
+								'@scripts',
+						),						
+				),
+		
+				'modules' => array(
+						'contentinum' => array(
+								'root_path' => __DIR__ . '/../assets',
+		
+								'collections' => array(
+										'core' => array(
+												'assets' => array(
+														'default/css/normalize.css',
+														'default/css/main.css',
+												),
+												'filters' => array(
+														'?CssRewriteFilter' => array(
+																'name' => 'Assetic\Filter\CssRewriteFilter'
+														),
+														'?CssMinFilter' => array(
+																'name' => 'Assetic\Filter\CssMinFilter'
+														),
+												),
+										),
+										'head_modernizr' => array(
+												'assets' => array(
+														'default/js/vendor/modernizr-2.6.2.min.js',
+												),
+												'filters' => array(
+														'?JSMinFilter' => array(
+																'name' => 'Assetic\Filter\JSMinFilter'
+														),
+												),
+											
+										),										
+										'scripts' => array(
+												'assets' => array(
+														'default/js/vendor/jquery-1.10.2.min.js',
+														'default/js/plugins.js',
+												),
+												'filters' => array(
+														'?JSMinFilter' => array(
+																'name' => 'Assetic\Filter\JSMinFilter'
+														),
+												),
+										),
+								),
+						),
+				),
+		),		 
 );

@@ -1,70 +1,35 @@
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" >
 <!--<![endif]-->
-
 <head>
 <meta charset="utf-8">
- <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0')?>
+<?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0')?>
 <title>contentinum 5</title>
-
-<?php echo $this->headlink()->prependStylesheet( '/backtemp/css/foundation.css')?>
-
-<?php echo $this->headScript()->prependFile('/backtemp/js/vendor/custom.modernizr.js')?>
-
+<?php 
+echo $this->plugin('HeadLink');
+echo $this->plugin('HeadStyle');
+echo $this->plugin('HeadScript');
+?>
 </head>
-<body>
-     <?php 
-     echo $this->navigation('mcusermenue')->setAcl($this->acl)->setRole($this->role)->menu();
-     echo $this->navigation('navigation')->menu()->setMaxDepth(0); 
-     
-     ?>
-	<div class="row">
-		<div class="large-12 columns">
-			<h1>Welcome to Foundation and contentinum backend</h1>
-			<p>This is version 4.3.1.</p>
-			<hr />
-			<p>?:  <?php echo $this->setcontroller;?></p>
-			<p>Role: <?php echo $this->role; ?>
-		</div>
-	</div>
-	<?php
-	
-	$crtl = substr ( $this->setcontroller, 0, 25 );
-	
-	switch ($this->setcontroller) {
-		default :
-			echo $this->navigation ( 'navigation' )->menu ()->setOnlyActiveBranch ( true )->setRenderParents ( false )->setMinDepth ( 0 )->setMaxDepth ( 4 );
-			break;
-	}
-	switch ($crtl) {
-		case 'Mcwork\Controller\Content' :
-			echo $this->navigation ( 'mceventmenue' )->menu ()->setOnlyActiveBranch ( false )->setRenderParents ( true )->setMinDepth ( false )->setMaxDepth ( 0 );
-			break;
-		default :
-			break;
-	}
-	
-	switch (substr ( $this->setcontroller, 0, 18 )) {
-		case 'Mcevent\Controller' :
-			echo $this->navigation ( 'mceventmenue' )->menu ()->setOnlyActiveBranch ( false )->setRenderParents ( true )->setMinDepth ( false )->setMaxDepth ( 4 );
-			break;
-		default :
-			break;
-	}	
-	
-	echo $this->content;
-	?>
-	<script>
-  document.write('<script src=' +
-  ('__proto__' in {} ? '/backtemp/js/vendor/zepto' : '/backtemp/js/vendor/jquery') +
-  '.js><\/script>')
-  </script>
-
-	<script src="/backtemp/js/foundation.min.js"></script>
-	<script>
-    $(document).foundation();
-  </script>
+<body<?php echo $this->bodyAttributes ?>>
+<nav class="top-bar">
+<ul class="title-area"><li class="name"><h1><a href="#"><i class="icon-dashboard"></i> contentinum 5 </a></h1></li><li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li></ul>
+<section class="top-bar-section">
+<?php 
+$container = $this->navigation('navigation')->getContainer();
+echo $this->ContentinumMenue($container)->setAcl($this->acl)->setRole($this->role)->setUlClass('right');
+?>
+</section>
+</nav>
+<header class="row">
+<section class="large-6 columns"><h1>Dashboard</h1></section>
+<section class="large-6 columns"><p>hier header</p></section>
+</header>
+<section class="large-12 columns">
+<?php echo $this->content; ?>
+</section>
+<?php echo $this->plugin('InlineScript'); ?>
 </body>
 </html>

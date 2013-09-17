@@ -8,14 +8,15 @@
 <?php 
 echo $this->headTitle()->setAutoEscape(false) . "\n";
 echo $this->headMeta() . "\n";
-echo $this->headlink()  . "\n";
-echo $this->headScript()  . "\n";
+echo $this->plugin('HeadLink');
+echo $this->plugin('HeadStyle');
+echo $this->plugin('HeadScript');
 ?>
 </head>
 <body<?php echo $this->bodyTagAttribs; ?>>
 <?php
 echo $this->content;     
-echo "\n" . $this->inlineScript(); 
+echo $this->plugin('InlineScript');
 ?>
 </body>
 </html>

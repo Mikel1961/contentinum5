@@ -9,6 +9,8 @@ return array (
 								'label' => 'Content',
 								'route' => 'mcwork_content',
 								'resource' => 'authorresource',
+								'listClass' => 'has-dropdown',
+								'subUlClass' => 'dropdown',
 								'pages' => array (
 										array (
 												'label' => 'Pages',
@@ -47,6 +49,8 @@ return array (
 								'label' => 'Configuration',
 								'route' => 'mcwork_configuration',
 								'resource' => 'adminresource',
+								'listClass' => 'has-dropdown',
+								'subUlClass' => 'dropdown',								
 								'pages' => array (
 										array (
 												'label' => 'Fieldtypes',
@@ -64,6 +68,8 @@ return array (
 								'label' => 'Administration',
 								'route' => 'mcwork_administration',
 								'resource' => 'authorresource',
+								'listClass' => 'has-dropdown',
+								'subUlClass' => 'dropdown',								
 								'pages' => array (
 										array (
 												'label' => 'Acconts',
@@ -250,4 +256,70 @@ return array (
 						'mcwork' => __DIR__ . '/../view' 
 				) 
 		),
+		'assetic_configuration' => array(
+				
+				'controllers' => array(
+						'Mcwork\Controller\Index' => array(
+								'@mcworkcore',
+								'@head_custom',
+								'@mcworkscripts',
+						),
+				),
+				'routes' => array(
+						'mcwork(.*)' => array(
+								'@mcworkcore',
+								'@head_custom',
+								'@mcworkscripts',					
+				         ),
+				),
+				
+				'modules' => array(
+						'mcwork' => array(
+								'root_path' => __DIR__ . '/../assets',
+						
+								'collections' => array(
+										'mcworkcore' => array(
+												'assets' => array(
+														'backend/css/font-awesome.css',
+														'backend/css/foundation.min.css',
+														'backend/css/admin.base.css',
+												),
+												'filters' => array(
+														'?CssRewriteFilter' => array(
+																'name' => 'Assetic\Filter\CssRewriteFilter'
+														),
+														'?CssMinFilter' => array(
+																'name' => 'Assetic\Filter\CssMinFilter'
+														),
+												),
+										),
+										'head_custom' => array(
+												'assets' => array(
+														'backend/js/vendor/custom.modernizr.js',
+												),
+												'filters' => array(
+														'?JSMinFilter' => array(
+																'name' => 'Assetic\Filter\JSMinFilter'
+														),
+												),
+													
+										),
+										'mcworkscripts' => array(
+												'assets' => array(
+														'backend/js/vendor/jquery-1.10.2.min.js',
+														'backend/js/foundation.min.js',
+														'backend/js/admin.main.js',
+												),
+												'filters' => array(
+														'?JSMinFilter' => array(
+																'name' => 'Assetic\Filter\JSMinFilter'
+														),
+												),
+										),
+								),
+						),							
+			    ),
+	
+         ),
+		
 );
