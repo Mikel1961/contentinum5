@@ -3,90 +3,113 @@ return array (
 		'navigation' => array (
 				'default' => array (
 						array (
-								'label' => 'Dashboard',
-								'route' => 'mcwork',),						
+								'label' => 'Mcwork_Controller_Index',
+								'route' => 'mcwork',
+								'order' => 1 
+						),
 						array (
-								'label' => 'Content',
+								'label' => 'Mcwork_Controller_Content',
 								'route' => 'mcwork_content',
+								'order' => 2,
 								'resource' => 'authorresource',
 								'listClass' => 'has-dropdown',
 								'subUlClass' => 'dropdown',
 								'pages' => array (
 										array (
-												'label' => 'Pages',
+												'label' => 'Mcwork_Controller_Content_Pages',
 												'route' => 'mcwork_pages',
-												'resource' => 'publisherresource',
+												'resource' => 'publisherresource' 
 										),
 										array (
-												'label' => 'PageContent',
+												'label' => 'Mcwork_Controller_Content_PageContent',
 												'route' => 'mcwork_pagecontent',
-												'resource' => 'authorresource',
-												 
-										),
+												'resource' => 'authorresource' 
+										)
+										,
 										array (
-												'label' => 'Contributions',
+												'label' => 'Mcwork_Controller_Content_Contribution',
 												'route' => 'mcwork_contribution',
-												'resource' => 'authorresource',
+												'resource' => 'authorresource' 
 										),
 										array (
-												'label' => 'Navigation',
+												'label' => 'Mcwork_Controller_Content_Navigation',
 												'route' => 'mcwork_navigation',
-												'resource' => 'publisherresource',
+												'resource' => 'publisherresource' 
 										),
 										array (
-												'label' => 'Menues',
+												'label' => 'Mcwork_Controller_Content_Menue',
 												'route' => 'mcwork_menue',
-												'resource' => 'publisherresource',
+												'resource' => 'publisherresource' 
 										),
-										array(
-	                                            'label' => 'Medias',
+										array (
+												'label' => 'Mcwork_Controller_Content_Medias',
 												'route' => 'mcwork_medias',
-												'resource' => 'authorresource',
-                                        )									 
+												'resource' => 'authorresource' 
+										) 
 								) 
 						),
 						array (
-								'label' => 'Configuration',
+								'label' => 'Mcwork_Controller_Conf',
 								'route' => 'mcwork_configuration',
+								'order' => 3,
 								'resource' => 'adminresource',
 								'listClass' => 'has-dropdown',
-								'subUlClass' => 'dropdown',								
+								'subUlClass' => 'dropdown',
 								'pages' => array (
 										array (
-												'label' => 'Fieldtypes',
-												'route' => 'mcwork_fieldtypes', 
-												'resource' => 'adminresource',
+												'label' => 'Mcwork_Controller_Conf_Fieldtypes',
+												'route' => 'mcwork_fieldtypes',
+												'resource' => 'adminresource' 
 										),
 										array (
-												'label' => 'Fieldmetas',
+												'label' => 'Mcwork_Controller_Conf_Fieldmetas',
 												'route' => 'mcwork_fieldmetas',
-												'resource' => 'adminresource',
+												'resource' => 'adminresource' 
 										) 
 								) 
 						),
 						array (
-								'label' => 'Administration',
+								'label' => 'Mcwork_Controller_Admin',
 								'route' => 'mcwork_administration',
+								'order' => 4,
 								'resource' => 'authorresource',
 								'listClass' => 'has-dropdown',
-								'subUlClass' => 'dropdown',								
+								'subUlClass' => 'dropdown',
 								'pages' => array (
 										array (
-												'label' => 'Acconts',
-												'route' => 'mcwork_accounts' ,
-												'resource' => 'adminresource',
+												'label' => 'Mcwork_Controller_Admin_Accounts',
+												'route' => 'mcwork_accounts',
+												'resource' => 'adminresource' 
 										),
 										array (
-												'label' => 'Contacts',
+												'label' => 'Mcwork_Controller_Admin_Contacts',
 												'route' => 'mcwork_contacts',
-												'resource' => 'authorresource',
+												'resource' => 'authorresource' 
 										),
 										array (
-												'label' => 'Users',
+												'label' => 'Mcwork_Controller_Admin_Users',
 												'route' => 'mcwork_users',
-												'resource' => 'managerresource',
-										) 
+												'resource' => 'managerresource' 
+										),
+										array (
+												'label' => 'Mcwork_Controller_Admin_Logs',
+												'route' => 'mcwork_logs',
+												'resource' => 'managerresource'
+										),
+										array (
+												'label' => 'Mcwork_Controller_Admin_Cache',
+												'route' => 'mcwork_cache',
+												'resource' => 'managerresource'
+										)																				 
 								) 
+						),
+						array (
+								'label' => 'Mcwork_Controller_Apps',
+								'route' => 'mcwork_apps',
+								'order' => 5,
+								'resource' => 'authorresource',
+								'listClass' => 'has-dropdown',
+								'subUlClass' => 'dropdown' 
 						) 
 				) 
 		),
@@ -109,17 +132,17 @@ return array (
 								'options' => array (
 										'route' => '/mcwork/content',
 										'defaults' => array (
-												'controller' => 'Mcwork\Controller\Content',
-										)
-								)
-						),						
+												'controller' => 'Mcwork\Controller\Content' 
+										) 
+								) 
+						),
 						
 						'mcwork_pages' => array (
 								'type' => 'Zend\Mvc\Router\Http\Literal',
 								'options' => array (
 										'route' => '/mcwork/pages',
 										'defaults' => array (
-												'controller' => 'Mcwork\Controller\Content\Pages',
+												'controller' => 'Mcwork\Controller\Content\Pages' 
 										) 
 								) 
 						),
@@ -128,7 +151,7 @@ return array (
 								'options' => array (
 										'route' => '/mcwork/pagecontent',
 										'defaults' => array (
-												'controller' => 'Mcwork\Controller\Content\PageContent',
+												'controller' => 'Mcwork\Controller\Content\PageContent' 
 										) 
 								) 
 						),
@@ -137,7 +160,7 @@ return array (
 								'options' => array (
 										'route' => '/mcwork/contributions',
 										'defaults' => array (
-												'controller' => 'Mcwork\Controller\Content\Contribution',
+												'controller' => 'Mcwork\Controller\Content\Contribution' 
 										) 
 								) 
 						),
@@ -147,7 +170,7 @@ return array (
 								'options' => array (
 										'route' => '/mcwork/navigation',
 										'defaults' => array (
-												'controller' => 'Mcwork\Controller\Content\Navigation', 
+												'controller' => 'Mcwork\Controller\Content\Navigation' 
 										) 
 								) 
 						),
@@ -157,7 +180,7 @@ return array (
 								'options' => array (
 										'route' => '/mcwork/menuetrees',
 										'defaults' => array (
-												'controller' => 'Mcwork\Controller\Content\Menue', 
+												'controller' => 'Mcwork\Controller\Content\Menue' 
 										) 
 								) 
 						),
@@ -167,17 +190,17 @@ return array (
 								'options' => array (
 										'route' => '/mcwork/medias',
 										'defaults' => array (
-												'controller' => 'Mcwork\Controller\Content\Medias',
-										)
-								)
-						),						
+												'controller' => 'Mcwork\Controller\Content\Medias' 
+										) 
+								) 
+						),
 						
 						'mcwork_configuration' => array (
 								'type' => 'Zend\Mvc\Router\Http\Literal',
 								'options' => array (
 										'route' => '/mcwork/configuration',
 										'defaults' => array (
-												'controller' => 'Mcwork\Controller\Conf', 
+												'controller' => 'Mcwork\Controller\Conf' 
 										) 
 								) 
 						),
@@ -187,7 +210,7 @@ return array (
 								'options' => array (
 										'route' => '/mcwork/fieldtypes',
 										'defaults' => array (
-												'controller' => 'Mcwork\Controller\Conf\Fieldtypes',
+												'controller' => 'Mcwork\Controller\Conf\Fieldtypes' 
 										) 
 								) 
 						),
@@ -197,7 +220,7 @@ return array (
 								'options' => array (
 										'route' => '/mcwork/fieldmetas',
 										'defaults' => array (
-												'controller' => 'Mcwork\Controller\Conf\Fieldmetas',
+												'controller' => 'Mcwork\Controller\Conf\Fieldmetas' 
 										) 
 								) 
 						),
@@ -207,7 +230,7 @@ return array (
 								'options' => array (
 										'route' => '/mcwork/administration',
 										'defaults' => array (
-												'controller' => 'Mcwork\Controller\Admin',
+												'controller' => 'Mcwork\Controller\Admin' 
 										) 
 								) 
 						),
@@ -217,7 +240,7 @@ return array (
 								'options' => array (
 										'route' => '/mcwork/accounts',
 										'defaults' => array (
-												'controller' => 'Mcwork\Controller\Admin\Accounts',
+												'controller' => 'Mcwork\Controller\Admin\Accounts' 
 										) 
 								) 
 						),
@@ -226,7 +249,7 @@ return array (
 								'options' => array (
 										'route' => '/mcwork/contacts',
 										'defaults' => array (
-												'controller' => 'Mcwork\Controller\Admin\Contacts',
+												'controller' => 'Mcwork\Controller\Admin\Contacts' 
 										) 
 								) 
 						),
@@ -235,7 +258,88 @@ return array (
 								'options' => array (
 										'route' => '/mcwork/users',
 										'defaults' => array (
-												'controller' => 'Mcwork\Controller\Admin\Users',
+												'controller' => 'Mcwork\Controller\Admin\Users' 
+										) 
+								) 
+						),
+						
+						'mcwork_logs' => array (
+								'type' => 'Zend\Mvc\Router\Http\Literal',
+								'options' => array (
+										'route' => '/mcwork/logs',
+										'defaults' => array (
+												'controller' => 'Mcwork\Controller\Admin\Logs'
+										)
+								)
+						),
+						'mcwork_logs_display' => array(
+								'type' => 'Segment',
+								'options' => array(
+										'route' => '/mcwork/logs/display[/][:id]',
+					                    'constraints' => array(
+					                        'id' => '[a-zA-Z0-9/._-]+'
+					                    ),
+										'defaults' => array(
+												'controller' => 'Mcwork\Controller\Admin\Logs\Display'
+										)
+								)
+						),	
+
+						'mcwork_logs_download' => array(
+								'type' => 'Segment',
+								'options' => array(
+										'route' => '/mcwork/logs/download[/][:id]',
+										'constraints' => array(
+												'id' => '[a-zA-Z0-9/._-]+'
+										),
+										'defaults' => array(
+												'controller' => 'Mcwork\Controller\Admin\Logs\Download'
+										)
+								)
+						),	
+
+						'mcwork_logs_clear' => array(
+								'type' => 'Segment',
+								'options' => array(
+										'route' => '/mcwork/logs/clear[/][:id]',
+										'constraints' => array(
+												'id' => '[a-zA-Z0-9/._-]+'
+										),
+										'defaults' => array(
+												'controller' => 'Mcwork\Controller\Admin\Logs\Clear'
+										)
+								)
+						),	
+						'mcwork_logs_delete' => array(
+								'type' => 'Segment',
+								'options' => array(
+										'route' => '/mcwork/logs/delete[/][:id]',
+										'constraints' => array(
+												'id' => '[a-zA-Z0-9/._-]+'
+										),
+										'defaults' => array(
+												'controller' => 'Mcwork\Controller\Admin\Logs\Delete'
+										)
+								)
+						),											
+
+						'mcwork_cache' => array (
+								'type' => 'Zend\Mvc\Router\Http\Literal',
+								'options' => array (
+										'route' => '/mcwork/cache',
+										'defaults' => array (
+												'controller' => 'Mcwork\Controller\Admin\Cache'
+										)
+								)
+						),						
+						
+						
+						'mcwork_apps' => array (
+								'type' => 'Zend\Mvc\Router\Http\Literal',
+								'options' => array (
+										'route' => '/mcwork/apps',
+										'defaults' => array (
+												'controller' => 'Mcwork\Controller\Apps' 
 										) 
 								) 
 						) 
@@ -244,7 +348,8 @@ return array (
 		
 		'service_manager' => array (
 				'factories' => array (
-						'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory' 
+						'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
+						'Mcwork\Pages' => 'Mcwork\Service\McworkpagesServiceFactory',
 				) 
 		),
 		
@@ -256,70 +361,97 @@ return array (
 						'mcwork' => __DIR__ . '/../view' 
 				) 
 		),
-		'assetic_configuration' => array(
+		'contentinum_config' => array (
+				'templates_files' => array(
+						'mcworkpages' => CON_ROOT_PATH . '/data/locale/etc/mcwork.pages.xml',
+				),				
+	
+		),
+		'assetic_configuration' => array (
 				
-				'controllers' => array(
-						'Mcwork\Controller\Index' => array(
+				'controllers' => array (
+						'Mcwork\Controller\Index' => array (
 								'@mcworkcore',
 								'@head_custom',
-								'@mcworkscripts',
+								'@mcworkscripts' 
+						),
+						'Mcwork\Controller\Admin\Logs' => array (
+								'@mcworktable',
+								'@head_custom',
+								'@mcworkscripts' 
 						),
 				),
-				'routes' => array(
-						'mcwork(.*)' => array(
+				'routes' => array (					
+						'mcwork(.*)' => array (
 								'@mcworkcore',
 								'@head_custom',
-								'@mcworkscripts',					
-				         ),
+								'@mcworkscripts' 
+						),
+						
 				),
 				
-				'modules' => array(
-						'mcwork' => array(
+				'modules' => array (
+						'mcwork' => array (
 								'root_path' => __DIR__ . '/../assets',
-						
-								'collections' => array(
-										'mcworkcore' => array(
-												'assets' => array(
+								
+								'collections' => array (
+										'mcworkcore' => array (
+												'assets' => array (
 														'backend/css/font-awesome.css',
 														'backend/css/foundation.min.css',
-														'backend/css/admin.base.css',
+														'backend/css/admin.base.css' 
 												),
-												'filters' => array(
-														'?CssRewriteFilter' => array(
+												'filters' => array (
+														'?CssRewriteFilter' => array (
+																'name' => 'Assetic\Filter\CssRewriteFilter' 
+														),
+														'?CssMinFilter' => array (
+																'name' => 'Assetic\Filter\CssMinFilter' 
+														) 
+												) 
+										),
+										'mcworktable' => array (
+												'assets' => array (
+														'backend/css/font-awesome.css',
+														'backend/css/foundation.min.css',
+														'backend/css/admin.base.css',														
+														'backend/css/admin.table.css'
+												),
+												'filters' => array (
+														'?CssRewriteFilter' => array (
 																'name' => 'Assetic\Filter\CssRewriteFilter'
 														),
-														'?CssMinFilter' => array(
+														'?CssMinFilter' => array (
 																'name' => 'Assetic\Filter\CssMinFilter'
-														),
+														)
+												)
+										),										
+										'head_custom' => array (
+												'assets' => array (
+														'backend/js/vendor/custom.modernizr.js' 
 												),
-										),
-										'head_custom' => array(
-												'assets' => array(
-														'backend/js/vendor/custom.modernizr.js',
-												),
-												'filters' => array(
-														'?JSMinFilter' => array(
-																'name' => 'Assetic\Filter\JSMinFilter'
-														),
-												),
-													
-										),
-										'mcworkscripts' => array(
-												'assets' => array(
+												'filters' => array (
+														'?JSMinFilter' => array (
+																'name' => 'Assetic\Filter\JSMinFilter' 
+														) 
+												) 
+										)
+										,
+										'mcworkscripts' => array (
+												'assets' => array (
 														'backend/js/vendor/jquery-1.10.2.min.js',
 														'backend/js/foundation.min.js',
-														'backend/js/admin.main.js',
+														'backend/js/admin.main.js' 
 												),
-												'filters' => array(
-														'?JSMinFilter' => array(
-																'name' => 'Assetic\Filter\JSMinFilter'
-														),
-												),
-										),
-								),
-						),							
-			    ),
-	
-         ),
-		
+												'filters' => array (
+														'?JSMinFilter' => array (
+																'name' => 'Assetic\Filter\JSMinFilter' 
+														) 
+												) 
+										) 
+								) 
+						) 
+				) 
+		)
+		 
 );

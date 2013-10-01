@@ -43,6 +43,11 @@ class Module
     {
     	return include __DIR__ . '/config/mcwork.controllers.config.php';
     } 
+    
+    public function getViewHelperConfig()
+    {
+    	return include __DIR__ . '/config/viewhelper.config.php';
+    }    
 
     public function getControllerPluginConfig()
     {
@@ -52,7 +57,7 @@ class Module
     			)
     	);
     } 
-
+    
     public function getAutoloaderConfig()
     {
     	return array(
