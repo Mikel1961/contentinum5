@@ -1,0 +1,28 @@
+<?php 
+$maincontent = $this->content;
+
+$layout = $this->buildlayout($this->htmllayouts,'default');
+
+
+foreach ($layout as $row) {
+	if (is_array($row)) {
+		foreach ($row as $k => $v) {
+			switch ($k) {
+				case 'assign':
+					$assign = explode(';', $v);
+					foreach ($assign as $value) {
+						if ('allcontent' == $value) {
+							echo "\n" . $maincontent;
+						} else {
+							echo "\n" . $this->$value;
+						}
+					}
+					break;
+				default:
+			}
+		}
+	} else {
+		echo "\n" . $row;
+	}
+}
+?>

@@ -1,0 +1,48 @@
+<?php 
+$structurElements = $this->structurelements;
+$this->structurelements = null;
+$sequence = $structurElements->sequence->toArray();
+$items = $sequence['items']; // sequence and structur items per entry
+$elements = $sequence['element']; // sequence and structur items all entries
+$i = 0;
+$contributions = '';
+foreach ($this->entries as $entry) {
+    if ($entry->template && 'default' != $entry->template) {
+        $template = $entry->template;
+        $entryStructurElements = $structurElements->$template;
+        $entryStructurItems = $entryStructurElements->sequence->items->toArray();
+    } else {
+        $entryStructurItems = $items;
+        $entryStructurElements = $structurElements;
+    }
+    //$contributions .= '<div><p><strong>'. $i++ . '</strong></p></div>';
+    // ... set content (entry) in structur elements ...
+    $contributions .= $this->pageentries($entry, $entryStructurItems, $entryStructurElements);
+}  
+// ... set all entries in enclose structur elements
+$mcontent = $this->pagecontent($elements, $structurElements, $contributions);
+$mcontent .= $this->content;
+
+$layout = $this->buildlayout($this->htmllayouts,'default');
+foreach ($layout as $row) {
+	if (is_array($row)) {
+		foreach ($row as $k => $v) {
+			switch ($k) {
+				case 'assign':
+					$assign = explode(';', $v);
+					foreach ($assign as $value) {
+						if ('allcontent' == $value) {
+							echo "\n" . $mcontent;
+						} else {
+							echo "\n" . $this->$value;
+						}
+					}
+					break;
+				default:
+			}
+		}
+	} else {
+		echo "\n" . $row;
+	}
+}
+?>
