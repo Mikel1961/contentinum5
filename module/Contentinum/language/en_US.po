@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: contentinum\n"
 "POT-Creation-Date: 2013-08-12 12:17+0100\n"
-"PO-Revision-Date: 2013-09-17 16:49+0100\n"
+"PO-Revision-Date: 2013-10-01 11:57+0100\n"
 "Last-Translator: Michael Jochum <michael.jochum@jochum-mediaservices.de>\n"
 "Language-Team: jochum-mediaservices <hallo@jochum-mediaservices.de>\n"
 "MIME-Version: 1.0\n"
@@ -129,4 +129,16 @@ msgid "Mcwork_Controller_Admin_Contacts"
 msgstr "Contacts, Resources"
 
 msgid "Mcwork_Controller_Admin_Users"
+msgstr "User"
+
+msgid "Mcwork_Controller_Admin_Logs"
+msgstr "Log Files"
+
+msgid "Mcwork_Controller_Admin_Cache"
+msgstr "Cache"
+
+msgid "Mcwork_Controller_Apps"
+msgstr "Apps"
+
+msgid "Mcwork_Controller_User"
 msgstr "User"
