@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages>
+	<_defaults>
+		<layout>mcwork/layout/admin</layout>
+		<title>contentinum5</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<template_widget>
+        <![CDATA[<div class="box box-bordered"><div class="box-title"><h3><i class="icon-reorder"></i> {TEMPLATE_HEAD} </h3></div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+	</_defaults>
+	<Mcwork_Controller_Admin_Logs>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline></headline>
+		<subheadline>Log files of applications</subheadline>
+		<content></content>
+		<footer></footer>
+		<template>content/logs</template>
+	</Mcwork_Controller_Admin_Logs>
+	<Mcwork_Controller_Admin_Logs_Display>
+	    <action>displaycontent</action>
+		<title>Mcwork_Controller_Admin_Logs</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>Mcwork_Controller_Admin_Logs</headline>
+		<subheadline>Log files content</subheadline>
+		<content></content>
+		<footer></footer>
+		<template>content/filecontent</template>
+		<template_widget>
+        <![CDATA[<div class="box"><div class="box-title"><h3><i class="icon-reorder"></i> {TEMPLATE_HEAD} </h3></div><div class="box-content"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>		
+	</Mcwork_Controller_Admin_Logs_Display>	
+	<Mcwork_Controller_Admin_Logs_Download>
+	    <action>downloadcontent</action>
+		<response>
+		<header>
+		    <Content-type>application/text</Content-type>
+		    <Content-Disposition>attachment; filename=</Content-Disposition>
+		    <Expires>0</Expires>
+		    <Cache-Control>must-revalidate, post-check=0,pre-check=0</Cache-Control>
+		    <Pragma>public</Pragma>
+		</header>
+		</response>
+		<template>content/download</template>
+	</Mcwork_Controller_Admin_Logs_Download>	
+	<Mcwork_Controller_Admin_Logs_Clear>
+	<action>contenthandle</action>
+	<response>
+	<redirect>mcwork_logs</redirect>
+	</response>
+	</Mcwork_Controller_Admin_Logs_Clear>
+</pages>
