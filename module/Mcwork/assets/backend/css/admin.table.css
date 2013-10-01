@@ -1,6 +1,12 @@
 
 
+th.text-center, td.text-center {
+	text-align: center;
+}
 
+th.text-right, td.text-right {
+	text-align: right;
+}
 
 .table {
   margin-bottom: 20px;
@@ -58,6 +64,15 @@
 .table-bordered th,
 .table-bordered td {
   border-left: 1px solid #BDC3C7;
+}
+
+.box.box-bordered .table-bordered {
+	border: 0 none;
+}
+
+.box.box-bordered .table-bordered th:first-child,
+.box.box-bordered .table-bordered td:first-child {
+	border-left: 0 none;
 }
 
 .table-striped tbody > tr:nth-child(odd) > td,
@@ -148,6 +163,23 @@
 }
 .table tr th {
   background: #ECF0F1;
+}
+
+.tableEdit {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	visibility: hidden;
+	display:none;
+}
+
+tr:hover .tableEdit {
+    visibility: visible;
+	display:block;
+}
+
+.tableEdit li {
+	display: inline;
 }
 
 
