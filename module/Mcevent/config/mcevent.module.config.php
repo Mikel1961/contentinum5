@@ -2,31 +2,36 @@
 return array (
 		
 		'navigation' => array (
-				'mceventmenue' => array (
+				'appsmenu' => array (
+						
 						array (
 								'label' => 'Kalender',
 								'route' => 'mcevent_calendar',
 								'resource' => 'memberresource',
+								'listClass' => 'has-dropdown',
+								'subUlClass' => 'dropdown',
 								'pages' => array (
 										array (
 												'label' => 'Events',
-												'route' => 'mcevent_events', 
-												'resource' => 'publisherresource',
+												'route' => 'mcevent_events',
+												'resource' => 'publisherresource' 
 										),
 										array (
 												'label' => 'Organizer',
-												'route' => 'mcevent_organizer', 
-												'resource' => 'publisherresource',
+												'route' => 'mcevent_organizer',
+												'resource' => 'publisherresource' 
 										),
 										array (
 												'label' => 'Resources',
 												'route' => 'mcevent_resources',
 												'resource' => 'publisherresource',
+												'listClass' => 'has-dropdown',
+												'subUlClass' => 'dropdown',
 												'pages' => array (
 														array (
 																'label' => 'Types',
-																'route' => 'mcevent_resources_types', 
-																'resource' => 'managerresource',
+																'route' => 'mcevent_resources_types',
+																'resource' => 'managerresource' 
 														) 
 												) 
 										),
@@ -34,23 +39,26 @@ return array (
 												'label' => 'Configuration',
 												'route' => 'mcevent_configuration',
 												'resource' => 'managerresource',
+												'listClass' => 'has-dropdown',
+												'subUlClass' => 'dropdown',
 												'pages' => array (
 														array (
 																'label' => 'Types',
 																'route' => 'mcevent_calendar_types',
-																'resource' => 'managerresource',
+																'resource' => 'managerresource' 
 														),
 														array (
 																'label' => 'Groups',
 																'route' => 'mcevent_calendar_groups',
-																'resource' => 'managerresource',
+																'resource' => 'managerresource' 
 														) 
 												) 
 										) 
 								) 
 						)
 						 
-				) 
+				)
+				 
 		),
 		'router' => array (
 				'routes' => array (
@@ -132,6 +140,22 @@ return array (
 		'view_manager' => array (
 				'template_path_stack' => array (
 						'mcevent' => __DIR__ . '/../view' 
+				) 
+		),
+		'assetic_configuration' => array (
+				'default' => array (
+						'assets' => array (
+								'@mcworkcore',
+								'@head_custom',
+								'@mcworkscripts' 
+						) 
+				),
+				'controllers' => array (
+						'Mcevent\Controller\Index' => array (
+								'@mcworkcore',
+								'@head_custom',
+								'@mcworkscripts' 
+						) 
 				) 
 		) 
 );
