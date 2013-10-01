@@ -34,11 +34,6 @@ namespace Mcuser;
 class Module
 {
 
-	public function getServiceConfig()
-	{
-		return include __DIR__ . '/config/user.service.config.php';
-	}	
-	
     public function getConfig()
     {
         return include __DIR__ . '/config/user.module.config.php';
