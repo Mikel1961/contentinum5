@@ -28,6 +28,7 @@
 namespace Mcwork\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use ContentinumComponents\Html\HtmlAttribute;
 
 /**
  * Set layout configuration
@@ -36,15 +37,104 @@ use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 class Adminlayout extends AbstractPlugin
 {
 
-	public function __invoke($layout,$param, $ctrl, $role = null, $acl = null)
+	public function __invoke($layout,$mcworkpages, $page, $role = null, $acl = null, $viewHelper = null)
 	{
-		$layout->setcontroller = $ctrl;
+		$defaults = $mcworkpages->_defaults;
+		$pageConfigure = false;
+		if ($mcworkpages->$page){
+			$pageConfigure = $mcworkpages->$page;
+		}
+		
 		if (null !== $role){
 			$layout->role = $role;
 		}
 		if (null !== $acl){
 			$layout->acl = $acl;
-		}		
-		$layout->setTemplate($param);
+		}	
+		$this->setTitle($defaults, $pageConfigure, $page, $viewHelper);
+		$this->setHeadline($page, $pageConfigure, $layout);
+		$this->bodyAttributes($defaults, $pageConfigure, $layout);
+		$this->templateFile($defaults, $pageConfigure, $layout);
+		
+		
 	}
+	
+	/**
+	 * Body tag attributes
+	 * @param unknown $defaults
+	 * @param unknown $pageConfigure
+	 * @param unknown $layout
+	 */
+	protected function setTitle($defaults,$pageConfigure, $page, $viewHelperManager)
+	{
+
+		$headTitleHelper   = $viewHelperManager->get('headTitle');
+		$headTitleHelper->setSeparator(' - ');		
+		
+		if (isset($defaults->title) && strlen($defaults->title) > 0){
+			$headTitleHelper->append($defaults->title);
+		}
+	
+		if (isset($pageConfigure->title) && strlen($pageConfigure->title) > 0){
+			$headTitleHelper->prepend($pageConfigure->title);
+		} else {
+			$headTitleHelper->prepend($page);
+		}
+	
+	}	
+	
+    /**
+     * set headline
+     * @param unknown $page
+     * @param unknown $pageConfigure
+     * @param unknown $layout
+     */
+	protected function setHeadline($page, $pageConfigure, $layout)
+	{
+		if ( isset($pageConfigure->headline) && strlen($pageConfigure->headline) > 0){
+			$layout->headline = $pageConfigure->headline;
+		} else {
+			$layout->headline = $page;
+		}
+	}
+	
+	/**
+	 * Body tag attributes
+	 * @param unknown $defaults
+	 * @param unknown $pageConfigure
+	 * @param unknown $layout
+	 */
+	protected function bodyAttributes($defaults,$pageConfigure,$layout)
+	{
+		$bodyTagAttribs = array();
+		if (isset($defaults->bodyTagAttribs) && strlen($defaults->bodyTagAttribs) > 0){
+			$bodyTagAttribs = $defaults->bodyTagAttribs;
+		}
+		
+		if (isset($pageConfigure->bodyTagAttribs) && strlen($pageConfigure->bodyTagAttribs) > 0){
+			$bodyTagAttribs = $pageConfigure->bodyTagAttribs;
+		}
+		
+		if ( is_array($bodyTagAttribs) ){
+			$attributes = '';
+			foreach ($bodyTagAttribs as $attribute => $value){
+				$attributes .= HtmlAttribute::attributeString($attribute,$value,true);
+			}
+			$layout->bodyAttributes = $attributes;
+		}
+
+	}
+	
+	/**
+	 * 
+	 * @param unknown $defaults
+	 * @param unknown $pageConfigure
+	 * @param unknown $layout
+	 */
+	protected function templateFile($defaults,$pageConfigure,$layout)
+	{
+		$layout->setTemplate('mcwork/layout/admin');
+	}
+
+
 }
