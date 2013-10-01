@@ -1,0 +1,13 @@
+<?php 
+foreach ($this->headerDatas as $key => $value){
+	switch ($key){
+		case 'Content-Disposition':
+			header($key . ': ' . $value . $this->filename);
+			break;
+		default:
+			header($key . ': ' . $value );
+	}
+}
+echo $this->entries;
+exit;
+?>

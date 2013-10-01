@@ -1,0 +1,112 @@
+<?php
+use ContentinumComponents\Html\HtmlTable;
+use ContentinumComponents\Html\Table\FactoryTable;
+
+$tableFactory = new HtmlTable ( new FactoryTable () );
+
+// set table tag attributes
+$tableFactory->setAttributes ( 'class', 'table table-hover table-nomargin table-bordered' );
+$i = 0;
+$iClass = 0;
+$headlines = array (
+		'Filename' => array (),
+		'Size' => array (
+				'head' => array (
+						'class' => 'hide-for-small text-right' 
+				),
+				'body' => array (
+						'class' => 'hide-for-small text-right' 
+				) 
+		),
+		'Last write access' => array (
+				'head' => array (
+						'class' => 'hide-for-small text-right' 
+				),
+				'body' => array (
+						'class' => 'hide-for-small text-right' 
+				) 
+		)
+		 
+);
+$ihead = count ( $headlines );
+foreach ( $headlines as $column => $attributes ) {
+	$columns [] = $this->translate ( $column );
+	if (is_array ( $attributes ) && ! empty ( $attributes )) {
+		foreach ( $attributes as $area => $attribute ) {
+			switch ($area) {
+				case 'head' :
+					$tableFactory->setHeadlineAttributtes ( 'class', $attribute ['class'], $i );
+					break;
+				case 'body' :
+					$tableFactory->setTagAttributtes ( 'class', $attribute ['class'], $i );
+					break;
+				default :
+					break;
+			}
+		}
+	}
+	$i ++;
+}
+$tableFactory->setHeadline ( $columns );
+$i = 0;
+foreach ( $this->entries as $entry ) {
+	if ('.' != $entry->filename && '..' != $entry->filename) {
+		
+		$tbl = array ( 'display' =>
+				array (
+						'label' => 'Display',
+						'href' => '/mcwork/logs/display/'. $entry->filename,
+						'attribs' => array (
+								'class' => 'small button' 
+						) 
+				), 'download' =>
+				array (
+						'label' => 'Download',
+						'href' => '/mcwork/logs/download/' . $entry->filename,
+						'attribs' => array (
+								'class' => 'small button' 
+						) 
+				), 'clear' =>
+				array (
+						'label' => 'Clear',
+						'href' => '/mcwork/logs/clear/' . $entry->filename,
+						'attribs' => array (
+								'title' => 'Empty log file content',
+								'class' => 'small button' 
+						) 
+				), 'delete' =>
+				array (
+						'label' => 'Delete',
+						'href' => '/mcwork/logs/delete/' . $entry->filename,
+						'attribs' => array (
+								'title' => 'Delete log file content',
+								'class' => 'small button'
+						)
+				)				 
+		);
+		
+		$i ++;
+		$rowContent = array ();
+		
+		if (! $entry->writable){
+			unset($tbl['clear'],$tbl['delete']);
+		}
+		
+		$rowContent [] = $entry->filename . $this->mcworkTableEdit ( $tbl );
+		$rowContent [] = $this->filesize ( $entry->size );
+		$rowContent [] = date ( "d.m.Y H:i:s", $entry->time );
+		$tableFactory->setHtmlContent ( $rowContent );
+	}
+}
+
+$html = $tableFactory->display ();
+$html .= $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'content' ) );
+
+if (isset ( $this->widget )) {
+	$content = str_replace ( '{TEMPLATE_HEAD}', $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'subheadline' ) ), $this->widget );
+	echo str_replace ( '{TEMPLATE_CONTENT}', $html, $content );
+} else {
+	echo $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'subheadline' ) );
+	echo $html;
+}
+?>

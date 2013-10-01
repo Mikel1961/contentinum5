@@ -1,0 +1,12 @@
+<?php 
+$html = '<pre>' . $this->entries . '</pre>';
+
+if (isset ( $this->widget )) {
+	$content = str_replace ( '{TEMPLATE_HEAD}', $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'subheadline' ) ), $this->widget );
+	echo str_replace ( '{TEMPLATE_CONTENT}', $html, $content );
+} else {
+	echo $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'subheadline' ) );
+	echo $html;
+}
+
+?>
