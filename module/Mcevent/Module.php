@@ -34,11 +34,6 @@ namespace Mcevent;
 class Module
 {
 
-	public function getServiceConfig()
-	{
-		return include __DIR__ . '/config/mcevent.service.config.php';
-	}
-	
     public function getConfig()
     {
         return include __DIR__ . '/config/mcevent.module.config.php';
@@ -47,7 +42,7 @@ class Module
     public function getControllerConfig()
     {
     	return include __DIR__ . '/config/mcevent.controllers.config.php';
-    }  
+    } 
    
     public function getAutoloaderConfig()
     {
