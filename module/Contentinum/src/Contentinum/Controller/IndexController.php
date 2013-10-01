@@ -31,7 +31,7 @@ use ContentinumComponents\Controller\AbstractContentinumController;
 use Zend\View\Model\ViewModel;
 
 /**
- * The application controller
+ * Index controller
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class IndexController extends AbstractContentinumController
