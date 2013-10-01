@@ -5,9 +5,9 @@
 <!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0')?>
-<title>contentinum 5</title>
-<?php 
+<?php
+echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0');
+echo $this->headTitle()->setAutoEscape(false);
 echo $this->plugin('HeadLink');
 echo $this->plugin('HeadStyle');
 echo $this->plugin('HeadScript');
@@ -19,12 +19,16 @@ echo $this->plugin('HeadScript');
 <section class="top-bar-section">
 <?php 
 $container = $this->navigation('navigation')->getContainer();
+
+$apps = $this->navigation('appsmenu')->getContainer()->getPages();
+$container->findBy('label', 'Mcwork_Controller_Apps')->addPages($apps);
+
 echo $this->ContentinumMenue($container)->setAcl($this->acl)->setRole($this->role)->setUlClass('right');
 ?>
 </section>
 </nav>
 <header class="row">
-<section class="large-6 columns"><h1>Dashboard</h1></section>
+<section class="large-6 columns"><h1><?php echo $this->translate($this->headline);  ?></h1></section>
 <section class="large-6 columns"><p>hier header</p></section>
 </header>
 <section class="large-12 columns">
