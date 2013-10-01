@@ -31,6 +31,7 @@ use ContentinumComponents\Controller\AbstractContentinumController;
 use Zend\View\Model\ViewModel;
 use Zend\Mvc\MvcEvent;
 use Zend\Config\Config;
+use Zend\Debug\Debug;
 
 /**
  * The application controller
@@ -60,6 +61,10 @@ class ApplicationController extends AbstractContentinumController
 	public function application($page,$pagelist)
 	{
 		$logger = $this->getServiceLocator()->get('Contentinum\Logs\Applog');
+		
+		//Debug::dump($logger);
+		//exit;
+		
 		$logger->notice('request ' . $page);
 		
 		$htmllayouts = $this->getServiceLocator()->get('Contentinum\Htmllayouts');

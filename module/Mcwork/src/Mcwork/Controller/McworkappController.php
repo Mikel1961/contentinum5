@@ -70,6 +70,7 @@ class McworkappController extends AbstractBackendController
 	{
 		$entries = array();		
 		$content = false;
+		$this->iniLoggger();
 		if ($mcworkpages->$page){
 			$content = $mcworkpages->$page;
 		}
@@ -91,6 +92,7 @@ class McworkappController extends AbstractBackendController
 
 		$entry = false;
 		$content = false;
+		$this->iniLoggger();
 		if ($mcworkpages->$page){
 			$content = $mcworkpages->$page;
 		}
@@ -110,6 +112,7 @@ class McworkappController extends AbstractBackendController
 	{
 		
 		$entry = '';
+		$this->iniLoggger();
 		$filename = $this->params()->fromRoute('id', 0);
 		if ($this->worker){
 			$entry = $this->worker->fetchContent(array('id' => $filename), $this->entity);
@@ -126,13 +129,17 @@ class McworkappController extends AbstractBackendController
 	protected function contenthandle($ctrl, $page, $mcworkpages, $role = null, $acl = null) 
 	{
 		$msg = false;
+		$this->iniLoggger();
 		if ($this->worker) {
 			try {
 				$method = $this->getMethod ();
 				$msg = $this->worker->$method ( array ('id' => $this->params ()->fromRoute ( 'id', 0 ) ), $this->entity );
+				if (false === ($log = $this->getLogger ())) {
+					$log->log ($this->getPriority('info') ,sprintf('contenthandle_success_during %s', $method) );
+				}				
 			} catch ( \Exception $e ) {
 				if (false === ($log = $this->getLogger ())) {
-					$log->err ( sprintf('contenthandle_abort_during %s', $method) );
+					$log->log ($this->getPriority('err') ,sprintf('contenthandle_abort_during %s', $method) );
 				}
 			}
 		}
@@ -141,6 +148,17 @@ class McworkappController extends AbstractBackendController
 			return $this->redirect ()->toRoute ( $mcworkpages->$page->response->redirect );
 		} else {
 			return $this->redirect ()->toRoute ( 'mcwork' );
+		}
+	}
+	
+	/**
+	 * Initialize logger api
+	 */
+	protected function iniLoggger()
+	{
+		$this->setLogger($this->getServiceLocator()->get('Contentinum\Logs\Applog'));
+		if ($this->worker){
+			$this->worker->setLogger($this->getLogger());
 		}
 	}
 

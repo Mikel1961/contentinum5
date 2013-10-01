@@ -364,7 +364,28 @@ return array (
 		'contentinum_config' => array (
 				'templates_files' => array(
 						'mcworkpages' => CON_ROOT_PATH . '/data/locale/etc/mcwork.pages.xml',
-				),				
+				),
+				'log_configure' => array (
+						'log_priority' => 6,
+						'log_writer' => array (
+								'backend-application' => CON_ROOT_PATH . '/data/logs/backend.app.log',
+								'backend-error' => CON_ROOT_PATH . '/data/logs/backend.errors.app.log'
+						),
+						'log_filter' => array (
+								'backend-application' => array (
+										'priority' => array (
+												'priority' => Contentinum\Service\Applog::MCWORKINFO,
+												'operator' => '>='
+										)
+								),
+								'backend-error' => array (
+										'priority' => array (
+												'priority' => Contentinum\Service\Applog::MCWORKERR ,
+												'operator' => '<='
+										)
+								)
+						)
+				),								
 	
 		),
 		'assetic_configuration' => array (

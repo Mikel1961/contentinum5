@@ -51,6 +51,19 @@ class Applog implements ApplogAwareInterface
 	const NOTICE = 5;
 	const INFO   = 6;
 	const DEBUG  = 7;	
+
+	/**
+	 * 
+	 * @const int defined for backend log files
+	 */
+	const MCWORKEMERG  = 20;
+	const MCWORKALERT  = 21;
+	const MCWORKCRIT   = 22;
+	const MCWORKERR    = 23;
+	const MCWORKWARN   = 24;
+	const MCWORKNOTICE = 25;
+	const MCWORKINFO   = 26;
+	const MCWORKDEBUG  = 27;
 	
 	/**
 	 * Configuration key log priority
@@ -185,7 +198,7 @@ class Applog implements ApplogAwareInterface
 	{
 		$this->log(self::DEBUG, $message, $extra);
 	}	
-	
+		
 	/**
 	 * Get logger priority adjustment
 	 * @return number $priority

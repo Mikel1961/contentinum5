@@ -25,6 +25,7 @@ return array (
     		        $ctrl->setEntity(new Mcwork\Entity\LogFiles() );
     		        $worker = new \ContentinumComponents\Storage\StorageDirectory();
     		        $worker->setStorage(new \ContentinumComponents\Storage\StorageManager());
+    		        $worker->setPriorities($ctrl->getPriorities());
     		        $ctrl->setWorker($worker);
     		        return $ctrl;			
 		        },
@@ -33,6 +34,7 @@ return array (
 		        	$ctrl->setEntity(new Mcwork\Entity\LogFiles() );
 		        	$worker = new \Mcwork\Model\Filecontent();
 		        	$worker->setStorage(new \ContentinumComponents\Storage\StorageManager());
+		        	$worker->setPriorities($ctrl->getPriorities());
 		        	$ctrl->setWorker($worker);
 		        	return $ctrl;
 		        },	
@@ -41,6 +43,7 @@ return array (
 		        	$ctrl->setEntity(new Mcwork\Entity\LogFiles() );
 		        	$worker = new \Mcwork\Model\Filecontent();
 		        	$worker->setStorage(new \ContentinumComponents\Storage\StorageManager());
+		        	$worker->setPriorities($ctrl->getPriorities());
 		        	$ctrl->setWorker($worker);
 		        	return $ctrl;
 		        },
@@ -50,6 +53,7 @@ return array (
 		        	$ctrl->setEntity(new Mcwork\Entity\LogFiles() );
 		        	$worker = new \Mcwork\Model\Filecontent();
 		        	$worker->setStorage(new \ContentinumComponents\Storage\StorageManager());
+		        	$worker->setPriorities($ctrl->getPriorities());
 		        	$ctrl->setWorker($worker);
 		        	return $ctrl;
 		        },
@@ -59,6 +63,7 @@ return array (
 		        	$ctrl->setEntity(new Mcwork\Entity\LogFiles() );
 		        	$worker = new \Mcwork\Model\Filecontent();
 		        	$worker->setStorage(new \ContentinumComponents\Storage\StorageManager());
+		        	$worker->setPriorities($ctrl->getPriorities());
 		        	$ctrl->setWorker($worker);
 		        	return $ctrl;
 		        },		        
