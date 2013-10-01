@@ -32,6 +32,7 @@ use Zend\View\Model\ViewModel;
 
 /**
  * Index controller
+ * @todo draft status
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class IndexController extends AbstractContentinumController

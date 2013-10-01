@@ -34,6 +34,7 @@ use Zend\Config\Config;
 
 /**
  * The application controller
+ * @todo draft status
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class ApplicationController extends AbstractContentinumController
