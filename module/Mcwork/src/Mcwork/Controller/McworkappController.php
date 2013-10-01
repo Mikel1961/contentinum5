@@ -37,13 +37,147 @@ use Zend\View\Model\ViewModel;
 class McworkappController extends AbstractBackendController
 {
 	/**
+	 * Worker method
+	 * @var string
+	 */
+	protected $method;
+
+	/**
+	 * Get the worker method
+	 * @return string
+	 */
+	public function getMethod() 
+	{
+		return $this->method;
+	}
+	
+	/**
+	 * Set a worker method
+	 * @param string $method
+	 * @return \Mcwork\Controller\McworkappController
+	 */
+	public function setMethod($method) 
+	{
+		$this->method = $method;
+		return $this;
+	}
+	
+	/**
 	 * Page application
 	 * @see \ContentinumComponents\Controller\AbstractBackendController::application()
 	 */
-	protected function application($page, $role = null, $acl = null) 
+	protected function application($ctrl, $page, $mcworkpages, $role = null, $acl = null) 
 	{
-		$this->adminlayout($this->layout(),'mcwork/layout/admin',$page,$role,$acl);
-		return new ViewModel(array('page' => $page));
+		$entries = array();		
+		$content = false;
+		if ($mcworkpages->$page){
+			$content = $mcworkpages->$page;
+		}
+		
+		$this->adminlayout($this->layout(),$mcworkpages,$page,$role,$acl,$this->getServiceLocator()->get('viewHelperManager'));
+		if ($this->worker){
+			$entries = $this->worker->getStorage()->getRepository($this->entity->getEntityName())->findAll();
+		}
+			
+		return $this->buildView(array('page' => $page, 'pagecontent' => $content  , 'entries' => $entries  ), $content, $mcworkpages);
+	}
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see \ContentinumComponents\Controller\AbstractBackendController::displaycontent()
+	 */
+	protected function displaycontent($ctrl, $page, $mcworkpages, $role = null, $acl = null)
+	{
+
+		$entry = false;
+		$content = false;
+		if ($mcworkpages->$page){
+			$content = $mcworkpages->$page;
+		}
+		
+		$this->adminlayout($this->layout(),$mcworkpages,$page,$role,$acl,$this->getServiceLocator()->get('viewHelperManager'));
+		if ($this->worker){		
+			$entry = $this->worker->fetchContent(array('id' => $this->params()->fromRoute('id', 0)), $this->entity);
+		}
+		return $this->buildView(array('page' => $page, 'pagecontent' => $content  , 'entries' => $entry  ), $content, $mcworkpages);
+	}
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see \ContentinumComponents\Controller\AbstractBackendController::downloadcontent()
+	 */
+	protected function downloadcontent($ctrl, $page, $mcworkpages, $role = null, $acl = null)
+	{
+		
+		$entry = '';
+		$filename = $this->params()->fromRoute('id', 0);
+		if ($this->worker){
+			$entry = $this->worker->fetchContent(array('id' => $filename), $this->entity);
+		}
+		if (isset($mcworkpages->$page->response->header) && strlen($entry) > 1){			
+			return $this->buildView(array('headerDatas' => $mcworkpages->$page->response->header->toArray(), 'entries' => $entry,'filename' => $filename  ), $mcworkpages->$page, $mcworkpages);
+		}
+	}
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see \ContentinumComponents\Controller\AbstractBackendController::contenthandle()
+	 */
+	protected function contenthandle($ctrl, $page, $mcworkpages, $role = null, $acl = null) 
+	{
+		$msg = false;
+		if ($this->worker) {
+			try {
+				$method = $this->getMethod ();
+				$msg = $this->worker->$method ( array ('id' => $this->params ()->fromRoute ( 'id', 0 ) ), $this->entity );
+			} catch ( \Exception $e ) {
+				if (false === ($log = $this->getLogger ())) {
+					$log->err ( sprintf('contenthandle_abort_during %s', $method) );
+				}
+			}
+		}
+
+		if ($mcworkpages->$page->response->redirect) {
+			return $this->redirect ()->toRoute ( $mcworkpages->$page->response->redirect );
+		} else {
+			return $this->redirect ()->toRoute ( 'mcwork' );
+		}
+	}
+
+	
+	/**
+	 * Configure and preapre template view
+	 * @param array $variables view template variables
+	 * @param \Zend\Config\Config $content page content
+	 * @param \Zend\Config\Config $mcworkpages
+	 * @return \Zend\View\Model\ViewModel
+	 */
+	protected function buildView(array $variables, $content, $mcworkpages)
+	{
+
+		$view = new ViewModel($variables);
+		
+		// get html widget, if specified ...
+		$widget = false;
+		if ( isset($content->template_widget) && strlen($content->template_widget) >= 3 ){
+			$widget = $content->template_widget;
+		}
+		
+		if (false === $widget && isset($mcworkpages->_defaults->template_widget) && strlen($mcworkpages->_defaults->template_widget) >= 3 ){
+			$widget = $mcworkpages->_defaults->template_widget;
+		}
+		
+		if (false !== $widget){ // ... and set this if not false
+			$view->setVariable('widget', $widget);
+		}
+		
+		// set template file different from the default, if specified
+		if ( isset($content->template) && strlen($content->template) > 3 ){
+			$view->setTemplate($content->template);
+		}
+		
+		return $view;
 		
 	}
+
 }

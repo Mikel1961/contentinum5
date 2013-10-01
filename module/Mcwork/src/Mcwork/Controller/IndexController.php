@@ -45,7 +45,7 @@ class IndexController extends AbstractContentinumController
 	 */
 	public function indexAction() 
 	{
-		$this->adminlayout ( $this->layout (), 'mcwork/layout/admin', 'Mcwork\Controller\Index', $this->getDefaultRole (), $this->getAclService () );
+		$this->adminlayout ( $this->layout (), $this->getServiceLocator()->get('Mcwork\Pages'), 'Mcwork_Controller_Index', $this->getDefaultRole (), $this->getAclService (),$this->getServiceLocator()->get('viewHelperManager'));
 		return new ViewModel ();
 	}
 	
