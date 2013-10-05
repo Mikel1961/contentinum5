@@ -45,7 +45,7 @@ class Filecontent extends StorageFiles
 	 * @param AbstractStorageEntity $entity
 	 * @return Ambigous <\ContentinumComponents\Storage\unknown, boolean>
 	 */
-	public function fetchContent(array $attribs, AbstractStorageEntity $entity) 
+	public function fetchContent(array $attribs, AbstractStorageEntity $entity, $sl = null) 
 	{
 		return $this->fetchFileContent ( '/' . $entity->getCurrentPath (), $attribs ['id'] );
 	}
@@ -68,9 +68,9 @@ class Filecontent extends StorageFiles
 	 * @param AbstractStorageEntity $entity
 	 * @return boolean
 	 */
-	public function emptyLogFile(array $attribs, AbstractStorageEntity $entity) 
+	public function emptyLogFile(array $attribs, AbstractStorageEntity $entity, $sl = null) 
 	{
-		$dest = $this->getStorage ()->getDocumentRoot () . '/' . $entity->getCurrentPath () . '/' . $attribs ['id'] . '_' . time ();
+		$dest = $this->getStorage ()->getDocumentRoot () . '/' . $entity->getCurrentPath () . '/' . $attribs ['id'] . '.bak';
 		$this->copyFile ( $dest, '/' . $entity->getCurrentPath (), $attribs ['id'] );
 		
 		return $this->setFileContent ( '', '/' . $entity->getCurrentPath (), $attribs ['id'] );

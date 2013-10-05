@@ -16,7 +16,6 @@ return array (
 				'Mcwork\Controller\Admin\Accounts' => 'Mcwork\Controller\McworkappController',
 				'Mcwork\Controller\Admin\Contacts' => 'Mcwork\Controller\McworkappController',
 				'Mcwork\Controller\Admin\Users' => 'Mcwork\Controller\McworkappController',
-				'Mcwork\Controller\Admin\Cache' => 'Mcwork\Controller\McworkappController',
 				'Mcwork\Controller\Apps' => 'Mcwork\Controller\McworkappController',
 		),
 		'factories' => array(
@@ -25,7 +24,6 @@ return array (
     		        $ctrl->setEntity(new Mcwork\Entity\LogFiles() );
     		        $worker = new \ContentinumComponents\Storage\StorageDirectory();
     		        $worker->setStorage(new \ContentinumComponents\Storage\StorageManager());
-    		        $worker->setPriorities($ctrl->getPriorities());
     		        $ctrl->setWorker($worker);
     		        return $ctrl;			
 		        },
@@ -34,7 +32,6 @@ return array (
 		        	$ctrl->setEntity(new Mcwork\Entity\LogFiles() );
 		        	$worker = new \Mcwork\Model\Filecontent();
 		        	$worker->setStorage(new \ContentinumComponents\Storage\StorageManager());
-		        	$worker->setPriorities($ctrl->getPriorities());
 		        	$ctrl->setWorker($worker);
 		        	return $ctrl;
 		        },	
@@ -43,7 +40,6 @@ return array (
 		        	$ctrl->setEntity(new Mcwork\Entity\LogFiles() );
 		        	$worker = new \Mcwork\Model\Filecontent();
 		        	$worker->setStorage(new \ContentinumComponents\Storage\StorageManager());
-		        	$worker->setPriorities($ctrl->getPriorities());
 		        	$ctrl->setWorker($worker);
 		        	return $ctrl;
 		        },
@@ -53,7 +49,6 @@ return array (
 		        	$ctrl->setEntity(new Mcwork\Entity\LogFiles() );
 		        	$worker = new \Mcwork\Model\Filecontent();
 		        	$worker->setStorage(new \ContentinumComponents\Storage\StorageManager());
-		        	$worker->setPriorities($ctrl->getPriorities());
 		        	$ctrl->setWorker($worker);
 		        	return $ctrl;
 		        },
@@ -63,9 +58,25 @@ return array (
 		        	$ctrl->setEntity(new Mcwork\Entity\LogFiles() );
 		        	$worker = new \Mcwork\Model\Filecontent();
 		        	$worker->setStorage(new \ContentinumComponents\Storage\StorageManager());
-		        	$worker->setPriorities($ctrl->getPriorities());
 		        	$ctrl->setWorker($worker);
 		        	return $ctrl;
-		        },		        
+		        },
+		        'Mcwork\Controller\Admin\Cache' => function($sl){
+		        	$ctrl = new Mcwork\Controller\McworkappController();
+		        	$ctrl->setEntity(new Mcwork\Entity\CacheFiles() );
+		        	$worker = new \Mcwork\Model\Cachecontent();
+		        	$worker->setStorage(new \ContentinumComponents\Storage\StorageManager());
+		        	$ctrl->setWorker($worker);
+		        	return $ctrl;
+		        },
+		        'Mcwork\Controller\Admin\Cache\Clear' => function($sl){
+		        	$ctrl = new Mcwork\Controller\McworkappController();
+		        	$ctrl->setMethod('emptyCache');
+		        	$ctrl->setEntity(new Mcwork\Entity\CacheFiles() );
+		        	$worker = new \Mcwork\Model\Cachecontent();
+		        	$worker->setStorage(new \ContentinumComponents\Storage\StorageManager());
+		        	$ctrl->setWorker($worker);
+		        	return $ctrl;
+		        },		        		        		        
 		),
 );

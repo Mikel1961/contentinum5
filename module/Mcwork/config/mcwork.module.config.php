@@ -24,8 +24,7 @@ return array (
 												'label' => 'Mcwork_Controller_Content_PageContent',
 												'route' => 'mcwork_pagecontent',
 												'resource' => 'authorresource' 
-										)
-										,
+										),
 										array (
 												'label' => 'Mcwork_Controller_Content_Contribution',
 												'route' => 'mcwork_contribution',
@@ -94,13 +93,13 @@ return array (
 										array (
 												'label' => 'Mcwork_Controller_Admin_Logs',
 												'route' => 'mcwork_logs',
-												'resource' => 'managerresource'
+												'resource' => 'managerresource' 
 										),
 										array (
 												'label' => 'Mcwork_Controller_Admin_Cache',
 												'route' => 'mcwork_cache',
-												'resource' => 'managerresource'
-										)																				 
+												'resource' => 'managerresource' 
+										) 
 								) 
 						),
 						array (
@@ -268,71 +267,82 @@ return array (
 								'options' => array (
 										'route' => '/mcwork/logs',
 										'defaults' => array (
-												'controller' => 'Mcwork\Controller\Admin\Logs'
-										)
-								)
+												'controller' => 'Mcwork\Controller\Admin\Logs' 
+										) 
+								) 
 						),
-						'mcwork_logs_display' => array(
+						'mcwork_logs_display' => array (
 								'type' => 'Segment',
-								'options' => array(
+								'options' => array (
 										'route' => '/mcwork/logs/display[/][:id]',
-					                    'constraints' => array(
-					                        'id' => '[a-zA-Z0-9/._-]+'
-					                    ),
-										'defaults' => array(
-												'controller' => 'Mcwork\Controller\Admin\Logs\Display'
-										)
-								)
-						),	
-
-						'mcwork_logs_download' => array(
+										'constraints' => array (
+												'id' => '[a-zA-Z0-9/._-]+' 
+										),
+										'defaults' => array (
+												'controller' => 'Mcwork\Controller\Admin\Logs\Display' 
+										) 
+								) 
+						),
+						
+						'mcwork_logs_download' => array (
 								'type' => 'Segment',
-								'options' => array(
+								'options' => array (
 										'route' => '/mcwork/logs/download[/][:id]',
-										'constraints' => array(
-												'id' => '[a-zA-Z0-9/._-]+'
+										'constraints' => array (
+												'id' => '[a-zA-Z0-9/._-]+' 
 										),
-										'defaults' => array(
-												'controller' => 'Mcwork\Controller\Admin\Logs\Download'
-										)
-								)
-						),	
-
-						'mcwork_logs_clear' => array(
+										'defaults' => array (
+												'controller' => 'Mcwork\Controller\Admin\Logs\Download' 
+										) 
+								) 
+						),
+						
+						'mcwork_logs_clear' => array (
 								'type' => 'Segment',
-								'options' => array(
+								'options' => array (
 										'route' => '/mcwork/logs/clear[/][:id]',
-										'constraints' => array(
-												'id' => '[a-zA-Z0-9/._-]+'
+										'constraints' => array (
+												'id' => '[a-zA-Z0-9/._-]+' 
 										),
-										'defaults' => array(
-												'controller' => 'Mcwork\Controller\Admin\Logs\Clear'
-										)
-								)
-						),	
-						'mcwork_logs_delete' => array(
+										'defaults' => array (
+												'controller' => 'Mcwork\Controller\Admin\Logs\Clear' 
+										) 
+								) 
+						),
+						'mcwork_logs_delete' => array (
 								'type' => 'Segment',
-								'options' => array(
+								'options' => array (
 										'route' => '/mcwork/logs/delete[/][:id]',
-										'constraints' => array(
-												'id' => '[a-zA-Z0-9/._-]+'
+										'constraints' => array (
+												'id' => '[a-zA-Z0-9/._-]+' 
 										),
-										'defaults' => array(
-												'controller' => 'Mcwork\Controller\Admin\Logs\Delete'
-										)
-								)
-						),											
-
+										'defaults' => array (
+												'controller' => 'Mcwork\Controller\Admin\Logs\Delete' 
+										) 
+								) 
+						),
+						
 						'mcwork_cache' => array (
 								'type' => 'Zend\Mvc\Router\Http\Literal',
 								'options' => array (
 										'route' => '/mcwork/cache',
 										'defaults' => array (
-												'controller' => 'Mcwork\Controller\Admin\Cache'
+												'controller' => 'Mcwork\Controller\Admin\Cache' 
+										) 
+								) 
+						),
+						'mcwork_cache_clear' => array (
+								'type' => 'Segment',
+								'options' => array (
+										'route' => '/mcwork/cache/clear[/][:id]',
+										'constraints' => array (
+												'id' => '[a-zA-Z0-9/._-]+'
+										),
+										'defaults' => array (
+												'controller' => 'Mcwork\Controller\Admin\Cache\Clear'
 										)
 								)
 						),						
-						
 						
 						'mcwork_apps' => array (
 								'type' => 'Zend\Mvc\Router\Http\Literal',
@@ -349,7 +359,7 @@ return array (
 		'service_manager' => array (
 				'factories' => array (
 						'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
-						'Mcwork\Pages' => 'Mcwork\Service\McworkpagesServiceFactory',
+						'Mcwork\Pages' => 'Mcwork\Service\McworkpagesServiceFactory' 
 				) 
 		),
 		
@@ -362,32 +372,32 @@ return array (
 				) 
 		),
 		'contentinum_config' => array (
-				'templates_files' => array(
-						'mcworkpages' => CON_ROOT_PATH . '/data/locale/etc/mcwork.pages.xml',
+				'templates_files' => array (
+						'mcworkpages' => CON_ROOT_PATH . '/data/locale/etc/mcwork.pages.xml' 
 				),
 				'log_configure' => array (
 						'log_priority' => 6,
 						'log_writer' => array (
 								'backend-application' => CON_ROOT_PATH . '/data/logs/backend.app.log',
-								'backend-error' => CON_ROOT_PATH . '/data/logs/backend.errors.app.log'
+								'backend-error' => CON_ROOT_PATH . '/data/logs/backend.errors.app.log' 
 						),
 						'log_filter' => array (
 								'backend-application' => array (
 										'priority' => array (
-												'priority' => Contentinum\Service\Applog::MCWORKINFO,
-												'operator' => '>='
+												'priority' => Zend\Log\Logger::WARN,
+												'operator' => '>=' 
 										)
 								),
 								'backend-error' => array (
 										'priority' => array (
-												'priority' => Contentinum\Service\Applog::MCWORKERR ,
-												'operator' => '<='
-										)
-								)
-						)
-				),								
-	
-		),
+												'priority' => Zend\Log\Logger::ERR,
+												'operator' => '<=' 
+										)									
+								) 
+						) 
+				) 
+		)
+		,
 		'assetic_configuration' => array (
 				
 				'controllers' => array (
@@ -401,15 +411,20 @@ return array (
 								'@head_custom',
 								'@mcworkscripts' 
 						),
+						'Mcwork\Controller\Admin\Cache' => array (
+								'@mcworktable',
+								'@head_custom',
+								'@mcworkscripts'
+						)						
 				),
-				'routes' => array (					
+				'routes' => array (
 						'mcwork(.*)' => array (
 								'@mcworkcore',
 								'@head_custom',
 								'@mcworkscripts' 
-						),
-						
-				),
+						) 
+				)
+				,
 				
 				'modules' => array (
 						'mcwork' => array (
@@ -435,18 +450,18 @@ return array (
 												'assets' => array (
 														'backend/css/font-awesome.css',
 														'backend/css/foundation.min.css',
-														'backend/css/admin.base.css',														
-														'backend/css/admin.table.css'
+														'backend/css/admin.base.css',
+														'backend/css/admin.table.css' 
 												),
 												'filters' => array (
 														'?CssRewriteFilter' => array (
-																'name' => 'Assetic\Filter\CssRewriteFilter'
+																'name' => 'Assetic\Filter\CssRewriteFilter' 
 														),
 														'?CssMinFilter' => array (
-																'name' => 'Assetic\Filter\CssMinFilter'
-														)
-												)
-										),										
+																'name' => 'Assetic\Filter\CssMinFilter' 
+														) 
+												) 
+										),
 										'head_custom' => array (
 												'assets' => array (
 														'backend/js/vendor/custom.modernizr.js' 
@@ -456,8 +471,7 @@ return array (
 																'name' => 'Assetic\Filter\JSMinFilter' 
 														) 
 												) 
-										)
-										,
+										),
 										'mcworkscripts' => array (
 												'assets' => array (
 														'backend/js/vendor/jquery-1.10.2.min.js',
@@ -473,6 +487,6 @@ return array (
 								) 
 						) 
 				) 
-		)
-		 
-);
+		) 
+)
+;

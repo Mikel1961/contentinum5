@@ -53,6 +53,7 @@ class Adminlayout extends AbstractPlugin
 		}	
 		$this->setTitle($defaults, $pageConfigure, $page, $viewHelper);
 		$this->setHeadline($page, $pageConfigure, $layout);
+		$this->setColumnRight($page, $pageConfigure, $layout);
 		$this->bodyAttributes($defaults, $pageConfigure, $layout);
 		$this->templateFile($defaults, $pageConfigure, $layout);
 		
@@ -81,6 +82,15 @@ class Adminlayout extends AbstractPlugin
 			$headTitleHelper->prepend($page);
 		}
 	
+	}
+
+	protected function setColumnRight($page, $pageConfigure, $layout)
+	{
+		if ( isset($pageConfigure->columnright) && strlen($pageConfigure->columnright) > 0){
+			$layout->columnright = $pageConfigure->columnright;
+		} else {
+			$layout->columnright = null;
+		}
 	}	
 	
     /**

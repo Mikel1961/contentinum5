@@ -49,4 +49,27 @@
 	<redirect>mcwork_logs</redirect>
 	</response>
 	</Mcwork_Controller_Admin_Logs_Clear>
+	<Mcwork_Controller_Admin_Logs_Delete>
+	<action>contenthandle</action>
+	<response>
+	<redirect>mcwork_logs</redirect>
+	</response>
+	</Mcwork_Controller_Admin_Logs_Delete>	
+	<Mcwork_Controller_Admin_Cache>
+	    <action>displaycontent</action>
+		<title>Mcwork_Controller_Admin_Cache</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>Mcwork_Controller_Admin_Cache</headline>
+		<columnright><![CDATA[<p class="right"><a class="small button alert" href="/mcwork/cache/clear/all" title="Empty all cache storage">Clear all</a></p>]]></columnright>
+		<subheadline>List of cache files</subheadline>
+		<content></content>
+		<footer></footer>
+		<template>content/cachecontent</template>	
+	</Mcwork_Controller_Admin_Cache>
+	<Mcwork_Controller_Admin_Cache_Clear>
+	<action>contenthandle</action>
+	<response>
+	<redirect>mcwork_cache</redirect>
+	</response>
+	</Mcwork_Controller_Admin_Cache_Clear>			
 </pages>

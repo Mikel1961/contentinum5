@@ -22,8 +22,8 @@
  * @copyright Copyright (c) 2009-2013 jochum-mediaservices, Katja Jochum (http://www.jochum-mediaservices.de)
  * @license http://www.opensource.org/licenses/bsd-license
  * @since contentinum version 5.0
- * @link      https://github.com/Mikel1961/contentinum-components
- * @version   1.0.0
+ * @link https://github.com/Mikel1961/contentinum-components
+ * @version 1.0.0
  */
 namespace Mcwork\Controller;
 
@@ -32,170 +32,206 @@ use Zend\View\Model\ViewModel;
 
 /**
  * Backend module application controller
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class McworkappController extends AbstractBackendController
 {
-	/**
-	 * Worker method
-	 * @var string
-	 */
-	protected $method;
 
-	/**
-	 * Get the worker method
-	 * @return string
-	 */
-	public function getMethod() 
-	{
-		return $this->method;
-	}
-	
-	/**
-	 * Set a worker method
-	 * @param string $method
-	 * @return \Mcwork\Controller\McworkappController
-	 */
-	public function setMethod($method) 
-	{
-		$this->method = $method;
-		return $this;
-	}
-	
-	/**
-	 * Page application
-	 * @see \ContentinumComponents\Controller\AbstractBackendController::application()
-	 */
-	protected function application($ctrl, $page, $mcworkpages, $role = null, $acl = null) 
-	{
-		$entries = array();		
-		$content = false;
-		$this->iniLoggger();
-		if ($mcworkpages->$page){
-			$content = $mcworkpages->$page;
-		}
-		
-		$this->adminlayout($this->layout(),$mcworkpages,$page,$role,$acl,$this->getServiceLocator()->get('viewHelperManager'));
-		if ($this->worker){
-			$entries = $this->worker->getStorage()->getRepository($this->entity->getEntityName())->findAll();
-		}
-			
-		return $this->buildView(array('page' => $page, 'pagecontent' => $content  , 'entries' => $entries  ), $content, $mcworkpages);
-	}
-	
-	/**
-	 * (non-PHPdoc)
-	 * @see \ContentinumComponents\Controller\AbstractBackendController::displaycontent()
-	 */
-	protected function displaycontent($ctrl, $page, $mcworkpages, $role = null, $acl = null)
-	{
+    /**
+     * Worker method
+     * 
+     * @var string
+     */
+    protected $method;
 
-		$entry = false;
-		$content = false;
-		$this->iniLoggger();
-		if ($mcworkpages->$page){
-			$content = $mcworkpages->$page;
-		}
-		
-		$this->adminlayout($this->layout(),$mcworkpages,$page,$role,$acl,$this->getServiceLocator()->get('viewHelperManager'));
-		if ($this->worker){		
-			$entry = $this->worker->fetchContent(array('id' => $this->params()->fromRoute('id', 0)), $this->entity);
-		}
-		return $this->buildView(array('page' => $page, 'pagecontent' => $content  , 'entries' => $entry  ), $content, $mcworkpages);
-	}
-	
-	/**
-	 * (non-PHPdoc)
-	 * @see \ContentinumComponents\Controller\AbstractBackendController::downloadcontent()
-	 */
-	protected function downloadcontent($ctrl, $page, $mcworkpages, $role = null, $acl = null)
-	{
-		
-		$entry = '';
-		$this->iniLoggger();
-		$filename = $this->params()->fromRoute('id', 0);
-		if ($this->worker){
-			$entry = $this->worker->fetchContent(array('id' => $filename), $this->entity);
-		}
-		if (isset($mcworkpages->$page->response->header) && strlen($entry) > 1){			
-			return $this->buildView(array('headerDatas' => $mcworkpages->$page->response->header->toArray(), 'entries' => $entry,'filename' => $filename  ), $mcworkpages->$page, $mcworkpages);
-		}
-	}
-	
-	/**
-	 * (non-PHPdoc)
-	 * @see \ContentinumComponents\Controller\AbstractBackendController::contenthandle()
-	 */
-	protected function contenthandle($ctrl, $page, $mcworkpages, $role = null, $acl = null) 
-	{
-		$msg = false;
-		$this->iniLoggger();
-		if ($this->worker) {
-			try {
-				$method = $this->getMethod ();
-				$msg = $this->worker->$method ( array ('id' => $this->params ()->fromRoute ( 'id', 0 ) ), $this->entity );
-				if (false === ($log = $this->getLogger ())) {
-					$log->log ($this->getPriority('info') ,sprintf('contenthandle_success_during %s', $method) );
-				}				
-			} catch ( \Exception $e ) {
-				if (false === ($log = $this->getLogger ())) {
-					$log->log ($this->getPriority('err') ,sprintf('contenthandle_abort_during %s', $method) );
-				}
-			}
-		}
+    /**
+     * Get the worker method
+     * 
+     * @return string
+     */
+    public function getMethod ()
+    {
+        return $this->method;
+    }
 
-		if ($mcworkpages->$page->response->redirect) {
-			return $this->redirect ()->toRoute ( $mcworkpages->$page->response->redirect );
-		} else {
-			return $this->redirect ()->toRoute ( 'mcwork' );
-		}
-	}
-	
-	/**
-	 * Initialize logger api
-	 */
-	protected function iniLoggger()
-	{
-		$this->setLogger($this->getServiceLocator()->get('Contentinum\Logs\Applog'));
-		if ($this->worker){
-			$this->worker->setLogger($this->getLogger());
-		}
-	}
+    /**
+     * Set a worker method
+     * 
+     * @param string $method
+     * @return \Mcwork\Controller\McworkappController
+     */
+    public function setMethod ($method)
+    {
+        $this->method = $method;
+        return $this;
+    }
 
-	
-	/**
-	 * Configure and preapre template view
-	 * @param array $variables view template variables
-	 * @param \Zend\Config\Config $content page content
-	 * @param \Zend\Config\Config $mcworkpages
-	 * @return \Zend\View\Model\ViewModel
-	 */
-	protected function buildView(array $variables, $content, $mcworkpages)
-	{
+    /**
+     * Page application
+     * 
+     * @see \ContentinumComponents\Controller\AbstractBackendController::application()
+     */
+    protected function application ($ctrl, $page, $mcworkpages, $role = null, $acl = null)
+    {
+        $entries = array();
+        $content = false;
+        $this->iniLoggger();
+        if ($mcworkpages->$page) {
+            $content = $mcworkpages->$page;
+        }
+        
+        $this->adminlayout($this->layout(), $mcworkpages, $page, $role, $acl, $this->getServiceLocator()
+            ->get('viewHelperManager'));
+        if ($this->worker) {
+            $entries = $this->worker->getStorage()
+                ->getRepository($this->entity->getEntityName())
+                ->findAll();
+        }
+        
+        if (true == ($log = $this->getLogger())) {
+            $log->info('Display ' . $page);
+        }
+        
+        return $this->buildView(array(
+                'page' => $page,
+                'pagecontent' => $content,
+                'entries' => $entries), $content, $mcworkpages);
+    }
 
-		$view = new ViewModel($variables);
-		
-		// get html widget, if specified ...
-		$widget = false;
-		if ( isset($content->template_widget) && strlen($content->template_widget) >= 3 ){
-			$widget = $content->template_widget;
-		}
-		
-		if (false === $widget && isset($mcworkpages->_defaults->template_widget) && strlen($mcworkpages->_defaults->template_widget) >= 3 ){
-			$widget = $mcworkpages->_defaults->template_widget;
-		}
-		
-		if (false !== $widget){ // ... and set this if not false
-			$view->setVariable('widget', $widget);
-		}
-		
-		// set template file different from the default, if specified
-		if ( isset($content->template) && strlen($content->template) > 3 ){
-			$view->setTemplate($content->template);
-		}
-		
-		return $view;
-		
-	}
+    /**
+     * (non-PHPdoc)
+     * 
+     * @see \ContentinumComponents\Controller\AbstractBackendController::displaycontent()
+     */
+    protected function displaycontent ($ctrl, $page, $mcworkpages, $role = null, $acl = null)
+    {
+        $entry = false;
+        $content = false;
+        $this->iniLoggger();
+        if ($mcworkpages->$page) {
+            $content = $mcworkpages->$page;
+        }
+        
+        $this->adminlayout($this->layout(), $mcworkpages, $page, $role, $acl, $this->getServiceLocator()
+            ->get('viewHelperManager'));
+        
+        try {
+            if ($this->worker) {
+                $entry = $this->worker->fetchContent(array(
+                        'id' => $this->params()
+                            ->fromRoute('id', 0)), $this->entity, $this->getServiceLocator());
+                if (true == ($log = $this->getLogger())) {
+                    $log->info('displaycontent_success');
+                }
+            }
+        } catch (\Exception $e) {
+            if (true == ($log = $this->getLogger())) {
+                $log->err('displaycontent_abort_during');
+            }
+        }
+        return $this->buildView(array(
+                'page' => $page,
+                'pagecontent' => $content,
+                'entries' => $entry), $content, $mcworkpages);
+    }
 
+    /**
+     * (non-PHPdoc)
+     * 
+     * @see \ContentinumComponents\Controller\AbstractBackendController::downloadcontent()
+     */
+    protected function downloadcontent ($ctrl, $page, $mcworkpages, $role = null, $acl = null)
+    {
+        $entry = '';
+        $this->iniLoggger();
+        $filename = $this->params()->fromRoute('id', 0);
+        if ($this->worker) {
+            $entry = $this->worker->fetchContent(array(
+                    'id' => $filename), $this->entity);
+        }
+        if (isset($mcworkpages->$page->response->header) && strlen($entry) > 1) {
+            return $this->buildView(array(
+                    'headerDatas' => $mcworkpages->$page->response->header->toArray(),
+                    'entries' => $entry,
+                    'filename' => $filename), $mcworkpages->$page, $mcworkpages);
+        }
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \ContentinumComponents\Controller\AbstractBackendController::contenthandle()
+     */
+    protected function contenthandle ($ctrl, $page, $mcworkpages, $role = null, $acl = null)
+    {
+        $msg = false;
+        $this->iniLoggger();
+        if ($this->worker) {
+            try {
+                $method = $this->getMethod();
+                $msg = $this->worker->$method(array(
+                        'id' => $this->params()
+                            ->fromRoute('id', 0)), $this->entity, $this->getServiceLocator());
+                if (true == ($log = $this->getLogger())) {
+                    $log->info(sprintf('contenthandle_success_during %s', $method));
+                }
+            } catch (\Exception $e) {
+                if (true == ($log = $this->getLogger())) {
+                    $log->err(sprintf('contenthandle_abort_during %s', $method));
+                }
+            }
+        }
+        
+        if ($mcworkpages->$page->response->redirect) {
+            return $this->redirect()->toRoute($mcworkpages->$page->response->redirect);
+        } else {
+            return $this->redirect()->toRoute('mcwork');
+        }
+    }
+
+    /**
+     * Initialize logger api
+     */
+    protected function iniLoggger ()
+    {
+        $this->setLogger($this->getServiceLocator()
+            ->get('Contentinum\Logs\Applog'));
+        if ($this->worker) {
+            $this->worker->setLogger($this->getLogger());
+        }
+    }
+
+    /**
+     * Configure and preapre template view
+     * 
+     * @param array $variables view template variables
+     * @param \Zend\Config\Config $content page content
+     * @param \Zend\Config\Config $mcworkpages
+     * @return \Zend\View\Model\ViewModel
+     */
+    protected function buildView (array $variables, $content, $mcworkpages)
+    {
+        $view = new ViewModel($variables);
+        
+        // get html widget, if specified ...
+        $widget = false;
+        if (isset($content->template_widget) && strlen($content->template_widget) >= 3) {
+            $widget = $content->template_widget;
+        }
+        
+        if (false === $widget && isset($mcworkpages->_defaults->template_widget) && strlen($mcworkpages->_defaults->template_widget) >= 3) {
+            $widget = $mcworkpages->_defaults->template_widget;
+        }
+        
+        if (false !== $widget) { // ... and set this if not false
+            $view->setVariable('widget', $widget);
+        }
+        
+        // set template file different from the default, if specified
+        if (isset($content->template) && strlen($content->template) > 3) {
+            $view->setTemplate($content->template);
+        }
+        
+        return $view;
+    }
 }

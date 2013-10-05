@@ -1,0 +1,98 @@
+<?php
+use ContentinumComponents\Html\HtmlTable;
+use ContentinumComponents\Html\Table\FactoryTable;
+
+$tableFactory = new HtmlTable ( new FactoryTable () );
+
+// set table tag attributes
+$tableFactory->setAttributes ( 'class', 'table table-hover table-nomargin table-bordered' );
+$i = 0;
+$iClass = 0;
+$headlines = array (
+		'Cache' => array (),
+		'Key' => array (
+				'head' => array (
+						'class' => 'hide-for-small text-right' 
+				),
+				'body' => array (
+						'class' => 'hide-for-small text-right' 
+				) 
+		),
+		'Last write access' => array (
+				'head' => array (
+						'class' => 'hide-for-small text-right'
+				),
+				'body' => array (
+						'class' => 'hide-for-small text-right'
+				)
+		)		
+		 
+);
+$ihead = count ( $headlines );
+foreach ( $headlines as $column => $attributes ) {
+	$columns [] = $this->translate ( $column );
+	if (is_array ( $attributes ) && ! empty ( $attributes )) {
+		foreach ( $attributes as $area => $attribute ) {
+			switch ($area) {
+				case 'head' :
+					$tableFactory->setHeadlineAttributtes ( 'class', $attribute ['class'], $i );
+					break;
+				case 'body' :
+					$tableFactory->setTagAttributtes ( 'class', $attribute ['class'], $i );
+					break;
+				default :
+					break;
+			}
+		}
+	}
+	$i ++;
+}
+$tableFactory->setHeadline ( $columns );
+$i = 0;
+
+//var_dump($this->entries);exit;
+
+foreach ( $this->entries as $area => $entry ) {
+	
+		
+		$tbl = array (
+               'clear' =>
+				array (
+						'label' => 'Clear',
+						'href' => '/mcwork/cache/clear/' .$area,
+						'attribs' => array (
+								'title' => 'Empty cache',
+								'class' => 'small button'
+						)
+				)
+		);		
+
+		if (isset($entry['metas'])){
+			$clear = $this->mcworkTableEdit ( $tbl );
+			$date = date ( "d.m.Y H:i:s", $entry['metas']['mtime']);
+		} else {
+			$clear = '';
+			$date = '';
+		}
+		
+		$i ++;
+		$rowContent = array ();
+		$rowContent [] = $entry['label'] . $clear;
+		$rowContent [] = $area;
+		$rowContent [] = $date;
+		$tableFactory->setHtmlContent ( $rowContent );
+	
+	
+}
+
+$html = $tableFactory->display ();
+$html .= $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'content' ) );
+
+if (isset ( $this->widget )) {
+	$content = str_replace ( '{TEMPLATE_HEAD}', $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'subheadline' ) ), $this->widget );
+	echo str_replace ( '{TEMPLATE_CONTENT}', $html, $content );
+} else {
+	echo $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'subheadline' ) );
+	echo $html;
+}
+?>

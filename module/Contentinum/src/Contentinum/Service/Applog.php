@@ -31,6 +31,7 @@ use Zend\Log\Filter\Priority;
 use Contentinum\Service\ApplogAwareInterface;
 use Zend\Log\Writer\Stream;
 use Zend\Log\Logger;
+use Zend\Log\Filter\Regex;
 
 /**
  * Applog a wrapper for Zend\Log\Logger or others
@@ -51,19 +52,6 @@ class Applog implements ApplogAwareInterface
 	const NOTICE = 5;
 	const INFO   = 6;
 	const DEBUG  = 7;	
-
-	/**
-	 * 
-	 * @const int defined for backend log files
-	 */
-	const MCWORKEMERG  = 20;
-	const MCWORKALERT  = 21;
-	const MCWORKCRIT   = 22;
-	const MCWORKERR    = 23;
-	const MCWORKWARN   = 24;
-	const MCWORKNOTICE = 25;
-	const MCWORKINFO   = 26;
-	const MCWORKDEBUG  = 27;
 	
 	/**
 	 * Configuration key log priority
@@ -280,6 +268,14 @@ class Applog implements ApplogAwareInterface
     					}
     					$set = new Priority($options['priority'], $operator);
     					$writer->addFilter($set);
+    					break;
+    				case 'regex':
+    					if (isset($options['match'])){
+    						$set = new Regex($options['match']);
+    						$writer->addFilter($set);
+    					}	
+    					break;
+    				default:
     					break;
     			}
     		} 
