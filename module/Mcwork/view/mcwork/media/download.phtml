@@ -1,0 +1,18 @@
+<?php 
+$filename = $this->filename;
+header("Cache-Control: public");
+header("Content-Description: File Transfer");
+header("Content-Disposition: attachment; filename=\"$filename\"");
+header("Content-Type: application/octet-stream");
+header("Content-Transfer-Encoding: binary");
+// output file
+set_time_limit(0);
+$file = @fopen($this->downloaditem,"rb");
+while(!feof($file))
+{
+	print(@fread($file, 1024*8));
+	ob_flush();
+	flush();
+}
+exit();
+?>
