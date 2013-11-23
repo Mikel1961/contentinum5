@@ -70,10 +70,26 @@ input[type="text"], input[type="password"], input[type="date"], input[type="date
 form.custom .custom.dropdown {
     background: #ECF0F1;
 }
+#clNewFolder {
+	margin-top: 18px;
+}
+#new-folder {
+	margin-bottom: 0;
+}
+.errNewFolder {
+	color:#FFFFFF;
+	background-color:red;
+	line-height: 1.6em;
+	display:none;
+}
 
 .prefix, .postfix {
 	height: 3em;
 	line-height: 3em;
+}
+
+.prefix.button {
+	line-height: 2.6em;
 }
 
 

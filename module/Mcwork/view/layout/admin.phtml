@@ -31,9 +31,13 @@ echo $this->ContentinumMenue($container)->setAcl($this->acl)->setRole($this->rol
 <section class="large-6 columns"><h1><?php echo $this->translate($this->headline);  ?></h1></section>
 <section class="large-6 columns"><?php echo $this->columnright; ?></section>
 </header>
+<div id="alertMessages"> </div>
 <section class="large-12 columns">
 <?php echo $this->content; ?>
 </section>
+<div id="modal" class="reveal-modal"> </div>
+<div id="second_modal" class="reveal-modal"> </div>
+<div id="big_modal" class="reveal-modal large"> </div>
 <?php echo $this->plugin('InlineScript'); ?>
 </body>
 </html>
