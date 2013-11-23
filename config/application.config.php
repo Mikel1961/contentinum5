@@ -6,7 +6,9 @@ return array(
     	'Mcevent',
     	'Mcuser',
     	'Mcwork',
-    	'AsseticBundle',    		
+    	'AsseticBundle',    
+        'DoctrineModule', 
+        'DoctrineORMModule',           		
     ),
 
     // These are various options for the listeners attached to the ModuleManager

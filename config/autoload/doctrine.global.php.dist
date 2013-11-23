@@ -1,0 +1,14 @@
+<?php
+return array(
+	'doctrine' => array(
+			'connection' => array(
+					'orm_default' => array(
+							'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+							'params' => array(
+									'host' => 'localhost', // add your database host name, standard is localhost
+									'port' => '3306', // add your database port, mysql standard is 3306 
+									 'dbname'   => 'database name',
+							),
+					),
+			)
+));
