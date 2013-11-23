@@ -29,6 +29,7 @@ namespace Mcwork\Controller;
 
 use ContentinumComponents\Controller\AbstractBackendController;
 use Zend\View\Model\ViewModel;
+use Zend\Json\Json;
 
 /**
  * Backend module application controller
@@ -163,21 +164,39 @@ class McworkappController extends AbstractBackendController
      * @see \ContentinumComponents\Controller\AbstractBackendController::contenthandle()
      */
     protected function contenthandle ($ctrl, $page, $mcworkpages, $role = null, $acl = null)
-    {
+    {      
         $msg = false;
         $this->iniLoggger();
         if ($this->worker) {
+            $this->worker->setLogger($this->getLogger());
             try {
+                if ($this->getRequest ()->isPost ()) {
+                    $attribs = $this->getRequest()->getPost();
+                    if (is_object($attribs)){
+                        $attribs = $attribs->toArray();
+                    }                    
+                } else {
+                    $attribs['id'] = $this->params()->fromRoute('id', 0);
+                }  
+                if ($mcworkpages->$page->hasEntries){
+                    $this->worker->setHasEntriesParams($mcworkpages->$page->hasEntries->toArray());
+                }             
                 $method = $this->getMethod();
-                $msg = $this->worker->$method(array(
-                        'id' => $this->params()
-                            ->fromRoute('id', 0)), $this->entity, $this->getServiceLocator());
+                $data = $this->worker->$method($attribs, $this->entity, $this->getServiceLocator());
                 if (true == ($log = $this->getLogger())) {
                     $log->info(sprintf('contenthandle_success_during %s', $method));
                 }
+                if ($this->getRequest()->isXmlHttpRequest()){
+                    echo Json::encode(array('success' => $data));
+                    exit();
+                }
             } catch (\Exception $e) {
                 if (true == ($log = $this->getLogger())) {
-                    $log->err(sprintf('contenthandle_abort_during %s', $method));
+                    $log->err('contenthandle abort during '. $method .' ' . $e->getMessage());
+                }
+                if ($this->getRequest()->isXmlHttpRequest()){
+                    echo Json::encode(array('error' => sprintf('contenthandle_abort_during %s', $method)));
+                    exit();
                 }
             }
         }
