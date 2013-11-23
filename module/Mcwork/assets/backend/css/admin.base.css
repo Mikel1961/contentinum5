@@ -33,6 +33,7 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
 	font-weight:normal;	
 }
 
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -40,76 +41,8 @@ table {
 	background-color: transparent; 
 }
 
-input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {
-    background-color: #FFFFFF;
-    border: 1px solid #CCCCCC;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    height: 3em;
-}
-
-  input[type="text"]:focus,
-  input[type="password"]:focus,
-  input[type="date"]:focus,
-  input[type="datetime"]:focus,
-  input[type="datetime-local"]:focus,
-  input[type="month"]:focus,
-  input[type="week"]:focus,
-  input[type="email"]:focus,
-  input[type="number"]:focus,
-  input[type="search"]:focus,
-  input[type="tel"]:focus,
-  input[type="time"]:focus,
-  input[type="url"]:focus,
-  textarea:focus {
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-}
-
-form.custom .custom.dropdown {
-    background: #ECF0F1;
-}
-#clNewFolder {
-	margin-top: 18px;
-}
-#new-folder {
-	margin-bottom: 0;
-}
-.errNewFolder {
-	color:#FFFFFF;
-	background-color:red;
-	line-height: 1.6em;
-	display:none;
-}
-
-.prefix, .postfix {
-	height: 3em;
-	line-height: 3em;
-}
-
-.prefix.button {
-	line-height: 2.6em;
-}
-
-
-.nopadding {
-	padding: 0 !important;
-}
-.top-bar, .top-bar-section ul; .top-bar-section ul li > a {
-	background: #2C3E50;
-}
-
-      .top-bar .name h1 a {
-        font-weight: normal;
-        color: #F39C12;}
-
 
 .turquoise { background: #1ABC9C }
-
-
-
-
 .green-sea { background: #16A085}
 .emerald { background: #2ECC71}
 .nephritis  { background: #27AE60}
@@ -131,10 +64,31 @@ form.custom .custom.dropdown {
 .asbestos { background: #7F8C8D}
 
 
+form.custom .custom.dropdown {
+    background: #ECF0F1;
+}
+
+#filescrollarea {
+	height: 400px;
+	overflow-y: scroll;
+	margin-bottom: 1em;
+}
+
+#contentinumUpload {
+	height: 200px;
+}
+
+.prefix, .postfix {
+	height: 3em;
+	line-height: 3em;
+	
+}
 
 
+.nopadding {
+	padding: 0 !important;
+}
 
- 
 .stats, .minitiles {
 	margin: 0;
 	padding: 0;
@@ -275,7 +229,11 @@ form.custom .custom.dropdown {
 	border-width:0 2px 2px 2px;
     border-color: #3498DB;
 }
-
+input.small.button {
+	margin-right: 1em;
+    padding-bottom: 0.5625em;
+    padding-top: 0.625em;
+}
 
 button, .button {
 	border-color: #2980B9;

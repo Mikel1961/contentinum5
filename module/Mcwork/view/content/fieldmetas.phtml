@@ -78,7 +78,7 @@ foreach ( $this->entries as $entry ) {
 		
 	$rowContent = array ();
 	$rowContent[] = '<input id="row'.$i.'" type="checkbox" value="'.$entry->id.'" name="cb[]">';
-	$rowContent [] = $entry->name . $this->mcworkTableEdit ( $tbl );
+	$rowContent [] = $entry->name . ' (<em>'. $entry->fieldTypes->name . '</em>)' . $this->mcworkTableEdit ( $tbl );
 	$rowContent [] = $entry->datascope;
 	$rowContent [] = $entry->registerDate->format('d F Y H:i:s'); // date ( "d.m.Y H:i:s", $entry->registerDate );
 	$tableFactory->setHtmlContent ( $rowContent );

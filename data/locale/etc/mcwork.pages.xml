@@ -5,9 +5,123 @@
 		<title>contentinum5</title>
 		<bodyTagAttribs></bodyTagAttribs>
 		<template_widget>
-        <![CDATA[<div class="box box-bordered"><div class="box-title"><h3><i class="icon-reorder"></i> {TEMPLATE_HEAD} </h3></div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+        <![CDATA[<div class="box box-bordered"><div class="box-title"><h3><i class="fa fa-recorder"></i> {TEMPLATE_HEAD} </h3></div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 	</_defaults>
+	<Mcwork_Controller_Content_Medias>
+		<title>Mcwork_Controller_Content_Medias</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>Mcwork_Controller_Content_Medias</headline>
+		<columnright><![CDATA[<div id="clNewFolder" class="row collapse"><div class="small-9 columns"><input id="new-folder" type="text" placeholder="New Folder" pattern="^[a-z0-9-_]*$"><span class="errNewFolder"> </span></div><div class="small-3 columns"><a id="btnNewFolder" href="#" class="button prefix">New Folder</a></div></div>]]>
+		</columnright>
+		<subheadline>Media and Document files</subheadline>
+		<content></content>
+		<footer></footer>
+	</Mcwork_Controller_Content_Medias>
+	<Mcwork_Controller_Admin_Accounts>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline></headline>
+		<subheadline></subheadline>
+		<content></content>
+		<footer></footer>
+		<template>content/accounts</template>	
+		<template_widget>
+        <![CDATA[<div class="box"><div class="box-title"><h3><i class="fa fa-recorder"></i> {TEMPLATE_HEAD} </h3></div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>		
+	</Mcwork_Controller_Admin_Accounts>
+	<Mcwork_Controller_Conf_Fieldtypes>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline></headline>
+		<columnright><![CDATA[<p class="right"><a class="button" href="/mcwork/fieldtypes/add"><i class="fa fa-plus"></i></a><a id="btnTblEdit" class="button" href="/mcwork/fieldtypes/edit"><i class="fa fa-pencil"></i></a><a id="btnTblDelete" class="button" href="/mcwork/fieldtypes/delete"><i class="fa fa-trash-o"></i></a></p>]]></columnright>
+		<subheadline></subheadline>
+		<content></content>
+		<footer></footer>
+		<template>content/fieldtypes</template>	
+		<template_widget>
+        <![CDATA[<div class="box"><div class="box-title"><h3><i class="fa fa-recorder"></i> {TEMPLATE_HEAD} </h3></div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>		
+	</Mcwork_Controller_Conf_Fieldtypes>
+	<Mcwork_Controller_Conf_AddFieldTypes>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline></headline>
+		<subheadline></subheadline>
+		<content></content>
+		<footer></footer>
+		<template_widget>
+        <![CDATA[<div class="box"><div class="box-title"><h3><i class="fa fa-recorder"></i> {TEMPLATE_HEAD} </h3></div><div class="box-content"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>	
+	</Mcwork_Controller_Conf_AddFieldTypes>
+	<Mcwork_Controller_Conf_EditFieldTypes>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline></headline>
+		<subheadline></subheadline>
+		<content></content>
+		<footer></footer>
+		<template_widget>
+        <![CDATA[<div class="box"><div class="box-title"><h3><i class="fa fa-recorder"></i> {TEMPLATE_HEAD} </h3></div><div class="box-content"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>	
+	</Mcwork_Controller_Conf_EditFieldTypes>	
+	<Mcwork_Controller_Conf_DeleteFieldTypes>
+		<action>contenthandle</action>
+		<hasEntries>
+			<tablename>Contentinum\Entity\FieldTypeMetas</tablename>
+			<column>fieldTypes</column>
+		</hasEntries>
+		<request>
+			<xhtmlrequest>1</xhtmlrequest>
+		</request>
+		<response>
+			<redirect>mcwork_fieldtypes</redirect>
+		</response>
+	</Mcwork_Controller_Conf_DeleteFieldTypes>	
+	<Mcwork_Controller_Conf_Fieldmetas>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline></headline>
+		<columnright><![CDATA[<p class="right"><a class="button" href="/mcwork/fieldmetas/add"><i class="fa fa-plus"></i></a></p>]]></columnright>
+		<subheadline></subheadline>
+		<content></content>
+		<footer></footer>
+		<template>content/fieldmetas</template>	
+		<template_widget>
+        <![CDATA[<div class="box"><div class="box-title"><h3><i class="fa fa-recorder"></i> {TEMPLATE_HEAD} </h3></div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>		
+	</Mcwork_Controller_Conf_Fieldmetas>	
+	<Mcwork_Controller_Conf_AddFieldMetas>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline></headline>
+		<subheadline></subheadline>
+		<content></content>
+		<footer></footer>
+		<template_widget>
+        <![CDATA[<div class="box"><div class="box-title"><h3><i class="fa fa-recorder"></i> {TEMPLATE_HEAD} </h3></div><div class="box-content"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>	
+	</Mcwork_Controller_Conf_AddFieldMetas>
+	<Mcwork_Controller_Conf_EditFieldMetas>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline></headline>
+		<subheadline></subheadline>
+		<content></content>
+		<footer></footer>
+		<template_widget>
+        <![CDATA[<div class="box"><div class="box-title"><h3><i class="fa fa-recorder"></i> {TEMPLATE_HEAD} </h3></div><div class="box-content"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>	
+	</Mcwork_Controller_Conf_EditFieldMetas>	
+	<Mcwork_Controller_Conf_DeleteFieldMetas>
+		<action>contenthandle</action>
+		<request>
+			<xhtmlrequest>1</xhtmlrequest>
+		</request>
+		<response>
+			<redirect>mcwork_fieldmetas</redirect>
+		</response>
+	</Mcwork_Controller_Conf_DeleteFieldMetas>	
 	<Mcwork_Controller_Admin_Logs>
 		<title></title>
 		<bodyTagAttribs></bodyTagAttribs>
@@ -18,7 +132,7 @@
 		<template>content/logs</template>
 	</Mcwork_Controller_Admin_Logs>
 	<Mcwork_Controller_Admin_Logs_Display>
-	    <action>displaycontent</action>
+		<action>displaycontent</action>
 		<title>Mcwork_Controller_Admin_Logs</title>
 		<bodyTagAttribs></bodyTagAttribs>
 		<headline>Mcwork_Controller_Admin_Logs</headline>
@@ -27,36 +141,37 @@
 		<footer></footer>
 		<template>content/filecontent</template>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title"><h3><i class="icon-reorder"></i> {TEMPLATE_HEAD} </h3></div><div class="box-content"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>		
-	</Mcwork_Controller_Admin_Logs_Display>	
+        <![CDATA[<div class="box"><div class="box-title"><h3><i class="fa fa-recorder"></i> {TEMPLATE_HEAD} </h3></div><div class="box-content"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+	</Mcwork_Controller_Admin_Logs_Display>
 	<Mcwork_Controller_Admin_Logs_Download>
-	    <action>downloadcontent</action>
+		<action>downloadcontent</action>
 		<response>
-		<header>
-		    <Content-type>application/text</Content-type>
-		    <Content-Disposition>attachment; filename=</Content-Disposition>
-		    <Expires>0</Expires>
-		    <Cache-Control>must-revalidate, post-check=0,pre-check=0</Cache-Control>
-		    <Pragma>public</Pragma>
-		</header>
+			<header>
+				<Content-type>application/text</Content-type>
+				<Content-Disposition>attachment; filename=</Content-Disposition>
+				<Expires>0</Expires>
+				<Cache-Control>must-revalidate, post-check=0,pre-check=0
+				</Cache-Control>
+				<Pragma>public</Pragma>
+			</header>
 		</response>
 		<template>content/download</template>
-	</Mcwork_Controller_Admin_Logs_Download>	
+	</Mcwork_Controller_Admin_Logs_Download>
 	<Mcwork_Controller_Admin_Logs_Clear>
-	<action>contenthandle</action>
-	<response>
-	<redirect>mcwork_logs</redirect>
-	</response>
+		<action>contenthandle</action>
+		<response>
+			<redirect>mcwork_logs</redirect>
+		</response>
 	</Mcwork_Controller_Admin_Logs_Clear>
 	<Mcwork_Controller_Admin_Logs_Delete>
-	<action>contenthandle</action>
-	<response>
-	<redirect>mcwork_logs</redirect>
-	</response>
-	</Mcwork_Controller_Admin_Logs_Delete>	
+		<action>contenthandle</action>
+		<response>
+			<redirect>mcwork_logs</redirect>
+		</response>
+	</Mcwork_Controller_Admin_Logs_Delete>
 	<Mcwork_Controller_Admin_Cache>
-	    <action>displaycontent</action>
+		<action>displaycontent</action>
 		<title>Mcwork_Controller_Admin_Cache</title>
 		<bodyTagAttribs></bodyTagAttribs>
 		<headline>Mcwork_Controller_Admin_Cache</headline>
@@ -64,12 +179,12 @@
 		<subheadline>List of cache files</subheadline>
 		<content></content>
 		<footer></footer>
-		<template>content/cachecontent</template>	
+		<template>content/cachecontent</template>
 	</Mcwork_Controller_Admin_Cache>
 	<Mcwork_Controller_Admin_Cache_Clear>
-	<action>contenthandle</action>
-	<response>
-	<redirect>mcwork_cache</redirect>
-	</response>
-	</Mcwork_Controller_Admin_Cache_Clear>			
+		<action>contenthandle</action>
+		<response>
+			<redirect>mcwork_cache</redirect>
+		</response>
+	</Mcwork_Controller_Admin_Cache_Clear>
 </pages>
