@@ -102,6 +102,24 @@ return array (
 						__DIR__ . '/../view' 
 				) 
 		),
+		
+		'doctrine' => array(
+				'driver' => array(
+						'contentinum_driver' => array(
+								'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+								'cache' => 'array',
+								'paths' => array(
+										__DIR__ . '/../src/Contentinum/Entity'
+								)
+						),
+						'orm_default' => array(
+								'drivers' => array(
+										'Contentinum\Entity' => 'contentinum_driver'
+								)
+						)
+				)
+		),		
+		
 		'contentinum_config' => array (
 				'templates_files' => array(
 			            'htmlwidgets' => CON_ROOT_PATH . '/data/locale/etc/templates/htmlwidgets.library.xml',
@@ -144,7 +162,7 @@ return array (
 										'member' => 'guest',
 										'author' => 'member',
 										'publisher' => 'author',
-										'manager' => 'publisher',
+								        'manager' => 'publisher',
 										'admin' => 'manager',
 										'root' => 'admin' 
 								),
