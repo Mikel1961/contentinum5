@@ -1,0 +1,7 @@
+<?php if ($this->success) { ?>
+<div class="alert alert-success">Successfully edit: <?php echo $this->messages; ?>  </div>
+<?php } ?>
+
+<?php if ($this->insertError) { ?>
+<div class="alert alert-error">Error when edit: <?php echo $this->messages; ?></div>
+<?php } ?>

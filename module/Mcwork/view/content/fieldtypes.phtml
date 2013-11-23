@@ -1,0 +1,98 @@
+<?php 
+use ContentinumComponents\Html\HtmlTable;
+use ContentinumComponents\Html\Table\FactoryTable;
+
+$tableFactory = new HtmlTable ( new FactoryTable () );
+
+// set table tag attributes
+$tableFactory->setAttributes ( 'class', 'table table-hover table-nomargin table-striped dataTable dataTable-tools' );
+$i = 0;
+$iClass = 0;
+$headlines = array (
+        '#' => array(),
+		'Fieldtypes' => array (),
+		'Scope' => array (
+				'head' => array (
+						'class' => 'hide-for-small' 
+				),
+				'body' => array (
+						'class' => 'hide-for-small' 
+				) 
+		),
+		'Registerd since' => array (
+				'head' => array (
+						'class' => 'hide-for-small text-right' 
+				),
+				'body' => array (
+						'class' => 'hide-for-small text-right' 
+				) 
+		)
+		 
+);
+$ihead = count ( $headlines );
+foreach ( $headlines as $column => $attributes ) {
+	$columns [] = $this->translate ( $column );
+	if (is_array ( $attributes ) && ! empty ( $attributes )) {
+		foreach ( $attributes as $area => $attribute ) {
+			switch ($area) {
+				case 'head' :
+					$tableFactory->setHeadlineAttributtes ( 'class', $attribute ['class'], $i );
+					break;
+				case 'body' :
+					$tableFactory->setTagAttributtes ( 'class', $attribute ['class'], $i );
+					break;
+				default :
+					break;
+			}
+		}
+	}
+	$i ++;
+}
+$tableFactory->setHeadline ( $columns );
+$i = 0;
+foreach ( $this->entries as $entry ) {
+        $i ++;
+        $tbl = array (
+        		'edit' =>
+        		array (
+        				'label' => 'Edit',
+        				'href' => '/mcwork/fieldtypes/edit/' .$entry->id,
+        				'attribs' => array (
+        						'title' => 'Edit item',
+        						'class' => 'small button'
+        				)
+        		),
+                'delete' =>
+                array (
+                		'label' => 'Delete',
+                		'href' => '/mcwork/fieldtypes/delete/' .$entry->id,
+                		'attribs' => array (
+                		        'data-name' => $entry->name,
+                		        'data-ident' => 'row'.$i,
+                				'title' => 'Delete item',
+                				'class' => 'small button alert deleteitem'
+                		)
+                )                
+        );
+		
+		
+		$rowContent = array ();
+		$rowContent[] = '<input id="row'.$i.'" type="checkbox" value="'.$entry->id.'" name="cb[]">';
+		$rowContent [] = $entry->name . $this->mcworkTableEdit ( $tbl );
+		$rowContent [] = $entry->typescope;
+		$rowContent [] = $entry->registerDate->format('d F Y H:i:s'); // date ( "d.m.Y H:i:s", $entry->registerDate );
+		$tableFactory->setHtmlContent ( $rowContent );
+	
+}
+
+$html = $tableFactory->display ();
+$html .= $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'content' ) );
+
+if (isset ( $this->widget )) {
+	$content = str_replace ( '{TEMPLATE_HEAD}', $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'subheadline' ) ), $this->widget );
+	echo str_replace ( '{TEMPLATE_CONTENT}', $html, $content );
+} else {
+	echo $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'subheadline' ) );
+	echo $html;
+}
+?>
