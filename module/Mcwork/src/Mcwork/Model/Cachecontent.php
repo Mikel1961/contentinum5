@@ -58,7 +58,17 @@ class Cachecontent extends StorageFiles
             'mcworkpages' => array(
                     'group' => 'Content',
                     'label' => 'Backend pages configuration and content',
-                    'metas' => null));
+                    'metas' => null),
+            'mcworktableedit' => array(
+                    'group' => 'Configuration',
+                    'label' => 'Table row edit toolbar',
+                    'metas' => null),
+            
+    		'mcworktoolbar' => array(
+    				'group' => 'Configuration',
+    				'label' => 'Table toolbar',
+    				'metas' => null),            
+            );
 
     /**
      * Fetch cache datas

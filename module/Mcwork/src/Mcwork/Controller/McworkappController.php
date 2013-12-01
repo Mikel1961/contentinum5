@@ -246,6 +246,13 @@ class McworkappController extends AbstractBackendController
             $view->setVariable('widget', $widget);
         }
         
+        if ( isset($content->toolbar) ){
+        	$view->setVariable('toolbarcontent', $this->getServiceLocator()->get('Mcwork\Toolbar'));
+        }
+        if ( isset($content->tableedit)){
+        	$view->setVariable('tableeditcontent', $this->getServiceLocator()->get('Mcwork\Tableedit'));
+        }
+        
         // set template file different from the default, if specified
         if (isset($content->template) && strlen($content->template) > 3) {
             $view->setTemplate($content->template);

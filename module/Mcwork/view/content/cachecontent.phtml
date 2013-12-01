@@ -65,10 +65,23 @@ foreach ( $this->entries as $area => $entry ) {
 								'class' => 'small button'
 						)
 				)
-		);		
+		);	
+		$tableedit = '';
+		if ( isset($this->tableeditcontent) ){
+			$links = array();
+			$tableedit = '';
+			$links = array (
+               'clear' =>
+				array (
+						'href' => '/mcwork/cache/clear/' .$area,
+						)
+				
+			);
+			$tableedit = $this->mcworkToolbar($links,true,$this->tableeditcontent->toArray());
+		}		
 
 		if (isset($entry['metas'])){
-			$clear = $this->mcworkTableEdit ( $tbl );
+			$clear = $tableedit;
 			$date = date ( "d.m.Y H:i:s", $entry['metas']['mtime']);
 		} else {
 			$clear = '';
@@ -87,9 +100,18 @@ foreach ( $this->entries as $area => $entry ) {
 
 $html = $tableFactory->display ();
 $html .= $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'content' ) );
+$toolbar = '';
+if ( isset($this->toolbarcontent) ){
+	$links = array(
+			'clear' => array(
+					'href' => '/mcwork/cache/clear/all',
+			),
+	);
+	$toolbar = $this->mcworkToolbar($links,true,$this->toolbarcontent->toArray());
+}
 
 if (isset ( $this->widget )) {
-	$content = str_replace ( '{TEMPLATE_HEAD}', $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'subheadline' ) ), $this->widget );
+	$content = str_replace ( '{TEMPLATE_HEADER}', $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'subheadline' ) ) . $toolbar, $this->widget );
 	echo str_replace ( '{TEMPLATE_CONTENT}', $html, $content );
 } else {
 	echo $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'subheadline' ) );

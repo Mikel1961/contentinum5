@@ -52,6 +52,28 @@ $tableFactory->setHeadline ( $columns );
 $i = 0;
 foreach ( $this->entries as $entry ) {
         $i ++;
+        $tableedit = '';
+        if ( isset($this->tableeditcontent) ){
+        	$links = array();
+        	$links = array (
+        			'edit' =>
+        			array (
+        					'href' => '/mcwork/fieldtypes/edit/' .$entry->id,
+        			),
+        			'delete' =>
+        			array (
+        					'href' =>'/mcwork/fieldtypes/delete/' .$entry->id,
+        					'attribs' => array (
+        							'data-name' => $entry->name,
+        							'data-ident' => 'row'.$i,
+        					)
+        			)
+        	);
+        	$tableedit = $this->mcworkToolbar($links,true,$this->tableeditcontent->toArray());
+        }        
+        
+        
+        
         $tbl = array (
         		'edit' =>
         		array (
@@ -87,9 +109,24 @@ foreach ( $this->entries as $entry ) {
 
 $html = $tableFactory->display ();
 $html .= $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'content' ) );
+$toolbar = '';
+if ( isset($this->toolbarcontent) ){
+	$links = array(
+			'add' => array(
+					'href' => '/mcwork/fieldtypes/add',
+			),
+			'edit' => array(
+					'href' => '/mcwork/fieldtypes/edit',
+			),
+			'delete' => array(
+					'href' => '/mcwork/fieldtypes/delete',
+			),
+	);
+	$toolbar = $this->mcworkToolbar($links,true,$this->toolbarcontent->toArray());
+}
 
 if (isset ( $this->widget )) {
-	$content = str_replace ( '{TEMPLATE_HEAD}', $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'subheadline' ) ), $this->widget );
+	$content = str_replace ( '{TEMPLATE_HEADER}', $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'subheadline' ) ) . $toolbar, $this->widget );
 	echo str_replace ( '{TEMPLATE_CONTENT}', $html, $content );
 } else {
 	echo $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'subheadline' ) );

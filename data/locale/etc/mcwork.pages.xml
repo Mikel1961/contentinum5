@@ -12,7 +12,7 @@
 		<title>Mcwork_Controller_Content_Medias</title>
 		<bodyTagAttribs></bodyTagAttribs>
 		<headline>Mcwork_Controller_Content_Medias</headline>
-		<columnright><![CDATA[<div id="clNewFolder" class="row collapse"><div class="small-9 columns"><input id="new-folder" type="text" placeholder="New Folder" pattern="^[a-z0-9-_]*$"><span class="errNewFolder"> </span></div><div class="small-3 columns"><a id="btnNewFolder" href="#" class="button prefix">New Folder</a></div></div>]]>
+		<columnright><![CDATA[<div id="clNewFolder" class="row collapse"><div class="small-9 columns"><input id="new-folder" type="text" placeholder="New Folder" pattern="^[a-z0-9-_]*$"><span class="errNewFolder"> </span></div><div class="small-3 columns"><a id="btnNewFolder" href="#" class="button postfix">New Folder</a></div></div>]]>
 		</columnright>
 		<subheadline>Media and Document files</subheadline>
 		<content></content>
@@ -34,14 +34,16 @@
 		<title></title>
 		<bodyTagAttribs></bodyTagAttribs>
 		<headline></headline>
-		<columnright><![CDATA[<p class="right"><a class="button" href="/mcwork/fieldtypes/add"><i class="fa fa-plus"></i></a><a id="btnTblEdit" class="button" href="/mcwork/fieldtypes/edit"><i class="fa fa-pencil"></i></a><a id="btnTblDelete" class="button" href="/mcwork/fieldtypes/delete"><i class="fa fa-trash-o"></i></a></p>]]></columnright>
-		<subheadline></subheadline>
+		<columnright></columnright>
+		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
 		<content></content>
 		<footer></footer>
 		<template>content/fieldtypes</template>	
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title"><h3><i class="fa fa-recorder"></i> {TEMPLATE_HEAD} </h3></div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>		
+        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>			
 	</Mcwork_Controller_Conf_Fieldtypes>
 	<Mcwork_Controller_Conf_AddFieldTypes>
 		<title></title>
@@ -82,13 +84,15 @@
 		<title></title>
 		<bodyTagAttribs></bodyTagAttribs>
 		<headline></headline>
-		<columnright><![CDATA[<p class="right"><a class="button" href="/mcwork/fieldmetas/add"><i class="fa fa-plus"></i></a></p>]]></columnright>
-		<subheadline></subheadline>
+		<columnright></columnright>
+		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
 		<content></content>
 		<footer></footer>
 		<template>content/fieldmetas</template>	
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title"><h3><i class="fa fa-recorder"></i> {TEMPLATE_HEAD} </h3></div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>		
 	</Mcwork_Controller_Conf_Fieldmetas>	
 	<Mcwork_Controller_Conf_AddFieldMetas>
@@ -175,11 +179,16 @@
 		<title>Mcwork_Controller_Admin_Cache</title>
 		<bodyTagAttribs></bodyTagAttribs>
 		<headline>Mcwork_Controller_Admin_Cache</headline>
-		<columnright><![CDATA[<p class="right"><a class="small button alert" href="/mcwork/cache/clear/all" title="Empty all cache storage">Clear all</a></p>]]></columnright>
+		<columnright></columnright>
 		<subheadline>List of cache files</subheadline>
 		<content></content>
 		<footer></footer>
 		<template>content/cachecontent</template>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>			
 	</Mcwork_Controller_Admin_Cache>
 	<Mcwork_Controller_Admin_Cache_Clear>
 		<action>contenthandle</action>
