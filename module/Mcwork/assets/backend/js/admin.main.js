@@ -186,6 +186,7 @@ function isSelected(){
 		
 	    $('#cancel-button').click(function(){
 	    	$('#modal').foundation('reveal', 'close');
+	    	$('#modal').html('');
 	    });
 
 		return false;
@@ -250,5 +251,8 @@ function isSelected(){
 
 })();
 
+
+$(document).ready(function() {
+	
+}); 
 $(document).foundation();
-$(document).ready(function() {}); 

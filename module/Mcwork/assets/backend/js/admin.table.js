@@ -37,7 +37,7 @@ $(document).ready(function() {
 	    	var dataName = $(this).attr('data-name');
 	    	var dataUrl = $(this).attr('href');
 	    	var dataIdent = $(this).attr('data-ident');	
-	    	
+	    	console.log('x: '+ dataIdent);
 	    	$('#alertMessages').html(' ');		
 			
 			$('#'+dataIdent).prop('checked',true);
@@ -135,7 +135,7 @@ $(document).ready(function() {
 			 
 			 if (false != value){
 			 	console.log(dataUrl + '/' + value);
-			 	//window.location.href = dataUrl + '/' + value;
+			 	window.location.href = dataUrl + '/' + value;
 			 	return true;
 			 }		
 				 
