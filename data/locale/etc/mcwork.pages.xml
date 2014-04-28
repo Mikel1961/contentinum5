@@ -9,7 +9,6 @@
         <![CDATA[<div class="box box-bordered"><div class="box-title"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 	</_defaults>
-	
 	<mcwork_preferences>
 		<title></title>
 		<bodyTagAttribs></bodyTagAttribs>
