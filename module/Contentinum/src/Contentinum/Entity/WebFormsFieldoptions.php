@@ -6,12 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use ContentinumComponents\Entity\AbstractEntity;
 
 /**
- * FieldTypeMetas
+ * WebFormsFieldoptions
  *
- * @ORM\Table(name="field_type_metas", uniqueConstraints={@ORM\UniqueConstraint(name="DATASCOPE", columns={"datascope"})}, indexes={@ORM\Index(name="FIELDTYPEREF", columns={"field_types_id"})})
+ * @ORM\Table(name="web_forms_fieldoptions", indexes={@ORM\Index(name="FORMFIELDREF", columns={"form_field_id"})})
  * @ORM\Entity
  */
-class FieldTypeMetas extends AbstractEntity
+class WebFormsFieldoptions extends AbstractEntity
 {
     /**
      * @var integer
@@ -25,37 +25,51 @@ class FieldTypeMetas extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=50, nullable=false)
+     * @ORM\Column(name="option_group", type="string", length=250, nullable=false)
      */
-    private $name;
+    private $optionGroup = ' ';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="datascope", type="string", length=60, nullable=false)
+     * @ORM\Column(name="option_value", type="string", length=250, nullable=false)
      */
-    private $datascope;
+    private $optionValue = ' ';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="params", type="text", nullable=false)
+     * @ORM\Column(name="option_label", type="string", length=250, nullable=false)
      */
-    private $params = '';
+    private $optionLabel = ' ';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="option_labeltitle", type="string", length=250, nullable=false)
+     */
+    private $optionLabeltitle = ' ';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="img_source", type="string", length=250, nullable=false)
+     */
+    private $imgSource = ' ';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="created_by", type="integer", nullable=false)
      */
-    private $createdBy = '0';
+    private $createdBy = 0;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="update_by", type="integer", nullable=false)
      */
-    private $updateBy = '0';
+    private $updateBy = 0;
 
     /**
      * @var \DateTime
@@ -72,14 +86,14 @@ class FieldTypeMetas extends AbstractEntity
     private $upDate = '0000-00-00 00:00:00';
 
     /**
-     * @var \Contentinum\Entity\FieldTypes
+     * @var \Contentinum\Entity\WebFormsField
      *
-     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\FieldTypes")
+     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\WebFormsField")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="field_types_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="form_field_id", referencedColumnName="id")
      * })
      */
-    private $fieldTypes;
+    private $formField;
 
     /**
      * Construct
@@ -125,10 +139,9 @@ class FieldTypeMetas extends AbstractEntity
     }
     
     /**
-     * Set id
+     * @param number $id
      *
-     * @param integer $id
-     * @return FieldTypeMetas
+     * @return WebFormsFieldoptions
      */
     public function setId($id)
     {
@@ -148,79 +161,125 @@ class FieldTypeMetas extends AbstractEntity
     }
 
     /**
-     * Set name
+     * Set optionGroup
      *
-     * @param string $name
-     * @return FieldTypeMetas
+     * @param string $optionGroup
+     * @return WebFormsFieldoptions
      */
-    public function setName($name)
+    public function setOptionGroup($optionGroup)
     {
-        $this->name = $name;
+        $this->optionGroup = $optionGroup;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get optionGroup
      *
      * @return string 
      */
-    public function getName()
+    public function getOptionGroup()
     {
-        return $this->name;
+        return $this->optionGroup;
     }
 
     /**
-     * Set datascope
+     * Set optionValue
      *
-     * @param string $datascope
-     * @return FieldTypeMetas
+     * @param string $optionValue
+     * @return WebFormsFieldoptions
      */
-    public function setDatascope($datascope)
+    public function setOptionValue($optionValue)
     {
-        $this->datascope = $datascope;
+        $this->optionValue = $optionValue;
 
         return $this;
     }
 
     /**
-     * Get datascope
+     * Get optionValue
      *
      * @return string 
      */
-    public function getDatascope()
+    public function getOptionValue()
     {
-        return $this->datascope;
+        return $this->optionValue;
     }
 
     /**
-     * Set params
+     * Set optionLabel
      *
-     * @param string $params
-     * @return FieldTypeMetas
+     * @param string $optionLabel
+     * @return WebFormsFieldoptions
      */
-    public function setParams($params)
+    public function setOptionLabel($optionLabel)
     {
-        $this->params = $params;
+        $this->optionLabel = $optionLabel;
 
         return $this;
     }
 
     /**
-     * Get params
+     * Get optionLabel
      *
      * @return string 
      */
-    public function getParams()
+    public function getOptionLabel()
     {
-        return $this->params;
+        return $this->optionLabel;
+    }
+
+    /**
+     * Set optionLabeltitle
+     *
+     * @param string $optionLabeltitle
+     * @return WebFormsFieldoptions
+     */
+    public function setOptionLabeltitle($optionLabeltitle)
+    {
+        $this->optionLabeltitle = $optionLabeltitle;
+
+        return $this;
+    }
+
+    /**
+     * Get optionLabeltitle
+     *
+     * @return string 
+     */
+    public function getOptionLabeltitle()
+    {
+        return $this->optionLabeltitle;
+    }
+
+    /**
+     * Set imgSource
+     *
+     * @param string $imgSource
+     * @return WebFormsFieldoptions
+     */
+    public function setImgSource($imgSource)
+    {
+        $this->imgSource = $imgSource;
+
+        return $this;
+    }
+
+    /**
+     * Get imgSource
+     *
+     * @return string 
+     */
+    public function getImgSource()
+    {
+        return $this->imgSource;
     }
 
     /**
      * Set createdBy
      *
      * @param integer $createdBy
-     * @return FieldTypeMetas
+     * @return WebFormsFieldoptions
      */
     public function setCreatedBy($createdBy)
     {
@@ -243,7 +302,7 @@ class FieldTypeMetas extends AbstractEntity
      * Set updateBy
      *
      * @param integer $updateBy
-     * @return FieldTypeMetas
+     * @return WebFormsFieldoptions
      */
     public function setUpdateBy($updateBy)
     {
@@ -266,7 +325,7 @@ class FieldTypeMetas extends AbstractEntity
      * Set registerDate
      *
      * @param \DateTime $registerDate
-     * @return FieldTypeMetas
+     * @return WebFormsFieldoptions
      */
     public function setRegisterDate($registerDate)
     {
@@ -289,7 +348,7 @@ class FieldTypeMetas extends AbstractEntity
      * Set upDate
      *
      * @param \DateTime $upDate
-     * @return FieldTypeMetas
+     * @return WebFormsFieldoptions
      */
     public function setUpDate($upDate)
     {
@@ -309,25 +368,25 @@ class FieldTypeMetas extends AbstractEntity
     }
 
     /**
-     * Set fieldTypes
+     * Set formField
      *
-     * @param \Contentinum\Entity\FieldTypes $fieldTypes
-     * @return FieldTypeMetas
+     * @param \Contentinum\Entity\WebFormsField $formField
+     * @return WebFormsFieldoptions
      */
-    public function setFieldTypes(\Contentinum\Entity\FieldTypes $fieldTypes = null)
+    public function setFormField(\Contentinum\Entity\WebFormsField $formField = null)
     {
-        $this->fieldTypes = $fieldTypes;
+        $this->formField = $formField;
 
         return $this;
     }
 
     /**
-     * Get fieldTypes
+     * Get formField
      *
-     * @return \Contentinum\Entity\FieldTypes 
+     * @return \Contentinum\Entity\WebFormsField 
      */
-    public function getFieldTypes()
+    public function getFormField()
     {
-        return $this->fieldTypes;
+        return $this->formField;
     }
 }

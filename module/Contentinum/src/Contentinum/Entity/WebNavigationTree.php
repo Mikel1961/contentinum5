@@ -6,12 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use ContentinumComponents\Entity\AbstractEntity;
 
 /**
- * FieldTypeMetas
+ * WebNavigationTree
  *
- * @ORM\Table(name="field_type_metas", uniqueConstraints={@ORM\UniqueConstraint(name="DATASCOPE", columns={"datascope"})}, indexes={@ORM\Index(name="FIELDTYPEREF", columns={"field_types_id"})})
+ * @ORM\Table(name="web_navigation_tree", indexes={@ORM\Index(name="PAGES", columns={"web_pages_id"}), @ORM\Index(name="PARENTFROM", columns={"parent_from"}), @ORM\Index(name="TREES", columns={"web_navigation_id"})})
  * @ORM\Entity
  */
-class FieldTypeMetas extends AbstractEntity
+class WebNavigationTree extends AbstractEntity
 {
     /**
      * @var integer
@@ -23,18 +23,39 @@ class FieldTypeMetas extends AbstractEntity
     private $id;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="name", type="string", length=50, nullable=false)
+     * @ORM\Column(name="web_navigation_id", type="integer", nullable=false)
      */
-    private $name;
+    private $webNavigationId = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="parent_from", type="integer", nullable=false)
+     */
+    private $parentFrom = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="item_rang", type="integer", nullable=false)
+     */
+    private $itemRang = '0';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="datascope", type="string", length=60, nullable=false)
+     * @ORM\Column(name="rel_link", type="string", length=50, nullable=false)
      */
-    private $datascope;
+    private $relLink = 'no';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="class", type="string", length=50, nullable=false)
+     */
+    private $class = '';
 
     /**
      * @var string
@@ -42,6 +63,20 @@ class FieldTypeMetas extends AbstractEntity
      * @ORM\Column(name="params", type="text", nullable=false)
      */
     private $params = '';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="publish", type="string", length=10, nullable=false)
+     */
+    private $publish = 'no';
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="deleted", type="boolean", nullable=false)
+     */
+    private $deleted = '0';
 
     /**
      * @var integer
@@ -72,14 +107,14 @@ class FieldTypeMetas extends AbstractEntity
     private $upDate = '0000-00-00 00:00:00';
 
     /**
-     * @var \Contentinum\Entity\FieldTypes
+     * @var \Contentinum\Entity\WebPages
      *
-     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\FieldTypes")
+     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\WebPages")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="field_types_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="web_pages_id", referencedColumnName="id")
      * })
      */
-    private $fieldTypes;
+    private $webPages;
 
     /**
      * Construct
@@ -125,10 +160,9 @@ class FieldTypeMetas extends AbstractEntity
     }
     
     /**
-     * Set id
+     * @param number $id
      *
-     * @param integer $id
-     * @return FieldTypeMetas
+     * @return WebNavigationTree
      */
     public function setId($id)
     {
@@ -148,56 +182,125 @@ class FieldTypeMetas extends AbstractEntity
     }
 
     /**
-     * Set name
+     * Set webNavigationId
      *
-     * @param string $name
-     * @return FieldTypeMetas
+     * @param integer $webNavigationId
+     * @return WebNavigationTree
      */
-    public function setName($name)
+    public function setWebNavigationId($webNavigationId)
     {
-        $this->name = $name;
+        $this->webNavigationId = $webNavigationId;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get webNavigationId
      *
-     * @return string 
+     * @return integer 
      */
-    public function getName()
+    public function getWebNavigationId()
     {
-        return $this->name;
+        return $this->webNavigationId;
     }
 
     /**
-     * Set datascope
+     * Set parentFrom
      *
-     * @param string $datascope
-     * @return FieldTypeMetas
+     * @param integer $parentFrom
+     * @return WebNavigationTree
      */
-    public function setDatascope($datascope)
+    public function setParentFrom($parentFrom)
     {
-        $this->datascope = $datascope;
+        $this->parentFrom = $parentFrom;
 
         return $this;
     }
 
     /**
-     * Get datascope
+     * Get parentFrom
+     *
+     * @return integer 
+     */
+    public function getParentFrom()
+    {
+        return $this->parentFrom;
+    }
+
+    /**
+     * Set itemRang
+     *
+     * @param integer $itemRang
+     * @return WebNavigationTree
+     */
+    public function setItemRang($itemRang)
+    {
+        $this->itemRang = $itemRang;
+
+        return $this;
+    }
+
+    /**
+     * Get itemRang
+     *
+     * @return integer 
+     */
+    public function getItemRang()
+    {
+        return $this->itemRang;
+    }
+
+    /**
+     * Set relLink
+     *
+     * @param string $relLink
+     * @return WebNavigationTree
+     */
+    public function setRelLink($relLink)
+    {
+        $this->relLink = $relLink;
+
+        return $this;
+    }
+
+    /**
+     * Get relLink
      *
      * @return string 
      */
-    public function getDatascope()
+    public function getRelLink()
     {
-        return $this->datascope;
+        return $this->relLink;
+    }
+
+    /**
+     * Set class
+     *
+     * @param string $class
+     * @return WebNavigationTree
+     */
+    public function setClass($class)
+    {
+        $this->class = $class;
+
+        return $this;
+    }
+
+    /**
+     * Get class
+     *
+     * @return string 
+     */
+    public function getClass()
+    {
+        return $this->class;
     }
 
     /**
      * Set params
      *
      * @param string $params
-     * @return FieldTypeMetas
+     * @return WebNavigationTree
      */
     public function setParams($params)
     {
@@ -217,10 +320,56 @@ class FieldTypeMetas extends AbstractEntity
     }
 
     /**
+     * Set publish
+     *
+     * @param string $publish
+     * @return WebNavigationTree
+     */
+    public function setPublish($publish)
+    {
+        $this->publish = $publish;
+
+        return $this;
+    }
+
+    /**
+     * Get publish
+     *
+     * @return string 
+     */
+    public function getPublish()
+    {
+        return $this->publish;
+    }
+
+    /**
+     * Set deleted
+     *
+     * @param boolean $deleted
+     * @return WebNavigationTree
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    /**
+     * Get deleted
+     *
+     * @return boolean 
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
      * Set createdBy
      *
      * @param integer $createdBy
-     * @return FieldTypeMetas
+     * @return WebNavigationTree
      */
     public function setCreatedBy($createdBy)
     {
@@ -243,7 +392,7 @@ class FieldTypeMetas extends AbstractEntity
      * Set updateBy
      *
      * @param integer $updateBy
-     * @return FieldTypeMetas
+     * @return WebNavigationTree
      */
     public function setUpdateBy($updateBy)
     {
@@ -266,7 +415,7 @@ class FieldTypeMetas extends AbstractEntity
      * Set registerDate
      *
      * @param \DateTime $registerDate
-     * @return FieldTypeMetas
+     * @return WebNavigationTree
      */
     public function setRegisterDate($registerDate)
     {
@@ -289,7 +438,7 @@ class FieldTypeMetas extends AbstractEntity
      * Set upDate
      *
      * @param \DateTime $upDate
-     * @return FieldTypeMetas
+     * @return WebNavigationTree
      */
     public function setUpDate($upDate)
     {
@@ -309,25 +458,25 @@ class FieldTypeMetas extends AbstractEntity
     }
 
     /**
-     * Set fieldTypes
+     * Set webPages
      *
-     * @param \Contentinum\Entity\FieldTypes $fieldTypes
-     * @return FieldTypeMetas
+     * @param \Contentinum\Entity\WebPages $webPages
+     * @return WebNavigationTree
      */
-    public function setFieldTypes(\Contentinum\Entity\FieldTypes $fieldTypes = null)
+    public function setWebPages(\Contentinum\Entity\WebPages $webPages = null)
     {
-        $this->fieldTypes = $fieldTypes;
+        $this->webPages = $webPages;
 
         return $this;
     }
 
     /**
-     * Get fieldTypes
+     * Get webPages
      *
-     * @return \Contentinum\Entity\FieldTypes 
+     * @return \Contentinum\Entity\WebPages 
      */
-    public function getFieldTypes()
+    public function getWebPages()
     {
-        return $this->fieldTypes;
+        return $this->webPages;
     }
 }

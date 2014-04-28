@@ -8,7 +8,7 @@ use ContentinumComponents\Entity\AbstractEntity;
 /**
  * FieldTypes
  *
- * @ORM\Table(name="field_types")
+ * @ORM\Table(name="field_types", uniqueConstraints={@ORM\UniqueConstraint(name="TYPESCOPE", columns={"typescope"})})
  * @ORM\Entity
  */
 class FieldTypes extends AbstractEntity
@@ -48,93 +48,86 @@ class FieldTypes extends AbstractEntity
      *
      * @ORM\Column(name="created_by", type="integer", nullable=false)
      */
-    private $createdBy;
+    private $createdBy = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="update_by", type="integer", nullable=false)
      */
-    private $updateBy;
+    private $updateBy = '0';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="register_date", type="datetime", nullable=false)
      */
-    private $registerDate;
+    private $registerDate = '0000-00-00 00:00:00';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="up_date", type="datetime", nullable=false)
      */
-    private $upDate;
+    private $upDate = '0000-00-00 00:00:00';
 
-    
     /**
      * Construct
      * @param array $options
      */
-	public function __construct (array $options = null)
+    public function __construct (array $options = null)
     {
     	if (is_array($options)) {
     		$this->setOptions($options);
     	}
-    
-    }    
+    }
     
     /** (non-PHPdoc)
-     * @see \Contentinum\Entity\AbstractEntity::getEntityName()
+     * @see \ContentinumComponents\Entity\AbstractEntity::getEntityName()
      */
     public function getEntityName()
     {
     	return get_class($this);
+    }
     
-    }    
+    /** (non-PHPdoc)
+     * @see \ContentinumComponents\Entity\AbstractEntity::getPrimaryKey()
+     */
+    public function getPrimaryKey()
+    {
+    	return 'id';
+    }
     
-    /**
-     * (non-PHPdoc)
-     * @see \Contentinum\Entity\AbstractEntity::getProperties()
+    /** (non-PHPdoc)
+     * @see \ContentinumComponents\Entity\AbstractEntity::getPrimaryValue()
+     */
+    public function getPrimaryValue()
+    {
+    	return $this->id;
+    }
+    
+    /** (non-PHPdoc)
+     * @see \ContentinumComponents\Entity\AbstractEntity::getProperties()
      */
     public function getProperties()
     {
     	return get_object_vars($this);
-    }    
+    }
+    
+    
+    
+    /**
+     * @param number $id
+     * @return FieldTypes
+     */
+    public function setId($id)
+    {
+    	$this->id = $id;
+    
+    	return $this;
+    }
 
-
-    /** (non-PHPdoc)
-	 * @see \Contentinum\Entity\AbstractEntity::getPrimaryKey()
-	 */
-	public function getPrimaryKey() 
-	{
-		return 'id';
-		
-	}
-
-	/** (non-PHPdoc)
-	 * @see \Contentinum\Entity\AbstractEntity::getPrimaryProperty()
-	 */
-	public function getPrimaryValue() 
-	{
-		return $this->id;
-		
-	}
-	
-	/**
-	 * Set id
-	 *
-	 * @param string $id
-	 * @return FieldTypes
-	 */
-	public function setId($id)
-	{
-		$this->id = $id;
-	
-		return $this;
-	}	
-	
-	/**
+    /**
      * Get id
      *
      * @return integer 
@@ -153,7 +146,7 @@ class FieldTypes extends AbstractEntity
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
@@ -176,7 +169,7 @@ class FieldTypes extends AbstractEntity
     public function setTypescope($typescope)
     {
         $this->typescope = $typescope;
-    
+
         return $this;
     }
 
@@ -199,7 +192,7 @@ class FieldTypes extends AbstractEntity
     public function setParams($params)
     {
         $this->params = $params;
-    
+
         return $this;
     }
 
@@ -222,7 +215,7 @@ class FieldTypes extends AbstractEntity
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
-    
+
         return $this;
     }
 
@@ -245,7 +238,7 @@ class FieldTypes extends AbstractEntity
     public function setUpdateBy($updateBy)
     {
         $this->updateBy = $updateBy;
-    
+
         return $this;
     }
 
@@ -268,7 +261,7 @@ class FieldTypes extends AbstractEntity
     public function setRegisterDate($registerDate)
     {
         $this->registerDate = $registerDate;
-    
+
         return $this;
     }
 
@@ -291,7 +284,7 @@ class FieldTypes extends AbstractEntity
     public function setUpDate($upDate)
     {
         $this->upDate = $upDate;
-    
+
         return $this;
     }
 

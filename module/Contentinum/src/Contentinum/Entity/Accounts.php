@@ -8,7 +8,7 @@ use ContentinumComponents\Entity\AbstractEntity;
 /**
  * Accounts
  *
- * @ORM\Table(name="accounts")
+ * @ORM\Table(name="accounts", uniqueConstraints={@ORM\UniqueConstraint(name="ACCOUNTIDENT", columns={"account_id"}), @ORM\UniqueConstraint(name="ACCOUNTSCOPE", columns={"account_name"})}, indexes={@ORM\Index(name="ADDRESSIDENT", columns={"addresses_id"}), @ORM\Index(name="ORGANISATION", columns={"organisation"}), @ORM\Index(name="FIELDMETADATAS", columns={"field_metas_id"})})
  * @ORM\Entity
  */
 class Accounts extends AbstractEntity
@@ -18,7 +18,7 @@ class Accounts extends AbstractEntity
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $id;
 
@@ -27,7 +27,7 @@ class Accounts extends AbstractEntity
      *
      * @ORM\Column(name="addresses_id", type="integer", nullable=false)
      */
-    private $addressesId;
+    private $addressesId = 0;
 
     /**
      * @var string
@@ -41,7 +41,7 @@ class Accounts extends AbstractEntity
      *
      * @ORM\Column(name="parent_id", type="string", length=36, nullable=false)
      */
-    private $parentId;
+    private $parentId = 0;
 
     /**
      * @var string
@@ -62,7 +62,7 @@ class Accounts extends AbstractEntity
      *
      * @ORM\Column(name="organisation_ext", type="string", length=250, nullable=false)
      */
-    private $organisationExt;
+    private $organisationExt = '';
 
     /**
      * @var string
@@ -76,119 +76,119 @@ class Accounts extends AbstractEntity
      *
      * @ORM\Column(name="img_logo", type="string", length=250, nullable=false)
      */
-    private $imgLogo;
+    private $imgLogo = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="img_source", type="string", length=250, nullable=false)
      */
-    private $imgSource;
+    private $imgSource = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="img_large", type="string", length=250, nullable=false)
      */
-    private $imgLarge;
+    private $imgLarge = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="account_fax", type="string", length=25, nullable=false)
      */
-    private $accountFax;
+    private $accountFax = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="account_phone", type="string", length=25, nullable=false)
      */
-    private $accountPhone;
+    private $accountPhone = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="phone_alternate", type="string", length=25, nullable=false)
      */
-    private $phoneAlternate;
+    private $phoneAlternate = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="account_email", type="string", length=100, nullable=false)
      */
-    private $accountEmail;
+    private $accountEmail = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="basedir", type="string", length=500, nullable=false)
      */
-    private $basedir;
+    private $basedir = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="internet", type="string", length=250, nullable=false)
      */
-    private $internet;
+    private $internet = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="params", type="text", nullable=false)
      */
-    private $params;
+    private $params = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="publish", type="string", length=10, nullable=false)
      */
-    private $publish;
+    private $publish = 'no';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="webentry", type="integer", nullable=false)
      */
-    private $webentry;
+    private $webentry = '0';
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="deleted", type="boolean", nullable=false)
      */
-    private $deleted;
+    private $deleted = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="created_by", type="integer", nullable=false)
      */
-    private $createdBy;
+    private $createdBy = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="update_by", type="integer", nullable=false)
      */
-    private $updateBy;
+    private $updateBy = '0';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="register_date", type="datetime", nullable=false)
      */
-    private $registerDate;
+    private $registerDate = '0000-00-00 00:00:00';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="up_date", type="datetime", nullable=false)
      */
-    private $upDate;
+    private $upDate = '0000-00-00 00:00:00';
 
     /**
      * @var \Contentinum\Entity\FieldTypeMetas
@@ -200,7 +200,6 @@ class Accounts extends AbstractEntity
      */
     private $fieldMetas;
 
-    
     /**
      * Construct
      * @param array $options
@@ -210,46 +209,51 @@ class Accounts extends AbstractEntity
     	if (is_array($options)) {
     		$this->setOptions($options);
     	}
-    
     }
     
     /** (non-PHPdoc)
-     * @see \Contentinum\Entity\AbstractEntity::getEntityName()
+     * @see \ContentinumComponents\Entity\AbstractEntity::getEntityName()
      */
     public function getEntityName()
     {
     	return get_class($this);
-    
     }
     
-    /**
-     * (non-PHPdoc)
-     * @see \Contentinum\Entity\AbstractEntity::getProperties()
+    /** (non-PHPdoc)
+     * @see \ContentinumComponents\Entity\AbstractEntity::getPrimaryKey()
+     */
+    public function getPrimaryKey()
+    {
+    	return 'id';
+    }
+    
+    /** (non-PHPdoc)
+     * @see \ContentinumComponents\Entity\AbstractEntity::getPrimaryValue()
+     */
+    public function getPrimaryValue()
+    {
+    	return $this->id;
+    }
+    
+    /** (non-PHPdoc)
+     * @see \ContentinumComponents\Entity\AbstractEntity::getProperties()
      */
     public function getProperties()
     {
     	return get_object_vars($this);
     }
     
-    
-    /** (non-PHPdoc)
-     * @see \Contentinum\Entity\AbstractEntity::getPrimaryKey()
+    /**
+     * @param number $id
+     *
+     * @return Accounts
      */
-    public function getPrimaryKey()
+    public function setId($id)
     {
-    	return 'id';
+    	$this->id = $id;
     
+    	return $this;
     }
-    
-    /** (non-PHPdoc)
-     * @see \Contentinum\Entity\AbstractEntity::getPrimaryProperty()
-     */
-    public function getPrimaryValue()
-    {
-    	return $this->id;
-    
-    }    
-
 
     /**
      * Get id
@@ -270,7 +274,7 @@ class Accounts extends AbstractEntity
     public function setAddressesId($addressesId)
     {
         $this->addressesId = $addressesId;
-    
+
         return $this;
     }
 
@@ -293,7 +297,7 @@ class Accounts extends AbstractEntity
     public function setAccountId($accountId)
     {
         $this->accountId = $accountId;
-    
+
         return $this;
     }
 
@@ -316,7 +320,7 @@ class Accounts extends AbstractEntity
     public function setParentId($parentId)
     {
         $this->parentId = $parentId;
-    
+
         return $this;
     }
 
@@ -339,7 +343,7 @@ class Accounts extends AbstractEntity
     public function setAccountName($accountName)
     {
         $this->accountName = $accountName;
-    
+
         return $this;
     }
 
@@ -362,7 +366,7 @@ class Accounts extends AbstractEntity
     public function setOrganisation($organisation)
     {
         $this->organisation = $organisation;
-    
+
         return $this;
     }
 
@@ -385,7 +389,7 @@ class Accounts extends AbstractEntity
     public function setOrganisationExt($organisationExt)
     {
         $this->organisationExt = $organisationExt;
-    
+
         return $this;
     }
 
@@ -408,7 +412,7 @@ class Accounts extends AbstractEntity
     public function setOrganisationScope($organisationScope)
     {
         $this->organisationScope = $organisationScope;
-    
+
         return $this;
     }
 
@@ -431,7 +435,7 @@ class Accounts extends AbstractEntity
     public function setImgLogo($imgLogo)
     {
         $this->imgLogo = $imgLogo;
-    
+
         return $this;
     }
 
@@ -454,7 +458,7 @@ class Accounts extends AbstractEntity
     public function setImgSource($imgSource)
     {
         $this->imgSource = $imgSource;
-    
+
         return $this;
     }
 
@@ -477,7 +481,7 @@ class Accounts extends AbstractEntity
     public function setImgLarge($imgLarge)
     {
         $this->imgLarge = $imgLarge;
-    
+
         return $this;
     }
 
@@ -500,7 +504,7 @@ class Accounts extends AbstractEntity
     public function setAccountFax($accountFax)
     {
         $this->accountFax = $accountFax;
-    
+
         return $this;
     }
 
@@ -523,7 +527,7 @@ class Accounts extends AbstractEntity
     public function setAccountPhone($accountPhone)
     {
         $this->accountPhone = $accountPhone;
-    
+
         return $this;
     }
 
@@ -546,7 +550,7 @@ class Accounts extends AbstractEntity
     public function setPhoneAlternate($phoneAlternate)
     {
         $this->phoneAlternate = $phoneAlternate;
-    
+
         return $this;
     }
 
@@ -569,7 +573,7 @@ class Accounts extends AbstractEntity
     public function setAccountEmail($accountEmail)
     {
         $this->accountEmail = $accountEmail;
-    
+
         return $this;
     }
 
@@ -592,7 +596,7 @@ class Accounts extends AbstractEntity
     public function setBasedir($basedir)
     {
         $this->basedir = $basedir;
-    
+
         return $this;
     }
 
@@ -615,7 +619,7 @@ class Accounts extends AbstractEntity
     public function setInternet($internet)
     {
         $this->internet = $internet;
-    
+
         return $this;
     }
 
@@ -638,7 +642,7 @@ class Accounts extends AbstractEntity
     public function setParams($params)
     {
         $this->params = $params;
-    
+
         return $this;
     }
 
@@ -661,7 +665,7 @@ class Accounts extends AbstractEntity
     public function setPublish($publish)
     {
         $this->publish = $publish;
-    
+
         return $this;
     }
 
@@ -684,7 +688,7 @@ class Accounts extends AbstractEntity
     public function setWebentry($webentry)
     {
         $this->webentry = $webentry;
-    
+
         return $this;
     }
 
@@ -707,7 +711,7 @@ class Accounts extends AbstractEntity
     public function setDeleted($deleted)
     {
         $this->deleted = $deleted;
-    
+
         return $this;
     }
 
@@ -730,7 +734,7 @@ class Accounts extends AbstractEntity
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
-    
+
         return $this;
     }
 
@@ -753,7 +757,7 @@ class Accounts extends AbstractEntity
     public function setUpdateBy($updateBy)
     {
         $this->updateBy = $updateBy;
-    
+
         return $this;
     }
 
@@ -776,7 +780,7 @@ class Accounts extends AbstractEntity
     public function setRegisterDate($registerDate)
     {
         $this->registerDate = $registerDate;
-    
+
         return $this;
     }
 
@@ -799,7 +803,7 @@ class Accounts extends AbstractEntity
     public function setUpDate($upDate)
     {
         $this->upDate = $upDate;
-    
+
         return $this;
     }
 
@@ -822,14 +826,14 @@ class Accounts extends AbstractEntity
     public function setFieldMetas(\Contentinum\Entity\FieldTypeMetas $fieldMetas = null)
     {
         $this->fieldMetas = $fieldMetas;
-    
+
         return $this;
     }
 
     /**
      * Get fieldMetas
      *
-     * @return \Mcwork\Entity\FieldTypeMetas 
+     * @return \Contentinum\Entity\FieldTypeMetas 
      */
     public function getFieldMetas()
     {

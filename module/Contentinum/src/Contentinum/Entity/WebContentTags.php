@@ -6,17 +6,17 @@ use Doctrine\ORM\Mapping as ORM;
 use ContentinumComponents\Entity\AbstractEntity;
 
 /**
- * FieldTypeMetas
+ * WebContentTags
  *
- * @ORM\Table(name="field_type_metas", uniqueConstraints={@ORM\UniqueConstraint(name="DATASCOPE", columns={"datascope"})}, indexes={@ORM\Index(name="FIELDTYPEREF", columns={"field_types_id"})})
+ * @ORM\Table(name="web_content_tags")
  * @ORM\Entity
  */
-class FieldTypeMetas extends AbstractEntity
+class WebContentTags extends AbstractEntity
 {
     /**
-     * @var integer
+     * @var boolean
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="boolean", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      */
@@ -32,16 +32,16 @@ class FieldTypeMetas extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="datascope", type="string", length=60, nullable=false)
+     * @ORM\Column(name="scope", type="string", length=50, nullable=false)
      */
-    private $datascope;
+    private $scope;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="params", type="text", nullable=false)
+     * @ORM\Column(name="publish", type="string", length=12, nullable=false)
      */
-    private $params = '';
+    private $publish = 'no';
 
     /**
      * @var integer
@@ -70,16 +70,6 @@ class FieldTypeMetas extends AbstractEntity
      * @ORM\Column(name="up_date", type="datetime", nullable=false)
      */
     private $upDate = '0000-00-00 00:00:00';
-
-    /**
-     * @var \Contentinum\Entity\FieldTypes
-     *
-     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\FieldTypes")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="field_types_id", referencedColumnName="id")
-     * })
-     */
-    private $fieldTypes;
 
     /**
      * Construct
@@ -125,22 +115,22 @@ class FieldTypeMetas extends AbstractEntity
     }
     
     /**
-     * Set id
+     * @param number $id
      *
-     * @param integer $id
-     * @return FieldTypeMetas
+     * @return WebContentTags
      */
     public function setId($id)
     {
     	$this->id = $id;
     
     	return $this;
-    }
+    }    
+
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return boolean 
      */
     public function getId()
     {
@@ -151,7 +141,7 @@ class FieldTypeMetas extends AbstractEntity
      * Set name
      *
      * @param string $name
-     * @return FieldTypeMetas
+     * @return WebContentTags
      */
     public function setName($name)
     {
@@ -171,56 +161,56 @@ class FieldTypeMetas extends AbstractEntity
     }
 
     /**
-     * Set datascope
+     * Set scope
      *
-     * @param string $datascope
-     * @return FieldTypeMetas
+     * @param string $scope
+     * @return WebContentTags
      */
-    public function setDatascope($datascope)
+    public function setScope($scope)
     {
-        $this->datascope = $datascope;
+        $this->scope = $scope;
 
         return $this;
     }
 
     /**
-     * Get datascope
+     * Get scope
      *
      * @return string 
      */
-    public function getDatascope()
+    public function getScope()
     {
-        return $this->datascope;
+        return $this->scope;
     }
 
     /**
-     * Set params
+     * Set publish
      *
-     * @param string $params
-     * @return FieldTypeMetas
+     * @param string $publish
+     * @return WebContentTags
      */
-    public function setParams($params)
+    public function setPublish($publish)
     {
-        $this->params = $params;
+        $this->publish = $publish;
 
         return $this;
     }
 
     /**
-     * Get params
+     * Get publish
      *
      * @return string 
      */
-    public function getParams()
+    public function getPublish()
     {
-        return $this->params;
+        return $this->publish;
     }
 
     /**
      * Set createdBy
      *
      * @param integer $createdBy
-     * @return FieldTypeMetas
+     * @return WebContentTags
      */
     public function setCreatedBy($createdBy)
     {
@@ -243,7 +233,7 @@ class FieldTypeMetas extends AbstractEntity
      * Set updateBy
      *
      * @param integer $updateBy
-     * @return FieldTypeMetas
+     * @return WebContentTags
      */
     public function setUpdateBy($updateBy)
     {
@@ -266,7 +256,7 @@ class FieldTypeMetas extends AbstractEntity
      * Set registerDate
      *
      * @param \DateTime $registerDate
-     * @return FieldTypeMetas
+     * @return WebContentTags
      */
     public function setRegisterDate($registerDate)
     {
@@ -289,7 +279,7 @@ class FieldTypeMetas extends AbstractEntity
      * Set upDate
      *
      * @param \DateTime $upDate
-     * @return FieldTypeMetas
+     * @return WebContentTags
      */
     public function setUpDate($upDate)
     {
@@ -306,28 +296,5 @@ class FieldTypeMetas extends AbstractEntity
     public function getUpDate()
     {
         return $this->upDate;
-    }
-
-    /**
-     * Set fieldTypes
-     *
-     * @param \Contentinum\Entity\FieldTypes $fieldTypes
-     * @return FieldTypeMetas
-     */
-    public function setFieldTypes(\Contentinum\Entity\FieldTypes $fieldTypes = null)
-    {
-        $this->fieldTypes = $fieldTypes;
-
-        return $this;
-    }
-
-    /**
-     * Get fieldTypes
-     *
-     * @return \Contentinum\Entity\FieldTypes 
-     */
-    public function getFieldTypes()
-    {
-        return $this->fieldTypes;
     }
 }

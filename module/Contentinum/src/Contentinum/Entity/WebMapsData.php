@@ -6,42 +6,77 @@ use Doctrine\ORM\Mapping as ORM;
 use ContentinumComponents\Entity\AbstractEntity;
 
 /**
- * FieldTypeMetas
+ * WebMapsData
  *
- * @ORM\Table(name="field_type_metas", uniqueConstraints={@ORM\UniqueConstraint(name="DATASCOPE", columns={"datascope"})}, indexes={@ORM\Index(name="FIELDTYPEREF", columns={"field_types_id"})})
+ * @ORM\Table(name="web_maps_data", indexes={@ORM\Index(name="MAPIDENTREF", columns={"web_maps_id"})})
  * @ORM\Entity
  */
-class FieldTypeMetas extends AbstractEntity
+class WebMapsData extends AbstractEntity
 {
     /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=50, nullable=false)
+     * @ORM\Column(name="latitude", type="string", length=50, nullable=false)
+     */
+    private $latitude;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="longitude", type="string", length=50, nullable=false)
+     */
+    private $longitude;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=250, nullable=false)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="datascope", type="string", length=60, nullable=false)
+     * @ORM\Column(name="street", type="string", length=250, nullable=false)
      */
-    private $datascope;
+    private $street;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="params", type="text", nullable=false)
+     * @ORM\Column(name="city", type="string", length=250, nullable=false)
      */
-    private $params = '';
+    private $city;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=false)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="img_source", type="string", length=100, nullable=false)
+     */
+    private $imgSource;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="publish", type="string", length=10, nullable=false)
+     */
+    private $publish = 'no';
 
     /**
      * @var integer
@@ -72,14 +107,14 @@ class FieldTypeMetas extends AbstractEntity
     private $upDate = '0000-00-00 00:00:00';
 
     /**
-     * @var \Contentinum\Entity\FieldTypes
+     * @var \Contentinum\Entity\WebMaps
      *
-     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\FieldTypes")
+     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\WebMaps")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="field_types_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="web_maps_id", referencedColumnName="id")
      * })
      */
-    private $fieldTypes;
+    private $webMaps;
 
     /**
      * Construct
@@ -125,10 +160,9 @@ class FieldTypeMetas extends AbstractEntity
     }
     
     /**
-     * Set id
+     * @param number $id
      *
-     * @param integer $id
-     * @return FieldTypeMetas
+     * @return WebMaps
      */
     public function setId($id)
     {
@@ -148,10 +182,56 @@ class FieldTypeMetas extends AbstractEntity
     }
 
     /**
+     * Set latitude
+     *
+     * @param string $latitude
+     * @return WebMapsData
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    /**
+     * Get latitude
+     *
+     * @return string 
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set longitude
+     *
+     * @param string $longitude
+     * @return WebMapsData
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * Get longitude
+     *
+     * @return string 
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
      * Set name
      *
      * @param string $name
-     * @return FieldTypeMetas
+     * @return WebMapsData
      */
     public function setName($name)
     {
@@ -171,56 +251,125 @@ class FieldTypeMetas extends AbstractEntity
     }
 
     /**
-     * Set datascope
+     * Set street
      *
-     * @param string $datascope
-     * @return FieldTypeMetas
+     * @param string $street
+     * @return WebMapsData
      */
-    public function setDatascope($datascope)
+    public function setStreet($street)
     {
-        $this->datascope = $datascope;
+        $this->street = $street;
 
         return $this;
     }
 
     /**
-     * Get datascope
+     * Get street
      *
      * @return string 
      */
-    public function getDatascope()
+    public function getStreet()
     {
-        return $this->datascope;
+        return $this->street;
     }
 
     /**
-     * Set params
+     * Set city
      *
-     * @param string $params
-     * @return FieldTypeMetas
+     * @param string $city
+     * @return WebMapsData
      */
-    public function setParams($params)
+    public function setCity($city)
     {
-        $this->params = $params;
+        $this->city = $city;
 
         return $this;
     }
 
     /**
-     * Get params
+     * Get city
      *
      * @return string 
      */
-    public function getParams()
+    public function getCity()
     {
-        return $this->params;
+        return $this->city;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return WebMapsData
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set imgSource
+     *
+     * @param string $imgSource
+     * @return WebMapsData
+     */
+    public function setImgSource($imgSource)
+    {
+        $this->imgSource = $imgSource;
+
+        return $this;
+    }
+
+    /**
+     * Get imgSource
+     *
+     * @return string 
+     */
+    public function getImgSource()
+    {
+        return $this->imgSource;
+    }
+
+    /**
+     * Set publish
+     *
+     * @param string $publish
+     * @return WebMapsData
+     */
+    public function setPublish($publish)
+    {
+        $this->publish = $publish;
+
+        return $this;
+    }
+
+    /**
+     * Get publish
+     *
+     * @return string 
+     */
+    public function getPublish()
+    {
+        return $this->publish;
     }
 
     /**
      * Set createdBy
      *
      * @param integer $createdBy
-     * @return FieldTypeMetas
+     * @return WebMapsData
      */
     public function setCreatedBy($createdBy)
     {
@@ -243,7 +392,7 @@ class FieldTypeMetas extends AbstractEntity
      * Set updateBy
      *
      * @param integer $updateBy
-     * @return FieldTypeMetas
+     * @return WebMapsData
      */
     public function setUpdateBy($updateBy)
     {
@@ -266,7 +415,7 @@ class FieldTypeMetas extends AbstractEntity
      * Set registerDate
      *
      * @param \DateTime $registerDate
-     * @return FieldTypeMetas
+     * @return WebMapsData
      */
     public function setRegisterDate($registerDate)
     {
@@ -289,7 +438,7 @@ class FieldTypeMetas extends AbstractEntity
      * Set upDate
      *
      * @param \DateTime $upDate
-     * @return FieldTypeMetas
+     * @return WebMapsData
      */
     public function setUpDate($upDate)
     {
@@ -309,25 +458,25 @@ class FieldTypeMetas extends AbstractEntity
     }
 
     /**
-     * Set fieldTypes
+     * Set webMaps
      *
-     * @param \Contentinum\Entity\FieldTypes $fieldTypes
-     * @return FieldTypeMetas
+     * @param \Contentinum\Entity\WebMaps $webMaps
+     * @return WebMapsData
      */
-    public function setFieldTypes(\Contentinum\Entity\FieldTypes $fieldTypes = null)
+    public function setWebMaps(\Contentinum\Entity\WebMaps $webMaps = null)
     {
-        $this->fieldTypes = $fieldTypes;
+        $this->webMaps = $webMaps;
 
         return $this;
     }
 
     /**
-     * Get fieldTypes
+     * Get webMaps
      *
-     * @return \Contentinum\Entity\FieldTypes 
+     * @return \Contentinum\Entity\WebMaps 
      */
-    public function getFieldTypes()
+    public function getWebMaps()
     {
-        return $this->fieldTypes;
+        return $this->webMaps;
     }
 }

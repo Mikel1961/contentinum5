@@ -6,12 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use ContentinumComponents\Entity\AbstractEntity;
 
 /**
- * FieldTypeMetas
+ * WebNavigations
  *
- * @ORM\Table(name="field_type_metas", uniqueConstraints={@ORM\UniqueConstraint(name="DATASCOPE", columns={"datascope"})}, indexes={@ORM\Index(name="FIELDTYPEREF", columns={"field_types_id"})})
+ * @ORM\Table(name="web_navigations", uniqueConstraints={@ORM\UniqueConstraint(name="NAVIGATION", columns={"tree_ident"})})
  * @ORM\Entity
  */
-class FieldTypeMetas extends AbstractEntity
+class WebNavigations extends AbstractEntity
 {
     /**
      * @var integer
@@ -25,16 +25,44 @@ class FieldTypeMetas extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=50, nullable=false)
+     * @ORM\Column(name="tree_ident", type="string", length=250, nullable=false)
      */
-    private $name;
+    private $treeIdent;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="datascope", type="string", length=60, nullable=false)
+     * @ORM\Column(name="tpl_assign", type="string", length=25, nullable=false)
      */
-    private $datascope;
+    private $tplAssign = '';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="menue", type="string", length=3, nullable=false)
+     */
+    private $menue;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=150, nullable=false)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="headline", type="string", length=80, nullable=false)
+     */
+    private $headline = '';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tags", type="string", length=2, nullable=false)
+     */
+    private $tags = '';
 
     /**
      * @var string
@@ -42,6 +70,13 @@ class FieldTypeMetas extends AbstractEntity
      * @ORM\Column(name="params", type="text", nullable=false)
      */
     private $params = '';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="publish", type="string", length=10, nullable=false)
+     */
+    private $publish = 'no';
 
     /**
      * @var integer
@@ -70,16 +105,6 @@ class FieldTypeMetas extends AbstractEntity
      * @ORM\Column(name="up_date", type="datetime", nullable=false)
      */
     private $upDate = '0000-00-00 00:00:00';
-
-    /**
-     * @var \Contentinum\Entity\FieldTypes
-     *
-     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\FieldTypes")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="field_types_id", referencedColumnName="id")
-     * })
-     */
-    private $fieldTypes;
 
     /**
      * Construct
@@ -125,10 +150,9 @@ class FieldTypeMetas extends AbstractEntity
     }
     
     /**
-     * Set id
+     * @param number $id
      *
-     * @param integer $id
-     * @return FieldTypeMetas
+     * @return WebContent
      */
     public function setId($id)
     {
@@ -148,56 +172,148 @@ class FieldTypeMetas extends AbstractEntity
     }
 
     /**
-     * Set name
+     * Set treeIdent
      *
-     * @param string $name
-     * @return FieldTypeMetas
+     * @param string $treeIdent
+     * @return WebNavigations
      */
-    public function setName($name)
+    public function setTreeIdent($treeIdent)
     {
-        $this->name = $name;
+        $this->treeIdent = $treeIdent;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get treeIdent
      *
      * @return string 
      */
-    public function getName()
+    public function getTreeIdent()
     {
-        return $this->name;
+        return $this->treeIdent;
     }
 
     /**
-     * Set datascope
+     * Set tplAssign
      *
-     * @param string $datascope
-     * @return FieldTypeMetas
+     * @param string $tplAssign
+     * @return WebNavigations
      */
-    public function setDatascope($datascope)
+    public function setTplAssign($tplAssign)
     {
-        $this->datascope = $datascope;
+        $this->tplAssign = $tplAssign;
 
         return $this;
     }
 
     /**
-     * Get datascope
+     * Get tplAssign
      *
      * @return string 
      */
-    public function getDatascope()
+    public function getTplAssign()
     {
-        return $this->datascope;
+        return $this->tplAssign;
+    }
+
+    /**
+     * Set menue
+     *
+     * @param string $menue
+     * @return WebNavigations
+     */
+    public function setMenue($menue)
+    {
+        $this->menue = $menue;
+
+        return $this;
+    }
+
+    /**
+     * Get menue
+     *
+     * @return string 
+     */
+    public function getMenue()
+    {
+        return $this->menue;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return WebNavigations
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set headline
+     *
+     * @param string $headline
+     * @return WebNavigations
+     */
+    public function setHeadline($headline)
+    {
+        $this->headline = $headline;
+
+        return $this;
+    }
+
+    /**
+     * Get headline
+     *
+     * @return string 
+     */
+    public function getHeadline()
+    {
+        return $this->headline;
+    }
+
+    /**
+     * Set tags
+     *
+     * @param string $tags
+     * @return WebNavigations
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Get tags
+     *
+     * @return string 
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 
     /**
      * Set params
      *
      * @param string $params
-     * @return FieldTypeMetas
+     * @return WebNavigations
      */
     public function setParams($params)
     {
@@ -217,10 +333,33 @@ class FieldTypeMetas extends AbstractEntity
     }
 
     /**
+     * Set publish
+     *
+     * @param string $publish
+     * @return WebNavigations
+     */
+    public function setPublish($publish)
+    {
+        $this->publish = $publish;
+
+        return $this;
+    }
+
+    /**
+     * Get publish
+     *
+     * @return string 
+     */
+    public function getPublish()
+    {
+        return $this->publish;
+    }
+
+    /**
      * Set createdBy
      *
      * @param integer $createdBy
-     * @return FieldTypeMetas
+     * @return WebNavigations
      */
     public function setCreatedBy($createdBy)
     {
@@ -243,7 +382,7 @@ class FieldTypeMetas extends AbstractEntity
      * Set updateBy
      *
      * @param integer $updateBy
-     * @return FieldTypeMetas
+     * @return WebNavigations
      */
     public function setUpdateBy($updateBy)
     {
@@ -266,7 +405,7 @@ class FieldTypeMetas extends AbstractEntity
      * Set registerDate
      *
      * @param \DateTime $registerDate
-     * @return FieldTypeMetas
+     * @return WebNavigations
      */
     public function setRegisterDate($registerDate)
     {
@@ -289,7 +428,7 @@ class FieldTypeMetas extends AbstractEntity
      * Set upDate
      *
      * @param \DateTime $upDate
-     * @return FieldTypeMetas
+     * @return WebNavigations
      */
     public function setUpDate($upDate)
     {
@@ -306,28 +445,5 @@ class FieldTypeMetas extends AbstractEntity
     public function getUpDate()
     {
         return $this->upDate;
-    }
-
-    /**
-     * Set fieldTypes
-     *
-     * @param \Contentinum\Entity\FieldTypes $fieldTypes
-     * @return FieldTypeMetas
-     */
-    public function setFieldTypes(\Contentinum\Entity\FieldTypes $fieldTypes = null)
-    {
-        $this->fieldTypes = $fieldTypes;
-
-        return $this;
-    }
-
-    /**
-     * Get fieldTypes
-     *
-     * @return \Contentinum\Entity\FieldTypes 
-     */
-    public function getFieldTypes()
-    {
-        return $this->fieldTypes;
     }
 }

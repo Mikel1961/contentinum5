@@ -6,12 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use ContentinumComponents\Entity\AbstractEntity;
 
 /**
- * FieldTypeMetas
+ * WebRedirect
  *
- * @ORM\Table(name="field_type_metas", uniqueConstraints={@ORM\UniqueConstraint(name="DATASCOPE", columns={"datascope"})}, indexes={@ORM\Index(name="FIELDTYPEREF", columns={"field_types_id"})})
+ * @ORM\Table(name="web_redirect", uniqueConstraints={@ORM\UniqueConstraint(name="redirect", columns={"redirect"})})
  * @ORM\Entity
  */
-class FieldTypeMetas extends AbstractEntity
+class WebRedirect extends AbstractEntity
 {
     /**
      * @var integer
@@ -23,32 +23,32 @@ class FieldTypeMetas extends AbstractEntity
     private $id;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="name", type="string", length=50, nullable=false)
+     * @ORM\Column(name="web_pages_id", type="integer", nullable=false)
      */
-    private $name;
+    private $webPagesId;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="datascope", type="string", length=60, nullable=false)
+     * @ORM\Column(name="redirect", type="string", length=250, nullable=false)
      */
-    private $datascope;
+    private $redirect;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="params", type="text", nullable=false)
+     * @ORM\Column(name="statuscode", type="integer", nullable=false)
      */
-    private $params = '';
+    private $statuscode = '301';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="created_by", type="integer", nullable=false)
      */
-    private $createdBy = '0';
+    private $createdBy = 0;
 
     /**
      * @var integer
@@ -60,27 +60,19 @@ class FieldTypeMetas extends AbstractEntity
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="register_date", type="datetime", nullable=false)
-     */
-    private $registerDate = '0000-00-00 00:00:00';
-
-    /**
-     * @var \DateTime
-     *
      * @ORM\Column(name="up_date", type="datetime", nullable=false)
      */
     private $upDate = '0000-00-00 00:00:00';
 
     /**
-     * @var \Contentinum\Entity\FieldTypes
+     * @var \DateTime
      *
-     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\FieldTypes")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="field_types_id", referencedColumnName="id")
-     * })
+     * @ORM\Column(name="register_date", type="datetime", nullable=false)
      */
-    private $fieldTypes;
+    private $registerDate = '0000-00-00 00:00:00';
 
+
+    
     /**
      * Construct
      * @param array $options
@@ -125,17 +117,17 @@ class FieldTypeMetas extends AbstractEntity
     }
     
     /**
-     * Set id
+     * @param number $id
      *
-     * @param integer $id
-     * @return FieldTypeMetas
+     * @return WebContent
      */
     public function setId($id)
     {
     	$this->id = $id;
     
     	return $this;
-    }
+    }    
+    
 
     /**
      * Get id
@@ -148,79 +140,79 @@ class FieldTypeMetas extends AbstractEntity
     }
 
     /**
-     * Set name
+     * Set webPagesId
      *
-     * @param string $name
-     * @return FieldTypeMetas
+     * @param integer $webPagesId
+     * @return WebRedirect
      */
-    public function setName($name)
+    public function setWebPagesId($webPagesId)
     {
-        $this->name = $name;
+        $this->webPagesId = $webPagesId;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get webPagesId
      *
-     * @return string 
+     * @return integer 
      */
-    public function getName()
+    public function getWebPagesId()
     {
-        return $this->name;
+        return $this->webPagesId;
     }
 
     /**
-     * Set datascope
+     * Set redirect
      *
-     * @param string $datascope
-     * @return FieldTypeMetas
+     * @param string $redirect
+     * @return WebRedirect
      */
-    public function setDatascope($datascope)
+    public function setRedirect($redirect)
     {
-        $this->datascope = $datascope;
+        $this->redirect = $redirect;
 
         return $this;
     }
 
     /**
-     * Get datascope
+     * Get redirect
      *
      * @return string 
      */
-    public function getDatascope()
+    public function getRedirect()
     {
-        return $this->datascope;
+        return $this->redirect;
     }
 
     /**
-     * Set params
+     * Set statuscode
      *
-     * @param string $params
-     * @return FieldTypeMetas
+     * @param integer $statuscode
+     * @return WebRedirect
      */
-    public function setParams($params)
+    public function setStatuscode($statuscode)
     {
-        $this->params = $params;
+        $this->statuscode = $statuscode;
 
         return $this;
     }
 
     /**
-     * Get params
+     * Get statuscode
      *
-     * @return string 
+     * @return integer 
      */
-    public function getParams()
+    public function getStatuscode()
     {
-        return $this->params;
+        return $this->statuscode;
     }
 
     /**
      * Set createdBy
      *
      * @param integer $createdBy
-     * @return FieldTypeMetas
+     * @return WebRedirect
      */
     public function setCreatedBy($createdBy)
     {
@@ -243,7 +235,7 @@ class FieldTypeMetas extends AbstractEntity
      * Set updateBy
      *
      * @param integer $updateBy
-     * @return FieldTypeMetas
+     * @return WebRedirect
      */
     public function setUpdateBy($updateBy)
     {
@@ -263,33 +255,10 @@ class FieldTypeMetas extends AbstractEntity
     }
 
     /**
-     * Set registerDate
-     *
-     * @param \DateTime $registerDate
-     * @return FieldTypeMetas
-     */
-    public function setRegisterDate($registerDate)
-    {
-        $this->registerDate = $registerDate;
-
-        return $this;
-    }
-
-    /**
-     * Get registerDate
-     *
-     * @return \DateTime 
-     */
-    public function getRegisterDate()
-    {
-        return $this->registerDate;
-    }
-
-    /**
      * Set upDate
      *
      * @param \DateTime $upDate
-     * @return FieldTypeMetas
+     * @return WebRedirect
      */
     public function setUpDate($upDate)
     {
@@ -309,25 +278,25 @@ class FieldTypeMetas extends AbstractEntity
     }
 
     /**
-     * Set fieldTypes
+     * Set registerDate
      *
-     * @param \Contentinum\Entity\FieldTypes $fieldTypes
-     * @return FieldTypeMetas
+     * @param \DateTime $registerDate
+     * @return WebRedirect
      */
-    public function setFieldTypes(\Contentinum\Entity\FieldTypes $fieldTypes = null)
+    public function setRegisterDate($registerDate)
     {
-        $this->fieldTypes = $fieldTypes;
+        $this->registerDate = $registerDate;
 
         return $this;
     }
 
     /**
-     * Get fieldTypes
+     * Get registerDate
      *
-     * @return \Contentinum\Entity\FieldTypes 
+     * @return \DateTime 
      */
-    public function getFieldTypes()
+    public function getRegisterDate()
     {
-        return $this->fieldTypes;
+        return $this->registerDate;
     }
 }
