@@ -122,14 +122,14 @@ return array (
 		
 		'contentinum_config' => array (
 				'templates_files' => array(
-			            'htmlwidgets' => CON_ROOT_PATH . '/data/locale/etc/templates/htmlwidgets.library.xml',
-						'htmllayouts' => CON_ROOT_PATH . '/data/locale/etc/templates/htmllayouts.library.xml',
+			            'htmlwidgets' => __DIR__ . '/../../../data/locale/etc/templates/htmlwidgets.library.xml',
+						'htmllayouts' => __DIR__ . '/../../../data/locale/etc/templates/htmllayouts.library.xml',
 		         ),
 				'log_configure' => array (
 						'log_priority' => 6,
 						'log_writer' => array (
-								'application' => CON_ROOT_PATH . '/data/logs/application.log',
-								'error' => CON_ROOT_PATH . '/data/logs/errors.application.log' 
+								'application' => __DIR__ . '/../../../data/logs/application.log',
+								'error' => __DIR__ . '/../../../data/logs/errors.application.log' 
 						),
 						'log_filter' => array (
 								'application' => array (
