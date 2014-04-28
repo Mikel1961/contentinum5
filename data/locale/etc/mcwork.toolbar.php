@@ -33,8 +33,6 @@ return array (
 								'role' => 'button' 
 						) 
 				),
-				
-				//<p class="right"><a class="small button alert" href="/mcwork/cache/clear/all" title="Empty all cache storage">Clear all</a></p>
 				'clear' => array (
 						'label' => 'Clear all',
 						'href' => '#',
@@ -43,7 +41,16 @@ return array (
 								'class' => 'button alert',
 								'role' => 'button'
 						)
-				)				
+				),
+				'back' => array (
+						'label' => '<i class="fa fa-arrow-left"></i>',
+						'href' => '#',
+						'attribs' => array (
+								'title' => 'clear allcache items',
+								'class' => 'button',
+								'role' => 'button'
+						)
+				)			
 				
 				
 		)	 
