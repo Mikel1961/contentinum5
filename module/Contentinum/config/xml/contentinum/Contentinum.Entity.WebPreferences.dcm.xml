@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Contentinum\Entity\WebPreferences" table="web_preferences">
+    <unique-constraints>
+      <unique-constraint name="HOSTIDENT" columns="host_id"/>
+      <unique-constraint name="HOSTNAME" columns="host"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="NONE"/>
+    </id>
+    <field name="hostId" type="string" column="host_id" length="36" nullable="false"/>
+    <field name="host" type="string" column="host" length="250" nullable="false"/>
+    <field name="standardDomain" type="string" column="standard_domain" length="3" nullable="false"/>
+    <field name="charset" type="string" column="charset" length="20" nullable="false"/>
+    <field name="title" type="string" column="title" length="140" nullable="false"/>
+    <field name="favicon" type="string" column="favicon" length="80" nullable="false"/>
+    <field name="author" type="string" column="author" length="250" nullable="false"/>
+    <field name="language" type="string" column="language" length="40" nullable="false"/>
+    <field name="googleaccount" type="string" column="googleaccount" length="200" nullable="false"/>
+    <field name="siteverification" type="string" column="siteverification" length="200" nullable="false"/>
+    <field name="createdBy" type="integer" column="created_by" nullable="false"/>
+    <field name="updateBy" type="integer" column="update_by" nullable="false"/>
+    <field name="registerDate" type="datetime" column="register_date" nullable="false"/>
+    <field name="upDate" type="datetime" column="up_date" nullable="false"/>
+  </entity>
+</doctrine-mapping>

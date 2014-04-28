@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Contentinum\Entity\Addresses" table="addresses">
+    <id name="id" type="integer" column="id">
+      <generator strategy="NONE"/>
+    </id>
+    <field name="referId" type="integer" column="refer_id" nullable="false"/>
+    <field name="scope" type="string" column="scope" length="50" nullable="false"/>
+    <field name="addressType" type="string" column="address_type" length="25" nullable="false"/>
+    <field name="addressStreet" type="string" column="address_street" length="250" nullable="false"/>
+    <field name="addressFurther" type="text" column="address_further" nullable="false"/>
+    <field name="addressPostbox" type="string" column="address_postbox" length="25" nullable="false"/>
+    <field name="addressCity" type="string" column="address_city" length="100" nullable="false"/>
+    <field name="addressState" type="string" column="address_state" length="100" nullable="false"/>
+    <field name="addressPostalcode" type="string" column="address_postalcode" length="20" nullable="false"/>
+    <field name="addressPostalcodebox" type="string" column="address_postalcodebox" length="20" nullable="false"/>
+    <field name="addressCountry" type="string" column="address_country" length="255" nullable="false"/>
+    <field name="params" type="text" column="params" nullable="false"/>
+    <field name="deleted" type="boolean" column="deleted" nullable="false"/>
+    <field name="createdBy" type="integer" column="created_by" nullable="false"/>
+    <field name="updateBy" type="integer" column="update_by" nullable="false"/>
+    <field name="registerDate" type="datetime" column="register_date" nullable="false"/>
+    <field name="upDate" type="datetime" column="up_date" nullable="false"/>
+  </entity>
+</doctrine-mapping>

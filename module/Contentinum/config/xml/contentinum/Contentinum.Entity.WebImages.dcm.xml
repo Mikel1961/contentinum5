@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Contentinum\Entity\WebImages" table="web_images">
+    <indexes>
+      <index name="img" columns="img_source"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="IMAGECONTENT" columns="web_content_id"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="NONE"/>
+    </id>
+    <field name="webContentId" type="integer" column="web_content_id" nullable="false"/>
+    <field name="imgMedia" type="string" column="img_media" length="10" nullable="false"/>
+    <field name="imgAlign" type="string" column="img_align" length="25" nullable="false"/>
+    <field name="imgSource" type="string" column="img_source" length="255" nullable="false"/>
+    <field name="imgObject" type="string" column="img_object" length="255" nullable="false"/>
+    <field name="imgLarge" type="string" column="img_large" length="255" nullable="true"/>
+    <field name="imgAlt" type="string" column="img_alt" length="255" nullable="false"/>
+    <field name="imgTitle" type="string" column="img_title" length="255" nullable="false"/>
+    <field name="imgCaption" type="string" column="img_caption" length="255" nullable="false"/>
+    <field name="imgLongdesc" type="text" column="img_longdesc" nullable="true"/>
+    <field name="imgLinkTarget" type="string" column="img_link_target" length="4" nullable="false"/>
+    <field name="imgLink" type="string" column="img_link" length="255" nullable="false"/>
+    <field name="imgLinkRel" type="string" column="img_link_rel" length="10" nullable="false"/>
+    <field name="imgAlign2" type="string" column="img_align2" length="25" nullable="false"/>
+    <field name="imgSource2" type="string" column="img_source2" length="255" nullable="false"/>
+    <field name="imgObject2" type="string" column="img_object2" length="250" nullable="false"/>
+    <field name="imgLarge2" type="string" column="img_large2" length="255" nullable="false"/>
+    <field name="imgAlt2" type="string" column="img_alt2" length="255" nullable="false"/>
+    <field name="imgTitle2" type="string" column="img_title2" length="255" nullable="false"/>
+    <field name="imgCaption2" type="string" column="img_caption2" length="255" nullable="false"/>
+    <field name="imgLongdesc2" type="text" column="img_longdesc2" nullable="true"/>
+    <field name="imgLinkTarget2" type="string" column="img_link_target2" length="4" nullable="false"/>
+    <field name="imgLink2" type="string" column="img_link2" length="255" nullable="false"/>
+    <field name="imgLinkRel2" type="string" column="img_link_rel2" length="10" nullable="false"/>
+    <field name="params" type="text" column="params" nullable="true"/>
+    <field name="description" type="text" column="description" nullable="true"/>
+    <field name="publish" type="string" column="publish" length="10" nullable="false"/>
+    <field name="hits" type="integer" column="hits" nullable="false"/>
+    <field name="createdBy" type="integer" column="created_by" nullable="false"/>
+    <field name="updateBy" type="integer" column="update_by" nullable="false"/>
+    <field name="registerDate" type="datetime" column="register_date" nullable="false"/>
+    <field name="upDate" type="datetime" column="up_date" nullable="false"/>
+  </entity>
+</doctrine-mapping>

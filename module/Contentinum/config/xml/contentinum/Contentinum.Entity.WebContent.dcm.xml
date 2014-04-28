@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Contentinum\Entity\WebContent" table="web_content">
+    <indexes>
+      <index name="title" columns="title"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="NONE"/>
+    </id>
+    <field name="link" type="string" column="link" length="250" nullable="false"/>
+    <field name="scope" type="string" column="scope" length="250" nullable="false"/>
+    <field name="modul" type="string" column="modul" length="60" nullable="false"/>
+    <field name="modulParams" type="text" column="modul_params" nullable="false"/>
+    <field name="modulDisplay" type="string" column="modul_display" length="250" nullable="false"/>
+    <field name="modulConfig" type="string" column="modul_config" length="250" nullable="false"/>
+    <field name="lang" type="string" column="lang" length="6" nullable="false"/>
+    <field name="itemRang" type="integer" column="item_rang" nullable="false"/>
+    <field name="title" type="string" column="title" length="250" nullable="false"/>
+    <field name="headline" type="string" column="headline" length="250" nullable="false"/>
+    <field name="headlineTag" type="string" column="headline_tag" length="2" nullable="false"/>
+    <field name="question" type="text" column="question" nullable="false"/>
+    <field name="contentIntro" type="text" column="content_intro" nullable="false"/>
+    <field name="content" type="text" column="content" nullable="false"/>
+    <field name="contentString" type="text" column="content_string" nullable="false"/>
+    <field name="numberLetter" type="string" column="number_letter" length="5" nullable="false"/>
+    <field name="numLetterTitle" type="string" column="num_letter_title" length="100" nullable="false"/>
+    <field name="commentStatus" type="string" column="comment_status" length="5" nullable="false"/>
+    <field name="access" type="string" column="access" length="5" nullable="false"/>
+    <field name="usersId" type="integer" column="users_id" nullable="false"/>
+    <field name="publishDate" type="date" column="publish_date" nullable="false"/>
+    <field name="sendDate" type="date" column="send_date" nullable="false"/>
+    <field name="publishAuthor" type="string" column="publish_author" length="100" nullable="false"/>
+    <field name="authorEmail" type="string" column="author_email" length="80" nullable="false"/>
+    <field name="authorIp" type="string" column="author_IP" length="100" nullable="false"/>
+    <field name="authorUrl" type="string" column="author_url" length="200" nullable="false"/>
+    <field name="publishCms" type="string" column="publish_cms" length="4" nullable="false"/>
+    <field name="publish" type="string" column="publish" length="10" nullable="false"/>
+    <field name="hits" type="integer" column="hits" nullable="false"/>
+    <field name="version" type="integer" column="version" nullable="false"/>
+    <field name="publishUp" type="datetime" column="publish_up" nullable="false"/>
+    <field name="publishDown" type="datetime" column="publish_down" nullable="false"/>
+    <field name="createdBy" type="integer" column="created_by" nullable="false"/>
+    <field name="updateBy" type="integer" column="update_by" nullable="false"/>
+    <field name="registerDate" type="datetime" column="register_date" nullable="false"/>
+    <field name="upDate" type="datetime" column="up_date" nullable="false"/>
+  </entity>
+</doctrine-mapping>

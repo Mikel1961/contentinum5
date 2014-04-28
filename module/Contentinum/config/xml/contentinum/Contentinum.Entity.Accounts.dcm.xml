@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Contentinum\Entity\Accounts" table="accounts">
+    <indexes>
+      <index name="ADDRESSIDENT" columns="addresses_id"/>
+      <index name="ORGANISATION" columns="organisation"/>
+      <index name="FIELDMETADATAS" columns="field_metas_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="ACCOUNTIDENT" columns="account_id"/>
+      <unique-constraint name="ACCOUNTSCOPE" columns="account_name"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="NONE"/>
+    </id>
+    <field name="addressesId" type="integer" column="addresses_id" nullable="false"/>
+    <field name="accountId" type="string" column="account_id" length="36" nullable="false"/>
+    <field name="parentId" type="string" column="parent_id" length="36" nullable="false"/>
+    <field name="accountName" type="string" column="account_name" length="250" nullable="false"/>
+    <field name="organisation" type="string" column="organisation" length="255" nullable="false"/>
+    <field name="organisationExt" type="string" column="organisation_ext" length="250" nullable="false"/>
+    <field name="organisationScope" type="string" column="organisation_scope" length="250" nullable="false"/>
+    <field name="imgLogo" type="string" column="img_logo" length="250" nullable="false"/>
+    <field name="imgSource" type="string" column="img_source" length="250" nullable="false"/>
+    <field name="imgLarge" type="string" column="img_large" length="250" nullable="false"/>
+    <field name="accountFax" type="string" column="account_fax" length="25" nullable="false"/>
+    <field name="accountPhone" type="string" column="account_phone" length="25" nullable="false"/>
+    <field name="phoneAlternate" type="string" column="phone_alternate" length="25" nullable="false"/>
+    <field name="accountEmail" type="string" column="account_email" length="100" nullable="false"/>
+    <field name="basedir" type="string" column="basedir" length="500" nullable="false"/>
+    <field name="internet" type="string" column="internet" length="250" nullable="false"/>
+    <field name="params" type="text" column="params" nullable="false"/>
+    <field name="publish" type="string" column="publish" length="10" nullable="false"/>
+    <field name="webentry" type="integer" column="webentry" nullable="false"/>
+    <field name="deleted" type="boolean" column="deleted" nullable="false"/>
+    <field name="createdBy" type="integer" column="created_by" nullable="false"/>
+    <field name="updateBy" type="integer" column="update_by" nullable="false"/>
+    <field name="registerDate" type="datetime" column="register_date" nullable="false"/>
+    <field name="upDate" type="datetime" column="up_date" nullable="false"/>
+    <many-to-one field="fieldMetas" target-entity="Contentinum\Entity\FieldTypeMetas">
+      <join-columns>
+        <join-column name="field_metas_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

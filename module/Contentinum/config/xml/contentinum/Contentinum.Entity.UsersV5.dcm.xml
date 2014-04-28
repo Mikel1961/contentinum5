@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Contentinum\Entity\UsersV5" table="users_v5">
+    <indexes>
+      <index name="USERGROUPIDENT" columns="user_groups_id"/>
+      <index name="CONTACTLINK" columns="contact_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="USERNAME" columns="login_username"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="NONE"/>
+    </id>
+    <field name="userTypesId" type="boolean" column="user_types_id" nullable="false"/>
+    <field name="params" type="text" column="params" nullable="false"/>
+    <field name="returnPath" type="string" column="return_path" length="200" nullable="false"/>
+    <field name="apps" type="text" column="apps" nullable="false"/>
+    <field name="license" type="boolean" column="license" nullable="false"/>
+    <field name="salutation" type="string" column="salutation" length="5" nullable="false"/>
+    <field name="name" type="string" column="name" length="150" nullable="false"/>
+    <field name="email" type="string" column="email" length="150" nullable="false"/>
+    <field name="phone" type="string" column="phone" length="25" nullable="false"/>
+    <field name="initials" type="string" column="initials" length="10" nullable="false"/>
+    <field name="language" type="string" column="language" length="6" nullable="false"/>
+    <field name="avatar" type="string" column="avatar" length="50" nullable="false"/>
+    <field name="loginHomedir" type="string" column="login_homedir" length="50" nullable="false"/>
+    <field name="loginUsername" type="string" column="login_username" length="150" nullable="false"/>
+    <field name="loginPassword" type="string" column="login_password" length="32" nullable="false"/>
+    <field name="loginPasswordAlt" type="string" column="login_password_alt" length="32" nullable="false"/>
+    <field name="getPassword" type="boolean" column="get_password" nullable="false"/>
+    <field name="verifyString" type="string" column="verify_string" length="32" nullable="false"/>
+    <field name="userVerified" type="string" column="user_verified" length="12" nullable="false"/>
+    <field name="tryLogin" type="integer" column="try_login" nullable="false"/>
+    <field name="lastLogin" type="datetime" column="last_login" nullable="false"/>
+    <field name="lastLogout" type="datetime" column="last_logout" nullable="false"/>
+    <field name="countLogin" type="integer" column="count_login" nullable="false"/>
+    <field name="publish" type="string" column="publish" length="10" nullable="false"/>
+    <field name="deleted" type="boolean" column="deleted" nullable="false"/>
+    <field name="createdBy" type="integer" column="created_by" nullable="false"/>
+    <field name="updateBy" type="integer" column="update_by" nullable="false"/>
+    <field name="registerDate" type="datetime" column="register_date" nullable="false"/>
+    <field name="upDate" type="datetime" column="up_date" nullable="false"/>
+    <many-to-one field="contact" target-entity="Contentinum\Entity\Contacts">
+      <join-columns>
+        <join-column name="contact_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="userGroups" target-entity="Contentinum\Entity\UserGroups">
+      <join-columns>
+        <join-column name="user_groups_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

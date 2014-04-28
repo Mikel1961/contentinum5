@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Contentinum\Entity\WebForms" table="web_forms">
+    <id name="id" type="integer" column="id">
+      <generator strategy="NONE"/>
+    </id>
+    <field name="headline" type="string" column="headline" length="250" nullable="false"/>
+    <field name="tags" type="string" column="tags" length="2" nullable="false"/>
+    <field name="subheadline" type="string" column="subheadline" length="250" nullable="false"/>
+    <field name="script" type="string" column="script" length="250" nullable="false"/>
+    <field name="description" type="text" column="description" nullable="false"/>
+    <field name="responsetext" type="text" column="responsetext" nullable="false"/>
+    <field name="emailsubject" type="string" column="emailsubject" length="250" nullable="false"/>
+    <field name="email" type="string" column="email" length="250" nullable="false"/>
+    <field name="emailname" type="string" column="emailname" length="250" nullable="false"/>
+    <field name="emailcc" type="string" column="emailcc" length="250" nullable="false"/>
+    <field name="replayemail" type="string" column="replayemail" length="100" nullable="false"/>
+    <field name="replayname" type="string" column="replayname" length="60" nullable="false"/>
+    <field name="emailtext" type="text" column="emailtext" nullable="false"/>
+    <field name="createdBy" type="integer" column="created_by" nullable="false"/>
+    <field name="updateBy" type="integer" column="update_by" nullable="false"/>
+    <field name="registerDate" type="datetime" column="register_date" nullable="false"/>
+    <field name="upDate" type="datetime" column="up_date" nullable="false"/>
+  </entity>
+</doctrine-mapping>

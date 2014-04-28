@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Contentinum\Entity\WebPagesContent" table="web_pages_content">
+    <indexes>
+      <index name="PAGEIDENT" columns="web_pages_id"/>
+      <index name="CONTENTIDENT" columns="web_content_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="NONE"/>
+    </id>
+    <field name="webPagesId" type="integer" column="web_pages_id" nullable="false"/>
+    <field name="webPagesScope" type="string" column="web_pages_scope" length="255" nullable="false"/>
+    <field name="itemRang" type="integer" column="item_rang" nullable="false"/>
+    <field name="template" type="string" column="template" length="30" nullable="false"/>
+    <field name="adjustments" type="text" column="adjustments" nullable="false"/>
+    <field name="file" type="string" column="file" length="250" nullable="false"/>
+    <field name="tplAssign" type="string" column="tpl_assign" length="20" nullable="false"/>
+    <field name="medias" type="boolean" column="medias" nullable="true"/>
+    <field name="publish" type="string" column="publish" length="10" nullable="false"/>
+    <field name="publishUp" type="datetime" column="publish_up" nullable="false"/>
+    <field name="publishDown" type="datetime" column="publish_down" nullable="false"/>
+    <field name="createdBy" type="integer" column="created_by" nullable="false"/>
+    <field name="updateBy" type="integer" column="update_by" nullable="false"/>
+    <field name="registerDate" type="datetime" column="register_date" nullable="false"/>
+    <field name="upDate" type="datetime" column="up_date" nullable="false"/>
+    <many-to-one field="webContent" target-entity="Contentinum\Entity\WebContent">
+      <join-columns>
+        <join-column name="web_content_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
