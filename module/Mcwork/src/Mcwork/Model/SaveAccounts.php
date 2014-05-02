@@ -16,8 +16,8 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @category contentinum
- * @package Service
+ * @category Mcwork
+ * @package Model
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  * @copyright Copyright (c) 2009-2013 jochum-mediaservices, Katja Jochum (http://www.jochum-mediaservices.de)
  * @license http://www.opensource.org/licenses/bsd-license
@@ -25,19 +25,39 @@
  * @link      https://github.com/Mikel1961/contentinum-components
  * @version   1.0.0
  */
-namespace Mcwork\Service;
+namespace Mcwork\Model;
 
-use Contentinum\Service\ContentinumServiceFactory;
+use ContentinumComponents\Mapper\Process;
+use ContentinumComponents\Filter\Url\Prepare;
+use ContentinumComponents\Unique\Id;
 
 /**
- * Config key mcwork table row toolbar settings
+ * Accounts model
+ * Prepare datas before save in database
+ *
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
-class McworkTableeditServiceFactory extends ContentinumServiceFactory
+class SaveAccounts extends Process
 {
 	/**
-	 * Contentinum logger configuration key
-	 * @var string
+	 * Prepare datas
+	 * @see \ContentinumComponents\Mapper\Process::save()
 	 */
-	const CONTENTINUM_CFG_FILE = 'mcworktableedit';	
+	public function save($datas,$entity = null)
+	{
+		$entity = $this->handleEntity($entity);
+		if (null === $entity->getPrimaryValue()   ) {
+			$datas['account_name'] = 'cmsgrp0' .  ($this->sequence() + 1);
+			$filter = new Prepare();
+			$datas['organisation_scope'] = $filter->filter($datas['organisation']);
+			unset($filter);
+			$datas['account_id'] = Id::get();
+			parent::save($datas,$entity);
+		} else {
+			$filter = new Prepare();
+			$datas['organisation_scope'] = $filter->filter($datas['organisation']);
+			unset($filter);		
+			parent::save($datas,$entity);
+		}
+	}
 }

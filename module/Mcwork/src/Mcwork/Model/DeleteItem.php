@@ -55,7 +55,7 @@ class DeleteItem extends Process
                 if (false !== $this->hasEntriesParams){
                     if (false === $this->hasEntries($params['tablename'], $params['column'], $item['value'])){
                         $data['isdelete'][] = $item['value'];
-                        //$this->delete($this->fetchPopulateValues($item['value'], false), $item['value']);
+                        $this->delete($this->fetchPopulateValues($item['value'], false), $item['value']);
                     } else {
                         $data['notdelete'][] = $item['value'];
                         if (false !== ($log = $this->getLogger())) {
@@ -64,7 +64,7 @@ class DeleteItem extends Process
                     }
                 } else {
                     $data['isdelete'][] = $item['value'];
-                    //$this->delete($this->fetchPopulateValues($item['value'], false), $item['value']);
+                    $this->delete($this->fetchPopulateValues($item['value'], false), $item['value']);
                 }
                 
             }

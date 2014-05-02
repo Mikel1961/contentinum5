@@ -27,17 +27,25 @@
  */
 namespace Mcwork\Service;
 
-use Contentinum\Service\ContentinumServiceFactory;
+use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
+use Mcwork\Service\McworkPageUrl;
 
 /**
- * Config key mcwork table row toolbar settings
+ * Contentinum logger configuration service
+ * Set contentinum logger adjustments
+ * Initialize and return Applog
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
-class McworkTableeditServiceFactory extends ContentinumServiceFactory
+class McworkPageUrlServiceFactory implements FactoryInterface
 {
 	/**
-	 * Contentinum logger configuration key
-	 * @var string
+	 * Get page url instance
+	 * @see \Zend\ServiceManager\FactoryInterface::createService()
+	 * @return McworkPagesUrl
 	 */
-	const CONTENTINUM_CFG_FILE = 'mcworktableedit';	
+	public function createService(ServiceLocatorInterface $serviceLocator) 
+	{
+		return new McworkPageUrl();
+	}
 }

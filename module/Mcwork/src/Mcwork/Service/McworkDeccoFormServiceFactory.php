@@ -31,9 +31,9 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * 
- * @author mike
+ * Mcwork service form decorators
  *
+ * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class McworkDeccoFormServiceFactory implements FactoryInterface
 {
@@ -44,7 +44,7 @@ class McworkDeccoFormServiceFactory implements FactoryInterface
     const CONFIGURE_KEY = 'mcwork_form';
     
     /**
-     * Get contentinum logger adjustments
+     * Get form decorators configuration
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      * @return array
      */

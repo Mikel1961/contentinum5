@@ -31,27 +31,21 @@ use ContentinumComponents\Html\Table\FactoryTable;
 $tableFactory = new HtmlTable ( new FactoryTable () );
 
 // set table tag attributes
-$tableFactory->setAttributes ( 'class', 'table table-hover table-nomargin table-bordered' );
+$tableFactory->setAttributes ( 'class', 'table table-hover table-nomargin table-striped dataTable dataTable-tools' );
 $i = 0;
 $iClass = 0;
 $headlines = array (
-		'Cache' => array (),
-		'Key' => array (
+        '#' => array(),
+		'Name' => array (),
+		'Last change' => array (
 				'head' => array (
 						'class' => 'hide-for-small text-right' 
 				),
 				'body' => array (
 						'class' => 'hide-for-small text-right' 
 				) 
-		),
-		'Last write access' => array (
-				'head' => array (
-						'class' => 'hide-for-small text-right' 
-				),
-				'body' => array (
-						'class' => 'hide-for-small text-right' 
-				) 
-		) 
+		)
+		 
 );
 $ihead = count ( $headlines );
 foreach ( $headlines as $column => $attributes ) {
@@ -74,53 +68,60 @@ foreach ( $headlines as $column => $attributes ) {
 }
 $tableFactory->setHeadline ( $columns );
 $i = 0;
-foreach ( $this->entries as $area => $entry ) {
-	$tbl = array (
-			'clear' => array (
-					'label' => 'Clear',
-					'href' => '/mcwork/cache/clear/' . $area,
-					'attribs' => array (
-							'title' => 'Empty cache',
-							'class' => 'small button' 
-					) 
-			) 
-	);
-	$tableedit = '';
-	if (isset ( $this->tableeditcontent )) {
-		$links = array ();
+foreach ( $this->entries as $entry ) {
+		$i ++;
 		$tableedit = '';
-		$links = array (
-				'clear' => array (
-						'href' => '/mcwork/cache/clear/' . $area 
-				) 
-		)
-		;
-		$tableedit = $this->mcworkToolbar ( $links, true, $this->tableeditcontent->toArray () );
-	}
-	if (isset ( $entry ['metas'] )) {
-		$clear = $tableedit;
-		$date = date ( "d.m.Y H:i:s", $entry ['metas'] ['mtime'] );
-	} else {
-		$clear = '';
-		$date = '';
-	}
-	$i ++;
-	$rowContent = array ();
-	$rowContent [] = $entry ['label'] . $clear;
-	$rowContent [] = $area;
-	$rowContent [] = $date;
-	$tableFactory->setHtmlContent ( $rowContent );
+		if ( isset($this->tableeditcontent) ){
+			$links = array();
+			$links = array (
+					'edit' =>
+					array (
+							'href' => '/mcwork/contacts/edit/' .$entry->id,
+					),
+					'delete' =>
+					array (
+							'href' =>'/mcwork/contacts/delete/' .$entry->id,
+							'attribs' => array (
+									'data-name' => $entry->firstName . ' ' . $entry->lastName,
+									'data-ident' => 'row'.$i,
+							)
+					)
+			);
+			$tableedit = $this->mcworkToolbar($links,true,$this->tableeditcontent->toArray());
+		}		
+		$rowContent = array ();
+		$rowContent[] = '<input id="row'.$i.'" type="checkbox" value="'.$entry->id.'" name="cb[]">';
+		$str = $entry->firstName . ' ' . $entry->lastName;
+		$str .= ' (<i>'. $entry->accounts->organisation .'</i>)';
+		if ($entry->contactEmail){
+			$str .='<br />E-mail: ' .$entry->contactEmail;
+			$str .= ' <a class="button tiny" href="#">Add Login Access</a>';
+		}
+		if ($entry->phoneWork){
+			$str .= '<br />' . $this->translate('Phone') . ': ' . $entry->phoneWork;
+		}
+		$str .= $tableedit;
+		$rowContent[] = $str;
+		$rowContent [] = $entry->upDate->format('d F Y H:i:s');
+		$tableFactory->setHtmlContent ( $rowContent );
+	
 }
 $html = $tableFactory->display ();
 $html .= $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'content' ) );
 $toolbar = '';
-if (isset ( $this->toolbarcontent )) {
-	$links = array (
-			'clear' => array (
-					'href' => '/mcwork/cache/clear/all' 
-			) 
+if ( isset($this->toolbarcontent) ){
+	$links = array(
+			'add' => array(
+					'href' => '/mcwork/contacts/add',
+			),
+			'edit' => array(
+					'href' => '/mcwork/contacts/edit',
+			),
+			'delete' => array(
+					'href' => '/mcwork/contacts/delete',
+			),
 	);
-	$toolbar = $this->mcworkToolbar ( $links, true, $this->toolbarcontent->toArray () );
+	$toolbar = $this->mcworkToolbar($links,true,$this->toolbarcontent->toArray());
 }
 // output, display content
 if (isset ( $this->widget )) {

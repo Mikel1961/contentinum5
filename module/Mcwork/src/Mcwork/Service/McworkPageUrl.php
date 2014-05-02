@@ -27,17 +27,38 @@
  */
 namespace Mcwork\Service;
 
-use Contentinum\Service\ContentinumServiceFactory;
-
 /**
- * Config key mcwork table row toolbar settings
+ * App split mcwork page requests
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
-class McworkTableeditServiceFactory extends ContentinumServiceFactory
+class McworkPageUrl
 {
+	CONST URL_SEPERATOR = '_';
+	CONST URL_I = 3;
+	
 	/**
-	 * Contentinum logger configuration key
-	 * @var string
+	 * Split page url
+	 * @param string $page
+	 * @param int $i
+	 * @param sting $seperator
+	 * @return string
 	 */
-	const CONTENTINUM_CFG_FILE = 'mcworktableedit';	
+	public function split($page, $i = null, $seperator = null)
+	{
+		if (null === $i){
+			$i = self::URL_I;
+		}
+		
+		if (null === $seperator){
+			$seperator = self::URL_SEPERATOR;
+		}
+		
+		$splitUrl = explode($seperator, $page);
+		if (isset($splitUrl[$i])){
+			unset($splitUrl[$i]);
+			$page = implode($seperator, $splitUrl);
+		}
+		unset($splitUrl);
+		return $page;
+	}	
 }

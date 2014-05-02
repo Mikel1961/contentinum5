@@ -81,7 +81,7 @@ class McworkappController extends AbstractBackendController
         if ($mcworkpages->$page) {
             $content = $mcworkpages->$page;
         }
-        
+
         $this->adminlayout($this->layout(), $mcworkpages, $page, $role, $acl, $this->getServiceLocator()
             ->get('viewHelperManager'));
         if ($this->worker) {
@@ -169,6 +169,7 @@ class McworkappController extends AbstractBackendController
         $this->iniLoggger();
         if ($this->worker) {
             $this->worker->setLogger($this->getLogger());
+            
             try {
                 if ($this->getRequest ()->isPost ()) {
                     $attribs = $this->getRequest()->getPost();
@@ -178,6 +179,7 @@ class McworkappController extends AbstractBackendController
                 } else {
                     $attribs['id'] = $this->params()->fromRoute('id', 0);
                 }  
+                
                 if ($mcworkpages->$page->hasEntries){
                     $this->worker->setHasEntriesParams($mcworkpages->$page->hasEntries->toArray());
                 }             
@@ -202,7 +204,7 @@ class McworkappController extends AbstractBackendController
         }
         
         if ($mcworkpages->$page->response->redirect) {
-            return $this->redirect()->toRoute($mcworkpages->$page->response->redirect);
+            return $this->redirect()->toUrl($mcworkpages->$page->response->redirect);
         } else {
             return $this->redirect()->toRoute('mcwork');
         }

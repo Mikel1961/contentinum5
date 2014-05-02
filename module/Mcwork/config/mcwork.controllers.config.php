@@ -7,179 +7,236 @@ return array (
 				'Mcwork\Controller\Content\PageContent' => 'Mcwork\Controller\McworkappController',
 				'Mcwork\Controller\Content\Contribution' => 'Mcwork\Controller\McworkappController',
 				'Mcwork\Controller\Content\Navigation' => 'Mcwork\Controller\McworkappController',
-				'Mcwork\Controller\Content\Menue' => 'Mcwork\Controller\McworkappController',	
-				//'Mcwork\Controller\Content\Medias' => 'Mcwork\Controller\MediaController',
+				'Mcwork\Controller\Content\Menue' => 'Mcwork\Controller\McworkappController',
 				'Mcwork\Controller\Conf' => 'Mcwork\Controller\McworkappController',
-				//'Mcwork\Controller\Conf\Fieldtypes' => 'Mcwork\Controller\McworkappController',
-				//'Mcwork\Controller\Conf\Fieldmetas' => 'Mcwork\Controller\McworkappController',
-				'Mcwork\Controller\Admin' => 'Mcwork\Controller\McworkappController',
-				//'Mcwork\Controller\Admin\Accounts' => 'Mcwork\Controller\McworkappController',
-				'Mcwork\Controller\Admin\Contacts' => 'Mcwork\Controller\McworkappController',
-				'Mcwork\Controller\Admin\Users' => 'Mcwork\Controller\McworkappController',
-				'Mcwork\Controller\Apps' => 'Mcwork\Controller\McworkappController',
+				'Mcwork\Controller\Apps' => 'Mcwork\Controller\McworkappController' 
 		),
-		'factories' => array(
-		        'Mcwork\Controller\Content\Medias' => function ($sl){
-		            $ctrl = new Mcwork\Controller\MediaController();
-		            $ctrl->setEntity(new Mcwork\Entity\MediaFiles());
-		            $worker = new \ContentinumComponents\Storage\StorageDirectory();
-		            $worker->setLogger($sl->getServiceLocator()->get('Contentinum\Logs\Applog'));
-		            $worker->setStorage(new \ContentinumComponents\Storage\StorageManager());
-		            $ctrl->setWorker($worker);
-		            return $ctrl;
-		         },
-		         'Mcwork\Controller\Admin\Accounts' => function ($sl){
-		             $ctrl = new Mcwork\Controller\McworkappController();
-		             $ctrl->setEntity(new Contentinum\Entity\Accounts() );
-		             $ctrl->setWorker(new \ContentinumComponents\Mapper\Worker($sl->getServiceLocator()->get('doctrine.entitymanager.orm_default')));
-		             return $ctrl;
-		         },
-		         'Mcwork\Controller\Conf\Fieldtypes' => function ($sl){
-		         	$ctrl = new Mcwork\Controller\McworkappController();
-		         	$ctrl->setEntity(new Contentinum\Entity\FieldTypes() );
-		         	$ctrl->setWorker(new \ContentinumComponents\Mapper\Worker($sl->getServiceLocator()->get('doctrine.entitymanager.orm_default')));
-		         	return $ctrl;
-		         },	
-		         'Mcwork\Controller\Conf\AddFieldTypes' => function ($sl){
-		         	$em = $sl->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-		         	$worker = new ContentinumComponents\Mapper\Process($em);
-		         	$worker->setEntity(new Contentinum\Entity\FieldTypes() );
-		         	$formFactory = new Mcwork\Form\FieldtypesFrom($worker);
-		         	$formFactory->setDecorators($sl->getServiceLocator()->get('Mcwork\FormDecco'));
-		         	$ctrl = new Mcwork\Controller\AddFormController($formFactory);
-		         	$ctrl->setWorker($worker);
-		         	$ctrl->setFormAction('/mcwork/fieldtypes/add');
-		         	$ctrl->setToRoute('mcwork_fieldtypes');
-		         	return $ctrl;
-		         },		
-		         'Mcwork\Controller\Conf\EditFieldTypes' => function ($sl){
-		             $em = $sl->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-		             $worker = new ContentinumComponents\Mapper\Process($em);
-		             $worker->setEntity(new Contentinum\Entity\FieldTypes());
-		             $formFactory = new Mcwork\Form\FieldtypesFrom($worker);
-		             $formFactory->setDecorators($sl->getServiceLocator()->get('Mcwork\FormDecco'));		             
-		             $ctrl = new Mcwork\Controller\EditFormController($formFactory);
-		             $ctrl->setWorker($worker);
-		             $ctrl->setFormAction('/mcwork/fieldtypes/edit');
-		             $ctrl->setToRoute('mcwork_fieldtypes');
-		             $ctrl->setExclude(array('field' => 'id'));
-		             return $ctrl;		             
-		         },
-		         'Mcwork\Controller\Conf\DeleteFieldTypes' => function($sl){
-		         	$em = $sl->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-		         	$worker = new Mcwork\Model\DeleteItem($em);
-		         	$entity = new Contentinum\Entity\FieldTypes();
-		         	$worker->setEntity($entity);
-		         	$ctrl = new Mcwork\Controller\McworkappController();
-		         	$ctrl->setWorker($worker);
-		         	$ctrl->setMethod('deleteRow');
-		         	$ctrl->setEntity($entity );
-		         	return $ctrl;
-		         	 
-		         },		         
-		         'Mcwork\Controller\Conf\Fieldmetas' => function ($sl){
-		         	$ctrl = new Mcwork\Controller\McworkappController();
-		         	$ctrl->setEntity(new Contentinum\Entity\FieldTypeMetas() );
-		         	$ctrl->setWorker(new \ContentinumComponents\Mapper\Worker($sl->getServiceLocator()->get('doctrine.entitymanager.orm_default')));
-		         	return $ctrl;
-		         },		
-		         'Mcwork\Controller\Conf\AddFieldMetas' => function ($sl){
-		             $em = $sl->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-		             $worker = new ContentinumComponents\Mapper\Process($em);
-		             $worker->setEntity(new Contentinum\Entity\FieldTypeMetas());
-		             $worker->addTargetEntities('fieldTypes', 'Contentinum\Entity\FieldTypes') ;
-		             $formFactory = new Mcwork\Form\FieldmetasForm($worker);
-		             $formFactory->setDecorators($sl->getServiceLocator()->get('Mcwork\FormDecco'));
-		             $ctrl = new Mcwork\Controller\AddFormController($formFactory);
-		             $ctrl->setWorker($worker);
-		             $ctrl->setFormAction('/mcwork/fieldmetas/add');
-		             $ctrl->setToRoute('mcwork_fieldmetas');
-		             return $ctrl; 		             
-		         },
-		         'Mcwork\Controller\Conf\EditFieldMetas' => function ($sl){
-		             $em = $sl->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-		             $worker = new ContentinumComponents\Mapper\Process($em);
-		             $worker->setEntity(new Contentinum\Entity\FieldTypeMetas());
-		             $worker->addTargetEntities('fieldTypes', 'Contentinum\Entity\FieldTypes') ;
-		             $formFactory = new Mcwork\Form\FieldmetasForm($worker);
-		             $formFactory->setDecorators($sl->getServiceLocator()->get('Mcwork\FormDecco'));		             
-		             $ctrl = new Mcwork\Controller\EditFormController($formFactory);
-		             $ctrl->setWorker($worker);
-		             $ctrl->setFormAction('/mcwork/fieldmetas/edit');
-		             $ctrl->setToRoute('mcwork_fieldmetas');
-		             $ctrl->setExclude(array('field' => 'id'));
-		             return $ctrl;		             
-		         },
-		         'Mcwork\Controller\Conf\DeleteFieldMetas' => function($sl){
-		             $em = $sl->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-		             $worker = new Mcwork\Model\DeleteItem($em);
-		             $entity = new Contentinum\Entity\FieldTypeMetas();
-		             $worker->setEntity($entity);
-		             $ctrl = new Mcwork\Controller\McworkappController();
-		             $ctrl->setWorker($worker);
-		             $ctrl->setMethod('deleteRow');
-		             $ctrl->setEntity($entity );
-		             return $ctrl;		             
-		             
-		         },
-				'Mcwork\Controller\Admin\Logs' => function($sl){
-    		        $ctrl = new Mcwork\Controller\McworkappController();
-    		        $ctrl->setEntity(new Mcwork\Entity\LogFiles() );
-    		        $worker = new \ContentinumComponents\Storage\StorageDirectory();
-    		        $worker->setStorage(new \ContentinumComponents\Storage\StorageManager());
-    		        $ctrl->setWorker($worker);
-    		        return $ctrl;			
-		        },
-		        'Mcwork\Controller\Admin\Logs\Display' => function($sl){
-		        	$ctrl = new Mcwork\Controller\McworkappController();
-		        	$ctrl->setEntity(new Mcwork\Entity\LogFiles() );
-		        	$worker = new \Mcwork\Model\Filecontent();
-		        	$worker->setStorage(new \ContentinumComponents\Storage\StorageManager());
-		        	$ctrl->setWorker($worker);
-		        	return $ctrl;
-		        },	
-		        'Mcwork\Controller\Admin\Logs\Download' => function($sl){
-		        	$ctrl = new Mcwork\Controller\McworkappController();
-		        	$ctrl->setEntity(new Mcwork\Entity\LogFiles() );
-		        	$worker = new \Mcwork\Model\Filecontent();
-		        	$worker->setStorage(new \ContentinumComponents\Storage\StorageManager());
-		        	$ctrl->setWorker($worker);
-		        	return $ctrl;
-		        },
-		        'Mcwork\Controller\Admin\Logs\Clear' => function($sl){
-		        	$ctrl = new Mcwork\Controller\McworkappController();
-		        	$ctrl->setMethod('emptyLogFile');
-		        	$ctrl->setEntity(new Mcwork\Entity\LogFiles() );
-		        	$worker = new \Mcwork\Model\Filecontent();
-		        	$worker->setStorage(new \ContentinumComponents\Storage\StorageManager());
-		        	$ctrl->setWorker($worker);
-		        	return $ctrl;
-		        },
-		        'Mcwork\Controller\Admin\Logs\Delete' => function($sl){
-		        	$ctrl = new Mcwork\Controller\McworkappController();
-		        	$ctrl->setMethod('deleteLogFile');
-		        	$ctrl->setEntity(new Mcwork\Entity\LogFiles() );
-		        	$worker = new \Mcwork\Model\Filecontent();
-		        	$worker->setStorage(new \ContentinumComponents\Storage\StorageManager());
-		        	$ctrl->setWorker($worker);
-		        	return $ctrl;
-		        },
-		        'Mcwork\Controller\Admin\Cache' => function($sl){
-		        	$ctrl = new Mcwork\Controller\McworkappController();
-		        	$ctrl->setEntity(new Mcwork\Entity\CacheFiles() );
-		        	$worker = new \Mcwork\Model\Cachecontent();
-		        	$worker->setStorage(new \ContentinumComponents\Storage\StorageManager());
-		        	$ctrl->setWorker($worker);
-		        	return $ctrl;
-		        },
-		        'Mcwork\Controller\Admin\Cache\Clear' => function($sl){
-		        	$ctrl = new Mcwork\Controller\McworkappController();
-		        	$ctrl->setMethod('emptyCache');
-		        	$ctrl->setEntity(new Mcwork\Entity\CacheFiles() );
-		        	$worker = new \Mcwork\Model\Cachecontent();
-		        	$worker->setStorage(new \ContentinumComponents\Storage\StorageManager());
-		        	$ctrl->setWorker($worker);
-		        	return $ctrl;
-		        },		        		        		        
-		),
+		'factories' => array (
+				'Mcwork\Controller\App' => function ($sl) {
+					$app = new Contentinum\Service\ContentinumApp();
+					$params = $sl->getServiceLocator ()->get ( 'Mcwork\Pages' );
+					$app->setOptions($params->toArray());
+					if (true === $app->isPageAvailable()){
+						if (true === $app->setAppData()){
+							$worker = null;
+							if (false != ($ctrlName = $app->getOptions('controller'))){
+								$ctrl = new $ctrlName();
+							} else {
+								$ctrl = new Mcwork\Controller\McworkappController ();
+							}
+							if (false != ($methodName = $app->getOptions('ctrlmethod'))){
+								$ctrl->setMethod($methodName);
+							}
+							$workerName = $app->getOptions('worker');
+							$entityName = $app->getOptions('entity');
+							if (false != ($entityManager = $app->getOptions('entitymanager'))){
+								$worker = new $workerName( $sl->getServiceLocator ()->get ($entityManager) );
+							}
+							
+							if (false != ($storage = $app->getOptions('storage')) ){
+								$worker = new $workerName();
+								$worker->setStorage ( new $storage () );								
+							}
+							$ctrl->setEntity(new $entityName());
+							$ctrl->setWorker($worker);
+							return $ctrl;
+						}
+					} else {
+						return new Mcwork\Controller\McworkappController ();
+					}
+				},
+				'Mcwork\Controller\AddItems' => function ($sl) {
+					$uripath = str_replace ( '/', '_',$_SERVER['REQUEST_URI']);
+					$params = $sl->getServiceLocator ()->get ( 'Mcwork\Pages' );
+					$page = substr($uripath,1,strlen($uripath));
+					$app = new Contentinum\Service\ContentinumApp();
+					$app->setOptions($params->toArray());
+					if (true === $app->isPageAvailable()){
+						if (true === $app->setAppData()){
+							$worker = null;
+							$workerName = $app->getOptions('worker');
+							if (false != ($entityManager = $app->getOptions('entitymanager'))){
+								$worker = new $workerName( $sl->getServiceLocator ()->get ($entityManager) );
+							} else {
+								$worker = new $workerName($sl->getServiceLocator ()->get ( 'doctrine.entitymanager.orm_default' ));
+							}	
+							$entityName = $app->getOptions('entity');							
+							$worker->setEntity(new $entityName());
+							$targetEntities = $app->getOptions('targetentities');
+							if ( is_array($targetEntities) && ! empty($targetEntities)){
+								foreach ($targetEntities as $key => $tEntity){
+									$worker->addTargetEntities ( $key, $tEntity );
+								}
+							}
+							$formName = $app->getOptions('form');	
+							$formFactory = new $formName($worker);
+							$decorators = $sl->getServiceLocator ()->get ( 'Mcwork\FormDecorators' );
+							$formFactory->setDecorators ( $decorators->default->toArray () );
+							$ctrl = new Mcwork\Controller\AddFormController ( $formFactory );
+							$ctrl->setWorker ( $worker );
+							$ctrl->setFormAction ($app->getOptions('formaction') );
+							$ctrl->setToRoute ($app->getOptions('settoroute') );
+							return $ctrl;							
+						}
+					}
+				},				
+				'Mcwork\Controller\EditItem' => function ($sl) {
+					$uripath = str_replace ( '/', '_',$_SERVER['REQUEST_URI']);
+					$params = $sl->getServiceLocator ()->get ( 'Mcwork\Pages' );
+					$page = substr($uripath,1,strlen($uripath));				
+					$app = new Contentinum\Service\ContentinumApp();
+					$app->setOptions($params->toArray());	 
+					$app->cutUri();   
+					if (true === $app->isPageAvailable()){
+						if (true === $app->setAppData()){
+							$worker = null;
+							$workerName = $app->getOptions('worker');
+							if (false != ($entityManager = $app->getOptions('entitymanager'))){
+								$worker = new $workerName( $sl->getServiceLocator ()->get ($entityManager) );
+							} else {
+								$worker = new $workerName($sl->getServiceLocator ()->get ( 'doctrine.entitymanager.orm_default' ));
+							}
+							$entityName = $app->getOptions('entity');
+							$worker->setEntity(new $entityName());
+							$targetEntities = $app->getOptions('targetentities');
+							if ( is_array($targetEntities) && ! empty($targetEntities)){
+								foreach ($targetEntities as $key => $tEntity){
+									$worker->addTargetEntities ( $key, $tEntity );
+								}
+							}
+							$formName = $app->getOptions('form');
+							$formFactory = new $formName($worker);
+							$decorators = $sl->getServiceLocator ()->get ( 'Mcwork\FormDecorators' );
+							$formFactory->setDecorators ( $decorators->default->toArray () );
+							$ctrl = new Mcwork\Controller\EditFormController ( $formFactory );
+							$ctrl->setWorker ( $worker );
+							$ctrl->setFormAction ($app->getOptions('formaction') );
+							$ctrl->setToRoute ($app->getOptions('settoroute') );
+							
+							if (false != ($setexclude = $app->getOptions('setexclude'))){
+								$ctrl->setExclude($setexclude);
+							}
+							return $ctrl;							
+						}
+					}
+				},
+				
+				'Mcwork\Controller\DeleteItem' => function($sl) {
+					$uripath = str_replace ( '/', '_',$_SERVER['REQUEST_URI']);
+					$params = $sl->getServiceLocator ()->get ( 'Mcwork\Pages' );
+					$page = substr($uripath,1,strlen($uripath));
+					$app = new Contentinum\Service\ContentinumApp();
+					$app->setOptions($params->toArray());
+					$app->cutUri();
+					if (true === $app->isPageAvailable()){
+						if (true === $app->setAppData()){
+							$worker = null;
+							$workerName = $app->getOptions('worker');
+							if (false != ($entityManager = $app->getOptions('entitymanager'))){
+								$worker = new $workerName( $sl->getServiceLocator ()->get ($entityManager) );
+							} elseif (false != ($storage = $app->getOptions('storage')) ){
+								$worker = new $workerName();
+								$worker->setStorage ( new $storage () );
+							} else {
+								$worker = new $workerName($sl->getServiceLocator ()->get ( 'doctrine.entitymanager.orm_default' ));
+							}
+							$entityName = $app->getOptions('entity');	
+							$entity = new $entityName();						
+							$worker->setEntity($entity);
+							if (false != ($ctrlName = $app->getOptions('controller'))){
+								$ctrl = new $ctrlName();
+							} else {
+								$ctrl = new Mcwork\Controller\McworkappController ();
+							}
+							$ctrl->setWorker($worker);
+							if (false != ($methodName = $app->getOptions('ctrlmethod'))){
+								$ctrl->setMethod($methodName);
+							} 
+							$ctrl->setEntity($entity);
+							return $ctrl;
+						}
+					}
+				},
+				'Mcwork\Controller\DisplayItem' => function($sl) {
+					$uripath = str_replace ( '/', '_',$_SERVER['REQUEST_URI']);
+					$params = $sl->getServiceLocator ()->get ( 'Mcwork\Pages' );
+					$page = substr($uripath,1,strlen($uripath));
+					$app = new Contentinum\Service\ContentinumApp();
+					$app->setOptions($params->toArray());
+					$app->cutUri();
+					if (true === $app->isPageAvailable()){
+						if (true === $app->setAppData()){
+							$worker = null;
+							$workerName = $app->getOptions('worker');
+							if (false != ($entityManager = $app->getOptions('entitymanager'))){
+								$worker = new $workerName( $sl->getServiceLocator ()->get ($entityManager) );
+							} elseif (false != ($storage = $app->getOptions('storage')) ){
+								$worker = new $workerName();
+								$worker->setStorage ( new $storage () );
+							} else {
+								$worker = new $workerName($sl->getServiceLocator ()->get ( 'doctrine.entitymanager.orm_default' ));
+							}
+							$entityName = $app->getOptions('entity');
+							$entity = new $entityName();
+							$worker->setEntity($entity);
+							if (false != ($ctrlName = $app->getOptions('controller'))){
+								$ctrl = new $ctrlName();
+							} else {
+								$ctrl = new Mcwork\Controller\McworkappController ();
+							}
+							$ctrl->setWorker($worker);
+							if (false != ($methodName = $app->getOptions('ctrlmethod'))){
+								$ctrl->setMethod($methodName);
+							}
+							$ctrl->setEntity($entity);
+							return $ctrl;
+						}
+					}
+				},
+				'Mcwork\Controller\DownloadItem' => function($sl) {
+					$uripath = str_replace ( '/', '_',$_SERVER['REQUEST_URI']);
+					$params = $sl->getServiceLocator ()->get ( 'Mcwork\Pages' );
+					$page = substr($uripath,1,strlen($uripath));
+					$app = new Contentinum\Service\ContentinumApp();
+					$app->setOptions($params->toArray());
+					$app->cutUri();
+					if (true === $app->isPageAvailable()){
+						if (true === $app->setAppData()){
+							$worker = null;
+							$workerName = $app->getOptions('worker');
+							if (false != ($entityManager = $app->getOptions('entitymanager'))){
+								$worker = new $workerName( $sl->getServiceLocator ()->get ($entityManager) );
+							} elseif (false != ($storage = $app->getOptions('storage')) ){
+								$worker = new $workerName();
+								$worker->setStorage ( new $storage () );
+							} else {
+								$worker = new $workerName($sl->getServiceLocator ()->get ( 'doctrine.entitymanager.orm_default' ));
+							}
+							$entityName = $app->getOptions('entity');
+							$entity = new $entityName();
+							$worker->setEntity($entity);
+							if (false != ($ctrlName = $app->getOptions('controller'))){
+								$ctrl = new $ctrlName();
+							} else {
+								$ctrl = new Mcwork\Controller\McworkappController ();
+							}
+							$ctrl->setWorker($worker);
+							if (false != ($methodName = $app->getOptions('ctrlmethod'))){
+								$ctrl->setMethod($methodName);
+							}
+							$ctrl->setEntity($entity);
+							return $ctrl;
+						}
+					}
+				},
+				'Mcwork\Controller\Content\Medias' => function ($sl) {
+					$ctrl = new Mcwork\Controller\MediaController ();
+					$ctrl->setEntity ( new Mcwork\Entity\MediaFiles () );
+					$worker = new \ContentinumComponents\Storage\StorageDirectory ();
+					$worker->setLogger ( $sl->getServiceLocator ()->get ( 'Contentinum\Logs\Applog' ) );
+					$worker->setStorage ( new \ContentinumComponents\Storage\StorageManager () );
+					$ctrl->setWorker ( $worker );
+					return $ctrl;
+				},
+		)
 );

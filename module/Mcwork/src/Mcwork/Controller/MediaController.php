@@ -27,12 +27,13 @@
  * @version 1.0.0
  */
 namespace Mcwork\Controller;
+
 use ContentinumComponents\Controller\AbstractContentinumController;
 use Zend\View\Model\ViewModel;
 use Zend\Json\Json;
 
 /**
- * media controller backend
+ * media controller backend file handle
  *
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */

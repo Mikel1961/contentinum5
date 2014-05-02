@@ -1,4 +1,5 @@
 <?php
+
 /**
  * contentinum - accessibility websites
  *
@@ -16,28 +17,36 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @category contentinum
- * @package Service
+ * @category Mcwork
+ * @package Model
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  * @copyright Copyright (c) 2009-2013 jochum-mediaservices, Katja Jochum (http://www.jochum-mediaservices.de)
  * @license http://www.opensource.org/licenses/bsd-license
  * @since contentinum version 5.0
- * @link      https://github.com/Mikel1961/contentinum-components
- * @version   1.0.0
+ * @link https://github.com/Mikel1961/contentinum-components
+ * @version 1.0.0
  */
-namespace Mcwork\Service;
+namespace Mcwork\Model;
 
-use Contentinum\Service\ContentinumServiceFactory;
+use ContentinumComponents\Storage\StorageDirectory;
+use ContentinumComponents\Storage\AbstractStorageEntity;
 
 /**
- * Config key mcwork table row toolbar settings
+ * Get and list directory content
+ *
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
-class McworkTableeditServiceFactory extends ContentinumServiceFactory
+class Directorycontent extends StorageDirectory
 {
 	/**
-	 * Contentinum logger configuration key
-	 * @var string
+	 * Fetch directory content
+	 * @param array $attribs
+	 * @param AbstractStorageEntity $entity
+	 * @param string $sl
 	 */
-	const CONTENTINUM_CFG_FILE = 'mcworktableedit';	
+	public function fetchContent (array $attribs, AbstractStorageEntity $entity, $sl = null)
+	{
+		return $this->fetchAll($entity);
+	}
+	
 }

@@ -30,14 +30,14 @@ namespace Mcwork\Service;
 use Contentinum\Service\ContentinumServiceFactory;
 
 /**
- * Config key mcwork table row toolbar settings
+ * Config key form decorators settings
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
-class McworkTableeditServiceFactory extends ContentinumServiceFactory
+class McworkFormdecoratorsServiceFactory extends ContentinumServiceFactory
 {
 	/**
 	 * Contentinum logger configuration key
 	 * @var string
 	 */
-	const CONTENTINUM_CFG_FILE = 'mcworktableedit';	
+	const CONTENTINUM_CFG_FILE = 'mcworkformdecco';	
 }

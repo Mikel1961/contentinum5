@@ -1,7 +1,33 @@
-<?php 
+<?php
+/**
+ * contentinum - accessibility websites
+ *
+ * LICENSE
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * @category contentinum backend
+ * @package View
+ * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
+ * @copyright Copyright (c) 2009-2013 jochum-mediaservices, Katja Jochum (http://www.jochum-mediaservices.de)
+ * @license http://www.opensource.org/licenses/bsd-license
+ * @since contentinum version 5.0
+ * @link      https://github.com/Mikel1961/contentinum-components
+ * @version   1.0.0
+ */
 use ContentinumComponents\Html\HtmlTable;
 use ContentinumComponents\Html\Table\FactoryTable;
-
+// prepare content, create a table
 $tableFactory = new HtmlTable ( new FactoryTable () );
 
 // set table tag attributes
@@ -19,7 +45,7 @@ $headlines = array (
 						'class' => 'hide-for-small' 
 				) 
 		),
-		'Registerd since' => array (
+		'Last change' => array (
 				'head' => array (
 						'class' => 'hide-for-small text-right' 
 				),
@@ -70,10 +96,7 @@ foreach ( $this->entries as $entry ) {
         			)
         	);
         	$tableedit = $this->mcworkToolbar($links,true,$this->tableeditcontent->toArray());
-        }        
-        
-        
-        
+        }
         $tbl = array (
         		'edit' =>
         		array (
@@ -87,7 +110,7 @@ foreach ( $this->entries as $entry ) {
                 'delete' =>
                 array (
                 		'label' => 'Delete',
-                		'href' => '/mcwork/fieldtypes/delete/' .$entry->id,
+                		'href' => '/mcwork/fieldtypes/delete',
                 		'attribs' => array (
                 		        'data-name' => $entry->name,
                 		        'data-ident' => 'row'.$i,
@@ -96,17 +119,13 @@ foreach ( $this->entries as $entry ) {
                 		)
                 )                
         );
-		
-		
 		$rowContent = array ();
 		$rowContent[] = '<input id="row'.$i.'" type="checkbox" value="'.$entry->id.'" name="cb[]">';
 		$rowContent [] = $entry->name . $this->mcworkTableEdit ( $tbl );
 		$rowContent [] = $entry->typescope;
-		$rowContent [] = $entry->registerDate->format('d F Y H:i:s'); // date ( "d.m.Y H:i:s", $entry->registerDate );
+		$rowContent [] = $entry->upDate->format('d F Y H:i:s'); // date ( "d.m.Y H:i:s", $entry->registerDate );
 		$tableFactory->setHtmlContent ( $rowContent );
-	
 }
-
 $html = $tableFactory->display ();
 $html .= $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'content' ) );
 $toolbar = '';
@@ -124,7 +143,7 @@ if ( isset($this->toolbarcontent) ){
 	);
 	$toolbar = $this->mcworkToolbar($links,true,$this->toolbarcontent->toArray());
 }
-
+// output, display content
 if (isset ( $this->widget )) {
 	$content = str_replace ( '{TEMPLATE_HEADER}', $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'subheadline' ) ) . $toolbar, $this->widget );
 	echo str_replace ( '{TEMPLATE_CONTENT}', $html, $content );
