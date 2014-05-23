@@ -63,6 +63,20 @@ class WebPreferences extends AbstractEntity
      * @ORM\Column(name="favicon", type="string", length=80, nullable=false)
      */
     private $favicon = '';
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="meta_description", type="text", nullable=false)
+     */    
+    private $metaDescription = '';
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="meta_keywords", type="text", nullable=false)
+     */
+    private $metaKeywords = '';    
 
     /**
      * @var string
@@ -91,6 +105,41 @@ class WebPreferences extends AbstractEntity
      * @ORM\Column(name="siteverification", type="string", length=200, nullable=false)
      */
     private $siteverification = '';
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="robots", type="string", length=100, nullable=false)
+     */    
+    private $robots = 'index, follow';
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="global_top_script", type="text", nullable=false)
+     */    
+    private $globalTopScript = '';
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="global_bottom_script", type="text", nullable=false)
+     */    
+    private $globalBottomScript = '';
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="global_experttop_script", type="text", nullable=false)
+     */    
+    private $globalExperttopScript = '';
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="global_expertbottom_script", type="text", nullable=false)
+     */    
+    private $globalExpertbottomScript = '';
 
     /**
      * @var integer
@@ -324,6 +373,52 @@ class WebPreferences extends AbstractEntity
     }
 
     /**
+     * Get meta description
+     * 
+	 * @return the $meta_description
+	 */
+	public function getMetaDescription() 
+	{
+		return $this->meta_description;
+	}
+
+	/**
+	 * Set meta description
+	 * 
+	 * @param string $metaDescription
+	 * @return WebPreferences
+	 */
+	public function setMetaDescription($metaDescription) 
+	{
+		$this->meta_description = $metaDescription;
+		
+		return $this;
+	}
+
+	/**
+	 * Get meta keywords
+	 * 
+	 * @return the $meta_keywords
+	 */
+	public function getMetaKeywords()
+	{
+		return $this->meta_keywords;
+	}
+
+	/**
+	 * Set meta keywords
+	 * 
+	 * @param string $metaKeywords
+	 * @return WebPreferences
+	 */
+	public function setMetaKeywords($metaKeywords) 
+	{
+		$this->meta_keywords = $metaKeywords;
+		
+		return $this;
+	}
+
+	/**
      * Set author
      *
      * @param string $author
@@ -416,6 +511,121 @@ class WebPreferences extends AbstractEntity
     }
 
     /**
+     * Get meta value robots
+     * 
+	 * @return the $robots
+	 */
+	public function getRobots() 
+	{
+		return $this->robots;
+	}
+
+	/**
+	 * Set meta value robots
+	 * 
+	 * @param string $robots
+	 * @return WebPreferences
+	 */
+	public function setRobots($robots) 
+	{
+		$this->robots = $robots;
+		
+		return $this;
+	}
+
+	/**
+	 * Get global js file adjustment (header link value)
+	 * 
+	 * @return the $globalTopScript
+	 */
+	public function getGlobalTopScript() 
+	{
+		return $this->globalTopScript;
+	}
+
+	/**
+	 * Set global js file adjustment (header link value)
+	 * 
+	 * @param string $globalTopScript
+	 * @return WebPreferences
+	 */
+	public function setGlobalTopScript($globalTopScript) 
+	{
+		$this->globalTopScript = $globalTopScript;
+		
+		return $this;
+	}
+
+	/**
+	 * Get global js file adjustment (body end tag link value)
+	 * 
+	 * @return the $globalBottomScript
+	 */
+	public function getGlobalBottomScript() 
+	{
+		return $this->globalBottomScript;
+	}
+
+	/**
+	 * Set global js file adjustment (body end tag link value)
+	 * 
+	 * @param string $globalBottomScript
+	 * @return WebPreferences
+	 */
+	public function setGlobalBottomScript($globalBottomScript) 
+	{
+		$this->globalBottomScript = $globalBottomScript;
+		
+		return $this;
+	}
+
+	/**
+	 * Get global js file adjustment (header script value)
+	 * 
+	 * @return the $globalExperttopScript
+	 */
+	public function getGlobalExperttopScript() 
+	{
+		return $this->globalExperttopScript;
+	}
+
+	/**
+	 * Set global js file adjustment (header script value)
+	 * 
+	 * @param string $globalExperttopScript
+	 * @return WebPreferences
+	 */
+	public function setGlobalExperttopScript($globalExperttopScript) 
+	{
+		$this->globalExperttopScript = $globalExperttopScript;
+		
+		return $this;
+	}
+
+	/**
+	 * Get global js file adjustment (body end tag script value)
+	 * 
+	 * @return the $globalExpertbottomScript
+	 */
+	public function getGlobalExpertbottomScript() 
+	{
+		return $this->globalExpertbottomScript;
+	}
+
+	/**
+	 * Set global js file adjustment (body end tag script value)
+	 * 
+	 * @param string $globalExpertbottomScript
+	 * @return WebPreferences
+	 */
+	public function setGlobalExpertbottomScript($globalExpertbottomScript) 
+	{
+		$this->globalExpertbottomScript = $globalExpertbottomScript;
+		
+		return $this;
+	}
+
+	/**
      * Set createdBy
      *
      * @param integer $createdBy
