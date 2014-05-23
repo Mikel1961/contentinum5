@@ -22,8 +22,14 @@ return array (
 										) 
 								) 
 						) 
-				)
-				,
+				),
+				'deco-tab-row' => array (
+						'tags' => array (
+								'1' => array (
+										'tag' => 'p',
+								),
+						)
+				),				
 				'deco-desc' => array (
 						'tag' => 'span',
 						'attributes' => array (
