@@ -64,6 +64,10 @@ table {
 .asbestos { background: #7F8C8D}
 
 
+.row {
+	max-width: 100%;
+}
+
 form.custom .custom.dropdown {
     background: #ECF0F1;
 }
