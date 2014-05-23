@@ -1,7 +1,7 @@
 <?php
 return array (
 		'attribute' => array (
-				'class' => 'toolbar-right' 
+				'class' => 'button-group right' 
 		),
 		'standards' => array (
 				'add' => array (
