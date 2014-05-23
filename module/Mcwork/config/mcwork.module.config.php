@@ -620,7 +620,7 @@ return array (
 								        ),								        
 										'head_custom' => array (
 												'assets' => array (
-														'backend/js/vendor/custom.modernizr.js' 
+														'backend/js/vendor/modernizr.js' 
 												),
 												'filters' => array (
 														'?JSMinFilter' => array (
