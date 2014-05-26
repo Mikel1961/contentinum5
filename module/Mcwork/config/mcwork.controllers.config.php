@@ -76,6 +76,10 @@ return array (
 							$ctrl->setWorker ( $worker );
 							$ctrl->setFormAction ($app->getOptions('formaction') );
 							$ctrl->setToRoute ($app->getOptions('settoroute') );
+							$populate = $app->getOptions('populate');
+							if ( is_array($populate) && ! empty($populate) ){
+								$ctrl->setAddPopulate($populate);
+							}
 							return $ctrl;							
 						}
 					}

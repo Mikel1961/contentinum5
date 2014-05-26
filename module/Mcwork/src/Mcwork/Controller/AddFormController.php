@@ -87,4 +87,14 @@ class AddFormController extends AbstractFormController
 		return $model;
 	}
 	
+	/**
+	 * Populate entries in form fields from configuration file
+	 */
+	protected function populate()
+	{
+		if (is_array($this->addPopulate) && ! empty($this->addPopulate)){
+			$this->form->populateValues($this->addPopulate);
+		}
+	}	
+	
 }
