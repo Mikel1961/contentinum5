@@ -37,6 +37,7 @@ $iClass = 0;
 $headlines = array (
         '#' => array(),
 		'Hostname' => array (),
+		'Title' => array (),
 		'Standard' => array (
 				'head' => array (
 						'class' => 'hide-for-small' 
@@ -119,9 +120,17 @@ foreach ( $this->entries as $entry ) {
                 		)
                 )                
         );
+        if ( '_default' == $entry->host){
+        	unset($tbl['delete']);
+        }
 		$rowContent = array ();
-		$rowContent[] = '<input id="row'.$i.'" type="checkbox" value="'.$entry->id.'" name="cb[]">';
+		if ( '_default' == $entry->host){
+			$rowContent[] = '#';
+		} else {
+			$rowContent[] = '<input id="row'.$i.'" type="checkbox" value="'.$entry->id.'" name="cb[]">';
+		}
 		$rowContent [] = $entry->host . $this->mcworkTableEdit ( $tbl );
+		$rowContent[] = $entry->title;
 		$rowContent [] = $entry->standardDomain;
 		$rowContent [] = $entry->upDate->format('d F Y H:i:s'); // date ( "d.m.Y H:i:s", $entry->registerDate );
 		$tableFactory->setHtmlContent ( $rowContent );

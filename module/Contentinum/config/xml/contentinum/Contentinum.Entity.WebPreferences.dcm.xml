@@ -20,7 +20,7 @@
     <field name="language" type="string" column="language" length="40" nullable="false"/>
     <field name="googleaccount" type="string" column="googleaccount" length="200" nullable="false"/>
     <field name="siteverification" type="string" column="siteverification" length="200" nullable="false"/>
-    
+    <field name="metaViewport" type="string" column="meta_viewport" length="100" nullable="false"/>
     <field name="robots" type="string" column="robots" length="100" nullable="false"/>
     <field name="globalTopScript" type="text" column="global_top_script" nullable="false"/>
     <field name="globalBottomScript" type="text" column="global_bottom_script" nullable="false"/>

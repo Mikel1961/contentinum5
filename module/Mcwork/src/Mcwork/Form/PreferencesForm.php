@@ -37,7 +37,6 @@ use ContentinumComponents\Forms\AbstractForms;
  */
 class PreferencesForm extends AbstractForms 
 {
-	
 	/**
 	 * form field elements
 	 *
@@ -68,6 +67,7 @@ class PreferencesForm extends AbstractForms
 								'required' => true,
 								'options' => array (
 										'label' => 'Hostname',
+										'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
 										'deco-error' => $this->getDecorators ( self::DECO_ERROR ),
 										'deco-error-msg' => 'Name is required and must be a string' 
 								),
@@ -83,27 +83,45 @@ class PreferencesForm extends AbstractForms
 								'name' => 'standardDomain',
 								'required' => true,
 								'options' => array (
-										'label' => 'Set Standard',
-										'empty_option' => 'Set a standard domain',
 										'value_options' => array (
-												'no' => 'no standard',
-												'yes' => 'Standard domain' 
+												'no' => 'No standard domain',
+												'yes' => 'Set as standard domain' 
 										),
+										'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
 										'deco-error' => $this->getDecorators ( self::DECO_ERROR ),
 										'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich' 
 								),
-								'type' => 'Select',
+								'type' => 'Radio',
 								'attributes' => array (
 										'required' => 'required',
-										'id' => 'standardDomain' 
 								) 
 						) 
 				),
 				array (
 						'spec' => array (
+								'name' => 'hostId',
+								'required' => true,
+								'options' => array (
+										'label' => 'Alias domain from',
+										'empty_option' => '-- Domains --',
+										'value_options' => $this->getSelectOptions(null,array('value' => 'hostId', 'label' => 'host'),array(array('cond' => 'main.standardDomain = ?1','param' => array('1','yes'))),'Contentinum\Entity\WebPreferences',true,array('createnewhost' => 'Add a new Domain')),
+										'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
+										'deco-error' => $this->getDecorators ( self::DECO_ERROR ),
+										'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich'
+								),
+								'type' => 'Select',
+								'attributes' => array (
+										'required' => 'required',
+										'id' => 'hostId'
+								)
+						)
+				),				
+				array (
+						'spec' => array (
 								'name' => 'title',
 								'options' => array (
 										'label' => 'Website title',
+										'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
 										'deco-error' => $this->getDecorators ( self::DECO_ERROR ),
 										'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich' 
 								),
@@ -125,6 +143,7 @@ class PreferencesForm extends AbstractForms
 												'iso-8859-1' => 'ISO 8859-1',
 												'iso-8859-15' => 'ISO 8859-15' 
 										),
+										'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
 										'deco-error' => $this->getDecorators ( self::DECO_ERROR ),
 										'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich' 
 								),
@@ -148,6 +167,7 @@ class PreferencesForm extends AbstractForms
 												'fr' => 'French',
 												'it' => 'Italian' 
 										),
+										'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
 										'deco-error' => $this->getDecorators ( self::DECO_ERROR ),
 										'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich' 
 								),
@@ -164,6 +184,7 @@ class PreferencesForm extends AbstractForms
 								'required' => true,
 								'options' => array (
 										'label' => 'Author',
+										'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
 										'deco-error' => $this->getDecorators ( self::DECO_ERROR ),
 										'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich',
 										'fieldset' => array (
@@ -188,12 +209,13 @@ class PreferencesForm extends AbstractForms
 										'label' => 'Set meta value robots',
 										'empty_option' => '-- meta value robots --',
 										'value_options' => array (
-												'index, follow' => 'Index the page, follow the links on the page',
+												'index,follow' => 'Index the page, follow the links on the page',
 												'index, nofollow' => 'Index the page, nofollow the links on the page',
 												'noindex' => 'Disallow search engines from showing this page in their results',
 												'nocache' => 'Prevents the search engines from showing a cached copy of this page',
 												'none' => 'Don’t do anything with this page at all',
 										),
+										'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
 								),
 								'type' => 'Select',
 								'attributes' => array (
@@ -206,6 +228,7 @@ class PreferencesForm extends AbstractForms
 								'name' => 'metaDescription',
 								'options' => array (
 										'label' => 'Meta value description',
+										'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
 								),
 								'type' => 'Textarea',
 								'attributes' => array (
@@ -218,7 +241,8 @@ class PreferencesForm extends AbstractForms
 						'spec' => array (
 								'name' => 'metaKeywords',
 								'options' => array (
-										'label' => 'Meta value keywords',										
+										'label' => 'Meta value keywords',	
+										'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
 								),
 								'type' => 'Textarea',
 								'attributes' => array (
@@ -230,29 +254,42 @@ class PreferencesForm extends AbstractForms
 				array (
 						'spec' => array (
 								'name' => 'siteverification',
-								'required' => true,
 								'options' => array (
 										'label' => 'Google site verification',
-										'fieldset' => array (
-												'legend' => 'Metas',
-												'attributes' => array (
-														'class' => 'content',
-														'id' => 'fieldsetMetadata'
-												)
-										)
+										'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
 								),
 								'type' => 'Text',
 								'attributes' => array (
-										'required' => 'required',
 										'id' => 'siteverification'
 								)
 						)
 				),
 				array (
 						'spec' => array (
+								'name' => 'metaViewport',
+								'options' => array (
+										'label' => 'Viewport',
+										'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
+										'fieldset' => array (
+												'legend' => 'Metas',
+												'attributes' => array (
+														'class' => 'content',
+														'id' => 'fieldsetMetadata'
+												)
+										),
+								),
+								'type' => 'Text',
+								'attributes' => array (
+										'id' => 'metaViewport'
+								)
+						)
+				),				
+				array (
+						'spec' => array (
 								'name' => 'globalTopScript',
 								'options' => array (
 										'label' => 'Javascript body start tag',
+										'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
 								),
 								'type' => 'Textarea',
 								'attributes' => array (
@@ -266,6 +303,7 @@ class PreferencesForm extends AbstractForms
 								'name' => 'globalBottomScript',
 								'options' => array (
 										'label' => 'Javascript body end tag',
+										'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
 										'fieldset' => array (
 												'legend' => 'Embed javascript instruction',
 												'attributes' => array (
@@ -286,6 +324,7 @@ class PreferencesForm extends AbstractForms
 								'name' => 'globalExperttopScript',
 								'options' => array (
 										'label' => 'Javascript block body start tag',
+										'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
 								),
 				
 								'type' => 'Textarea',
@@ -300,6 +339,7 @@ class PreferencesForm extends AbstractForms
 								'name' => 'globalExpertbottomScript',
 								'options' => array (
 										'label' => 'Javascript block body end tag',
+										'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
 										'fieldset' => array (
 												'legend' => 'Embed javascript instruction block',
 												'attributes' => array (
@@ -335,6 +375,7 @@ class PreferencesForm extends AbstractForms
 								'name' => 'send',
 								'options' => array (
 										'deco-abort-btn' => $this->getDecorators ( self::DECO_ABORT_BTN ),
+										'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
 										'fieldset' => array (
 												'legend' => 'Save Datas',
 												'attributes' => array (
@@ -369,6 +410,7 @@ class PreferencesForm extends AbstractForms
 						) 
 				),
 				'title' => array (
+						'required' => true,
 						'filters' => array (
 								array (
 										'name' => 'Zend\Filter\StringTrim' 
@@ -376,12 +418,69 @@ class PreferencesForm extends AbstractForms
 						) 
 				),
 				'author' => array (
+						'required' => true,
 						'filters' => array (
 								array (
 										'name' => 'Zend\Filter\StringTrim' 
 								) 
 						) 
-				) 
+				),
+				'metaDescription' => array (
+						'required' => false,
+						'filters' => array (
+								array (
+										'name' => 'Zend\Filter\StringTrim'
+								)
+						)
+				),
+				'metaKeywords' => array (
+						'required' => false,
+						'filters' => array (
+								array (
+										'name' => 'Zend\Filter\StringTrim'
+								)
+						)
+				),
+				'siteverification' => array (
+						'required' => false,
+						'filters' => array (
+								array (
+										'name' => 'Zend\Filter\StringTrim'
+								)
+						)
+				),
+				'globalTopScript' => array (
+						'required' => false,
+						'filters' => array (
+								array (
+										'name' => 'Zend\Filter\StringTrim'
+								)
+						)
+				),
+				'globalBottomScript' => array (
+						'required' => false,
+						'filters' => array (
+								array (
+										'name' => 'Zend\Filter\StringTrim'
+								)
+						)
+				),
+				'globalExperttopScript' => array (
+						'required' => false,
+						'filters' => array (
+								array (
+										'name' => 'Zend\Filter\StringTrim'
+								)
+						)
+				),
+				'globalExpertbottomScript' => array (
+						'required' => false,
+						'filters' => array (
+								array (
+										'name' => 'Zend\Filter\StringTrim'
+								)
+						)
+				)								 
 		);
 	}
 	

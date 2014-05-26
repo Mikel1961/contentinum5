@@ -109,6 +109,13 @@ class WebPreferences extends AbstractEntity
     /**
      * @var string
      *
+     * @ORM\Column(name="meta_viewport", type="string", length=100, nullable=false)
+     */    
+    private $metaViewport = 'width=device-width, initial-scale=1.0';
+    
+    /**
+     * @var string
+     *
      * @ORM\Column(name="robots", type="string", length=100, nullable=false)
      */    
     private $robots = 'index, follow';
@@ -511,6 +518,25 @@ class WebPreferences extends AbstractEntity
     }
 
     /**
+	 * @return the $metaViewport
+	 */
+	public function getMetaViewport() 
+	{
+		return $this->metaViewport;
+	}
+
+	/**
+	 * @param string $metaViewport
+	 * @return WebPreferences
+	 */
+	public function setMetaViewport($metaViewport) 
+	{
+		$this->metaViewport = $metaViewport;
+		
+		return $this;
+	}
+
+	/**
      * Get meta value robots
      * 
 	 * @return the $robots

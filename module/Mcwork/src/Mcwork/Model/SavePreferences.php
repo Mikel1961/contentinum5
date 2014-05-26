@@ -46,7 +46,9 @@ class SavePreferences extends Process
 	{
 		$entity = $this->handleEntity($entity);
 		if (null === $entity->getPrimaryValue()   ) {
-			$datas['host_id'] = Id::get();
+			if ('createnewhost' == $datas['hostId']){
+				$datas['hostId'] = Id::get();
+			}
 			parent::save($datas,$entity);
 		} 
 	}
