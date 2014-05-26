@@ -219,14 +219,14 @@ return array (
 		
 				'controllers' => array(
 						'Contentinum\Controller\Index' => array(
-								'@core',
-								'@head_modernizr',
-								'@scripts',
+								'@foundation',
+								'@head_foundation',
+								'@scriptsfoundation',
 						),
 						'Contentinum\Controller\App' => array(
-								'@core',
-								'@head_modernizr',
-								'@scripts',
+								'@foundation',
+								'@head_foundation',
+								'@scriptsfoundation',
 						),						
 				),
 		
@@ -235,6 +235,43 @@ return array (
 								'root_path' => __DIR__ . '/../assets',
 		
 								'collections' => array(
+										'foundation' => array(
+												'assets' => array(
+														'foundation/css/foundation.css',
+														'foundation/css/foundation.form.css',
+												),
+												'filters' => array(
+														'?CssRewriteFilter' => array(
+																'name' => 'Assetic\Filter\CssRewriteFilter'
+														),
+														'?CssMinFilter' => array(
+																'name' => 'Assetic\Filter\CssMinFilter'
+														),
+												),
+										),
+										'head_foundation' => array(
+												'assets' => array(
+														'foundation/js/vendor/modernizr.js',
+												),
+												'filters' => array(
+														'?JSMinFilter' => array(
+																'name' => 'Assetic\Filter\JSMinFilter'
+														),
+												),
+													
+										),
+										'scriptsfoundation' => array(
+												'assets' => array(
+														'foundation/js/vendor/jquery.js',
+														'foundation/js/foundation.min.js',
+														'foundation/js/std.js',
+												),
+												'filters' => array(
+														'?JSMinFilter' => array(
+																'name' => 'Assetic\Filter\JSMinFilter'
+														),
+												),
+										),										
 										'core' => array(
 												'assets' => array(
 														'default/css/normalize.css',
