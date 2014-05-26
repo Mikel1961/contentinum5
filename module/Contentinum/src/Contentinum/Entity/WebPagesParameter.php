@@ -8,10 +8,10 @@ use ContentinumComponents\Entity\AbstractEntity;
 /**
  * WebPages
  *
- * @ORM\Table(name="web_pages", indexes={@ORM\Index(name="HOSTIDENTREF", columns={"host_id"}), @ORM\Index(name="PREFERENCESREF", columns={"web_preferences_id"})})
+ * @ORM\Table(name="web_pages_parameter", indexes={@ORM\Index(name="HOSTIDENTREF", columns={"host_id"}), @ORM\Index(name="PREFERENCESREF", columns={"web_preferences_id"})})
  * @ORM\Entity
  */
-class WebPages extends AbstractEntity
+class WebPagesParameter extends AbstractEntity
 {
     /**
      * @var integer
