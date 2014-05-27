@@ -46,7 +46,11 @@ class Cachecontent extends StorageFiles {
 	 * @var array
 	 */
 	protected $keys = array (
-			
+			'websiteconfiguration' => array(
+					'group' => 'Layout',
+					'label' => 'Website Configuration',
+					'metas' => null		
+			),
 			'htmlwidgets' => array (
 					'group' => 'Layout',
 					'label' => 'Frontend Widgets',
@@ -73,7 +77,28 @@ class Cachecontent extends StorageFiles {
 					'group' => 'Configuration',
 					'label' => 'Table toolbar',
 					'metas' => null 
-			) 
+			),
+						
+			'charset' => array (
+					'group' => 'Data',
+					'label' => 'Charset list',
+					'metas' => null
+			),
+			'locale' => array (
+					'group' => 'Data',
+					'label' => 'Locale list',
+					'metas' => null
+			),
+			'publish' => array (
+					'group' => 'Data',
+					'label' => 'Publish values list',
+					'metas' => null
+			),
+			'resource' => array (
+					'group' => 'Data',
+					'label' => 'Recources access values list',
+					'metas' => null
+			)						
 	);
 	
 	/**
