@@ -65,6 +65,10 @@ return array (
 						},
 						'Contentinum\Htmlwidgets' => 'Contentinum\Service\HtmlwidgetsServiceFactory', 
 						'Contentinum\Htmllayouts' => 'Contentinum\Service\HtmllayoutsServiceFactory',
+						'Contentinum\Charset' => 'Contentinum\Service\CharsetServiceFactory',
+						'Contentinum\Locale' => 'Contentinum\Service\LocaleServiceFactory',
+						'Contentinum\Robots' => 'Contentinum\Service\RobotsServiceFactory',
+						'Contentinum\Preference' => 'Contentinum\Service\PreferenceServiceFactory',
 				),
 				'aliases' => array (
 						'translator' => 'MvcTranslator' 
@@ -93,7 +97,7 @@ return array (
 				'not_found_template' => 'error/404',
 				'exception_template' => 'error/index',
 				'template_map' => array (
-						'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
+						'layout/layout' => __DIR__ . '/../view/layout/foundation.phtml',
 						'contentinum/index/index' => __DIR__ . '/../view/contentinum/index/index.phtml',
 						'error/404' => __DIR__ . '/../view/error/404.phtml',
 						'error/index' => __DIR__ . '/../view/error/index.phtml' 
@@ -124,7 +128,18 @@ return array (
 				'templates_files' => array(
 			            'htmlwidgets' => __DIR__ . '/../../../data/locale/etc/templates/htmlwidgets.library.xml',
 						'htmllayouts' => __DIR__ . '/../../../data/locale/etc/templates/htmllayouts.library.xml',
+						'charset' => __DIR__ . '/../../../data/locale/etc/templates/charset.data.xml',
+						'locale' => __DIR__ . '/../../../data/locale/etc/templates/locale.data.xml',
+						'robots' => __DIR__ . '/../../../data/locale/etc/templates/robots.data.xml',
 		         ),
+				'db_cache_keys' => array(
+					'preference' => array(
+					  'cache' => 'websiteconfiguration',
+					  'entitymanager' => 'doctrine.entitymanager.orm_default',		
+					  'entity' => 'Contentinum\Entity\WebPreferences',
+					  'sortby' => 'host',
+				),
+				),
 				'log_configure' => array (
 						'log_priority' => 6,
 						'log_writer' => array (
