@@ -10,6 +10,7 @@
     </id>
     <field name="hostId" type="string" column="host_id" length="36" nullable="false"/>
     <field name="host" type="string" column="host" length="250" nullable="false"/>
+    <field name="layout" type="string" column="layout" length="50" nullable="false"/>
     <field name="standardDomain" type="string" column="standard_domain" length="3" nullable="false"/>
     <field name="charset" type="string" column="charset" length="20" nullable="false"/>
     <field name="title" type="string" column="title" length="140" nullable="false"/>

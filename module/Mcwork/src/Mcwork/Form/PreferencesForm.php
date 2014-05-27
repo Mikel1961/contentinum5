@@ -35,7 +35,7 @@ use ContentinumComponents\Forms\AbstractForms;
  *
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
-class PreferencesForm extends AbstractForms 
+class PreferencesForm extends AbstractForms
 {
 	/**
 	 * form field elements
@@ -131,6 +131,25 @@ class PreferencesForm extends AbstractForms
 								) 
 						) 
 				),
+				array (
+						'spec' => array (
+								'name' => 'htmlstructure',
+								'required' => true,
+								'options' => array (
+										'label' => 'Choose a layout',
+										'empty_option' => '-- Layouts --',
+										'value_options' => $this->getOptions('Contentinum\Htmllayouts'),
+										'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
+										'deco-error' => $this->getDecorators ( self::DECO_ERROR ),
+										'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich'
+								),
+								'type' => 'Select',
+								'attributes' => array (
+										'required' => 'required',
+										'id' => 'htmlstructure'
+								)
+						)
+				),				
 				array (
 						'spec' => array (
 								'name' => 'charset',

@@ -35,6 +35,13 @@ class WebPreferences extends AbstractEntity
      * @ORM\Column(name="host", type="string", length=250, nullable=false)
      */
     private $host;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="htmlstructure", type="string", length=50, nullable=false)
+     */    
+    private $htmlstructure = 'default';
 
     /**
      * @var string
@@ -288,6 +295,25 @@ class WebPreferences extends AbstractEntity
     }
 
     /**
+	 * @return the $htmlstructure
+	 */
+	public function getHtmlstructure() 
+	{
+		return $this->layout;
+	}
+
+	/**
+	 * @param string $htmlstructure
+	 * @return WebPreferences
+	 */
+	public function setHtmlstructure($htmlstructure) 
+	{
+		$this->htmlstructure = $htmlstructure;
+		
+		return $this;
+	}
+
+	/**
      * Set standardDomain
      *
      * @param string $standardDomain
