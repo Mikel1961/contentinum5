@@ -72,6 +72,7 @@ return array (
 							$formFactory = new $formName($worker);
 							$decorators = $sl->getServiceLocator ()->get ( 'Mcwork\FormDecorators' );
 							$formFactory->setDecorators ( $decorators->default->toArray () );
+							$formFactory->setServiceLocator($sl->getServiceLocator ());
 							$ctrl = new Mcwork\Controller\AddFormController ( $formFactory );
 							$ctrl->setWorker ( $worker );
 							$ctrl->setFormAction ($app->getOptions('formaction') );
@@ -112,6 +113,7 @@ return array (
 							$formFactory = new $formName($worker);
 							$decorators = $sl->getServiceLocator ()->get ( 'Mcwork\FormDecorators' );
 							$formFactory->setDecorators ( $decorators->default->toArray () );
+							$formFactory->setServiceLocator($sl->getServiceLocator ());
 							$ctrl = new Mcwork\Controller\EditFormController ( $formFactory );
 							$ctrl->setWorker ( $worker );
 							$ctrl->setFormAction ($app->getOptions('formaction') );
