@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data version="1.0.0">
+	<de name="Deutsch"><standard>1</standard><locale>de_DE</locale></de>
+	<en name="English"><standard>0</standard><locale>en_GB</locale></en>
+	<fr name="France"><standard>0</standard><locale>fr_FR</locale></fr>
+	<it name="Italien"><standard>0</standard><locale>it_IT</locale></it>
+</data>
