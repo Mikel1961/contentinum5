@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- contentinum library layout standard block elements according to Dirk 
+	Jesse yaml css framework Copyright (c) 2009-2011 jochum-mediaservices, Katja 
+	Jochum (http://www.jochum-mediaservices.de) http://www.contentinum-library.de/licenses 
+	BSD License $Id: modules.xml 22 2012-08-12 12:40:25Z mike $ -->
+
+<!-- contentinum library layout standard block with html5 elements -->
+<!-- some elements are according to Dirk Jesse yaml css framework -->
+<!-- use this if you want to work with html5 -->
+<!-- Copyright (c) jochum-mediaservices, Katja Jochum (http://www.jochum-mediaservices.de) -->
+<!-- http://www.contentinum-library.de/licenses BSD License -->
+<!-- $Id: modules.xml 22 2012-08-12 12:40:25Z mike $ -->
+<layout version="0.0.1">
+	<content name="Display content">
+		<sequence>
+			<element type="entries">
+				<value>entries</value>
+			</element>
+			<element type="set">
+				<value>box</value>
+			</element>
+			<element type="set">
+				<value>inner</value>
+			</element>
+			<items>
+				<element type="tag">
+					<value>image</value>
+				</element>
+				<element type="tag">
+					<value>header</value>
+				</element>
+				<element type="tag">
+					<value>content</value>
+				</element>
+				<element type="tag">
+					<value>footer</value>
+				</element>
+				<element type="set">
+					<value>entry</value>
+				</element>
+			</items>
+		</sequence>
+		<box type="tag">
+			<tag></tag>
+		</box>
+		<inner type="tag">
+			<tag></tag>
+		</inner>
+		<entry type="tag">
+			<tag></tag>
+		</entry>
+		<header type="tag" escape="no">
+			<tag></tag>
+		</header>
+		<content type="tag" escape="no">
+			<tag></tag>
+		</content>
+		<footer type="tag" escape="no">
+			<tag></tag>
+		</footer>
+		<image type="tag">
+			<tag></tag>
+		</image>
+	</content>
+</layout>
