@@ -50,11 +50,13 @@
 			<worker><![CDATA[Mcwork\Model\SavePage]]></worker>
 			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\WebPagesParameter]]></entity>
-			<targetentities></targetentities>
+			<targetentities>
+				<webPreferences><![CDATA[Contentinum\Entity\WebPreferences]]></webPreferences>
+			</targetentities>
 			<form><![CDATA[Mcwork\Form\PageForm]]></form>
 			<formaction><![CDATA[/mcwork/pages/add]]></formaction>
 			<settoroute><![CDATA[/mcwork/pages]]></settoroute>
-			<populate><standardDomain>no</standardDomain><hostId>_default</hostId><charset>utf-8</charset><language>de</language><robots>index,follow</robots><metaViewport><![CDATA[width=device-width, initial-scale=1.0]]></metaViewport></populate>
+			<populate><resource>index</resource> <htmlwidgets>content</htmlwidgets> <robots>index,follow</robots><publish>yes</publish></populate>
 		</app>	
 	</mcwork_pages_add>
 	<mcwork_pages_edit>
@@ -75,7 +77,9 @@
 			<worker><![CDATA[ContentinumComponents\Mapper\Process]]></worker>
 			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\WebPagesParameter]]></entity>
-			<targetentities></targetentities>
+			<targetentities>
+				<webPreferences><![CDATA[Contentinum\Entity\WebPreferences]]></webPreferences>
+			</targetentities>
 			<setexclude><field>id</field></setexclude>
 			<form><![CDATA[Mcwork\Form\PageForm]]></form>
 			<formaction><![CDATA[/mcwork/pages/edit]]></formaction>
@@ -219,6 +223,117 @@
 			<targetentities></targetentities>			
 		</app>
 	</mcwork_preferences_delete>	
+	
+	
+	<mcwork_redirects>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>redirects</headline>
+		<columnright></columnright>
+		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<content></content>
+		<footer></footer>
+		<template>content/redirects</template>	
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
+			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebRedirect]]></entity>
+		</app>	
+	</mcwork_redirects> 
+	<mcwork_redirects_add>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>add_redirects</headline>
+		<columnright></columnright>
+		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>	
+		<app>
+			<controller></controller>
+			<worker><![CDATA[Mcwork\Model\SavePage]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebRedirect]]></entity>
+			<targetentities>
+				<webPagesId><![CDATA[Contentinum\Entity\WebPagesParameter]]></webPagesId>
+			</targetentities>
+			<form><![CDATA[Mcwork\Form\RedirectForm]]></form>
+			<formaction><![CDATA[/mcwork/redirects/add]]></formaction>
+			<settoroute><![CDATA[/mcwork/redirects]]></settoroute>
+			<populate><resource>index</resource> <htmlwidgets>content</htmlwidgets> <robots>index,follow</robots><publish>yes</publish></populate>
+		</app>	
+	</mcwork_redirects_add>
+	<mcwork_redirects_edit>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>edit_redirects</headline>
+		<columnright></columnright>
+		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller></controller>
+			<worker><![CDATA[ContentinumComponents\Mapper\Process]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebRedirect]]></entity>
+			<targetentities>
+				<webPagesId><![CDATA[Contentinum\Entity\WebPagesParameter]]></webPagesId>
+			</targetentities>
+			<setexclude><field>id</field></setexclude>
+			<form><![CDATA[Mcwork\Form\RedirectForm]]></form>
+			<formaction><![CDATA[/mcwork/redirects/edit]]></formaction>
+			<settoroute><![CDATA[/mcwork/redirects]]></settoroute>
+		</app>	
+	</mcwork_redirects_edit>		
+	<mcwork_redirects_delete>
+		<action>contenthandle</action>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline></headline>
+		<columnright></columnright>
+		<subheadline></subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar></toolbar>
+		<tableedit></tableedit>
+		<template_widget></template_widget>
+		<hasEntries>
+			<tablename>Contentinum\Entity\FieldTypeMetas</tablename>
+			<column>fieldTypes</column>
+		</hasEntries>		
+		<request>
+			<xhtmlrequest>1</xhtmlrequest>
+		</request>
+		<response>
+			<redirect>mcwork/redirects</redirect>
+		</response>		
+		<app>
+			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
+			<ctrlmethod>deleteRow</ctrlmethod>	
+			<worker><![CDATA[Mcwork\Model\DeleteItem]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>	
+			<entity><![CDATA[Contentinum\Entity\WebRedirect]]></entity>
+			<targetentities></targetentities>			
+		</app>
+	</mcwork_redirects_delete>		
+	
+	
+	
 	<mcwork_fieldtypes>
 		<title></title>
 		<bodyTagAttribs></bodyTagAttribs>
