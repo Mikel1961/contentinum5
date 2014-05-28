@@ -8,7 +8,7 @@ use ContentinumComponents\Entity\AbstractEntity;
 /**
  * WebRedirect
  *
- * @ORM\Table(name="web_redirect", uniqueConstraints={@ORM\UniqueConstraint(name="redirect", columns={"redirect"})})
+ * @ORM\Table(name="web_redirect", indexes={@ORM\Index(name="REDIRECT", columns={"redirect"}), @ORM\Index(name="WEBPAGES", columns={"web_pages_id"})})
  * @ORM\Entity
  */
 class WebRedirect extends AbstractEntity
@@ -21,13 +21,6 @@ class WebRedirect extends AbstractEntity
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private $id;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="web_pages_id", type="integer", nullable=false)
-     */
-    private $webPagesId;
 
     /**
      * @var string
@@ -70,6 +63,16 @@ class WebRedirect extends AbstractEntity
      * @ORM\Column(name="register_date", type="datetime", nullable=false)
      */
     private $registerDate = '0000-00-00 00:00:00';
+
+    /**
+     * @var \Contentinum\Entity\WebPagesParameter
+     *
+     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\WebPagesParameter")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="web_pages_id", referencedColumnName="id")
+     * })
+     */    
+    private $webPagesId;    
 
 
     
@@ -128,7 +131,6 @@ class WebRedirect extends AbstractEntity
     	return $this;
     }    
     
-
     /**
      * Get id
      *
@@ -139,28 +141,6 @@ class WebRedirect extends AbstractEntity
         return $this->id;
     }
 
-    /**
-     * Set webPagesId
-     *
-     * @param integer $webPagesId
-     * @return WebRedirect
-     */
-    public function setWebPagesId($webPagesId)
-    {
-        $this->webPagesId = $webPagesId;
-
-        return $this;
-    }
-
-    /**
-     * Get webPagesId
-     *
-     * @return integer 
-     */
-    public function getWebPagesId()
-    {
-        return $this->webPagesId;
-    }
 
     /**
      * Set redirect
@@ -299,4 +279,27 @@ class WebRedirect extends AbstractEntity
     {
         return $this->registerDate;
     }
+    
+    /**
+     * Set webPagesId
+     *
+     * @param \Contentinum\Entity\WebPagesParameter $webPagesId
+     * @return WebRedirect
+     */    
+    public function setWebPagesId(\Contentinum\Entity\WebPagesParameter $webPagesId)
+    {
+    	$this->webPagesId = $webPagesId;
+    
+    	return $this;
+    }
+    
+    /**
+     * Get webPagesId
+     *
+     * @return \Contentinum\Entity\WebPagesParameter
+     */
+    public function getWebPagesId()
+    {
+    	return $this->webPagesId;
+    }    
 }
