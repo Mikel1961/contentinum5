@@ -98,6 +98,11 @@ class Cachecontent extends StorageFiles {
 					'group' => 'Data',
 					'label' => 'Recources access values list',
 					'metas' => null
+			),
+			'httpstatuscode' => array (
+					'group' => 'Data',
+					'label' => 'List of HTTP Status codes',
+					'metas' => null
 			)						
 	);
 	
