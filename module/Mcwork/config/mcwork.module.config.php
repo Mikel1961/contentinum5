@@ -59,7 +59,12 @@ return array (
 												'label' => 'Preferences',
 												'uri' => '/mcwork/preferences',
 												'resource' => 'adminresource'
-										),										
+										),	
+										array (
+												'label' => 'Redirects',
+												'uri' => '/mcwork/redirects',
+												'resource' => 'adminresource'
+										),																			
 										array (
 												'label' => 'Mcwork_Controller_Conf_Fieldtypes',
 												'uri' => '/mcwork/fieldtypes',
