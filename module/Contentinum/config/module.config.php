@@ -68,6 +68,9 @@ return array (
 						'Contentinum\Charset' => 'Contentinum\Service\CharsetServiceFactory',
 						'Contentinum\Locale' => 'Contentinum\Service\LocaleServiceFactory',
 						'Contentinum\Robots' => 'Contentinum\Service\RobotsServiceFactory',
+						'Contentinum\Publish' => 'Contentinum\Service\PublishServiceFactory',
+						'Contentinum\Resource' => 'Contentinum\Service\ResourceServiceFactory',	
+						'Contentinum\Httpstatuscode' => 'Contentinum\Service\HttpstatuscodeServiceFactory',						
 						'Contentinum\Preference' => 'Contentinum\Service\PreferenceServiceFactory',
 				),
 				'aliases' => array (
@@ -131,6 +134,9 @@ return array (
 						'charset' => __DIR__ . '/../../../data/locale/etc/templates/charset.data.xml',
 						'locale' => __DIR__ . '/../../../data/locale/etc/templates/locale.data.xml',
 						'robots' => __DIR__ . '/../../../data/locale/etc/templates/robots.data.xml',
+						'publish' => __DIR__ . '/../../../data/locale/etc/templates/publish.data.xml',
+						'resource' => __DIR__ . '/../../../data/locale/etc/templates/resource.data.xml',
+						'httpstatuscode' => __DIR__ . '/../../../data/locale/etc/templates/httpstatuscode.data.xml',						
 		         ),
 				'db_cache_keys' => array(
 					'preference' => array(
@@ -167,6 +173,7 @@ return array (
 								'roles' => array (
 										'guest',
 										'member',
+										'intranet',
 										'author',
 										'publisher',
 										'manager',
@@ -175,7 +182,8 @@ return array (
 								),
 								'parent' => array (
 										'member' => 'guest',
-										'author' => 'member',
+										'intranet' => 'member',
+										'author' => 'intranet',
 										'publisher' => 'author',
 								        'manager' => 'publisher',
 										'admin' => 'manager',
@@ -187,6 +195,7 @@ return array (
 										'error',
 										'medias',
 										'memberresource',
+										'intranetresource',
 										'authorresource',
 										'publisherresource',
 										'managerresource',
