@@ -157,11 +157,7 @@ class PreferencesForm extends AbstractForms
 								'options' => array (
 										'label' => 'Set Charset',
 										'empty_option' => '-- Charset --',
-										'value_options' => array (
-												'utf-8' => 'Unicode utf8',
-												'iso-8859-1' => 'ISO 8859-1',
-												'iso-8859-15' => 'ISO 8859-15' 
-										),
+										'value_options' => $this->getOptions('Contentinum\Charset'),
 										'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
 										'deco-error' => $this->getDecorators ( self::DECO_ERROR ),
 										'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich' 
@@ -180,12 +176,7 @@ class PreferencesForm extends AbstractForms
 								'options' => array (
 										'label' => 'Set language',
 										'empty_option' => '-- language --',
-										'value_options' => array (
-												'de' => 'German',
-												'en' => 'English',
-												'fr' => 'French',
-												'it' => 'Italian' 
-										),
+										'value_options' => $this->getOptions('Contentinum\Locale'),
 										'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
 										'deco-error' => $this->getDecorators ( self::DECO_ERROR ),
 										'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich' 
@@ -227,13 +218,7 @@ class PreferencesForm extends AbstractForms
 								'options' => array (
 										'label' => 'Set meta value robots',
 										'empty_option' => '-- meta value robots --',
-										'value_options' => array (
-												'index,follow' => 'Index the page, follow the links on the page',
-												'index, nofollow' => 'Index the page, nofollow the links on the page',
-												'noindex' => 'Disallow search engines from showing this page in their results',
-												'nocache' => 'Prevents the search engines from showing a cached copy of this page',
-												'none' => 'Don’t do anything with this page at all',
-										),
+										'value_options' => $this->getOptions('Contentinum\Robots', array(),'value'),
 										'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
 								),
 								'type' => 'Select',

@@ -31,8 +31,8 @@ use ContentinumComponents\Mapper\Process;
 use ContentinumComponents\Unique\Id;
 
 /**
- * Oreferences model
- * Prepare datas before save in database
+ * Preferences model
+ * Prepare serval input datas before save in database
  *
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
