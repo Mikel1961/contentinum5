@@ -29,6 +29,7 @@ namespace Mcwork\Model;
 
 use ContentinumComponents\Mapper\Process;
 use ContentinumComponents\Filter\Url\Prepare;
+use Contentinum\Entity\WebRedirect;
 
 /**
  * Page model
@@ -53,8 +54,25 @@ class SavePage extends Process
 			$datas['scope'] = $datas['url'];
 			parent::save($datas,$entity);
 		} else {
+		    if (isset($datas['redirect']) && '1' == $datas['redirect']){
+		        $insert['redirect'] = $entity->url;
+		        $insert['webPagesId'] = $entity;
+		        $insert['statuscode'] = '301';
+		    }
 			$datas['scope'] = $datas['url'];
-			parent::save($datas,$entity);			
+			$msg = parent::save($datas,$entity);
+            $this->setRedirect($insert);
+			return $msg;
 		}
+	}
+	
+	/**
+	 * Set redirect after change page url
+	 * @param unknown $insert
+	 */
+	public function setRedirect($insert)
+	{
+	    $handle = new SaveRedirect($this->getStorage());
+	    $handle->save($insert, new WebRedirect());
 	}
 }
