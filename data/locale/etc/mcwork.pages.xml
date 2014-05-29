@@ -74,7 +74,7 @@
 		</template_widget>
 		<app>
 			<controller></controller>
-			<worker><![CDATA[ContentinumComponents\Mapper\Process]]></worker>
+			<worker><![CDATA[Mcwork\Model\SavePage]]></worker>
 			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\WebPagesParameter]]></entity>
 			<targetentities>
