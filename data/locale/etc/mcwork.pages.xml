@@ -261,7 +261,7 @@
 		</template_widget>	
 		<app>
 			<controller></controller>
-			<worker><![CDATA[Mcwork\Model\SavePage]]></worker>
+			<worker><![CDATA[Mcwork\Model\SaveRedirect]]></worker>
 			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\WebRedirect]]></entity>
 			<targetentities>
@@ -288,7 +288,7 @@
 		</template_widget>
 		<app>
 			<controller></controller>
-			<worker><![CDATA[ContentinumComponents\Mapper\Process]]></worker>
+			<worker><![CDATA[ContentinumComponents\Mapper\SaveRedirect]]></worker>
 			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\WebRedirect]]></entity>
 			<targetentities>
@@ -311,11 +311,7 @@
 		<footer></footer>
 		<toolbar></toolbar>
 		<tableedit></tableedit>
-		<template_widget></template_widget>
-		<hasEntries>
-			<tablename>Contentinum\Entity\FieldTypeMetas</tablename>
-			<column>fieldTypes</column>
-		</hasEntries>		
+		<template_widget></template_widget>	
 		<request>
 			<xhtmlrequest>1</xhtmlrequest>
 		</request>
