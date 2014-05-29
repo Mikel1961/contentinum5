@@ -8,7 +8,7 @@ use ContentinumComponents\Entity\AbstractEntity;
 /**
  * WebContent
  *
- * @ORM\Table(name="web_content", indexes={@ORM\Index(name="title", columns={"title"})})
+ * @ORM\Table(name="web_content", indexes={@ORM\Index(name="TITLEINTERNALUSE", columns={"title"}), @ORM\Index(name="HEADLINEPUBLICUSE", columns={"headline"})})
  * @ORM\Entity
  */
 class WebContent extends AbstractEntity
@@ -151,9 +151,9 @@ class WebContent extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="access", type="string", length=5, nullable=false)
+     * @ORM\Column(name="resource", type="string", length=50, nullable=false)
      */
-    private $access = 'open';
+    private $resource = '';
 
     /**
      * @var integer
@@ -163,16 +163,16 @@ class WebContent extends AbstractEntity
     private $usersId = '0';
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="publish_date", type="date", nullable=false)
+     * @ORM\Column(name="publish_date", type="string", nullable=false)
      */
     private $publishDate = '0000-00-00';
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="send_date", type="date", nullable=false)
+     * @ORM\Column(name="send_date", type="string", nullable=false)
      */
     private $sendDate = '0000-00-00';
 
@@ -233,16 +233,16 @@ class WebContent extends AbstractEntity
     private $version = '0';
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="publish_up", type="datetime", nullable=false)
+     * @ORM\Column(name="publish_up", type="string", nullable=false)
      */
     private $publishUp = '0000-00-00 00:00:00';
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="publish_down", type="datetime", nullable=false)
+     * @ORM\Column(name="publish_down", type="string", nullable=false)
      */
     private $publishDown = '0000-00-00 00:00:00';
 
@@ -754,26 +754,26 @@ class WebContent extends AbstractEntity
     }
 
     /**
-     * Set access
+     * Set resource
      *
-     * @param string $access
+     * @param string $resource
      * @return WebContent
      */
-    public function setAccess($access)
+    public function setResource($resource)
     {
-        $this->access = $access;
+        $this->resource = $resource;
 
         return $this;
     }
 
     /**
-     * Get access
+     * Get resource
      *
      * @return string 
      */
-    public function getAccess()
+    public function getResource()
     {
-        return $this->access;
+        return $this->resource;
     }
 
     /**
@@ -802,7 +802,7 @@ class WebContent extends AbstractEntity
     /**
      * Set publishDate
      *
-     * @param \DateTime $publishDate
+     * @param string $publishDate
      * @return WebContent
      */
     public function setPublishDate($publishDate)
@@ -815,7 +815,7 @@ class WebContent extends AbstractEntity
     /**
      * Get publishDate
      *
-     * @return \DateTime 
+     * @return string 
      */
     public function getPublishDate()
     {
@@ -825,7 +825,7 @@ class WebContent extends AbstractEntity
     /**
      * Set sendDate
      *
-     * @param \DateTime $sendDate
+     * @param string $sendDate
      * @return WebContent
      */
     public function setSendDate($sendDate)
@@ -838,7 +838,7 @@ class WebContent extends AbstractEntity
     /**
      * Get sendDate
      *
-     * @return \DateTime 
+     * @return string 
      */
     public function getSendDate()
     {
@@ -1032,7 +1032,7 @@ class WebContent extends AbstractEntity
     /**
      * Set publishUp
      *
-     * @param \DateTime $publishUp
+     * @param string $publishUp
      * @return WebContent
      */
     public function setPublishUp($publishUp)
@@ -1045,7 +1045,7 @@ class WebContent extends AbstractEntity
     /**
      * Get publishUp
      *
-     * @return \DateTime 
+     * @return string 
      */
     public function getPublishUp()
     {
@@ -1055,7 +1055,7 @@ class WebContent extends AbstractEntity
     /**
      * Set publishDown
      *
-     * @param \DateTime $publishDown
+     * @param string $publishDown
      * @return WebContent
      */
     public function setPublishDown($publishDown)
@@ -1068,7 +1068,7 @@ class WebContent extends AbstractEntity
     /**
      * Get publishDown
      *
-     * @return \DateTime 
+     * @return string 
      */
     public function getPublishDown()
     {

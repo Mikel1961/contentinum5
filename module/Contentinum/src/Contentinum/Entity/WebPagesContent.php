@@ -25,20 +25,6 @@ class WebPagesContent extends AbstractEntity
     /**
      * @var integer
      *
-     * @ORM\Column(name="web_pages_id", type="integer", nullable=false)
-     */
-    private $webPagesId;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="web_pages_scope", type="string", length=255, nullable=false)
-     */
-    private $webPagesScope;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="item_rang", type="integer", nullable=false)
      */
     private $itemRang = '0';
@@ -46,23 +32,23 @@ class WebPagesContent extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="template", type="string", length=30, nullable=false)
+     * @ORM\Column(name="htmlwidgets", type="string", length=50, nullable=false)
      */
-    private $template = 'default';
+    private $htmlwidgets = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="adjustments", type="text", nullable=false)
      */
-    private $adjustments;
+    private $adjustments = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="file", type="string", length=250, nullable=false)
      */
-    private $file;
+    private $file = '';
 
     /**
      * @var string
@@ -86,16 +72,16 @@ class WebPagesContent extends AbstractEntity
     private $publish = 'no';
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="publish_up", type="datetime", nullable=false)
+     * @ORM\Column(name="publish_up", type="string", nullable=false)
      */
     private $publishUp = '0000-00-00 00:00:00';
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="publish_down", type="datetime", nullable=false)
+     * @ORM\Column(name="publish_down", type="string", nullable=false)
      */
     private $publishDown = '0000-00-00 00:00:00';
 
@@ -136,6 +122,16 @@ class WebPagesContent extends AbstractEntity
      * })
      */
     private $webContent;
+    
+    /**
+     * @var \Contentinum\Entity\WebPagesParameter
+     *
+     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\WebPagesParameter")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="web_pages_id", referencedColumnName="id")
+     * })
+     */    
+    private $webPagesId;    
 
     /**
      * Construct
@@ -203,52 +199,6 @@ class WebPagesContent extends AbstractEntity
     }
 
     /**
-     * Set webPagesId
-     *
-     * @param integer $webPagesId
-     * @return WebPagesContent
-     */
-    public function setWebPagesId($webPagesId)
-    {
-        $this->webPagesId = $webPagesId;
-
-        return $this;
-    }
-
-    /**
-     * Get webPagesId
-     *
-     * @return integer 
-     */
-    public function getWebPagesId()
-    {
-        return $this->webPagesId;
-    }
-
-    /**
-     * Set webPagesScope
-     *
-     * @param string $webPagesScope
-     * @return WebPagesContent
-     */
-    public function setWebPagesScope($webPagesScope)
-    {
-        $this->webPagesScope = $webPagesScope;
-
-        return $this;
-    }
-
-    /**
-     * Get webPagesScope
-     *
-     * @return string 
-     */
-    public function getWebPagesScope()
-    {
-        return $this->webPagesScope;
-    }
-
-    /**
      * Set itemRang
      *
      * @param integer $itemRang
@@ -272,26 +222,26 @@ class WebPagesContent extends AbstractEntity
     }
 
     /**
-     * Set template
+     * Set htmlwidgets
      *
-     * @param string $template
+     * @param string $htmlwidgets
      * @return WebPagesContent
      */
-    public function setTemplate($template)
+    public function setHtmlwidgets($htmlwidgets)
     {
-        $this->template = $template;
+        $this->htmlwidgets = $htmlwidgets;
 
         return $this;
     }
 
     /**
-     * Get template
+     * Get htmlwidgets
      *
      * @return string 
      */
-    public function getTemplate()
+    public function getHtmlwidgets()
     {
-        return $this->template;
+        return $this->htmlwidgets;
     }
 
     /**
@@ -412,7 +362,7 @@ class WebPagesContent extends AbstractEntity
     /**
      * Set publishUp
      *
-     * @param \DateTime $publishUp
+     * @param string $publishUp
      * @return WebPagesContent
      */
     public function setPublishUp($publishUp)
@@ -425,7 +375,7 @@ class WebPagesContent extends AbstractEntity
     /**
      * Get publishUp
      *
-     * @return \DateTime 
+     * @return string 
      */
     public function getPublishUp()
     {
@@ -435,7 +385,7 @@ class WebPagesContent extends AbstractEntity
     /**
      * Set publishDown
      *
-     * @param \DateTime $publishDown
+     * @param string $publishDown
      * @return WebPagesContent
      */
     public function setPublishDown($publishDown)
@@ -448,7 +398,7 @@ class WebPagesContent extends AbstractEntity
     /**
      * Get publishDown
      *
-     * @return \DateTime 
+     * @return string 
      */
     public function getPublishDown()
     {
@@ -546,6 +496,29 @@ class WebPagesContent extends AbstractEntity
     {
         return $this->upDate;
     }
+    
+    /**
+     * Set webPagesId
+     *
+     * @param \Contentinum\Entity\WebPagesParameter $webPagesId
+     * @return WebRedirect
+     */
+    public function setWebPagesId(\Contentinum\Entity\WebPagesParameter $webPagesId)
+    {
+    	$this->webPagesId = $webPagesId;
+    
+    	return $this;
+    }
+    
+    /**
+     * Get webPagesId
+     *
+     * @return \Contentinum\Entity\WebPagesParameter
+     */
+    public function getWebPagesId()
+    {
+    	return $this->webPagesId;
+    }    
 
     /**
      * Set webContent
