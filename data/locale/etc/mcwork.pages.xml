@@ -19,7 +19,7 @@
 		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
 		<content></content>
 		<footer></footer>
-		<template>content/contribution</template>	
+		<template>content/contributions</template>	
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
@@ -53,10 +53,10 @@
 			<targetentities>
 				<webPagesId><![CDATA[Contentinum\Entity\WebPagesParameter]]></webPagesId>
 			</targetentities>			
-			<form><![CDATA[Mcwork\Form\PageForm]]></form>
+			<form><![CDATA[Mcwork\Form\ContentForm]]></form>
 			<formaction><![CDATA[/mcwork/contribution/add]]></formaction>
 			<settoroute><![CDATA[/mcwork/contribution]]></settoroute>
-			<populate><resource>index</resource> <htmlwidgets>content</htmlwidgets> <robots>index,follow</robots><publish>yes</publish></populate>
+			<populate><resource>index</resource> <htmlwidgets>content</htmlwidgets><publish>yes</publish></populate>
 		</app>	
 	</mcwork_contribution_add>
 	<mcwork_contribution_edit>
@@ -81,7 +81,7 @@
 				<webPagesId><![CDATA[Contentinum\Entity\WebPagesParameter]]></webPagesId>
 			</targetentities>			
 			<setexclude><field>id</field></setexclude>
-			<form><![CDATA[Mcwork\Form\PageForm]]></form>
+			<form><![CDATA[Mcwork\Form\ContentForm]]></form>
 			<formaction><![CDATA[/mcwork/contribution/edit]]></formaction>
 			<settoroute><![CDATA[/mcwork/contribution]]></settoroute>
 		</app>	
