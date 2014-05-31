@@ -6,12 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use ContentinumComponents\Entity\AbstractEntity;
 
 /**
- * WebMedias
+ * WebMediaMetas
  *
- * @ORM\Table(name="web_medias", indexes={@ORM\Index(name="MEDIACONTENT", columns={"web_content_id"}), @ORM\Index(name="MEDIANAME", columns={"media_name"}), @ORM\Index(name="MEDIASOURCE", columns={"media_source"})})
+ * @ORM\Table(name="web_media_metas", indexes={@ORM\Index(name="MEDIANAME", columns={"media_name"}), @ORM\Index(name="MEDIASOURCE", columns={"media_source"})})
  * @ORM\Entity
  */
-class WebMedias extends AbstractEntity
+class WebMediaMetas extends AbstractEntity
 {
     /**
      * @var integer
@@ -21,41 +21,13 @@ class WebMedias extends AbstractEntity
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="media_name", type="string", length=100, nullable=false)
-     */
-    private $mediaName = '';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="media_source", type="string", length=500, nullable=false)
-     */
-    private $mediaSource;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="media_type", type="string", length=50, nullable=false)
-     */
-    private $mediaType = '';
         
     /**
      * @var string
      *
-     * @ORM\Column(name="media_alternate", type="text", nullable=true)
+     * @ORM\Column(name="media_metas", type="text", nullable=true)
      */
-    private $mediaAlternate = '';
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="media_in_use", type="boolean", nullable=false)
-     */
-    private $mediaInUse = '0';
+    private $mediaMetas = '';
 
     /**
      * @var integer
@@ -84,6 +56,16 @@ class WebMedias extends AbstractEntity
      * @ORM\Column(name="up_date", type="datetime", nullable=false)
      */
     private $upDate = '0000-00-00 00:00:00';
+    
+    /**
+     * @var \Contentinum\Entity\WebMedia
+     *
+     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\WebMedias")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="web_medias_id", referencedColumnName="id")
+     * })
+     */
+    private $webMediasId;    
 
     /**
      * Construct
@@ -150,102 +132,27 @@ class WebMedias extends AbstractEntity
         return $this->id;
     }
 
+	/**
+	 * @return the $mediaMetas
+	 */
+	public function getMediaMetas() 
+	{
+		return $this->mediaMetas;
+	}
+
+	/**
+	 * @param string $mediaMetas
+	 * @return WebImages
+	 */
+	public function setMediaMetas($mediaMetas) 
+	{
+		$this->mediaMetas = $mediaMetas;
+		
+		return $this;
+	}
+
+
     /**
-	 * @return the $mediaName
-	 */
-	public function getMediaName() 
-	{
-		return $this->mediaName;
-	}
-
-	/**
-	 * @param string $mediaName
-	 * @return WebImages
-	 */
-	public function setMediaName($mediaName) 
-	{
-		$this->mediaName = $mediaName;
-		
-		return $this;
-	}
-
-	/**
-	 * @return the $mediaSource
-	 */
-	public function getMediaSource() 
-	{
-		return $this->mediaSource;
-	}
-
-	/**
-	 * @param string $mediaSource
-	 * @return WebImages
-	 */
-	public function setMediaSource($mediaSource) 
-	{
-		$this->mediaSource = $mediaSource;
-		
-		return $this;
-	}
-
-	/**
-	 * @return the $mediaType
-	 */
-	public function getMediaType() 
-	{
-		return $this->mediaType;
-	}
-
-	/**
-	 * @param string $mediaType
-	 * @return WebImages
-	 */
-	public function setMediaType($mediaType) 
-	{
-		$this->mediaType = $mediaType;
-		
-		return $this;
-	}
-
-	/**
-	 * @return the $mediaAlternate
-	 */
-	public function getMediaAlternate() 
-	{
-		return $this->mediaAlternate;
-	}
-
-	/**
-	 * @param string $mediaAlternate
-	 * @return WebImages
-	 */
-	public function setMediaAlternate($mediaAlternate) 
-	{
-		$this->mediaAlternate = $mediaAlternate;
-		
-		return $this;
-	}
-
-	/**
-	 * @return the $mediaInUse
-	 */
-	public function getMediaInUse() 
-	{
-		return $this->mediaInUse;
-	}
-
-	/**
-	 * @param boolean $mediaInUse
-	 * @return WebImages
-	 */
-	public function setMediaInUse($mediaInUse) 
-	{
-		$this->mediaInUse = $mediaInUse;
-		
-		return $this;
-	}
-
-	/**
      * Set createdBy
      *
      * @param integer $createdBy
@@ -336,4 +243,23 @@ class WebMedias extends AbstractEntity
     {
         return $this->upDate;
     }
+	/**
+	 * @return the $webMediasId
+	 */
+	public function getWebMediasId() 
+	{
+		return $this->webMediasId;
+	}
+
+	/**
+	 * @param \Contentinum\Entity\WebMedia $webMediasId
+	 * @return WebImages
+	 */
+	public function setWebMediasId($webMediasId) 
+	{
+		$this->webMediasId = $webMediasId;
+		
+		return $this;
+	}
+
 }
