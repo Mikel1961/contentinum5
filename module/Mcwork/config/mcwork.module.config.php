@@ -578,7 +578,7 @@ return array (
 								        				'backend/css/foundation.min.css',
 								        				'backend/css/admin.base.css',
 								        				'backend/css/admin.table.css',
-								        		        'backend/css/vendor/dropzone.css',
+								        		        'backend/css/vendor/dropzone.3.10.2.css',
 								        		),
 								        		'filters' => array (
 								        				'?CssRewriteFilter' => array (
@@ -637,7 +637,7 @@ return array (
 								        		'assets' => array (
 								        				'backend/js/vendor/jquery-1.10.2.min.js',
 								        				'backend/js/foundation.min.js',
-								        		        'backend/js/vendor/upload/dropzone.js',
+								        		        'backend/js/vendor/upload/dropzone.3.10.2.js',
 								        				'backend/js/admin.main.js',
 								        		        'backend/js/admin.files.js',
 								        		),
