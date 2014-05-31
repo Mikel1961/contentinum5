@@ -54,9 +54,11 @@ $(document).ready(function() {
 		addRemoveLinks: true,
 		uploadMultiple: true,
 		init: function() {
-			this.on("complete", function(file){
-				file.label = '<i class="fa fa-upload"></i> ' + file.name;
-				$(".table > tbody").prepend(tableRow(file,options,'file'));
+			this.on("successmultiple", function(file, responseText){
+				console.log(file);
+				console.log(responseText);
+				//file.label = '<i class="fa fa-upload"></i> ' + file.name;
+				//$(".table > tbody").prepend(tableRow(file,options,'file'));
 			});
 		},
 	};	
