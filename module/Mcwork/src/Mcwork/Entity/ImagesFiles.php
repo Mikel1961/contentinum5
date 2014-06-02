@@ -30,13 +30,14 @@ namespace Mcwork\Entity;
 use ContentinumComponents\Storage\AbstractStorageEntity;
 
 /**
- * Provide path to logfiles
+ * Provide path to media files
+ * Image folder to contentinum version 4.x
  *
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
-class MediaFiles extends AbstractStorageEntity
+class ImagesFiles extends AbstractStorageEntity
 {
-	const FILES_PATH = 'public/medias';
+	const FILES_PATH = 'public/images';
 	
 	/**
 	 * @see \ContentinumComponents\Storage\AbstractStorageEntity::getCurrentPath()
