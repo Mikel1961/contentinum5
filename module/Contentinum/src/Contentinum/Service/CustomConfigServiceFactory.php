@@ -25,12 +25,12 @@
  * @link      https://github.com/Mikel1961/contentinum-components
  * @version   1.0.0
  */
-namespace Mcwork\Service;
+namespace Contentinum\Service;
 
 use Contentinum\Service\ContentinumServiceFactory;
 
 /**
- * Config key mcworktoolbar settings
+ * Config key customconfig customer base adjusments
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class CustomConfigServiceFactory extends ContentinumServiceFactory
