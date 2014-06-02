@@ -72,6 +72,7 @@ return array (
 						'Contentinum\Resource' => 'Contentinum\Service\ResourceServiceFactory',	
 						'Contentinum\Httpstatuscode' => 'Contentinum\Service\HttpstatuscodeServiceFactory',						
 						'Contentinum\Preference' => 'Contentinum\Service\PreferenceServiceFactory',
+						'Contentinum\Customer' => 'Contentinum\Service\CustomConfigServiceFactory',
 				),
 				'aliases' => array (
 						'translator' => 'MvcTranslator' 
@@ -138,6 +139,9 @@ return array (
 						'resource' => __DIR__ . '/../../../data/locale/etc/templates/resource.data.xml',
 						'httpstatuscode' => __DIR__ . '/../../../data/locale/etc/templates/httpstatuscode.data.xml',						
 		         ),
+    		    'etc_cfg_files' => array(
+    		        'customconfig' => __DIR__ . '/../../../data/locale/etc/custom.config.php',
+    				),
 				'db_cache_keys' => array(
 					'preference' => array(
 					  'cache' => 'websiteconfiguration',
