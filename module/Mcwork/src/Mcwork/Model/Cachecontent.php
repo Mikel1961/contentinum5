@@ -61,7 +61,12 @@ class Cachecontent extends StorageFiles {
 					'label' => 'Frontend Layout',
 					'metas' => null 
 			),
-			
+    	    'customconfig' => array (
+    	    		'group' => 'Configuration',
+    	    		'label' => 'Special custom settings',
+    	    		'metas' => null
+    	    ),			
+	    
 			'mcworkpages' => array (
 					'group' => 'Content',
 					'label' => 'Backend pages configuration and content',
