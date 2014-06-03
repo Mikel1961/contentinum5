@@ -35,6 +35,13 @@ class WebMedias extends AbstractEntity
      * @ORM\Column(name="media_source", type="string", length=500, nullable=false)
      */
     private $mediaSource;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="media_link", type="string", length=250, nullable=false)
+     */
+    private $mediaLink;  
 
     /**
      * @var string
@@ -42,6 +49,13 @@ class WebMedias extends AbstractEntity
      * @ORM\Column(name="media_type", type="string", length=50, nullable=false)
      */
     private $mediaType = '';
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="media_attribute", type="text", nullable=true)
+     */
+    private $mediaAttribute = '';    
         
     /**
      * @var string
@@ -131,7 +145,7 @@ class WebMedias extends AbstractEntity
     /**
      * @param number $id
      *
-     * @return WebImages
+     * @return WebMedias
      */
     public function setId($id)
     {
@@ -160,7 +174,7 @@ class WebMedias extends AbstractEntity
 
 	/**
 	 * @param string $mediaName
-	 * @return WebImages
+	 * @return WebMedias
 	 */
 	public function setMediaName($mediaName) 
 	{
@@ -179,11 +193,30 @@ class WebMedias extends AbstractEntity
 
 	/**
 	 * @param string $mediaSource
-	 * @return WebImages
+	 * @return WebMedias
 	 */
 	public function setMediaSource($mediaSource) 
 	{
 		$this->mediaSource = $mediaSource;
+		
+		return $this;
+	}
+
+	/**
+	 * @return the $mediaLink
+	 */
+	public function getMediaLink() 
+	{
+		return $this->mediaLink;
+	}
+
+	/**
+	 * @param string $mediaLink
+	 * @return WebMedias
+	 */
+	public function setMediaLink($mediaLink) 
+	{
+		$this->mediaLink = $mediaLink;
 		
 		return $this;
 	}
@@ -198,11 +231,30 @@ class WebMedias extends AbstractEntity
 
 	/**
 	 * @param string $mediaType
-	 * @return WebImages
+	 * @return WebMedias
 	 */
 	public function setMediaType($mediaType) 
 	{
 		$this->mediaType = $mediaType;
+		
+		return $this;
+	}
+
+	/**
+	 * @return the $mediaAttribute
+	 */
+	public function getMediaAttribute() 
+	{
+		return $this->mediaAttribute;
+	}
+
+	/**
+	 * @param string $mediaAttribute
+	 * @return WebMedias
+	 */
+	public function setMediaAttribute($mediaAttribute) 
+	{
+		$this->mediaAttribute = $mediaAttribute;
 		
 		return $this;
 	}
@@ -217,7 +269,7 @@ class WebMedias extends AbstractEntity
 
 	/**
 	 * @param string $mediaAlternate
-	 * @return WebImages
+	 * @return WebMedias
 	 */
 	public function setMediaAlternate($mediaAlternate) 
 	{
@@ -236,7 +288,7 @@ class WebMedias extends AbstractEntity
 
 	/**
 	 * @param boolean $mediaInUse
-	 * @return WebImages
+	 * @return WebMedias
 	 */
 	public function setMediaInUse($mediaInUse) 
 	{
@@ -249,7 +301,7 @@ class WebMedias extends AbstractEntity
      * Set createdBy
      *
      * @param integer $createdBy
-     * @return WebImages
+     * @return WebMedias
      */
     public function setCreatedBy($createdBy)
     {
@@ -272,7 +324,7 @@ class WebMedias extends AbstractEntity
      * Set updateBy
      *
      * @param integer $updateBy
-     * @return WebImages
+     * @return WebMedias
      */
     public function setUpdateBy($updateBy)
     {
@@ -295,7 +347,7 @@ class WebMedias extends AbstractEntity
      * Set registerDate
      *
      * @param \DateTime $registerDate
-     * @return WebImages
+     * @return WebMedias
      */
     public function setRegisterDate($registerDate)
     {
@@ -318,7 +370,7 @@ class WebMedias extends AbstractEntity
      * Set upDate
      *
      * @param \DateTime $upDate
-     * @return WebImages
+     * @return WebMedias
      */
     public function setUpDate($upDate)
     {
