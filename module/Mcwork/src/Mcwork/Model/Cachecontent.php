@@ -88,7 +88,11 @@ class Cachecontent extends StorageFiles
             'label' => 'Table toolbar',
             'metas' => null
         ),
-        
+        'mcworkwebsitemedias' => array(
+        		'group' => 'Data',
+        		'label' => 'Mcwork Medias Table',
+        		'metas' => null
+        ),                
         'charset' => array(
             'group' => 'Data',
             'label' => 'Charset list',
