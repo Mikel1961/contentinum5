@@ -66,7 +66,11 @@ class Cachecontent extends StorageFiles {
     	    		'label' => 'Special custom settings',
     	    		'metas' => null
     	    ),			
-	    
+    	    'websitemedias' => array (
+    	    		'group' => 'Content',
+    	    		'label' => 'Website Medias',
+    	    		'metas' => null
+    	    ),	    
 			'mcworkpages' => array (
 					'group' => 'Content',
 					'label' => 'Backend pages configuration and content',
