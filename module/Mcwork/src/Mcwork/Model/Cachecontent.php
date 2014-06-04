@@ -38,156 +38,160 @@ use Mcwork\Model\Exception\ParamNotExistsModelException;
  *
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
-class Cachecontent extends StorageFiles {
-	
-	/**
-	 * Cache keys
-	 * 
-	 * @var array
-	 */
-	protected $keys = array (
-			'websiteconfiguration' => array(
-					'group' => 'Layout',
-					'label' => 'Website Configuration',
-					'metas' => null		
-			),
-			'htmlwidgets' => array (
-					'group' => 'Layout',
-					'label' => 'Frontend Widgets',
-					'metas' => null 
-			),
-			'htmllayouts' => array (
-					'group' => 'Layout',
-					'label' => 'Frontend Layout',
-					'metas' => null 
-			),
-    	    'customconfig' => array (
-    	    		'group' => 'Configuration',
-    	    		'label' => 'Special custom settings',
-    	    		'metas' => null
-    	    ),			
-    	    'websitemedias' => array (
-    	    		'group' => 'Content',
-    	    		'label' => 'Website Medias',
-    	    		'metas' => null
-    	    ),	    
-			'mcworkpages' => array (
-					'group' => 'Content',
-					'label' => 'Backend pages configuration and content',
-					'metas' => null 
-			),
-			'mcworktableedit' => array (
-					'group' => 'Configuration',
-					'label' => 'Table row edit toolbar',
-					'metas' => null 
-			),
-			
-			'mcworktoolbar' => array (
-					'group' => 'Configuration',
-					'label' => 'Table toolbar',
-					'metas' => null 
-			),
-						
-			'charset' => array (
-					'group' => 'Data',
-					'label' => 'Charset list',
-					'metas' => null
-			),
-			'locale' => array (
-					'group' => 'Data',
-					'label' => 'Locale list',
-					'metas' => null
-			),
-			'publish' => array (
-					'group' => 'Data',
-					'label' => 'Publish values list',
-					'metas' => null
-			),
-			'resource' => array (
-					'group' => 'Data',
-					'label' => 'Recources access values list',
-					'metas' => null
-			),
-			'httpstatuscode' => array (
-					'group' => 'Data',
-					'label' => 'List of HTTP Status codes',
-					'metas' => null
-			)						
-	);
-	
-	/**
-	 * Fetch cache datas
-	 * if cache available set meta datas
-	 * 
-	 * @param array $attribs        	
-	 * @param AbstractStorageEntity $entity        	
-	 * @param ServiceLocatorInterface $sl        	
-	 * @throws ParamNotExistsModelException
-	 * @return array
-	 */
-	public function fetchContent(array $attribs, AbstractStorageEntity $entity, $sl = null) {
-		if (0 == $attribs ['id']) {
-			$cache = $this->getCacheConfiguration ( $sl );
-			
-			foreach ( $this->keys as $key => $datas ) {
-				if ($cache->hasItem ( $key )) {
-					$datas ['metas'] = $cache->getMetadata ( $key );
-				}
-				$cacheData [$key] = $datas;
-			}
-			unset ( $datas );
-			return $cacheData;
-		} else {
-			if (isset ( $this->keys [$attribs ['id']] )) {
-				$tmp = $this->keys [$attribs ['id']];
-				if ($cache->hasItem ( $attribs ['id'] )) {
-					$tmp ['metas'] = $cache->getMetadata ( $attribs ['id'] );
-				}
-				$cacheData [$attribs ['id']] = $tmp;
-				unset ( $tmp );
-				return $cacheData;
-			} else {
-				throw new ParamNotExistsModelException ( 'It was not a valid index passed' );
-			}
-		}
-	}
-	
-	/**
-	 * Remove cache item(s)
-	 * 
-	 * @param array $attribs        	
-	 * @param AbstractStorageEntity $entity        	
-	 * @param ServiceLocatorInterface $sl        	
-	 * @throws ParamNotExistsModelException
-	 * @return string
-	 */
-	public function emptyCache(array $attribs, AbstractStorageEntity $entity, $sl = null) {
-		if (strlen ( $attribs ['id'] ) > 1 && 'all' != $attribs ['id']) {
-			$cache = $this->getCacheConfiguration ( $sl );
-			if ($cache->hasItem ( $attribs ['id'] )) {
-				$cache->removeItem ( $attribs ['id'] );
-			}
-			return 'success_remove_cache_item';
-		} elseif ('all' == $attribs ['id']) {
-			$cache = $this->getCacheConfiguration ( $sl );
-			foreach ( $this->keys as $key => $datas ) {
-				if ($cache->hasItem ( $key )) {
-					$cache->removeItem ( $key );
-				}
-			}
-			return 'success_remove_all_cache_items';
-		} else {
-			throw new ParamNotExistsModelException ( 'It was not a valid index passed' );
-		}
-	}
-	
-	/**
-	 * Get cache instance
-	 * 
-	 * @param ServiceLocatorInterface $sl        	
-	 * @return \Zend\Cache\Storage\StorageInterface
-	 */
-	protected function getCacheConfiguration($sl) {
-		return $sl->get ( 'Contentinum\Cache\Filesystem7200' );
-	}
+class Cachecontent extends StorageFiles
+{
+
+    /**
+     * Cache keys
+     *
+     * @var array
+     */
+    protected $keys = array(
+        'websiteconfiguration' => array(
+            'group' => 'Layout',
+            'label' => 'Website Configuration',
+            'metas' => null
+        ),
+        'htmlwidgets' => array(
+            'group' => 'Layout',
+            'label' => 'Frontend Widgets',
+            'metas' => null
+        ),
+        'htmllayouts' => array(
+            'group' => 'Layout',
+            'label' => 'Frontend Layout',
+            'metas' => null
+        ),
+        'customconfig' => array(
+            'group' => 'Configuration',
+            'label' => 'Special custom settings',
+            'metas' => null
+        ),
+        'websitemedias' => array(
+            'group' => 'Content',
+            'label' => 'Website Medias',
+            'metas' => null
+        ),
+        'mcworkpages' => array(
+            'group' => 'Content',
+            'label' => 'Backend pages configuration and content',
+            'metas' => null
+        ),
+        'mcworktableedit' => array(
+            'group' => 'Configuration',
+            'label' => 'Table row edit toolbar',
+            'metas' => null
+        ),
+        
+        'mcworktoolbar' => array(
+            'group' => 'Configuration',
+            'label' => 'Table toolbar',
+            'metas' => null
+        ),
+        
+        'charset' => array(
+            'group' => 'Data',
+            'label' => 'Charset list',
+            'metas' => null
+        ),
+        'locale' => array(
+            'group' => 'Data',
+            'label' => 'Locale list',
+            'metas' => null
+        ),
+        'publish' => array(
+            'group' => 'Data',
+            'label' => 'Publish values list',
+            'metas' => null
+        ),
+        'resource' => array(
+            'group' => 'Data',
+            'label' => 'Recources access values list',
+            'metas' => null
+        ),
+        'httpstatuscode' => array(
+            'group' => 'Data',
+            'label' => 'List of HTTP Status codes',
+            'metas' => null
+        )
+    );
+
+    /**
+     * Fetch cache datas
+     * if cache available set meta datas
+     *
+     * @param array $attribs
+     * @param AbstractStorageEntity $entity
+     * @param ServiceLocatorInterface $sl
+     * @throws ParamNotExistsModelException
+     * @return array
+     */
+    public function fetchContent(array $attribs, AbstractStorageEntity $entity, $sl = null)
+    {
+        if (0 == $attribs['id']) {
+            $cache = $this->getCacheConfiguration($sl);
+            
+            foreach ($this->keys as $key => $datas) {
+                if ($cache->hasItem($key)) {
+                    $datas['metas'] = $cache->getMetadata($key);
+                }
+                $cacheData[$key] = $datas;
+            }
+            unset($datas);
+            return $cacheData;
+        } else {
+            if (isset($this->keys[$attribs['id']])) {
+                $tmp = $this->keys[$attribs['id']];
+                if ($cache->hasItem($attribs['id'])) {
+                    $tmp['metas'] = $cache->getMetadata($attribs['id']);
+                }
+                $cacheData[$attribs['id']] = $tmp;
+                unset($tmp);
+                return $cacheData;
+            } else {
+                throw new ParamNotExistsModelException('It was not a valid index passed');
+            }
+        }
+    }
+
+    /**
+     * Remove cache item(s)
+     *
+     * @param array $attribs
+     * @param AbstractStorageEntity $entity
+     * @param ServiceLocatorInterface $sl
+     * @throws ParamNotExistsModelException
+     * @return string
+     */
+    public function emptyCache(array $attribs, AbstractStorageEntity $entity, $sl = null)
+    {
+        if (strlen($attribs['id']) > 1 && 'all' != $attribs['id']) {
+            $cache = $this->getCacheConfiguration($sl);
+            if ($cache->hasItem($attribs['id'])) {
+                $cache->removeItem($attribs['id']);
+            }
+            return 'success_remove_cache_item';
+        } elseif ('all' == $attribs['id']) {
+            $cache = $this->getCacheConfiguration($sl);
+            foreach ($this->keys as $key => $datas) {
+                if ($cache->hasItem($key)) {
+                    $cache->removeItem($key);
+                }
+            }
+            return 'success_remove_all_cache_items';
+        } else {
+            throw new ParamNotExistsModelException('It was not a valid index passed');
+        }
+    }
+
+    /**
+     * Get cache instance
+     *
+     * @param ServiceLocatorInterface $sl
+     * @return \Zend\Cache\Storage\StorageInterface
+     */
+    protected function getCacheConfiguration($sl)
+    {
+        return $sl->get('Contentinum\Cache\Filesystem7200');
+    }
 }

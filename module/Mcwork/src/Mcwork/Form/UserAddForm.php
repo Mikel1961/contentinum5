@@ -35,129 +35,132 @@ use ContentinumComponents\Forms\AbstractForms;
  *
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
-class UserAddForm extends AbstractForms {
-	
-	/*
-	 * (non-PHPdoc) @see \Contentinum\Forms\AbstractForms::elements()
-	 */
-	public function elements() {
-		return array (
-				
-				array (
-						'spec' => array (
-								'name' => 'contact',
-								'required' => true,
-								
-								'options' => array (
-										'label' => 'Contacts',
-										'empty_option' => 'Select a contact',
-										'value_options' => $this->getSelectOptions ( 'contact', array (
-												'value' => 'id',
-												'label' => 'contactEmail' 
-										) ),
-										'deco-row' => $this->getDecorators ( self::DECO_ROW ),
-										'deco-error' => $this->getDecorators ( self::DECO_ERROR ),
-										'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich' 
-								),
-								
-								'type' => 'Select',
-								'attributes' => array (
-										'required' => 'required',
-										'id' => 'contact' 
-								) 
-						) 
-				),
-				array (
-						'spec' => array (
-								'name' => 'userGroups',
-								'required' => true,
-								
-								'options' => array (
-										'label' => 'User group',
-										'empty_option' => 'Select a user group',
-										'value_options' => $this->getSelectOptions ( 'userGroups', array (
-												'value' => 'id',
-												'label' => 'name' 
-										) ),
-										'deco-row' => $this->getDecorators ( self::DECO_ROW ),
-										'deco-error' => $this->getDecorators ( self::DECO_ERROR ),
-										'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich' 
-								),
-								
-								'type' => 'Select',
-								'attributes' => array (
-										'required' => 'required',
-										'id' => 'userGroups' 
-								) 
-						) 
-				),
-				array (
-						'spec' => array (
-								'name' => 'loginPassword',
-								'required' => true,
-								
-								'options' => array (
-										'label' => 'Password',
-										'deco-row' => $this->getDecorators ( self::DECO_ROW ),
-										'deco-error' => $this->getDecorators ( self::DECO_ERROR ),
-										'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich' 
-								),
-								
-								'type' => 'Text',
-								'attributes' => array (
-										'required' => 'required',
-										'id' => 'loginPassword' 
-								) 
-						) 
-				),
-				
-				array (
-						'spec' => array (
-								'name' => 'send',
-								'options' => array (
-										'deco-row' => $this->getDecorators ( self::DECO_ROW_BUTTON ),
-										'deco-abort-btn' => $this->getDecorators ( self::DECO_ABORT_BTN ) 
-								),
-								'type' => 'submit',
-								'attributes' => array (
-										'value' => 'Submit',
-										'class' => 'button small' 
-								) 
-						) 
-				) 
-		)
-		;
-	}
-	
-	/**
-	 * form input filter and validation
-	 *
-	 * @see \ContentinumComponents\Forms\AbstractForms::filter()
-	 */
-	public function filter() {
-		return array (
-				
-				'loginPassword' => array (
-						'required' => true,
-						'filters' => array (
-								array (
-										'name' => 'Zend\Filter\StringTrim' 
-								) 
-						) 
-				) 
-		);
-	}
-	
-	/**
-	 * initiation and get form
-	 *
-	 * @see \ContentinumComponents\Forms\AbstractForms::getForm()
-	 */
-	public function getForm() {
-		return $this->factory->createForm ( array (
-				'hydrator' => 'Zend\Stdlib\Hydrator\ArraySerializable',
-				'elements' => $this->elements (),
-				'input_filter' => $this->filter () 
-		) );
-	}
+class UserAddForm extends AbstractForms
+{
+    
+    /*
+     * (non-PHPdoc) @see \Contentinum\Forms\AbstractForms::elements()
+     */
+    public function elements()
+    {
+        return array(
+            
+            array(
+                'spec' => array(
+                    'name' => 'contact',
+                    'required' => true,
+                    
+                    'options' => array(
+                        'label' => 'Contacts',
+                        'empty_option' => 'Select a contact',
+                        'value_options' => $this->getSelectOptions('contact', array(
+                            'value' => 'id',
+                            'label' => 'contactEmail'
+                        )),
+                        'deco-row' => $this->getDecorators(self::DECO_ROW),
+                        'deco-error' => $this->getDecorators(self::DECO_ERROR),
+                        'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich'
+                    ),
+                    
+                    'type' => 'Select',
+                    'attributes' => array(
+                        'required' => 'required',
+                        'id' => 'contact'
+                    )
+                )
+            ),
+            array(
+                'spec' => array(
+                    'name' => 'userGroups',
+                    'required' => true,
+                    
+                    'options' => array(
+                        'label' => 'User group',
+                        'empty_option' => 'Select a user group',
+                        'value_options' => $this->getSelectOptions('userGroups', array(
+                            'value' => 'id',
+                            'label' => 'name'
+                        )),
+                        'deco-row' => $this->getDecorators(self::DECO_ROW),
+                        'deco-error' => $this->getDecorators(self::DECO_ERROR),
+                        'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich'
+                    ),
+                    
+                    'type' => 'Select',
+                    'attributes' => array(
+                        'required' => 'required',
+                        'id' => 'userGroups'
+                    )
+                )
+            ),
+            array(
+                'spec' => array(
+                    'name' => 'loginPassword',
+                    'required' => true,
+                    
+                    'options' => array(
+                        'label' => 'Password',
+                        'deco-row' => $this->getDecorators(self::DECO_ROW),
+                        'deco-error' => $this->getDecorators(self::DECO_ERROR),
+                        'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich'
+                    ),
+                    
+                    'type' => 'Text',
+                    'attributes' => array(
+                        'required' => 'required',
+                        'id' => 'loginPassword'
+                    )
+                )
+            ),
+            
+            array(
+                'spec' => array(
+                    'name' => 'send',
+                    'options' => array(
+                        'deco-row' => $this->getDecorators(self::DECO_ROW_BUTTON),
+                        'deco-abort-btn' => $this->getDecorators(self::DECO_ABORT_BTN)
+                    ),
+                    'type' => 'submit',
+                    'attributes' => array(
+                        'value' => 'Submit',
+                        'class' => 'button small'
+                    )
+                )
+            )
+        );
+    }
+
+    /**
+     * form input filter and validation
+     *
+     * @see \ContentinumComponents\Forms\AbstractForms::filter()
+     */
+    public function filter()
+    {
+        return array(
+            
+            'loginPassword' => array(
+                'required' => true,
+                'filters' => array(
+                    array(
+                        'name' => 'Zend\Filter\StringTrim'
+                    )
+                )
+            )
+        );
+    }
+
+    /**
+     * initiation and get form
+     *
+     * @see \ContentinumComponents\Forms\AbstractForms::getForm()
+     */
+    public function getForm()
+    {
+        return $this->factory->createForm(array(
+            'hydrator' => 'Zend\Stdlib\Hydrator\ArraySerializable',
+            'elements' => $this->elements(),
+            'input_filter' => $this->filter()
+        ));
+    }
 }

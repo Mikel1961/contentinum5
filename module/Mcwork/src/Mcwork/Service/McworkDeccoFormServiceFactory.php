@@ -37,25 +37,28 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class McworkDeccoFormServiceFactory implements FactoryInterface
 {
+
     /**
-     * Mcwork forms decorator key 
+     * Mcwork forms decorator key
+     * 
      * @var string
      */
     const CONFIGURE_KEY = 'mcwork_form';
-    
+
     /**
      * Get form decorators configuration
+     * 
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      * @return array
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-    	$config = $serviceLocator->get('Contentinum\Configure');
-    
-    	if ( isset($config[self::CONFIGURE_KEY]) ){
-    		return $config[self::CONFIGURE_KEY];
-    	} else {
-    		return null;
-    	}
-    }    
+        $config = $serviceLocator->get('Contentinum\Configure');
+        
+        if (isset($config[self::CONFIGURE_KEY])) {
+            return $config[self::CONFIGURE_KEY];
+        } else {
+            return null;
+        }
+    }
 }

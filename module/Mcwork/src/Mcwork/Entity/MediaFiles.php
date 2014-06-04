@@ -36,15 +36,15 @@ use ContentinumComponents\Storage\AbstractStorageEntity;
  */
 class MediaFiles extends AbstractStorageEntity
 {
-	const FILES_PATH = 'public/medias';
-	
-	/**
-	 * @see \ContentinumComponents\Storage\AbstractStorageEntity::getCurrentPath()
-	 */
-	public function getCurrentPath() 
-	{
-		return self::FILES_PATH;
-		
-	}
-	
+
+    const FILES_PATH = 'public/medias';
+
+    /**
+     *
+     * @see \ContentinumComponents\Storage\AbstractStorageEntity::getCurrentPath()
+     */
+    public function getCurrentPath()
+    {
+        return self::FILES_PATH;
+    }
 }

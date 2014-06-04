@@ -31,14 +31,17 @@ use ContentinumComponents\Forms\AbstractForms;
 
 /**
  * contentinum mcwork form fieldtypes
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class FieldtypesFrom extends AbstractForms
 {
+
     /**
      * form field elements
-	 * @see \ContentinumComponents\Forms\AbstractForms::elements()
-	 */
+     * 
+     * @see \ContentinumComponents\Forms\AbstractForms::elements()
+     */
     public function elements()
     {
         return array(
@@ -50,8 +53,8 @@ class FieldtypesFrom extends AbstractForms
                     'options' => array(
                         'label' => 'Fieldtype',
                         'deco-row' => $this->getDecorators(self::DECO_ROW),
-                        'deco-error' =>  $this->getDecorators(self::DECO_ERROR),
-                        'deco-error-msg' => 'Name is required and must be a string',
+                        'deco-error' => $this->getDecorators(self::DECO_ERROR),
+                        'deco-error-msg' => 'Name is required and must be a string'
                     ),
                     
                     'type' => 'Text',
@@ -69,14 +72,14 @@ class FieldtypesFrom extends AbstractForms
                     'options' => array(
                         'label' => 'Scope',
                         'deco-row' => $this->getDecorators(self::DECO_ROW),
-                        'deco-error' => $this->getDecorators(self::DECO_ERROR),  
-                        'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich',
+                        'deco-error' => $this->getDecorators(self::DECO_ERROR),
+                        'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich'
                     ),
                     
                     'type' => 'Text',
                     'attributes' => array(
                         'required' => 'required',
-                        'id' => 'typescope'   
+                        'id' => 'typescope'
                     )
                 )
             ),
@@ -85,20 +88,21 @@ class FieldtypesFrom extends AbstractForms
                     'name' => 'send',
                     'options' => array(
                         'deco-row' => $this->getDecorators(self::DECO_ROW_BUTTON),
-                        'deco-abort-btn' => $this->getDecorators(self::DECO_ABORT_BTN),
-                     ),
+                        'deco-abort-btn' => $this->getDecorators(self::DECO_ABORT_BTN)
+                    ),
                     'type' => 'submit',
                     'attributes' => array(
                         'value' => 'Submit',
-                        'class' => 'button small',   
+                        'class' => 'button small'
                     )
                 )
             )
         );
     }
-    
+
     /**
      * form input filter and validation
+     * 
      * @see \ContentinumComponents\Forms\AbstractForms::filter()
      */
     public function filter()
@@ -137,10 +141,11 @@ class FieldtypesFrom extends AbstractForms
         );
     }
 
-	/**
-	 * initiation and get form
-	 * @see \ContentinumComponents\Forms\AbstractForms::getForm()
-	 */
+    /**
+     * initiation and get form
+     * 
+     * @see \ContentinumComponents\Forms\AbstractForms::getForm()
+     */
     public function getForm()
     {
         return $this->factory->createForm(array(

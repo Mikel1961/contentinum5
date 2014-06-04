@@ -32,13 +32,16 @@ use ContentinumComponents\Entity\AbstractEntity;
 
 /**
  * Model to procede delete
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
- *
+ *        
  */
 class DeleteItem extends Process
 {
+
     /**
      * Delete data table entries
+     * 
      * @param array $attribs
      * @param AbstractEntity $entity
      * @param string $sl
@@ -46,29 +49,31 @@ class DeleteItem extends Process
      */
     public function deleteRow(array $attribs, AbstractEntity $entity = null, $sl = null)
     {
-        if (false !== $this->hasEntriesParams){
+        if (false !== $this->hasEntriesParams) {
             $params = $this->getHasEntriesParams();
         }
-        $data = array('isdelete' => array(), 'notdelete' => array());
-        foreach ($attribs as $items){
-            foreach ($items as $item){
-                if (false !== $this->hasEntriesParams){
-                    if (false === $this->hasEntries($params['tablename'], $params['column'], $item['value'])){
+        $data = array(
+            'isdelete' => array(),
+            'notdelete' => array()
+        );
+        foreach ($attribs as $items) {
+            foreach ($items as $item) {
+                if (false !== $this->hasEntriesParams) {
+                    if (false === $this->hasEntries($params['tablename'], $params['column'], $item['value'])) {
                         $data['isdelete'][] = $item['value'];
                         $this->delete($this->fetchPopulateValues($item['value'], false), $item['value']);
                     } else {
                         $data['notdelete'][] = $item['value'];
                         if (false !== ($log = $this->getLogger())) {
-                        	$log->err('could not be deleted since records exist in ' . $entity->getEntityName());
+                            $log->err('could not be deleted since records exist in ' . $entity->getEntityName());
                         }
                     }
                 } else {
                     $data['isdelete'][] = $item['value'];
                     $this->delete($this->fetchPopulateValues($item['value'], false), $item['value']);
                 }
-                
             }
-        } 
+        }
         return $data;
-    }  
+    }
 }

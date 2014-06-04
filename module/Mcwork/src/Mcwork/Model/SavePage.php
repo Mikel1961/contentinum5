@@ -39,40 +39,43 @@ use Contentinum\Entity\WebRedirect;
  */
 class SavePage extends Process
 {
-	/**
-	 * Prepare datas
-	 * @see \ContentinumComponents\Mapper\Process::save()
-	 */	
-	public function save($datas,$entity = null)
-	{
-		$entity = $this->handleEntity($entity);
-		if (null === $entity->getPrimaryValue()   ) {
-			if ( strlen($datas['url']) == 0 ){
-				$filter = new Prepare();
-				$datas['url'] = $filter->filter($datas['label']);				
-			}
-			$datas['scope'] = $datas['url'];
-			parent::save($datas,$entity);
-		} else {
-		    if (isset($datas['redirect']) && '1' == $datas['redirect']){
-		        $insert['redirect'] = $entity->url;
-		        $insert['webPagesId'] = $entity;
-		        $insert['statuscode'] = '301';
-		    }
-			$datas['scope'] = $datas['url'];
-			$msg = parent::save($datas,$entity);
+
+    /**
+     * Prepare datas
+     * 
+     * @see \ContentinumComponents\Mapper\Process::save()
+     */
+    public function save($datas, $entity = null)
+    {
+        $entity = $this->handleEntity($entity);
+        if (null === $entity->getPrimaryValue()) {
+            if (strlen($datas['url']) == 0) {
+                $filter = new Prepare();
+                $datas['url'] = $filter->filter($datas['label']);
+            }
+            $datas['scope'] = $datas['url'];
+            parent::save($datas, $entity);
+        } else {
+            if (isset($datas['redirect']) && '1' == $datas['redirect']) {
+                $insert['redirect'] = $entity->url;
+                $insert['webPagesId'] = $entity;
+                $insert['statuscode'] = '301';
+            }
+            $datas['scope'] = $datas['url'];
+            $msg = parent::save($datas, $entity);
             $this->setRedirect($insert);
-			return $msg;
-		}
-	}
-	
-	/**
-	 * Set redirect after change page url
-	 * @param unknown $insert
-	 */
-	public function setRedirect($insert)
-	{
-	    $handle = new SaveRedirect($this->getStorage());
-	    $handle->save($insert, new WebRedirect());
-	}
+            return $msg;
+        }
+    }
+
+    /**
+     * Set redirect after change page url
+     * 
+     * @param unknown $insert
+     */
+    public function setRedirect($insert)
+    {
+        $handle = new SaveRedirect($this->getStorage());
+        $handle->save($insert, new WebRedirect());
+    }
 }

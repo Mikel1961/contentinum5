@@ -31,105 +31,106 @@ use ContentinumComponents\Forms\AbstractForms;
 
 /**
  * contentinum mcwork form fieldmetas
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class FieldmetasForm extends AbstractForms
 {
-    
-	/**
-	 * form field elements
-	 * @see \ContentinumComponents\Forms\AbstractForms::elements()
-	 */
+
+    /**
+     * form field elements
+     * 
+     * @see \ContentinumComponents\Forms\AbstractForms::elements()
+     */
     public function elements()
     {
-    	return array(
-    		
-    	    array(
-    	    		'spec' => array(
-    	    				'name' => 'fieldTypes',
-    	    				'required' => true,
-    	    					
-    	    				'options' => array(
-    	    						'label' => 'Select field type',
-    	    				    'empty_option' => 'Please select a field type',
-    	    				    'value_options' => $this->getSelectOptions('fieldTypes' ),
-    	    				    
-    	    				    
-    	    				    
-    	    						'deco-row' => $this->getDecorators(self::DECO_ROW),
-    	    						'deco-error' => $this->getDecorators(self::DECO_ERROR),
-    	    				        'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich',
-    	    				),
-    	    					
-    	    				'type' => 'Select',
-    	    				'attributes' => array(
-    	    						'required' => 'required',
-    	    						'id' => 'fieldTypes'
-    	    				)
-    	    		)
-    	    ),
-    	    
-    	    array(
-    	    		'spec' => array(
-    	    				'name' => 'name',
-    	    				'required' => true,
-    	    
-    	    				'options' => array(
-    	    						'label' => 'Field meta name',
-    	    						'deco-row' => $this->getDecorators(self::DECO_ROW),
-    	    						'deco-error' => $this->getDecorators(self::DECO_ERROR),
-    	    				        'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich',
-    	    				),
-    	    
-    	    				'type' => 'Text',
-    	    				'attributes' => array(
-    	    						'required' => 'required',
-    	    						'id' => 'name'
-    	    				)
-    	    		)
-    	    ),  
-    	    array(
-    	    		'spec' => array(
-    	    				'name' => 'datascope',
-    	    				'required' => true,
-    	    				'options' => array(
-    	    						'label' => 'Scope',
-    	    						'deco-row' => $this->getDecorators(self::DECO_ROW),
-    	    						'deco-error' => $this->getDecorators(self::DECO_ERROR),
-    	    				        'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich',
-    	    				),
-    	    
-    	    				'type' => 'Text',
-    	    				'attributes' => array(
-    	    						'required' => 'required',
-    	    						'id' => 'datascope'
-    	    				)
-    	    		)
-    	    ),
-    	    array(
-    	    		'spec' => array(
-    	    				'name' => 'send',
-    	    				'options' => array(
-    	    						'deco-row' => $this->getDecorators(self::DECO_ROW),
-    	    				        'deco-abort-btn' => $this->getDecorators(self::DECO_ABORT_BTN),
-    	    				),
-    	    				'type' => 'Submit',
-    	    				'attributes' => array(
-    	    						'value' => 'Submit',
-    	    				        'class' => 'small button', 
-    	    				)
-    	    		)
-    	    )    	      	    
-    	    
-    	);
-    }    
-    
+        return array(
+            
+            array(
+                'spec' => array(
+                    'name' => 'fieldTypes',
+                    'required' => true,
+                    
+                    'options' => array(
+                        'label' => 'Select field type',
+                        'empty_option' => 'Please select a field type',
+                        'value_options' => $this->getSelectOptions('fieldTypes'),
+                        
+                        'deco-row' => $this->getDecorators(self::DECO_ROW),
+                        'deco-error' => $this->getDecorators(self::DECO_ERROR),
+                        'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich'
+                    ),
+                    
+                    'type' => 'Select',
+                    'attributes' => array(
+                        'required' => 'required',
+                        'id' => 'fieldTypes'
+                    )
+                )
+            ),
+            
+            array(
+                'spec' => array(
+                    'name' => 'name',
+                    'required' => true,
+                    
+                    'options' => array(
+                        'label' => 'Field meta name',
+                        'deco-row' => $this->getDecorators(self::DECO_ROW),
+                        'deco-error' => $this->getDecorators(self::DECO_ERROR),
+                        'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich'
+                    ),
+                    
+                    'type' => 'Text',
+                    'attributes' => array(
+                        'required' => 'required',
+                        'id' => 'name'
+                    )
+                )
+            ),
+            array(
+                'spec' => array(
+                    'name' => 'datascope',
+                    'required' => true,
+                    'options' => array(
+                        'label' => 'Scope',
+                        'deco-row' => $this->getDecorators(self::DECO_ROW),
+                        'deco-error' => $this->getDecorators(self::DECO_ERROR),
+                        'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich'
+                    ),
+                    
+                    'type' => 'Text',
+                    'attributes' => array(
+                        'required' => 'required',
+                        'id' => 'datascope'
+                    )
+                )
+            ),
+            array(
+                'spec' => array(
+                    'name' => 'send',
+                    'options' => array(
+                        'deco-row' => $this->getDecorators(self::DECO_ROW),
+                        'deco-abort-btn' => $this->getDecorators(self::DECO_ABORT_BTN)
+                    ),
+                    'type' => 'Submit',
+                    'attributes' => array(
+                        'value' => 'Submit',
+                        'class' => 'small button'
+                    )
+                )
+            )
+        )
+        ;
+    }
+
     /**
      * form input filter and validation
+     * 
      * @see \ContentinumComponents\Forms\AbstractForms::filter()
      */
-	public function filter() 
-	{
+    public function filter()
+    {
         return array(
             'name' => array(
                 'required' => true,
@@ -162,19 +163,19 @@ class FieldmetasForm extends AbstractForms
                 )
             )
         );
+    }
 
-	}
-
-	/**
-	 * initiation and get form
-	 * @see \ContentinumComponents\Forms\AbstractForms::getForm()
-	 */
+    /**
+     * initiation and get form
+     * 
+     * @see \ContentinumComponents\Forms\AbstractForms::getForm()
+     */
     public function getForm()
     {
-    	return $this->factory->createForm(array(
-    			'hydrator' => 'Zend\Stdlib\Hydrator\ArraySerializable',
-    			'elements' => $this->elements(),
-    			'input_filter' => $this->filter()
-    	));
+        return $this->factory->createForm(array(
+            'hydrator' => 'Zend\Stdlib\Hydrator\ArraySerializable',
+            'elements' => $this->elements(),
+            'input_filter' => $this->filter()
+        ));
     }
 }

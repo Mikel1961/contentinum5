@@ -33,7 +33,7 @@ use Zend\Json\Json;
 
 /**
  * Backend module application controller
- * 
+ *
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class McworkappController extends AbstractBackendController
@@ -41,28 +41,28 @@ class McworkappController extends AbstractBackendController
 
     /**
      * Worker method
-     * 
+     *
      * @var string
      */
     protected $method;
 
     /**
      * Get the worker method
-     * 
+     *
      * @return string
      */
-    public function getMethod ()
+    public function getMethod()
     {
         return $this->method;
     }
 
     /**
      * Set a worker method
-     * 
+     *
      * @param string $method
      * @return \Mcwork\Controller\McworkappController
      */
-    public function setMethod ($method)
+    public function setMethod($method)
     {
         $this->method = $method;
         return $this;
@@ -70,10 +70,10 @@ class McworkappController extends AbstractBackendController
 
     /**
      * Page application
-     * 
+     *
      * @see \ContentinumComponents\Controller\AbstractBackendController::application()
      */
-    protected function application ($ctrl, $page, $mcworkpages, $role = null, $acl = null)
+    protected function application($ctrl, $page, $mcworkpages, $role = null, $acl = null)
     {
         $entries = array();
         $content = false;
@@ -81,7 +81,7 @@ class McworkappController extends AbstractBackendController
         if ($mcworkpages->$page) {
             $content = $mcworkpages->$page;
         }
-
+        
         $this->adminlayout($this->layout(), $mcworkpages, $page, $role, $acl, $this->getServiceLocator()
             ->get('viewHelperManager'));
         if ($this->worker) {
@@ -95,17 +95,18 @@ class McworkappController extends AbstractBackendController
         }
         
         return $this->buildView(array(
-                'page' => $page,
-                'pagecontent' => $content,
-                'entries' => $entries), $content, $mcworkpages);
+            'page' => $page,
+            'pagecontent' => $content,
+            'entries' => $entries
+        ), $content, $mcworkpages);
     }
 
     /**
      * (non-PHPdoc)
-     * 
+     *
      * @see \ContentinumComponents\Controller\AbstractBackendController::displaycontent()
      */
-    protected function displaycontent ($ctrl, $page, $mcworkpages, $role = null, $acl = null)
+    protected function displaycontent($ctrl, $page, $mcworkpages, $role = null, $acl = null)
     {
         $entry = false;
         $content = false;
@@ -120,8 +121,9 @@ class McworkappController extends AbstractBackendController
         try {
             if ($this->worker) {
                 $entry = $this->worker->fetchContent(array(
-                        'id' => $this->params()
-                            ->fromRoute('id', 0)), $this->entity, $this->getServiceLocator());
+                    'id' => $this->params()
+                        ->fromRoute('id', 0)
+                ), $this->entity, $this->getServiceLocator());
                 if (true == ($log = $this->getLogger())) {
                     $log->info('displaycontent_success');
                 }
@@ -132,72 +134,80 @@ class McworkappController extends AbstractBackendController
             }
         }
         return $this->buildView(array(
-                'page' => $page,
-                'pagecontent' => $content,
-                'entries' => $entry), $content, $mcworkpages);
+            'page' => $page,
+            'pagecontent' => $content,
+            'entries' => $entry
+        ), $content, $mcworkpages);
     }
 
     /**
      * (non-PHPdoc)
-     * 
+     *
      * @see \ContentinumComponents\Controller\AbstractBackendController::downloadcontent()
      */
-    protected function downloadcontent ($ctrl, $page, $mcworkpages, $role = null, $acl = null)
+    protected function downloadcontent($ctrl, $page, $mcworkpages, $role = null, $acl = null)
     {
         $entry = '';
         $this->iniLoggger();
         $filename = $this->params()->fromRoute('id', 0);
         if ($this->worker) {
             $entry = $this->worker->fetchContent(array(
-                    'id' => $filename), $this->entity);
+                'id' => $filename
+            ), $this->entity);
         }
         if (isset($mcworkpages->$page->response->header) && strlen($entry) > 1) {
             return $this->buildView(array(
-                    'headerDatas' => $mcworkpages->$page->response->header->toArray(),
-                    'entries' => $entry,
-                    'filename' => $filename), $mcworkpages->$page, $mcworkpages);
+                'headerDatas' => $mcworkpages->$page->response->header->toArray(),
+                'entries' => $entry,
+                'filename' => $filename
+            ), $mcworkpages->$page, $mcworkpages);
         }
     }
 
     /**
      * (non-PHPdoc)
+     * 
      * @see \ContentinumComponents\Controller\AbstractBackendController::contenthandle()
      */
-    protected function contenthandle ($ctrl, $page, $mcworkpages, $role = null, $acl = null)
-    {      
+    protected function contenthandle($ctrl, $page, $mcworkpages, $role = null, $acl = null)
+    {
         $msg = false;
         $this->iniLoggger();
         if ($this->worker) {
             $this->worker->setLogger($this->getLogger());
             
             try {
-                if ($this->getRequest ()->isPost ()) {
+                if ($this->getRequest()->isPost()) {
                     $attribs = $this->getRequest()->getPost();
-                    if (is_object($attribs)){
+                    if (is_object($attribs)) {
                         $attribs = $attribs->toArray();
-                    }                    
+                    }
                 } else {
                     $attribs['id'] = $this->params()->fromRoute('id', 0);
-                }  
+                }
                 
-                if ($mcworkpages->$page->hasEntries){
+                if ($mcworkpages->$page->hasEntries) {
                     $this->worker->setHasEntriesParams($mcworkpages->$page->hasEntries->toArray());
-                }             
+                }
                 $method = $this->getMethod();
                 $data = $this->worker->$method($attribs, $this->entity, $this->getServiceLocator());
                 if (true == ($log = $this->getLogger())) {
                     $log->info(sprintf('contenthandle_success_during %s', $method));
                 }
-                if ($this->getRequest()->isXmlHttpRequest()){
-                    echo Json::encode(array('success' => $data));
+                if ($this->getRequest()->isXmlHttpRequest()) {
+                    echo Json::encode(array(
+                        'success' => $data
+                    ));
                     exit();
                 }
             } catch (\Exception $e) {
                 if (true == ($log = $this->getLogger())) {
-                    $log->err('contenthandle abort during '. $method .' ' . $e->getMessage());
+                    $log->err('contenthandle abort during ' . $method . ' ' . $e->getMessage());
                 }
-                if ($this->getRequest()->isXmlHttpRequest()){
-                    echo Json::encode(array('error' => sprintf('contenthandle_abort_during %s', $method)));
+                if ($this->getRequest()->isXmlHttpRequest()) {
+                    echo Json::encode(array(
+                        'error' => sprintf('contenthandle_abort_during %s', $method)
+                    ));
                     exit();
                 }
             }
@@ -213,7 +223,7 @@ class McworkappController extends AbstractBackendController
     /**
      * Initialize logger api
      */
-    protected function iniLoggger ()
+    protected function iniLoggger()
     {
         $this->setLogger($this->getServiceLocator()
             ->get('Contentinum\Logs\Applog'));
@@ -224,13 +234,13 @@ class McworkappController extends AbstractBackendController
 
     /**
      * Configure and preapre template view
-     * 
+     *
      * @param array $variables view template variables
      * @param \Zend\Config\Config $content page content
      * @param \Zend\Config\Config $mcworkpages
      * @return \Zend\View\Model\ViewModel
      */
-    protected function buildView (array $variables, $content, $mcworkpages)
+    protected function buildView(array $variables, $content, $mcworkpages)
     {
         $view = new ViewModel($variables);
         
@@ -248,11 +258,13 @@ class McworkappController extends AbstractBackendController
             $view->setVariable('widget', $widget);
         }
         
-        if ( isset($content->toolbar) ){
-        	$view->setVariable('toolbarcontent', $this->getServiceLocator()->get('Mcwork\Toolbar'));
+        if (isset($content->toolbar)) {
+            $view->setVariable('toolbarcontent', $this->getServiceLocator()
+                ->get('Mcwork\Toolbar'));
         }
-        if ( isset($content->tableedit)){
-        	$view->setVariable('tableeditcontent', $this->getServiceLocator()->get('Mcwork\Tableedit'));
+        if (isset($content->tableedit)) {
+            $view->setVariable('tableeditcontent', $this->getServiceLocator()
+                ->get('Mcwork\Tableedit'));
         }
         
         // set template file different from the default, if specified

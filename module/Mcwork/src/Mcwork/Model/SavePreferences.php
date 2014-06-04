@@ -38,18 +38,20 @@ use ContentinumComponents\Unique\Id;
  */
 class SavePreferences extends Process
 {
-	/**
-	 * Prepare datas
-	 * @see \ContentinumComponents\Mapper\Process::save()
-	 */	
-	public function save($datas,$entity = null)
-	{
-		$entity = $this->handleEntity($entity);
-		if (null === $entity->getPrimaryValue()   ) {
-			if ('createnewhost' == $datas['hostId']){
-				$datas['hostId'] = Id::get();
-			}
-			parent::save($datas,$entity);
-		} 
-	}
+
+    /**
+     * Prepare datas
+     * 
+     * @see \ContentinumComponents\Mapper\Process::save()
+     */
+    public function save($datas, $entity = null)
+    {
+        $entity = $this->handleEntity($entity);
+        if (null === $entity->getPrimaryValue()) {
+            if ('createnewhost' == $datas['hostId']) {
+                $datas['hostId'] = Id::get();
+            }
+            parent::save($datas, $entity);
+        }
+    }
 }

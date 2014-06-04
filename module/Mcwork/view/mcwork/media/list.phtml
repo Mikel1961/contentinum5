@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * contentinum - accessibility websites
 *
@@ -30,9 +30,9 @@ echo '<section id="filescrollarea">';
 echo $this->mediasTableView($this->entries);
 $up = '';
 if ($this->currentFolder) {
-	$up = '/' . str_replace(DS, $this->seperator, $this->currentFolder);
+    $up = '/' . str_replace(DS, $this->seperator, $this->currentFolder);
 }
 echo '</section>';
-echo '<form id="contentinumUpload" action="/mcwork/medias/file/upload' . $up .'" method="post" enctype="multipart/form-data" class="dropzone"><div class="fallback"><input name="file" type="file" multiple /></div></form>';
+echo '<form id="contentinumUpload" action="/mcwork/medias/file/upload' . $up . '" method="post" enctype="multipart/form-data" class="dropzone"><div class="fallback"><input name="file" type="file" multiple /></div></form>';
 exit();
 ?>

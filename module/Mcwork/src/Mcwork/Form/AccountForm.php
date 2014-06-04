@@ -31,105 +31,108 @@ use ContentinumComponents\Forms\AbstractForms;
 
 /**
  * contentinum mcwork form accounts
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class AccountForm extends AbstractForms
 {
-	/**
-	 * form field elements
-	 * @see \ContentinumComponents\Forms\AbstractForms::elements()
-	 */
+
+    /**
+     * form field elements
+     * 
+     * @see \ContentinumComponents\Forms\AbstractForms::elements()
+     */
     public function elements()
     {
-    	return array(
-    		
-    			array(
-    					'spec' => array(
-    							'name' => 'fieldMetas',
-    							'required' => true,
-    			
-    							'options' => array(
-    									'label' => 'Select field meta',
-    									'empty_option' => 'Please select a field meta',
-    									'value_options' => $this->getSelectOptions('fieldMetas' ),
-    									'deco-row' => $this->getDecorators(self::DECO_ROW),
-    									'deco-error' => $this->getDecorators(self::DECO_ERROR),
-    									'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich',
-    							),
-    			
-    							'type' => 'Select',
-    							'attributes' => array(
-    									'required' => 'required',
-    									'id' => 'fieldMetas'
-    							)
-    					)
-    			), 
-    			array(
-    					'spec' => array(
-    							'name' => 'organisation',
-    							'required' => true,
-    								
-    							'options' => array(
-    									'label' => 'Organisation',
-    									'deco-row' => $this->getDecorators(self::DECO_ROW),
-    									'deco-error' => $this->getDecorators(self::DECO_ERROR),
-    									'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich',
-    							),
-    							'type' => 'Text',
-    							'attributes' => array(
-    									'required' => 'required',
-    									'id' => 'organisation'
-    							)
-    					)
-    			),  
-    			array(
-    					'spec' => array(
-    							'name' => 'send',
-    							'options' => array(
-    									'deco-row' => $this->getDecorators(self::DECO_ROW_BUTTON),
-    									'deco-abort-btn' => $this->getDecorators(self::DECO_ABORT_BTN),
-    							),
-    							'type' => 'submit',
-    							'attributes' => array(
-    									'value' => 'Submit',
-    									'class' => 'button small',
-    							)
-    					)
-    			)  	
-    	);
-    }    
-    
+        return array(
+            
+            array(
+                'spec' => array(
+                    'name' => 'fieldMetas',
+                    'required' => true,
+                    
+                    'options' => array(
+                        'label' => 'Select field meta',
+                        'empty_option' => 'Please select a field meta',
+                        'value_options' => $this->getSelectOptions('fieldMetas'),
+                        'deco-row' => $this->getDecorators(self::DECO_ROW),
+                        'deco-error' => $this->getDecorators(self::DECO_ERROR),
+                        'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich'
+                    ),
+                    
+                    'type' => 'Select',
+                    'attributes' => array(
+                        'required' => 'required',
+                        'id' => 'fieldMetas'
+                    )
+                )
+            ),
+            array(
+                'spec' => array(
+                    'name' => 'organisation',
+                    'required' => true,
+                    
+                    'options' => array(
+                        'label' => 'Organisation',
+                        'deco-row' => $this->getDecorators(self::DECO_ROW),
+                        'deco-error' => $this->getDecorators(self::DECO_ERROR),
+                        'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich'
+                    ),
+                    'type' => 'Text',
+                    'attributes' => array(
+                        'required' => 'required',
+                        'id' => 'organisation'
+                    )
+                )
+            ),
+            array(
+                'spec' => array(
+                    'name' => 'send',
+                    'options' => array(
+                        'deco-row' => $this->getDecorators(self::DECO_ROW_BUTTON),
+                        'deco-abort-btn' => $this->getDecorators(self::DECO_ABORT_BTN)
+                    ),
+                    'type' => 'submit',
+                    'attributes' => array(
+                        'value' => 'Submit',
+                        'class' => 'button small'
+                    )
+                )
+            )
+        );
+    }
+
     /**
      * form input filter and validation
+     * 
      * @see \ContentinumComponents\Forms\AbstractForms::filter()
      */
-	public function filter() 
-	{
-		return array(
-			
-				'organisation' => array(
-						'required' => true,
-						'filters' => array(
-								array(
-										'name' => 'Zend\Filter\StringTrim'
-								)
-						)
-				),	
-		);
+    public function filter()
+    {
+        return array(
+            
+            'organisation' => array(
+                'required' => true,
+                'filters' => array(
+                    array(
+                        'name' => 'Zend\Filter\StringTrim'
+                    )
+                )
+            )
+        );
+    }
 
-	}
-	
-	/**
-	 * initiation and get form
-	 * @see \ContentinumComponents\Forms\AbstractForms::getForm()
-	 */
+    /**
+     * initiation and get form
+     * 
+     * @see \ContentinumComponents\Forms\AbstractForms::getForm()
+     */
     public function getForm()
     {
-    	return $this->factory->createForm(array(
-    			'hydrator' => 'Zend\Stdlib\Hydrator\ArraySerializable',
-    			'elements' => $this->elements(),
-    			'input_filter' => $this->filter()
-    	));
-    }  
-
+        return $this->factory->createForm(array(
+            'hydrator' => 'Zend\Stdlib\Hydrator\ArraySerializable',
+            'elements' => $this->elements(),
+            'input_filter' => $this->filter()
+        ));
+    }
 }

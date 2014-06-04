@@ -28,20 +28,20 @@
 // dsiplay file content
 $html = '<pre>' . $this->entries . '</pre>';
 $toolbar = '';
-if ( isset($this->toolbarcontent) ){
-	$links = array(
-			'back' => array(
-					'href' => '/mcwork/logs',
-			),
-	);
-	$toolbar = $this->mcworkToolbar($links,true,$this->toolbarcontent->toArray());
+if (isset($this->toolbarcontent)) {
+    $links = array(
+        'back' => array(
+            'href' => '/mcwork/logs'
+        )
+    );
+    $toolbar = $this->mcworkToolbar($links, true, $this->toolbarcontent->toArray());
 }
 // output, display content
-if (isset ( $this->widget )) {
-	$content = str_replace ( '{TEMPLATE_HEADER}', $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'subheadline' ) ) . $toolbar, $this->widget );
-	echo str_replace ( '{TEMPLATE_CONTENT}', $html, $content );
+if (isset($this->widget)) {
+    $content = str_replace('{TEMPLATE_HEADER}', $this->translate($this->mcworkContent($this->page, $this->pagecontent, 'subheadline')) . $toolbar, $this->widget);
+    echo str_replace('{TEMPLATE_CONTENT}', $html, $content);
 } else {
-	echo $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'subheadline' ) );
-	echo $html;
+    echo $this->translate($this->mcworkContent($this->page, $this->pagecontent, 'subheadline'));
+    echo $html;
 }
 ?>

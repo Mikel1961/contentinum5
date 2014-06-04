@@ -36,15 +36,15 @@ use ContentinumComponents\Storage\AbstractStorageEntity;
  */
 class CacheFiles extends AbstractStorageEntity
 {
-	const FILES_PATH = 'data/cache';
-	
-	/**
-	 * @see \ContentinumComponents\Storage\AbstractStorageEntity::getCurrentPath()
-	 */
-	public function getCurrentPath() 
-	{
-		return self::FILES_PATH;
-		
-	}
-	
+
+    const FILES_PATH = 'data/cache';
+
+    /**
+     *
+     * @see \ContentinumComponents\Storage\AbstractStorageEntity::getCurrentPath()
+     */
+    public function getCurrentPath()
+    {
+        return self::FILES_PATH;
+    }
 }

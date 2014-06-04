@@ -29,47 +29,47 @@ namespace Mcwork;
 
 /**
  * Contentinum backend
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class Module
 {
-	
+
     public function getConfig()
     {
         return include __DIR__ . '/config/mcwork.module.config.php';
     }
-    
+
     public function getControllerConfig()
     {
-    	return include __DIR__ . '/config/mcwork.controllers.config.php';
-    } 
-    
+        return include __DIR__ . '/config/mcwork.controllers.config.php';
+    }
+
     public function getViewHelperConfig()
     {
-    	return include __DIR__ . '/config/viewhelper.config.php';
-    }    
+        return include __DIR__ . '/config/viewhelper.config.php';
+    }
 
     public function getControllerPluginConfig()
     {
-    	return array (
-    			'invokables' => array (
-    					'Adminlayout' => 'Mcwork\Controller\Plugin\Adminlayout',
-    			)
-    	);
-    } 
-    
+        return array(
+            'invokables' => array(
+                'Adminlayout' => 'Mcwork\Controller\Plugin\Adminlayout'
+            )
+        );
+    }
+
     public function getAutoloaderConfig()
     {
-    	return array(
-    			'Zend\Loader\ClassMapAutoloader' => array(
-    					__DIR__ . '/autoload_classmap.php',
-    			),
-    			'Zend\Loader\StandardAutoloader' => array(
-    					'namespaces' => array(
-    							__NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
-    					),
-    			),
-    	);
-    }    
-   
+        return array(
+            'Zend\Loader\ClassMapAutoloader' => array(
+                __DIR__ . '/autoload_classmap.php'
+            ),
+            'Zend\Loader\StandardAutoloader' => array(
+                'namespaces' => array(
+                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__
+                )
+            )
+        );
+    }
 }

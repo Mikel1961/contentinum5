@@ -30,7 +30,7 @@ namespace Mcwork\Service;
 use Contentinum\Service\TemplateServiceFactory;
 
 /**
- * Config template key mcwork pages
+ * Config template key html widgets
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class McworkpagesServiceFactory extends TemplateServiceFactory

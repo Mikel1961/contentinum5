@@ -32,119 +32,116 @@ use ContentinumComponents\Html\HtmlAttribute;
 
 /**
  * Set layout configuration
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class Adminlayout extends AbstractPlugin
 {
 
-	public function __invoke($layout,$mcworkpages, $page, $role = null, $acl = null, $viewHelper = null)
-	{
-		$defaults = $mcworkpages->_defaults;
-		$pageConfigure = false;
-		if ($mcworkpages->$page){
-			$pageConfigure = $mcworkpages->$page;
-		}
-		
-		if (null !== $role){
-			$layout->role = $role;
-		}
-		if (null !== $acl){
-			$layout->acl = $acl;
-		}	
-		$this->setTitle($defaults, $pageConfigure, $page, $viewHelper);
-		$this->setHeadline($page, $pageConfigure, $layout);
-		$this->setColumnRight($page, $pageConfigure, $layout);
-		$this->bodyAttributes($defaults, $pageConfigure, $layout);
-		$this->templateFile($defaults, $pageConfigure, $layout);
-		
-		
-	}
-	
-	/**
-	 * Body tag attributes
-	 * @param unknown $defaults
-	 * @param unknown $pageConfigure
-	 * @param unknown $layout
-	 */
-	protected function setTitle($defaults,$pageConfigure, $page, $viewHelperManager)
-	{
+    public function __invoke($layout, $mcworkpages, $page, $role = null, $acl = null, $viewHelper = null)
+    {
+        $defaults = $mcworkpages->_defaults;
+        $pageConfigure = false;
+        if ($mcworkpages->$page) {
+            $pageConfigure = $mcworkpages->$page;
+        }
+        
+        if (null !== $role) {
+            $layout->role = $role;
+        }
+        if (null !== $acl) {
+            $layout->acl = $acl;
+        }
+        $this->setTitle($defaults, $pageConfigure, $page, $viewHelper);
+        $this->setHeadline($page, $pageConfigure, $layout);
+        $this->setColumnRight($page, $pageConfigure, $layout);
+        $this->bodyAttributes($defaults, $pageConfigure, $layout);
+        $this->templateFile($defaults, $pageConfigure, $layout);
+    }
 
-		$headTitleHelper   = $viewHelperManager->get('headTitle');
-		$headTitleHelper->setSeparator(' - ');		
-		
-		if (isset($defaults->title) && strlen($defaults->title) > 0){
-			$headTitleHelper->append($defaults->title);
-		}
-	
-		if (isset($pageConfigure->title) && strlen($pageConfigure->title) > 0){
-			$headTitleHelper->prepend($pageConfigure->title);
-		} else {
-			$headTitleHelper->prepend($page);
-		}
-	
-	}
+    /**
+     * Body tag attributes
+     * 
+     * @param unknown $defaults
+     * @param unknown $pageConfigure
+     * @param unknown $layout
+     */
+    protected function setTitle($defaults, $pageConfigure, $page, $viewHelperManager)
+    {
+        $headTitleHelper = $viewHelperManager->get('headTitle');
+        $headTitleHelper->setSeparator(' - ');
+        
+        if (isset($defaults->title) && strlen($defaults->title) > 0) {
+            $headTitleHelper->append($defaults->title);
+        }
+        
+        if (isset($pageConfigure->title) && strlen($pageConfigure->title) > 0) {
+            $headTitleHelper->prepend($pageConfigure->title);
+        } else {
+            $headTitleHelper->prepend($page);
+        }
+    }
 
-	protected function setColumnRight($page, $pageConfigure, $layout)
-	{
-		if ( isset($pageConfigure->columnright) && strlen($pageConfigure->columnright) > 0){
-			$layout->columnright = $pageConfigure->columnright;
-		} else {
-			$layout->columnright = null;
-		}
-	}	
-	
+    protected function setColumnRight($page, $pageConfigure, $layout)
+    {
+        if (isset($pageConfigure->columnright) && strlen($pageConfigure->columnright) > 0) {
+            $layout->columnright = $pageConfigure->columnright;
+        } else {
+            $layout->columnright = null;
+        }
+    }
+
     /**
      * set headline
+     * 
      * @param unknown $page
      * @param unknown $pageConfigure
      * @param unknown $layout
      */
-	protected function setHeadline($page, $pageConfigure, $layout)
-	{
-		if ( isset($pageConfigure->headline) && strlen($pageConfigure->headline) > 0){
-			$layout->headline = $pageConfigure->headline;
-		} else {
-			$layout->headline = $page;
-		}
-	}
-	
-	/**
-	 * Body tag attributes
-	 * @param unknown $defaults
-	 * @param unknown $pageConfigure
-	 * @param unknown $layout
-	 */
-	protected function bodyAttributes($defaults,$pageConfigure,$layout)
-	{
-		$bodyTagAttribs = array();
-		if (isset($defaults->bodyTagAttribs) && strlen($defaults->bodyTagAttribs) > 0){
-			$bodyTagAttribs = $defaults->bodyTagAttribs;
-		}
-		
-		if (isset($pageConfigure->bodyTagAttribs) && strlen($pageConfigure->bodyTagAttribs) > 0){
-			$bodyTagAttribs = $pageConfigure->bodyTagAttribs;
-		}
-		
-		if ( is_array($bodyTagAttribs) ){
-			$attributes = '';
-			foreach ($bodyTagAttribs as $attribute => $value){
-				$attributes .= HtmlAttribute::attributeString($attribute,$value,true);
-			}
-			$layout->bodyAttributes = $attributes;
-		}
+    protected function setHeadline($page, $pageConfigure, $layout)
+    {
+        if (isset($pageConfigure->headline) && strlen($pageConfigure->headline) > 0) {
+            $layout->headline = $pageConfigure->headline;
+        } else {
+            $layout->headline = $page;
+        }
+    }
 
-	}
-	
-	/**
-	 * 
-	 * @param unknown $defaults
-	 * @param unknown $pageConfigure
-	 * @param unknown $layout
-	 */
-	protected function templateFile($defaults,$pageConfigure,$layout)
-	{
-		$layout->setTemplate('mcwork/layout/admin');
-	}
+    /**
+     * Body tag attributes
+     * 
+     * @param unknown $defaults
+     * @param unknown $pageConfigure
+     * @param unknown $layout
+     */
+    protected function bodyAttributes($defaults, $pageConfigure, $layout)
+    {
+        $bodyTagAttribs = array();
+        if (isset($defaults->bodyTagAttribs) && strlen($defaults->bodyTagAttribs) > 0) {
+            $bodyTagAttribs = $defaults->bodyTagAttribs;
+        }
+        
+        if (isset($pageConfigure->bodyTagAttribs) && strlen($pageConfigure->bodyTagAttribs) > 0) {
+            $bodyTagAttribs = $pageConfigure->bodyTagAttribs;
+        }
+        
+        if (is_array($bodyTagAttribs)) {
+            $attributes = '';
+            foreach ($bodyTagAttribs as $attribute => $value) {
+                $attributes .= HtmlAttribute::attributeString($attribute, $value, true);
+            }
+            $layout->bodyAttributes = $attributes;
+        }
+    }
 
-
+    /**
+     *
+     * @param unknown $defaults
+     * @param unknown $pageConfigure
+     * @param unknown $layout
+     */
+    protected function templateFile($defaults, $pageConfigure, $layout)
+    {
+        $layout->setTemplate('mcwork/layout/admin');
+    }
 }

@@ -26,11 +26,11 @@
  * @version   1.0.0
  */
 // display messages after insert
-if ($this->success) { 
-	echo '<div class="alert alert-success">Successfully added:' . $this->messages . '</div>'; 
-} 
+if ($this->success) {
+    echo '<div class="alert alert-success">Successfully added:' . $this->messages . '</div>';
+}
 
 if ($this->insertError) {
-	echo '<div class="alert alert-error">Error when adding:'  . $this->messages . '</div>';
-} 
+    echo '<div class="alert alert-error">Error when adding:' . $this->messages . '</div>';
+}
 ?>

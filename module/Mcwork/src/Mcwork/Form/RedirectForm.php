@@ -32,136 +32,137 @@ use ContentinumComponents\Forms\AbstractForms;
 
 /**
  * contentinum mcwork form page
- * 
+ *
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
-class RedirectForm extends AbstractForms 
+class RedirectForm extends AbstractForms
 {
-	/**
-	 * form field elements
-	 * 
-	 * @see \ContentinumComponents\Forms\AbstractForms::elements()
-	 */
-	public function elements() 
-	{
-		return array (
-				array (
-						'spec' => array (
-								'name' => 'webPagesId',
-								'required' => true,
-								
-								'options' => array (
-										'label' => 'Select a link or page',
-										'empty_option' => '-- pages, links --',
-										'value_options' => $this->getSelectOptions ( 'webPagesId', array (
-												'value' => 'id',
-												'label' => 'label' 
-										) ),
-										'deco-row' => $this->getDecorators ( self::DECO_TAB_ROW ),
-										'deco-error' => $this->getDecorators ( self::DECO_ERROR ),
-										'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich' 
-								),
-								
-								'type' => 'Select',
-								'attributes' => array (
-										'required' => 'required',
-										'id' => 'webPagesId' 
-								) 
-						) 
-				),
-				
-				array (
-						'spec' => array (
-								'name' => 'redirect',
-								'required' => true,
-								'options' => array (
-										'label' => 'Redirect Url',
-										'deco-row' => $this->getDecorators ( self::DECO_TAB_ROW ),
-										'deco-error' => $this->getDecorators ( self::DECO_ERROR ),
-										'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich' 
-								),
-								
-								'type' => 'Text',
-								'attributes' => array (
-										'required' => 'required',
-										'id' => 'redirect' 
-								) 
-						) 
-				),
-				
-				array (
-						'spec' => array (
-								'name' => 'statuscode',
-								'required' => true,
-								'options' => array (
-										'label' => 'HTTP Status Codes',
-										'empty_option' => '-- staus codes --',
-										'value_options' => $this->getOptions ( 'Contentinum\Httpstatuscode', array (), 'value' ),
-										'deco-row' => $this->getDecorators ( self::DECO_TAB_ROW ),
-										'deco-error' => $this->getDecorators ( self::DECO_ERROR ),
-										'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich' 
-								),
-								'type' => 'Select',
-								'attributes' => array (
-										'required' => 'required',
-										'id' => 'statuscode' 
-								) 
-						) 
-				),
-				
-				array (
-						'spec' => array (
-								'name' => 'send',
-								'options' => array (
-										'deco-abort-btn' => $this->getDecorators ( self::DECO_ABORT_BTN ),
-										'deco-row' => $this->getDecorators ( self::DECO_TAB_ROW ),
-										'fieldset' => array (
-												'legend' => 'Save Datas',
-												'attributes' => array (
-														'id' => 'save-datas' 
-												) 
-										) 
-								),
-								'type' => 'submit',
-								'attributes' => array (
-										'value' => 'Submit',
-										'class' => 'button small' 
-								) 
-						) 
-				) 
-		);
-	}
-	
-	/**
-	 * form input filter and validation
-	 * 
-	 * @see \ContentinumComponents\Forms\AbstractForms::filter()
-	 */
-	public function filter() 
-	{
-		return array (
-				'redirect' => array (
-						'required' => true,
-						'filters' => array (
-								array (
-										'name' => 'Zend\Filter\StringTrim' 
-								) 
-						) 
-				) 
-		);
-	}
-	
-	/**
-	 * initiation and get form
-	 * 
-	 * @see \ContentinumComponents\Forms\AbstractForms::getForm()
-	 */
-	public function getForm() 
-	{
-		return $this->factory->createForm ( array (
-				'hydrator' => 'Zend\Stdlib\Hydrator\ArraySerializable',
-				'elements' => $this->elements (),
-				'input_filter' => $this->filter () 
-		) );
-	}
+
+    /**
+     * form field elements
+     *
+     * @see \ContentinumComponents\Forms\AbstractForms::elements()
+     */
+    public function elements()
+    {
+        return array(
+            array(
+                'spec' => array(
+                    'name' => 'webPagesId',
+                    'required' => true,
+                    
+                    'options' => array(
+                        'label' => 'Select a link or page',
+                        'empty_option' => '-- pages, links --',
+                        'value_options' => $this->getSelectOptions('webPagesId', array(
+                            'value' => 'id',
+                            'label' => 'label'
+                        )),
+                        'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
+                        'deco-error' => $this->getDecorators(self::DECO_ERROR),
+                        'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich'
+                    ),
+                    
+                    'type' => 'Select',
+                    'attributes' => array(
+                        'required' => 'required',
+                        'id' => 'webPagesId'
+                    )
+                )
+            ),
+            
+            array(
+                'spec' => array(
+                    'name' => 'redirect',
+                    'required' => true,
+                    'options' => array(
+                        'label' => 'Redirect Url',
+                        'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
+                        'deco-error' => $this->getDecorators(self::DECO_ERROR),
+                        'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich'
+                    ),
+                    
+                    'type' => 'Text',
+                    'attributes' => array(
+                        'required' => 'required',
+                        'id' => 'redirect'
+                    )
+                )
+            ),
+            
+            array(
+                'spec' => array(
+                    'name' => 'statuscode',
+                    'required' => true,
+                    'options' => array(
+                        'label' => 'HTTP Status Codes',
+                        'empty_option' => '-- staus codes --',
+                        'value_options' => $this->getOptions('Contentinum\Httpstatuscode', array(), 'value'),
+                        'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
+                        'deco-error' => $this->getDecorators(self::DECO_ERROR),
+                        'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich'
+                    ),
+                    'type' => 'Select',
+                    'attributes' => array(
+                        'required' => 'required',
+                        'id' => 'statuscode'
+                    )
+                )
+            ),
+            
+            array(
+                'spec' => array(
+                    'name' => 'send',
+                    'options' => array(
+                        'deco-abort-btn' => $this->getDecorators(self::DECO_ABORT_BTN),
+                        'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
+                        'fieldset' => array(
+                            'legend' => 'Save Datas',
+                            'attributes' => array(
+                                'id' => 'save-datas'
+                            )
+                        )
+                    ),
+                    'type' => 'submit',
+                    'attributes' => array(
+                        'value' => 'Submit',
+                        'class' => 'button small'
+                    )
+                )
+            )
+        );
+    }
+
+    /**
+     * form input filter and validation
+     *
+     * @see \ContentinumComponents\Forms\AbstractForms::filter()
+     */
+    public function filter()
+    {
+        return array(
+            'redirect' => array(
+                'required' => true,
+                'filters' => array(
+                    array(
+                        'name' => 'Zend\Filter\StringTrim'
+                    )
+                )
+            )
+        );
+    }
+
+    /**
+     * initiation and get form
+     *
+     * @see \ContentinumComponents\Forms\AbstractForms::getForm()
+     */
+    public function getForm()
+    {
+        return $this->factory->createForm(array(
+            'hydrator' => 'Zend\Stdlib\Hydrator\ArraySerializable',
+            'elements' => $this->elements(),
+            'input_filter' => $this->filter()
+        ));
+    }
 }

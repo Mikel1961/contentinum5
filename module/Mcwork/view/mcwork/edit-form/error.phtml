@@ -33,12 +33,12 @@ if ($this->insertError) {
     $html .= ' <a href="#" class="close">&times;</a></div>';
 }
 $html .= $this->renderForm($this->form);
-$html .= $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'content' ) );
-if (isset ( $this->widget )) {
-	$content = str_replace ( '{TEMPLATE_HEADER}', $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'subheadline' ) ), $this->widget );
-	echo str_replace ( '{TEMPLATE_CONTENT}', $html, $content );
+$html .= $this->translate($this->mcworkContent($this->page, $this->pagecontent, 'content'));
+if (isset($this->widget)) {
+    $content = str_replace('{TEMPLATE_HEADER}', $this->translate($this->mcworkContent($this->page, $this->pagecontent, 'subheadline')), $this->widget);
+    echo str_replace('{TEMPLATE_CONTENT}', $html, $content);
 } else {
-	echo $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'subheadline' ) );
-	echo $html;
+    echo $this->translate($this->mcworkContent($this->page, $this->pagecontent, 'subheadline'));
+    echo $html;
 }
 ?>

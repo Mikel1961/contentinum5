@@ -155,7 +155,7 @@ class ContentForm extends AbstractForms
                     )
                 )
             ),
-                        
+            
             array(
                 'spec' => array(
                     'name' => 'resource',
@@ -177,24 +177,24 @@ class ContentForm extends AbstractForms
             ),
             
             array(
-            		'spec' => array(
-            				'name' => 'htmlwidgets',
-            				'required' => true,
-            				'options' => array(
-            						'label' => 'Choose a contribution widget',
-            						'empty_option' => '-- Widgets --',
-            						'value_options' => $this->getOptions('Contentinum\Htmlwidgets'),
-            						'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
-            						'deco-error' => $this->getDecorators(self::DECO_ERROR),
-            						'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich'
-            				),
-            				'type' => 'Select',
-            				'attributes' => array(
-            						'required' => 'required',
-            						'id' => 'htmlwidgets'
-            				)
-            		)
-            ),            
+                'spec' => array(
+                    'name' => 'htmlwidgets',
+                    'required' => true,
+                    'options' => array(
+                        'label' => 'Choose a contribution widget',
+                        'empty_option' => '-- Widgets --',
+                        'value_options' => $this->getOptions('Contentinum\Htmlwidgets'),
+                        'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
+                        'deco-error' => $this->getDecorators(self::DECO_ERROR),
+                        'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich'
+                    ),
+                    'type' => 'Select',
+                    'attributes' => array(
+                        'required' => 'required',
+                        'id' => 'htmlwidgets'
+                    )
+                )
+            ),
             
             array(
                 'spec' => array(
@@ -208,22 +208,21 @@ class ContentForm extends AbstractForms
                 )
             ),
             
-            
             array(
-            		'spec' => array(
-            				'name' => 'publish',
-            				'options' => array(
-            						'label' => 'Publish',
-            						'empty_option' => '-- publication values --',
-            						'value_options' => $this->getOptions('Contentinum\Publish'),
-            						'deco-row' => $this->getDecorators(self::DECO_TAB_ROW)
-            				),
-            				'type' => 'Select',
-            				'attributes' => array(
-            						'id' => 'publish'
-            				)
-            		)
-            ),            
+                'spec' => array(
+                    'name' => 'publish',
+                    'options' => array(
+                        'label' => 'Publish',
+                        'empty_option' => '-- publication values --',
+                        'value_options' => $this->getOptions('Contentinum\Publish'),
+                        'deco-row' => $this->getDecorators(self::DECO_TAB_ROW)
+                    ),
+                    'type' => 'Select',
+                    'attributes' => array(
+                        'id' => 'publish'
+                    )
+                )
+            ),
             
             array(
                 'spec' => array(
@@ -244,7 +243,7 @@ class ContentForm extends AbstractForms
                     'name' => 'publishDown',
                     'options' => array(
                         'label' => 'Published ending',
-                        'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
+                        'deco-row' => $this->getDecorators(self::DECO_TAB_ROW)
                     ),
                     'type' => 'Text',
                     'attributes' => array(
@@ -253,19 +252,17 @@ class ContentForm extends AbstractForms
                 )
             ),
             
-            
             array(
-            		'spec' => array(
-            				'name' => 'formAccordionAuthor',
-            				'options' => array(),
-            				'type' => 'ContentinumComponents\Forms\Elements\Note',
-            				'attributes' => array(
-            						'id' => 'formAccordionPanelAuthor',
-            						'value' => '</div></dd><dd><a href="#panelAuthor">Forming published author</a><div id="panelAuthor" class="content">'
-            				)
-            		)
+                'spec' => array(
+                    'name' => 'formAccordionAuthor',
+                    'options' => array(),
+                    'type' => 'ContentinumComponents\Forms\Elements\Note',
+                    'attributes' => array(
+                        'id' => 'formAccordionPanelAuthor',
+                        'value' => '</div></dd><dd><a href="#panelAuthor">Forming published author</a><div id="panelAuthor" class="content">'
+                    )
+                )
             ),
-            
             
             array(
                 'spec' => array(
@@ -286,27 +283,27 @@ class ContentForm extends AbstractForms
                     'name' => 'authorEmail',
                     'options' => array(
                         'label' => 'Author Email',
-                        'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
+                        'deco-row' => $this->getDecorators(self::DECO_TAB_ROW)
                     ),
                     'type' => 'Text',
                     'attributes' => array(
                         'id' => 'authorEmail'
                     )
                 )
-            ),           
+            ),
             
             array(
                 'spec' => array(
                     'name' => 'formAccordionEnd',
                     'options' => array(
                         'fieldset' => array(
-                        		'legend' => 'Metas',
-                        		'attributes' => array(
-                        				'class' => 'large-4 columns',
-                        				'id' => 'fieldsetConfiguration'
-                        		)
+                            'legend' => 'Metas',
+                            'attributes' => array(
+                                'class' => 'large-4 columns',
+                                'id' => 'fieldsetConfiguration'
+                            )
                         )
-                ),
+                    ),
                     'type' => 'ContentinumComponents\Forms\Elements\Note',
                     'attributes' => array(
                         'id' => 'formAccordionEnd',
@@ -314,8 +311,6 @@ class ContentForm extends AbstractForms
                     )
                 )
             ),
-            
-
             
             array(
                 'spec' => array(

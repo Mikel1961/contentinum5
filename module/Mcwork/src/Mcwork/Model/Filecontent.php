@@ -31,64 +31,68 @@ use ContentinumComponents\Storage\StorageFiles;
 use ContentinumComponents\Storage\AbstractStorageEntity;
 
 /**
- * File handle model 
- * Methods to display file content, prepare file content to download, empty and delete log files 
+ * File handle model
+ * Methods to display file content, prepare file content to download, empty and delete log files
  *
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
-class Filecontent extends StorageFiles 
+class Filecontent extends StorageFiles
 {
-	
-	/**
-	 * Reads the entire file and makes it back as a string
-	 * @param array $attribs
-	 * @param AbstractStorageEntity $entity
-	 * @return Ambigous <\ContentinumComponents\Storage\unknown, boolean>
-	 */
-	public function fetchContent(array $attribs, AbstractStorageEntity $entity, $sl = null) 
-	{
-		return $this->fetchFileContent ( '/' . $entity->getCurrentPath (), $attribs ['id'] );
-	}
-	
-	/**
-	 * Provides the file content for download
-	 * Headers must be configure in page meta datas
-	 * @param array $attribs
-	 * @param AbstractStorageEntity $entity
-	 * @return Ambigous <\ContentinumComponents\Storage\unknown, boolean>
-	 */
-	public function download(array $attribs, AbstractStorageEntity $entity) 
-	{
-		return $this->fetchFileContent ( '/' . $entity->getCurrentPath (), $attribs ['id'] );
-	}
-	
-	/**
-	 * Creates a backup of the original log file and then deletes the contents of the original log file
-	 * @param array $attribs
-	 * @param AbstractStorageEntity $entity
-	 * @return boolean
-	 */
-	public function emptyLogFile(array $attribs, AbstractStorageEntity $entity, $sl = null) 
-	{
-		$dest = $this->getStorage ()->getDocumentRoot () . '/' . $entity->getCurrentPath () . '/' . $attribs ['id'] . '.bak';
-		$this->copyFile ( $dest, '/' . $entity->getCurrentPath (), $attribs ['id'] );
-		
-		return $this->setFileContent ( '', '/' . $entity->getCurrentPath (), $attribs ['id'] );
-	}
-	
-	/**
-	 * Creates a backup of the original log file and then deletes the original log file
-	 * Will be a backup file deleted, no backup file will be created
-	 * @param array $attribs
-	 * @param AbstractStorageEntity $entity
-	 */
-	public function deleteLogFile(array $attribs, AbstractStorageEntity $entity) 
-	{
-		if (false === strrpos ( $attribs ['id'], ".bak" )) {
-			$dest = $this->getStorage ()->getDocumentRoot () . '/' . $entity->getCurrentPath () . '/' . $attribs ['id'] . '.bak';
-			$this->copyFile ( $dest, '/' . $entity->getCurrentPath (), $attribs ['id'] );
-		}
-		
-		return $this->deleteFile ( '/' . $entity->getCurrentPath (), $attribs ['id'] );
-	}
+
+    /**
+     * Reads the entire file and makes it back as a string
+     * 
+     * @param array $attribs
+     * @param AbstractStorageEntity $entity
+     * @return Ambigous <\ContentinumComponents\Storage\unknown, boolean>
+     */
+    public function fetchContent(array $attribs, AbstractStorageEntity $entity, $sl = null)
+    {
+        return $this->fetchFileContent('/' . $entity->getCurrentPath(), $attribs['id']);
+    }
+
+    /**
+     * Provides the file content for download
+     * Headers must be configure in page meta datas
+     * 
+     * @param array $attribs
+     * @param AbstractStorageEntity $entity
+     * @return Ambigous <\ContentinumComponents\Storage\unknown, boolean>
+     */
+    public function download(array $attribs, AbstractStorageEntity $entity)
+    {
+        return $this->fetchFileContent('/' . $entity->getCurrentPath(), $attribs['id']);
+    }
+
+    /**
+     * Creates a backup of the original log file and then deletes the contents of the original log file
+     * 
+     * @param array $attribs
+     * @param AbstractStorageEntity $entity
+     * @return boolean
+     */
+    public function emptyLogFile(array $attribs, AbstractStorageEntity $entity, $sl = null)
+    {
+        $dest = $this->getStorage()->getDocumentRoot() . '/' . $entity->getCurrentPath() . '/' . $attribs['id'] . '.bak';
+        $this->copyFile($dest, '/' . $entity->getCurrentPath(), $attribs['id']);
+        
+        return $this->setFileContent('', '/' . $entity->getCurrentPath(), $attribs['id']);
+    }
+
+    /**
+     * Creates a backup of the original log file and then deletes the original log file
+     * Will be a backup file deleted, no backup file will be created
+     * 
+     * @param array $attribs
+     * @param AbstractStorageEntity $entity
+     */
+    public function deleteLogFile(array $attribs, AbstractStorageEntity $entity)
+    {
+        if (false === strrpos($attribs['id'], ".bak")) {
+            $dest = $this->getStorage()->getDocumentRoot() . '/' . $entity->getCurrentPath() . '/' . $attribs['id'] . '.bak';
+            $this->copyFile($dest, '/' . $entity->getCurrentPath(), $attribs['id']);
+        }
+        
+        return $this->deleteFile('/' . $entity->getCurrentPath(), $attribs['id']);
+    }
 }

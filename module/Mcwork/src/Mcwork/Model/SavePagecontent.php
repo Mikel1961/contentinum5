@@ -37,21 +37,21 @@ use ContentinumComponents\Mapper\Process;
  */
 class SavePagecontent extends Process
 {
-	/**
-	 * Prepare datas
-	 * @see \ContentinumComponents\Mapper\Process::save()
-	 */	
-	public function save($datas,$entity = null)
-	{
-		$entity = $this->handleEntity($entity);
-		if (null === $entity->getPrimaryValue()   ) {
 
-			parent::save($datas,$entity);
-		} else {
-
-			parent::save($datas,$entity);
-		}
-	}
-	
-
+    /**
+     * Prepare datas
+     * 
+     * @see \ContentinumComponents\Mapper\Process::save()
+     */
+    public function save($datas, $entity = null)
+    {
+        $entity = $this->handleEntity($entity);
+        if (null === $entity->getPrimaryValue()) {
+            
+            parent::save($datas, $entity);
+        } else {
+            
+            parent::save($datas, $entity);
+        }
+    }
 }

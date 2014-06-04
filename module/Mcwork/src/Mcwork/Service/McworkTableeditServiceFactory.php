@@ -30,7 +30,7 @@ namespace Mcwork\Service;
 use Contentinum\Service\ContentinumServiceFactory;
 
 /**
- * Config key mcwork table row toolbar settings
+ * Config key mcworktoolbar settings
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class McworkTableeditServiceFactory extends ContentinumServiceFactory

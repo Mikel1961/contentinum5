@@ -29,8 +29,9 @@ namespace Mcwork\Model\Exception;
 
 /**
  * Model exception
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
- *
+ *        
  */
 class ParamNotExistsModelException extends \InvalidArgumentException
 {

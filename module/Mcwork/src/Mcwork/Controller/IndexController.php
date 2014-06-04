@@ -32,39 +32,42 @@ use Zend\View\Model\ViewModel;
 
 /**
  * Dashboard controller backend
- * 
+ *
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
-class IndexController extends AbstractContentinumController 
+class IndexController extends AbstractContentinumController
 {
-	/**
-	 * Backend start page / dashboard
-	 * 
-	 * @see \Zend\Mvc\Controller\AbstractActionController::indexAction()
-	 */
-	public function indexAction() 
-	{
-		$this->adminlayout ( $this->layout (), $this->getServiceLocator()->get('Mcwork\Pages'), 'Mcwork_Controller_Index', $this->getDefaultRole (), $this->getAclService (),$this->getServiceLocator()->get('viewHelperManager'));
-		return new ViewModel ();
-	}
-	
-	/**
-	 * Default user role
-	 * 
-	 * @return Ambigous <object, multitype:, \Contentinum\Acl\DefaultRole>
-	 */
-	protected function getDefaultRole() 
-	{
-		return $this->getServiceLocator ()->get ( 'Contentinum\Acl\DefaultRole' );
-	}
-	
-	/**
-	 * Acl configuration
-	 * 
-	 * @return Ambigous <object, multitype:, \Contentinum\Acl\Acl>
-	 */
-	protected function getAclService() 
-	{
-		return $this->getServiceLocator ()->get ( 'Contentinum\Acl\Acl' );
-	}
+
+    /**
+     * Backend start page / dashboard
+     *
+     * @see \Zend\Mvc\Controller\AbstractActionController::indexAction()
+     */
+    public function indexAction()
+    {
+        $this->adminlayout($this->layout(), $this->getServiceLocator()
+            ->get('Mcwork\Pages'), 'Mcwork_Controller_Index', $this->getDefaultRole(), $this->getAclService(), $this->getServiceLocator()
+            ->get('viewHelperManager'));
+        return new ViewModel();
+    }
+
+    /**
+     * Default user role
+     *
+     * @return Ambigous <object, multitype:, \Contentinum\Acl\DefaultRole>
+     */
+    protected function getDefaultRole()
+    {
+        return $this->getServiceLocator()->get('Contentinum\Acl\DefaultRole');
+    }
+
+    /**
+     * Acl configuration
+     *
+     * @return Ambigous <object, multitype:, \Contentinum\Acl\Acl>
+     */
+    protected function getAclService()
+    {
+        return $this->getServiceLocator()->get('Contentinum\Acl\Acl');
+    }
 }

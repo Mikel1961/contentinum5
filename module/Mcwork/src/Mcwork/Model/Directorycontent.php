@@ -38,15 +38,16 @@ use ContentinumComponents\Storage\AbstractStorageEntity;
  */
 class Directorycontent extends StorageDirectory
 {
-	/**
-	 * Fetch directory content
-	 * @param array $attribs
-	 * @param AbstractStorageEntity $entity
-	 * @param string $sl
-	 */
-	public function fetchContent (array $attribs, AbstractStorageEntity $entity, $sl = null)
-	{
-		return $this->fetchAll($entity);
-	}
-	
+
+    /**
+     * Fetch directory content
+     * 
+     * @param array $attribs
+     * @param AbstractStorageEntity $entity
+     * @param string $sl
+     */
+    public function fetchContent(array $attribs, AbstractStorageEntity $entity, $sl = null)
+    {
+        return $this->fetchAll($entity);
+    }
 }

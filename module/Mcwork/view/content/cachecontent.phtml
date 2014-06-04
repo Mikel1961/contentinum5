@@ -28,106 +28,105 @@
 use ContentinumComponents\Html\HtmlTable;
 use ContentinumComponents\Html\Table\FactoryTable;
 // prepare content, create a table
-$tableFactory = new HtmlTable ( new FactoryTable () );
+$tableFactory = new HtmlTable(new FactoryTable());
 
 // set table tag attributes
-$tableFactory->setAttributes ( 'class', 'table table-hover table-nomargin table-bordered' );
+$tableFactory->setAttributes('class', 'table table-hover table-nomargin table-bordered');
 $i = 0;
 $iClass = 0;
-$headlines = array (
-		'Cache' => array (),
-		'Key' => array (
-				'head' => array (
-						'class' => 'hide-for-small text-right' 
-				),
-				'body' => array (
-						'class' => 'hide-for-small text-right' 
-				) 
-		),
-		'Last write access' => array (
-				'head' => array (
-						'class' => 'hide-for-small text-right' 
-				),
-				'body' => array (
-						'class' => 'hide-for-small text-right' 
-				) 
-		) 
+$headlines = array(
+    'Cache' => array(),
+    'Key' => array(
+        'head' => array(
+            'class' => 'hide-for-small text-right'
+        ),
+        'body' => array(
+            'class' => 'hide-for-small text-right'
+        )
+    ),
+    'Last write access' => array(
+        'head' => array(
+            'class' => 'hide-for-small text-right'
+        ),
+        'body' => array(
+            'class' => 'hide-for-small text-right'
+        )
+    )
 );
-$ihead = count ( $headlines );
-foreach ( $headlines as $column => $attributes ) {
-	$columns [] = $this->translate ( $column );
-	if (is_array ( $attributes ) && ! empty ( $attributes )) {
-		foreach ( $attributes as $area => $attribute ) {
-			switch ($area) {
-				case 'head' :
-					$tableFactory->setHeadlineAttributtes ( 'class', $attribute ['class'], $i );
-					break;
-				case 'body' :
-					$tableFactory->setTagAttributtes ( 'class', $attribute ['class'], $i );
-					break;
-				default :
-					break;
-			}
-		}
-	}
-	$i ++;
+$ihead = count($headlines);
+foreach ($headlines as $column => $attributes) {
+    $columns[] = $this->translate($column);
+    if (is_array($attributes) && ! empty($attributes)) {
+        foreach ($attributes as $area => $attribute) {
+            switch ($area) {
+                case 'head':
+                    $tableFactory->setHeadlineAttributtes('class', $attribute['class'], $i);
+                    break;
+                case 'body':
+                    $tableFactory->setTagAttributtes('class', $attribute['class'], $i);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    $i ++;
 }
-$tableFactory->setHeadline ( $columns );
+$tableFactory->setHeadline($columns);
 $i = 0;
-foreach ( $this->entries as $area => $entry ) {
-	$tbl = array (
-			'clear' => array (
-					'label' => 'Clear',
-					'href' => '/mcwork/cache/clear/' . $area,
-					'attribs' => array (
-							'title' => 'Empty cache',
-							'class' => 'small button' 
-					) 
-			) 
-	);
-	$tableedit = '';
-	if (isset ( $this->tableeditcontent )) {
-		$links = array ();
-		$tableedit = '';
-		$links = array (
-				'clear' => array (
-						'href' => '/mcwork/cache/clear/' . $area 
-				) 
-		)
-		;
-		$tableedit = $this->mcworkToolbar ( $links, true, $this->tableeditcontent->toArray () );
-	}
-	if (isset ( $entry ['metas'] )) {
-		$clear = $tableedit;
-		$date = date ( "d.m.Y H:i:s", $entry ['metas'] ['mtime'] );
-	} else {
-		$clear = '';
-		$date = '';
-	}
-	$i ++;
-	$rowContent = array ();
-	$rowContent [] = $entry ['label'] . $clear;
-	$rowContent [] = $area;
-	$rowContent [] = $date;
-	$tableFactory->setHtmlContent ( $rowContent );
+foreach ($this->entries as $area => $entry) {
+    $tbl = array(
+        'clear' => array(
+            'label' => 'Clear',
+            'href' => '/mcwork/cache/clear/' . $area,
+            'attribs' => array(
+                'title' => 'Empty cache',
+                'class' => 'small button'
+            )
+        )
+    );
+    $tableedit = '';
+    if (isset($this->tableeditcontent)) {
+        $links = array();
+        $tableedit = '';
+        $links = array(
+            'clear' => array(
+                'href' => '/mcwork/cache/clear/' . $area
+            )
+        );
+        $tableedit = $this->mcworkToolbar($links, true, $this->tableeditcontent->toArray());
+    }
+    if (isset($entry['metas'])) {
+        $clear = $tableedit;
+        $date = date("d.m.Y H:i:s", $entry['metas']['mtime']);
+    } else {
+        $clear = '';
+        $date = '';
+    }
+    $i ++;
+    $rowContent = array();
+    $rowContent[] = $entry['label'] . $clear;
+    $rowContent[] = $area;
+    $rowContent[] = $date;
+    $tableFactory->setHtmlContent($rowContent);
 }
-$html = $tableFactory->display ();
-$html .= $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'content' ) );
+$html = $tableFactory->display();
+$html .= $this->translate($this->mcworkContent($this->page, $this->pagecontent, 'content'));
 $toolbar = '';
-if (isset ( $this->toolbarcontent )) {
-	$links = array (
-			'clear' => array (
-					'href' => '/mcwork/cache/clear/all' 
-			) 
-	);
-	$toolbar = $this->mcworkToolbar ( $links, true, $this->toolbarcontent->toArray () );
+if (isset($this->toolbarcontent)) {
+    $links = array(
+        'clear' => array(
+            'href' => '/mcwork/cache/clear/all'
+        )
+    );
+    $toolbar = $this->mcworkToolbar($links, true, $this->toolbarcontent->toArray());
 }
 // output, display content
-if (isset ( $this->widget )) {
-	$content = str_replace ( '{TEMPLATE_HEADER}', $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'subheadline' ) ) . $toolbar, $this->widget );
-	echo str_replace ( '{TEMPLATE_CONTENT}', $html, $content );
+if (isset($this->widget)) {
+    $content = str_replace('{TEMPLATE_HEADER}', $this->translate($this->mcworkContent($this->page, $this->pagecontent, 'subheadline')) . $toolbar, $this->widget);
+    echo str_replace('{TEMPLATE_CONTENT}', $html, $content);
 } else {
-	echo $this->translate ( $this->mcworkContent ( $this->page, $this->pagecontent, 'subheadline' ) );
-	echo $html;
+    echo $this->translate($this->mcworkContent($this->page, $this->pagecontent, 'subheadline'));
+    echo $html;
 }
 ?>

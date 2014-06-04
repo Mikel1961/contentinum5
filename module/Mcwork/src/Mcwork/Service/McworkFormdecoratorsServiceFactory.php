@@ -30,7 +30,7 @@ namespace Mcwork\Service;
 use Contentinum\Service\ContentinumServiceFactory;
 
 /**
- * Config key form decorators settings
+ * Config key mcworktoolbar settings
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class McworkFormdecoratorsServiceFactory extends ContentinumServiceFactory

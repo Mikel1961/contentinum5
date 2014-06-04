@@ -38,21 +38,23 @@ use ContentinumComponents\Filter\Url\Prepare;
  */
 class SaveRedirect extends Process
 {
-	/**
-	 * Prepare datas
-	 * @see \ContentinumComponents\Mapper\Process::save()
-	 */	
-	public function save($datas,$entity = null)
-	{
-		$entity = $this->handleEntity($entity);
-		if (null === $entity->getPrimaryValue()   ) {
-			$filter = new Prepare();
-			$datas['redirect'] = $filter->filter($datas['redirect']);				
-			parent::save($datas,$entity);
-		} else {
-			$filter = new Prepare();
-			$datas['redirect'] = $filter->filter($datas['redirect']);	
-			parent::save($datas,$entity);			
-		}
-	}
+
+    /**
+     * Prepare datas
+     * 
+     * @see \ContentinumComponents\Mapper\Process::save()
+     */
+    public function save($datas, $entity = null)
+    {
+        $entity = $this->handleEntity($entity);
+        if (null === $entity->getPrimaryValue()) {
+            $filter = new Prepare();
+            $datas['redirect'] = $filter->filter($datas['redirect']);
+            parent::save($datas, $entity);
+        } else {
+            $filter = new Prepare();
+            $datas['redirect'] = $filter->filter($datas['redirect']);
+            parent::save($datas, $entity);
+        }
+    }
 }

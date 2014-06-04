@@ -39,20 +39,22 @@ use ContentinumComponents\Unique\Id;
  */
 class SaveUsers extends Process
 {
-	/**
-	 * Prepare datas
-	 * @see \ContentinumComponents\Mapper\Process::save()
-	 */	
-	public function save($datas,$entity = null)
-	{
-		$entity = $this->handleEntity($entity);
-		if (null === $entity->getPrimaryValue()   ) {
-			$datas['account_name'] = 'cmsgrp0' .  ($this->sequence() + 1);
-			$filter = new Prepare();
-			$datas['organisation_scope'] = $filter->filter($datas['organisation']);
-			unset($filter);
-			$datas['account_id'] = Id::get();
-			parent::save($datas,$entity);
-		}
-	}
+
+    /**
+     * Prepare datas
+     * 
+     * @see \ContentinumComponents\Mapper\Process::save()
+     */
+    public function save($datas, $entity = null)
+    {
+        $entity = $this->handleEntity($entity);
+        if (null === $entity->getPrimaryValue()) {
+            $datas['account_name'] = 'cmsgrp0' . ($this->sequence() + 1);
+            $filter = new Prepare();
+            $datas['organisation_scope'] = $filter->filter($datas['organisation']);
+            unset($filter);
+            $datas['account_id'] = Id::get();
+            parent::save($datas, $entity);
+        }
+    }
 }

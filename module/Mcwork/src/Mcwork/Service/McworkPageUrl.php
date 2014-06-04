@@ -28,7 +28,7 @@
 namespace Mcwork\Service;
 
 /**
- * App split mcwork page requests
+ * Config template key html widgets
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class McworkPageUrl

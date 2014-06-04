@@ -37,15 +37,15 @@ use ContentinumComponents\Storage\AbstractStorageEntity;
  */
 class ImagesFiles extends AbstractStorageEntity
 {
-	const FILES_PATH = 'public/images';
-	
-	/**
-	 * @see \ContentinumComponents\Storage\AbstractStorageEntity::getCurrentPath()
-	 */
-	public function getCurrentPath() 
-	{
-		return self::FILES_PATH;
-		
-	}
-	
+
+    const FILES_PATH = 'public/images';
+
+    /**
+     *
+     * @see \ContentinumComponents\Storage\AbstractStorageEntity::getCurrentPath()
+     */
+    public function getCurrentPath()
+    {
+        return self::FILES_PATH;
+    }
 }
