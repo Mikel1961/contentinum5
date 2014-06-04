@@ -27,142 +27,142 @@
  */
 namespace Contentinum\Service;
 
-/** 
+/**
  * Applog interface
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
-
 class ContentinumApp implements ContentinumInterface
 {
-	protected $allowed = array('');
-	
-	protected $defaultkey ='_default';
-	
-	protected $appkey = 'app';
-	
-	protected $options;
-	
-	protected $defaults;
-	
-	protected $sl;
-	
-	protected $uri;
-	
-	
-	/* (non-PHPdoc)
-	 * @see \Contentinum\Service\ContentinumInterface::getUri()
-	 */
-	public function getUri() 
-	{
-		if (!$this->uri){
-			$this->requestUri();
-		}
-		return $this->uri;
-	}
-	
-	/**
-	 * Cut uri string
-	 * @param number $c
-	 */
-	public function cutUri($c = 3, $uri = null)
-	{
-		if (null == $uri){
-			$this->requestUri();
-		}
-		
-		$uri = explode('_', $this->uri);
-		if (isset($uri[$c])){
-			unset($uri[$c]);
-			$this->uri = implode('_', $uri);
-		}
-		unset($uri);
-	}
 
-	/* (non-PHPdoc)
-	 * @see \Contentinum\Service\ContentinumInterface::isPageAvailable()
-	 */
-	public function isPageAvailable() 
-	{
-		if (!$this->uri){
-			$this->requestUri();
-		}
-		if (isset($this->options[$this->uri])){
-			if (isset($this->options[$this->defaultkey])){
-				$this->defaults = $this->options[$this->defaultkey];
-			}
-			$this->options = $this->options[$this->uri];
-			return true;
-		} else {
-			if (isset($this->options[$this->defaultkey])){
-				$this->defaults = $this->options[$this->defaultkey];
-			}
-			return false;
-		}		
-	}
+    protected $allowed = array(
+        ''
+    );
 
-	/* (non-PHPdoc)
-	 * @see \Contentinum\Service\ContentinumInterface::requestUri()
-	 */
-	public function requestUri() 
-	{
-		$uripath = str_replace ( '/', '_',$_SERVER['REQUEST_URI']);
-		$this->uri = substr($uripath,1,strlen($uripath));
-	}
-	
-	public function setAppData($appkey = null)
-	{
-		if ($appkey){
-			$this->appkey = $appkey;
-		}
-		
-		if (isset($this->options[$this->appkey])){
-			$this->options = $this->options[$this->appkey];
-			return true;
-		} else {
-			return false;
-		}
-	}
+    protected $defaultkey = '_default';
 
-	/* (non-PHPdoc)
-	 * @see \Contentinum\Service\ContentinumInterface::getOptions()
-	 */
-	public function getOptions($key = null) 
-	{
-		if ($key) {
-			if(isset($this->options[$key])){
-				return $this->options[$key];
-			} else {
-				return false;
-			}
-		} else {
-			return $this->options;
-		}
-		
-	}
+    protected $appkey = 'app';
 
-	/* (non-PHPdoc)
-	 * @see \Contentinum\Service\ContentinumInterface::getSl()
-	 */
-	public function getSl() 
-	{
-		return $this->sl;		
-	}
+    protected $options;
 
-	/* (non-PHPdoc)
-	 * @see \Contentinum\Service\ContentinumInterface::setOptions()
-	 */
-	public function setOptions(array $options) 
-	{
-		$this->options = $options;
-	}
+    protected $defaults;
 
-	/* (non-PHPdoc)
-	 * @see \Contentinum\Service\ContentinumInterface::setSl()
-	 */
-	public function setSl($sl) 
-	{
-		$this->sl = $sl;		
-	}
+    protected $sl;
 
-	
+    protected $uri;
+    
+    /*
+     * (non-PHPdoc) @see \Contentinum\Service\ContentinumInterface::getUri()
+     */
+    public function getUri()
+    {
+        if (! $this->uri) {
+            $this->requestUri();
+        }
+        return $this->uri;
+    }
+
+    /**
+     * Cut uri string
+     * 
+     * @param number $c
+     */
+    public function cutUri($c = 3, $uri = null)
+    {
+        if (null == $uri) {
+            $this->requestUri();
+        }
+        
+        $uri = explode('_', $this->uri);
+        if (isset($uri[$c])) {
+            unset($uri[$c]);
+            $this->uri = implode('_', $uri);
+        }
+        unset($uri);
+    }
+    
+    /*
+     * (non-PHPdoc) @see \Contentinum\Service\ContentinumInterface::isPageAvailable()
+     */
+    public function isPageAvailable()
+    {
+        if (! $this->uri) {
+            $this->requestUri();
+        }
+        if (isset($this->options[$this->uri])) {
+            if (isset($this->options[$this->defaultkey])) {
+                $this->defaults = $this->options[$this->defaultkey];
+            }
+            $this->options = $this->options[$this->uri];
+            return true;
+        } else {
+            if (isset($this->options[$this->defaultkey])) {
+                $this->defaults = $this->options[$this->defaultkey];
+            }
+            return false;
+        }
+    }
+    
+    /*
+     * (non-PHPdoc) @see \Contentinum\Service\ContentinumInterface::requestUri()
+     */
+    public function requestUri()
+    {
+        $uripath = str_replace('/', '_', $_SERVER['REQUEST_URI']);
+        $this->uri = substr($uripath, 1, strlen($uripath));
+    }
+
+    public function setAppData($appkey = null)
+    {
+        if ($appkey) {
+            $this->appkey = $appkey;
+        }
+        
+        if (isset($this->options[$this->appkey])) {
+            $this->options = $this->options[$this->appkey];
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /*
+     * (non-PHPdoc) @see \Contentinum\Service\ContentinumInterface::getOptions()
+     */
+    public function getOptions($key = null)
+    {
+        if ($key) {
+            if (isset($this->options[$key])) {
+                return $this->options[$key];
+            } else {
+                return false;
+            }
+        } else {
+            return $this->options;
+        }
+    }
+    
+    /*
+     * (non-PHPdoc) @see \Contentinum\Service\ContentinumInterface::getSl()
+     */
+    public function getSl()
+    {
+        return $this->sl;
+    }
+    
+    /*
+     * (non-PHPdoc) @see \Contentinum\Service\ContentinumInterface::setOptions()
+     */
+    public function setOptions(array $options)
+    {
+        $this->options = $options;
+    }
+    
+    /*
+     * (non-PHPdoc) @see \Contentinum\Service\ContentinumInterface::setSl()
+     */
+    public function setSl($sl)
+    {
+        $this->sl = $sl;
+    }
 }

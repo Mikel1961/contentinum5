@@ -33,25 +33,28 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 /**
  * Contentinum acl roles and rules configuration service
  * Get contentinum acl adjustments
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class AclSettingsServiceFactory implements FactoryInterface
 {
-	/**
-	 * Contentinum confuguration key
-	 * @var string
-	 */
-	const CONTENTINUM_CONFIG = 'contentinum_acl';
-	
-	/**
-	 * Get contentinum logger adjustments
-	 * @see \Zend\ServiceManager\FactoryInterface::createService()
-	 * @return array
-	 */
-	public function createService(ServiceLocatorInterface $serviceLocator) 
-	{
-		$config = $serviceLocator->get('Contentinum\Configure');
-	    return $config[self::CONTENTINUM_CONFIG];
-	}
 
+    /**
+     * Contentinum confuguration key
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CONFIG = 'contentinum_acl';
+
+    /**
+     * Get contentinum logger adjustments
+     * 
+     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @return array
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        $config = $serviceLocator->get('Contentinum\Configure');
+        return $config[self::CONTENTINUM_CONFIG];
+    }
 }

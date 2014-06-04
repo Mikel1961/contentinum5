@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ContentinumComponents\Entity\AbstractEntity;
 
 /**
- * WebPagesParameter
+ * WebPages
  *
  * @ORM\Table(name="web_pages_parameter", indexes={@ORM\Index(name="HOSTIDENTREF", columns={"host_id"}), @ORM\Index(name="PREFERENCESREF", columns={"web_preferences_id"})})
  * @ORM\Entity
@@ -323,7 +323,7 @@ class WebPagesParameter extends AbstractEntity
     /**
      * @param number $id
      *
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setId($id)
     {
@@ -346,7 +346,7 @@ class WebPagesParameter extends AbstractEntity
      * Set hostId
      *
      * @param string $hostId
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setHostId($hostId)
     {
@@ -369,7 +369,7 @@ class WebPagesParameter extends AbstractEntity
      * Set scope
      *
      * @param string $scope
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setScope($scope)
     {
@@ -392,7 +392,7 @@ class WebPagesParameter extends AbstractEntity
      * Set htmlstructure
      *
      * @param string $htmlstructure
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setHtmlstructure($htmlstructure)
     {
@@ -415,7 +415,7 @@ class WebPagesParameter extends AbstractEntity
      * Set htmlwidgets
      *
      * @param string $htmlwidgets
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setHtmlwidgets($htmlwidgets)
     {
@@ -438,7 +438,7 @@ class WebPagesParameter extends AbstractEntity
      * Set resource
      *
      * @param string $resource
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setResource($resource)
     {
@@ -461,7 +461,7 @@ class WebPagesParameter extends AbstractEntity
      * Set label
      *
      * @param string $label
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setLabel($label)
     {
@@ -484,7 +484,7 @@ class WebPagesParameter extends AbstractEntity
      * Set title
      *
      * @param string $title
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setTitle($title)
     {
@@ -507,7 +507,7 @@ class WebPagesParameter extends AbstractEntity
      * Set url
      *
      * @param string $url
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setUrl($url)
     {
@@ -530,7 +530,7 @@ class WebPagesParameter extends AbstractEntity
      * Set relLink
      *
      * @param string $relLink
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setRelLink($relLink)
     {
@@ -553,7 +553,7 @@ class WebPagesParameter extends AbstractEntity
      * Set params
      *
      * @param string $params
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setParams($params)
     {
@@ -576,7 +576,7 @@ class WebPagesParameter extends AbstractEntity
      * Set settings
      *
      * @param string $settings
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setSettings($settings)
     {
@@ -599,7 +599,7 @@ class WebPagesParameter extends AbstractEntity
      * Set bodyId
      *
      * @param string $bodyId
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setBodyId($bodyId)
     {
@@ -622,7 +622,7 @@ class WebPagesParameter extends AbstractEntity
      * Set bodyClass
      *
      * @param string $bodyClass
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setBodyClass($bodyClass)
     {
@@ -645,7 +645,7 @@ class WebPagesParameter extends AbstractEntity
      * Set headScript
      *
      * @param string $headScript
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setHeadScript($headScript)
     {
@@ -668,7 +668,7 @@ class WebPagesParameter extends AbstractEntity
      * Set bodyFooterScript
      *
      * @param string $bodyFooterScript
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setBodyFooterScript($bodyFooterScript)
     {
@@ -691,7 +691,7 @@ class WebPagesParameter extends AbstractEntity
      * Set metaDocstart
      *
      * @param string $metaDocstart
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setMetaDocstart($metaDocstart)
     {
@@ -714,7 +714,7 @@ class WebPagesParameter extends AbstractEntity
      * Set metaTitle
      *
      * @param string $metaTitle
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setMetaTitle($metaTitle)
     {
@@ -737,7 +737,7 @@ class WebPagesParameter extends AbstractEntity
      * Set metaDescription
      *
      * @param string $metaDescription
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setMetaDescription($metaDescription)
     {
@@ -760,7 +760,7 @@ class WebPagesParameter extends AbstractEntity
      * Set metaKeywords
      *
      * @param string $metaKeywords
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setMetaKeywords($metaKeywords)
     {
@@ -783,7 +783,7 @@ class WebPagesParameter extends AbstractEntity
      * Set metaViewport
      *
      * @param string $metaViewport
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setMetaViewport($metaViewport)
     {
@@ -806,7 +806,7 @@ class WebPagesParameter extends AbstractEntity
      * Set robots
      *
      * @param string $robots
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setRobots($robots)
     {
@@ -829,7 +829,7 @@ class WebPagesParameter extends AbstractEntity
      * Set nocache
      *
      * @param string $nocache
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setNocache($nocache)
     {
@@ -852,7 +852,7 @@ class WebPagesParameter extends AbstractEntity
      * Set publish
      *
      * @param string $publish
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setPublish($publish)
     {
@@ -875,7 +875,7 @@ class WebPagesParameter extends AbstractEntity
      * Set publishCms
      *
      * @param string $publishCms
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setPublishCms($publishCms)
     {
@@ -898,7 +898,7 @@ class WebPagesParameter extends AbstractEntity
      * Set publishUp
      *
      * @param string $publishUp
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setPublishUp($publishUp)
     {
@@ -921,7 +921,7 @@ class WebPagesParameter extends AbstractEntity
      * Set publishDown
      *
      * @param string $publishDown
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setPublishDown($publishDown)
     {
@@ -944,7 +944,7 @@ class WebPagesParameter extends AbstractEntity
      * Set maintenance
      *
      * @param string $maintenance
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setMaintenance($maintenance)
     {
@@ -967,7 +967,7 @@ class WebPagesParameter extends AbstractEntity
      * Set maintenanceStart
      *
      * @param string $maintenanceStart
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setMaintenanceStart($maintenanceStart)
     {
@@ -990,7 +990,7 @@ class WebPagesParameter extends AbstractEntity
      * Set maintenanceEnd
      *
      * @param string $maintenanceEnd
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setMaintenanceEnd($maintenanceEnd)
     {
@@ -1013,7 +1013,7 @@ class WebPagesParameter extends AbstractEntity
      * Set deleted
      *
      * @param boolean $deleted
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setDeleted($deleted)
     {
@@ -1036,7 +1036,7 @@ class WebPagesParameter extends AbstractEntity
      * Set onlylink
      *
      * @param boolean $onlylink
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setOnlylink($onlylink)
     {
@@ -1059,7 +1059,7 @@ class WebPagesParameter extends AbstractEntity
      * Set createdBy
      *
      * @param integer $createdBy
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setCreatedBy($createdBy)
     {
@@ -1082,7 +1082,7 @@ class WebPagesParameter extends AbstractEntity
      * Set updateBy
      *
      * @param integer $updateBy
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setUpdateBy($updateBy)
     {
@@ -1105,7 +1105,7 @@ class WebPagesParameter extends AbstractEntity
      * Set registerDate
      *
      * @param \DateTime $registerDate
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setRegisterDate($registerDate)
     {
@@ -1128,7 +1128,7 @@ class WebPagesParameter extends AbstractEntity
      * Set upDate
      *
      * @param \DateTime $upDate
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setUpDate($upDate)
     {
@@ -1151,7 +1151,7 @@ class WebPagesParameter extends AbstractEntity
      * Set webPreferences
      *
      * @param \Contentinum\Entity\WebPreferences $webPreferences
-     * @return WebPagesParameter
+     * @return WebPages
      */
     public function setWebPreferences(\Contentinum\Entity\WebPreferences $webPreferences = null)
     {

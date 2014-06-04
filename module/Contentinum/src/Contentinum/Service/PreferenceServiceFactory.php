@@ -30,10 +30,12 @@ namespace Contentinum\Service;
 use Contentinum\Service\WebsiteServiceFactory;
 
 /**
- * Config key website preferences 
+ * Config key website preferences
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class PreferenceServiceFactory extends WebsiteServiceFactory
 {
-	const CONTENTINUM_DATABASE = 'preference';
+
+    const CONTENTINUM_DATABASE = 'preference';
 }

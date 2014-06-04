@@ -31,9 +31,11 @@ use Contentinum\Service\TemplateServiceFactory;
 
 /**
  * Config template key data file charset
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class CharsetServiceFactory extends TemplateServiceFactory
 {
-	const CONTENTINUM_TEMPLATE = 'charset';
+
+    const CONTENTINUM_TEMPLATE = 'charset';
 }

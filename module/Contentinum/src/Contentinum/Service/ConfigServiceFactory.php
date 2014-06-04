@@ -33,24 +33,28 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 /**
  * Contentinum configuration service
  * Get contentinum adjustments
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class ConfigServiceFactory implements FactoryInterface
 {
-	/**
-	 * Contentinum confuguration key
-	 * @var string
-	 */
-	const CONTENTINUM_CONFIG = 'contentinum_config';
-	
-	/**
-	 * Get contentinum configuration parameters
-	 * @see \Zend\ServiceManager\FactoryInterface::createService()
-	 * @return array
-	 */
-	public function createService(ServiceLocatorInterface $serviceLocator)
-	{
-		$config = $serviceLocator->get('Config');
-		return $config[ self::CONTENTINUM_CONFIG ];
-	}
+
+    /**
+     * Contentinum confuguration key
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CONFIG = 'contentinum_config';
+
+    /**
+     * Get contentinum configuration parameters
+     * 
+     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @return array
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        $config = $serviceLocator->get('Config');
+        return $config[self::CONTENTINUM_CONFIG];
+    }
 }

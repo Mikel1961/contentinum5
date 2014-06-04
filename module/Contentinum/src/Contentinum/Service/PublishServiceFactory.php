@@ -31,9 +31,11 @@ use Contentinum\Service\TemplateServiceFactory;
 
 /**
  * Config template key data file publish content values
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class PublishServiceFactory extends TemplateServiceFactory
 {
-	const CONTENTINUM_TEMPLATE = 'publish';
+
+    const CONTENTINUM_TEMPLATE = 'publish';
 }

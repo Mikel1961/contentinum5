@@ -29,41 +29,53 @@ namespace Contentinum\Service;
 
 /**
  * Applog interface
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
-interface ApplogAwareInterface 
+interface ApplogAwareInterface
 {
-	/**
-	 * Set log messages
-	 * @param int $priority log priority
-	 * @param string $message log messages
-	 * @param array $extra | Transversale
-	 */
-	public function log($priority, $message, $extra = array());
-	/**
-	 * Set logger adjustments
-	 * @param array $options
-	 * @return ApplogAwareInterface
-	 */
-	public function setOptions($options);
-	/**
-	 * Get logger adjustments
-	 * @return array
-	 */
-	public function getOptions();
-	/**
-	 * Get specified logger adjustment
-	 * @param array|int $key
-	 */
-	public function getOption($key);
-	/**
-	 * Initialize and set Zend\Log\Logger if not exists
-	 */
-	public function setLogger();
-	/**
-	 * Set logger filter
-	 * @param string $key logger adjustment key
-	 * @param Zend\Log\Writer\Stream $writer
-	 */
-	public function setFilter($key, $writer);
+
+    /**
+     * Set log messages
+     * 
+     * @param int $priority log priority
+     * @param string $message log messages
+     * @param array $extra | Transversale
+     */
+    public function log($priority, $message, $extra = array());
+
+    /**
+     * Set logger adjustments
+     * 
+     * @param array $options
+     * @return ApplogAwareInterface
+     */
+    public function setOptions($options);
+
+    /**
+     * Get logger adjustments
+     * 
+     * @return array
+     */
+    public function getOptions();
+
+    /**
+     * Get specified logger adjustment
+     * 
+     * @param array|int $key
+     */
+    public function getOption($key);
+
+    /**
+     * Initialize and set Zend\Log\Logger if not exists
+     */
+    public function setLogger();
+
+    /**
+     * Set logger filter
+     * 
+     * @param string $key logger adjustment key
+     * @param Zend\Log\Writer\Stream $writer
+     */
+    public function setFilter($key, $writer);
 }

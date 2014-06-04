@@ -31,9 +31,11 @@ use Contentinum\Service\TemplateServiceFactory;
 
 /**
  * Config template key html widgets
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class HtmlwidgetsServiceFactory extends TemplateServiceFactory
 {
-	const CONTENTINUM_TEMPLATE = 'htmlwidgets';
+
+    const CONTENTINUM_TEMPLATE = 'htmlwidgets';
 }

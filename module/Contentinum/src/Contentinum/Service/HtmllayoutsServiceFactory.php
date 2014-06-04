@@ -31,9 +31,11 @@ use Contentinum\Service\TemplateServiceFactory;
 
 /**
  * Config template key html layout
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class HtmllayoutsServiceFactory extends TemplateServiceFactory
 {
-	const CONTENTINUM_TEMPLATE = 'htmllayouts';
+
+    const CONTENTINUM_TEMPLATE = 'htmllayouts';
 }

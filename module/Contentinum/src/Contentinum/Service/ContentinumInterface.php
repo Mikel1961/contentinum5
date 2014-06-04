@@ -27,25 +27,25 @@
  */
 namespace Contentinum\Service;
 
-/** 
+/**
  * Applog interface
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
-
 interface ContentinumInterface
 {
-	public function requestUri();
-	
-	public function getUri();
-	
-	public function isPageAvailable();
-	
-	public function setSl($sl);
-	
-	public function getSl();
-	
-	public function setOptions(array $options);
 
-	public function getOptions($key = null);
-	
+    public function requestUri();
+
+    public function getUri();
+
+    public function isPageAvailable();
+
+    public function setSl($sl);
+
+    public function getSl();
+
+    public function setOptions(array $options);
+
+    public function getOptions($key = null);
 }

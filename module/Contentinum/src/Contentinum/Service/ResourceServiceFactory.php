@@ -31,9 +31,11 @@ use Contentinum\Service\TemplateServiceFactory;
 
 /**
  * Config template key data file resource access values
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class ResourceServiceFactory extends TemplateServiceFactory
 {
-	const CONTENTINUM_TEMPLATE = 'resource';
+
+    const CONTENTINUM_TEMPLATE = 'resource';
 }

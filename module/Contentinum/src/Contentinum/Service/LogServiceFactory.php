@@ -33,29 +33,33 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 /**
  * Contentinum logger configuration service
  * Get contentinum logger adjustments
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class LogServiceFactory implements FactoryInterface
 {
-	/**
-	 * Contentinum logger configuration key
-	 * @var string
-	 */	
-	const LOGGER_KEY = 'log_configure';
 
-	/**
-	 * Get contentinum logger adjustments
-	 * @see \Zend\ServiceManager\FactoryInterface::createService()
-	 * @return array
-	 */
-	public function createService(ServiceLocatorInterface $serviceLocator) 
-	{
-		$config = $serviceLocator->get('Contentinum\Configure');
-		
-		if ( isset($config[self::LOGGER_KEY]) ){
-			return $config[self::LOGGER_KEY];
-		} else {
-			return null;
-		}
-	}
+    /**
+     * Contentinum logger configuration key
+     * 
+     * @var string
+     */
+    const LOGGER_KEY = 'log_configure';
+
+    /**
+     * Get contentinum logger adjustments
+     * 
+     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @return array
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        $config = $serviceLocator->get('Contentinum\Configure');
+        
+        if (isset($config[self::LOGGER_KEY])) {
+            return $config[self::LOGGER_KEY];
+        } else {
+            return null;
+        }
+    }
 }

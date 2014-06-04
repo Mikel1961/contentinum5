@@ -31,13 +31,16 @@ use Contentinum\Service\ContentinumServiceFactory;
 
 /**
  * Config key customconfig customer base adjusments
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class CustomConfigServiceFactory extends ContentinumServiceFactory
 {
-	/**
-	 * Contentinum logger configuration key
-	 * @var string
-	 */
-	const CONTENTINUM_CFG_FILE = 'customconfig';	
+
+    /**
+     * Contentinum logger configuration key
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CFG_FILE = 'customconfig';
 }

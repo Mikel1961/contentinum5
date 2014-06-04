@@ -31,9 +31,11 @@ use Contentinum\Service\TemplateServiceFactory;
 
 /**
  * Config template key data file robots meta values
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class RobotsServiceFactory extends TemplateServiceFactory
 {
-	const CONTENTINUM_TEMPLATE = 'robots';
+
+    const CONTENTINUM_TEMPLATE = 'robots';
 }

@@ -35,55 +35,61 @@ use ContentinumComponents\Mapper\Worker;
  * Contentinum xml template files service
  * Load file content as config instance from cache is available
  * If cache empty or expired load content from xml file and add to cache
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 abstract class WebsiteServiceFactory implements FactoryInterface
 {
-	/**
-	 * Contentinum logger configuration key
-	 * @var string
-	 */	
-	const CONTENTINUM_DATABASE = 'db_cache_keys';
 
-	/**
-	 * Get logger configuration and initialize, return Applog
-	 * @see \Zend\ServiceManager\FactoryInterface::createService()
-	 * @return Applog
-	 */
-	public function createService(ServiceLocatorInterface $serviceLocator) 
-	{
-		$config = $serviceLocator->get('Contentinum\Configure');
-		$config = $config['db_cache_keys'];
-		
-		if ( isset($config[static::CONTENTINUM_DATABASE]) ){
-			return $this->queryDbCacheResult($config[static::CONTENTINUM_DATABASE], $serviceLocator);
-		} else {
-			return null;
-		}
-		
-	}
-	
-	/**
-	 * Get result from cache or read from xml file
-	 * @param string $file path to file and filename
-	 * @param string $key template file ident
-	 * @param ServiceLocatorInterface $sl
-	 */
-	protected function queryDbCacheResult($config, $sl)
-	{
-		$result = array();
-		$cache = $sl->get('Contentinum\Cache\Filesystem7200');
-		$key = $config['cache'];
-		if ( ! ($result = $cache->getItem($key)) ){
-			$worker = new Worker($sl->get($config['entitymanager']));
-			$worker->setEntity($config['entity']);
-			$sortby = $config['sortby'];
-			$entries = $worker->getStorage()->getRepository($worker->getEntityName())->findAll();
-			foreach ($entries as $entry){
-				$result[$entry->$sortby] = $entry->toArray();
-			}
-			$cache->setItem($key,$result);
-		}
-		return $result;
-	}
+    /**
+     * Contentinum logger configuration key
+     * 
+     * @var string
+     */
+    const CONTENTINUM_DATABASE = 'db_cache_keys';
+
+    /**
+     * Get logger configuration and initialize, return Applog
+     * 
+     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @return Applog
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        $config = $serviceLocator->get('Contentinum\Configure');
+        $config = $config['db_cache_keys'];
+        
+        if (isset($config[static::CONTENTINUM_DATABASE])) {
+            return $this->queryDbCacheResult($config[static::CONTENTINUM_DATABASE], $serviceLocator);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Get result from cache or read from xml file
+     * 
+     * @param string $file path to file and filename
+     * @param string $key template file ident
+     * @param ServiceLocatorInterface $sl
+     */
+    protected function queryDbCacheResult($config, $sl)
+    {
+        $result = array();
+        $cache = $sl->get('Contentinum\Cache\Filesystem7200');
+        $key = $config['cache'];
+        if (! ($result = $cache->getItem($key))) {
+            $worker = new Worker($sl->get($config['entitymanager']));
+            $worker->setEntity($config['entity']);
+            $sortby = $config['sortby'];
+            $entries = $worker->getStorage()
+                ->getRepository($worker->getEntityName())
+                ->findAll();
+            foreach ($entries as $entry) {
+                $result[$entry->$sortby] = $entry->toArray();
+            }
+            $cache->setItem($key, $result);
+        }
+        return $result;
+    }
 }

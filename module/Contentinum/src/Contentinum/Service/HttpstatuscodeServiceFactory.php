@@ -31,9 +31,11 @@ use Contentinum\Service\TemplateServiceFactory;
 
 /**
  * Config template key data file http serval status codes
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class HttpstatuscodeServiceFactory extends TemplateServiceFactory
 {
-	const CONTENTINUM_TEMPLATE = 'httpstatuscode';
+
+    const CONTENTINUM_TEMPLATE = 'httpstatuscode';
 }

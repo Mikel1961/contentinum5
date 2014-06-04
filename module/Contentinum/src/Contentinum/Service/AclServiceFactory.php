@@ -33,81 +33,91 @@ use Zend\Permissions\Acl\Acl;
 
 class AclServiceFactory implements FactoryInterface, AclAwareInterface
 {
-	/**
-	 * Contentinum confuguration key
-	 * @var string
-	 */
-	const CONTENTINUM_CONFIG = 'Contentinum\Acl'; 
-	/**
-	 * Contentinum acl settings
-	 * @var string
-	 */
-	const CONTENTINUM_CONFIG_ACL = 'acl_settings';
-	
-	/**
-	 * Zend\Permissions\Acl\Acl 
-	 * @var Zend\Permissions\Acl\Acl 
-	 */
-	protected $acl;
-	
+
+    /**
+     * Contentinum confuguration key
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CONFIG = 'Contentinum\Acl';
+
+    /**
+     * Contentinum acl settings
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CONFIG_ACL = 'acl_settings';
+
+    /**
+     * Zend\Permissions\Acl\Acl
+     * 
+     * @var Zend\Permissions\Acl\Acl
+     */
+    protected $acl;
+
     /**
      * Set and get Zend\Permissions\Acl\Acl
+     * 
      * @see \Contentinum\Service\AclAwareInterface::getAcl()
-     * @return Zend\Permissions\Acl\Acl 
+     * @return Zend\Permissions\Acl\Acl
      */
-	public function getAcl($settings) 
-	{
-		if (null === $this->acl ){
-			$acl = new Acl();
-			// start to set first roles ...
-			foreach ($settings['roles'] as $role ){
-				$parents = null;
-				if ( isset($settings['parent'][$role]) ){
-					$parents = array($settings['parent'][$role]);
-				}
-				$acl->addRole($role,$parents);
-			}
-			$role = null;
-			
-			// ... then resoures ...
-			foreach ($settings['resources'] as $resource) {
-				$acl->addResource($resource);
-			}
-			
-			// ... and now the rules
-			foreach ($settings['rules'] as $access => $rule) {
-				foreach ($rule as $role => $restrictions) {
-					foreach ($restrictions as $resource => $restriction) {
-						if ('all' == $restriction) {
-							$acl->$access($role, $resource);
-						} else {
-							$acl->$access($role, $resource, $restriction);
-						}
-					}
-				}
-			}	
-			$this->setAcl($acl);		
-		}
-		return $this->acl;
-	}
+    public function getAcl($settings)
+    {
+        if (null === $this->acl) {
+            $acl = new Acl();
+            // start to set first roles ...
+            foreach ($settings['roles'] as $role) {
+                $parents = null;
+                if (isset($settings['parent'][$role])) {
+                    $parents = array(
+                        $settings['parent'][$role]
+                    );
+                }
+                $acl->addRole($role, $parents);
+            }
+            $role = null;
+            
+            // ... then resoures ...
+            foreach ($settings['resources'] as $resource) {
+                $acl->addResource($resource);
+            }
+            
+            // ... and now the rules
+            foreach ($settings['rules'] as $access => $rule) {
+                foreach ($rule as $role => $restrictions) {
+                    foreach ($restrictions as $resource => $restriction) {
+                        if ('all' == $restriction) {
+                            $acl->$access($role, $resource);
+                        } else {
+                            $acl->$access($role, $resource, $restriction);
+                        }
+                    }
+                }
+            }
+            $this->setAcl($acl);
+        }
+        return $this->acl;
+    }
 
     /**
-	 * Set Zend\Permissions\Acl\Acl 
-	 * @see \Contentinum\Service\AclAwareInterface::setAcl()
-	 */
-	public function setAcl(\Zend\Permissions\Acl\Acl $acl) 
-	{
-		$this->acl = $acl;
-	}
+     * Set Zend\Permissions\Acl\Acl
+     * 
+     * @see \Contentinum\Service\AclAwareInterface::setAcl()
+     */
+    public function setAcl(\Zend\Permissions\Acl\Acl $acl)
+    {
+        $this->acl = $acl;
+    }
 
-	/**
-	 * Create service
-	 * @see \Zend\ServiceManager\FactoryInterface::createService()
-	 * @return Zend\Permissions\Acl\Acl
-	 */
-	public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) 
-	{
-		$config = $serviceLocator->get(self::CONTENTINUM_CONFIG);
-		return $this->getAcl($config[self::CONTENTINUM_CONFIG_ACL]);
-	}
+    /**
+     * Create service
+     * 
+     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @return Zend\Permissions\Acl\Acl
+     */
+    public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
+    {
+        $config = $serviceLocator->get(self::CONTENTINUM_CONFIG);
+        return $this->getAcl($config[self::CONTENTINUM_CONFIG_ACL]);
+    }
 }

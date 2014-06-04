@@ -28,18 +28,22 @@
 namespace Contentinum\Service;
 
 use Zend\Navigation\Service\AbstractNavigationFactory;
+
 /**
  * Module apps navigation
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class AppsmenuNavigationFactory extends AbstractNavigationFactory
 {
+
     /**
      * (non-PHPdoc)
+     * 
      * @see \Zend\Navigation\Service\AbstractNavigationFactory::getName()
      */
-	public function getName() 
-	{
-		return 'appsmenu';
-	}	
+    public function getName()
+    {
+        return 'appsmenu';
+    }
 }

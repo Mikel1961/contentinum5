@@ -31,9 +31,11 @@ use Contentinum\Service\TemplateServiceFactory;
 
 /**
  * Config template key data file locale
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class LocaleServiceFactory extends TemplateServiceFactory
 {
-	const CONTENTINUM_TEMPLATE = 'locale';
+
+    const CONTENTINUM_TEMPLATE = 'locale';
 }

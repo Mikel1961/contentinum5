@@ -29,20 +29,25 @@ namespace Contentinum\Service;
 
 /**
  * Acl settings interface
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 interface AclAwareInterface
 {
-	/**
-	 * Set acl settings: roles, resources and rules 
-	 * Get Zend\Permissions\Acl\Acl 
-	 * @param array $settings
-	 * @return Zend\Permissions\Acl\Acl 
-	 */
-	public function getAcl($settings);
-	/**
-	 * Set Zend\Permissions\Acl\Acl 
-	 * @param \Zend\Permissions\Acl\Acl $acl
-	 */
-	public function setAcl(\Zend\Permissions\Acl\Acl $acl);
+
+    /**
+     * Set acl settings: roles, resources and rules
+     * Get Zend\Permissions\Acl\Acl
+     * 
+     * @param array $settings
+     * @return Zend\Permissions\Acl\Acl
+     */
+    public function getAcl($settings);
+
+    /**
+     * Set Zend\Permissions\Acl\Acl
+     * 
+     * @param \Zend\Permissions\Acl\Acl $acl
+     */
+    public function setAcl(\Zend\Permissions\Acl\Acl $acl);
 }

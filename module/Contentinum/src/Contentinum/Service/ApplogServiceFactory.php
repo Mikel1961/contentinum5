@@ -35,30 +35,33 @@ use Contentinum\Service\Applog;
  * Contentinum logger configuration service
  * Set contentinum logger adjustments
  * Initialize and return Applog
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class ApplogServiceFactory implements FactoryInterface
 {
-	/**
-	 * Contentinum logger configuration key
-	 * @var string
-	 */	
-	const LOGGER_KEY = 'log_configure';
 
-	/**
-	 * Get logger configuration and initialize, return Applog
-	 * @see \Zend\ServiceManager\FactoryInterface::createService()
-	 * @return Applog
-	 */
-	public function createService(ServiceLocatorInterface $serviceLocator) 
-	{
-		$config = $serviceLocator->get('Contentinum\Configure');
-		
-		if ( isset($config[self::LOGGER_KEY]) ){
-			return new Applog($config[self::LOGGER_KEY]);
-		} else {
-			return null;
-		}
-		
-	}
+    /**
+     * Contentinum logger configuration key
+     * 
+     * @var string
+     */
+    const LOGGER_KEY = 'log_configure';
+
+    /**
+     * Get logger configuration and initialize, return Applog
+     * 
+     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @return Applog
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        $config = $serviceLocator->get('Contentinum\Configure');
+        
+        if (isset($config[self::LOGGER_KEY])) {
+            return new Applog($config[self::LOGGER_KEY]);
+        } else {
+            return null;
+        }
+    }
 }

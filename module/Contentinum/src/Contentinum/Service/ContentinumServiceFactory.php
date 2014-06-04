@@ -35,46 +35,49 @@ use Zend\Config\Config;
  * Contentinum etc config file services
  * Load file content as config instance from cache is available
  * If cache empty or expired load content from php config file and add to cache
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 abstract class ContentinumServiceFactory implements FactoryInterface
 {
-	/**
-	 * Contentinum logger configuration key
-	 * @var string
-	 */
-	const CONTENTINUM_CFG_FILE = 'etc_cfg_files';	
-	
-	
-	/**
-	 * 
-	 * @see \Zend\ServiceManager\FactoryInterface::createService()
-	 */
-	public function createService(ServiceLocatorInterface $serviceLocator)
-	{
-		$config = $serviceLocator->get('Contentinum\Configure');
-		$config = $config['etc_cfg_files'];
-		
-		if ( isset($config[static::CONTENTINUM_CFG_FILE]) ){
-			return $this->getFileAsConfig($config[static::CONTENTINUM_CFG_FILE], static::CONTENTINUM_CFG_FILE , $serviceLocator);
-		} else {
-			return null;
-		}		
-	}
-	
-	/**
-	 * Get result from cache or read from php file
-	 * @param string $file path to file and filename
-	 * @param string $key template file ident
-	 * @param ServiceLocatorInterface $sl
-	 */
-	protected function getFileAsConfig($file, $key, $sl)
-	{
-		$cache = $sl->get('Contentinum\Cache\Filesystem7200');
-		if ( ! ($result = $cache->getItem($key)) ){
-			$result = new Config(include $file);
-			$cache->setItem($key,$result);
-		}
-		return $result;
-	}	
+
+    /**
+     * Contentinum logger configuration key
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CFG_FILE = 'etc_cfg_files';
+
+    /**
+     *
+     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        $config = $serviceLocator->get('Contentinum\Configure');
+        $config = $config['etc_cfg_files'];
+        
+        if (isset($config[static::CONTENTINUM_CFG_FILE])) {
+            return $this->getFileAsConfig($config[static::CONTENTINUM_CFG_FILE], static::CONTENTINUM_CFG_FILE, $serviceLocator);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Get result from cache or read from php file
+     * 
+     * @param string $file path to file and filename
+     * @param string $key template file ident
+     * @param ServiceLocatorInterface $sl
+     */
+    protected function getFileAsConfig($file, $key, $sl)
+    {
+        $cache = $sl->get('Contentinum\Cache\Filesystem7200');
+        if (! ($result = $cache->getItem($key))) {
+            $result = new Config(include $file);
+            $cache->setItem($key, $result);
+        }
+        return $result;
+    }
 }
