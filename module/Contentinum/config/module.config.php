@@ -72,6 +72,7 @@ return array (
 						'Contentinum\Resource' => 'Contentinum\Service\ResourceServiceFactory',	
 						'Contentinum\Httpstatuscode' => 'Contentinum\Service\HttpstatuscodeServiceFactory',						
 						'Contentinum\Preference' => 'Contentinum\Service\PreferenceServiceFactory',
+						'Contentinum\Webmedias' => 'Contentinum\Service\MediasServiceFactory',
 						'Contentinum\Customer' => 'Contentinum\Service\CustomConfigServiceFactory',
 				),
 				'aliases' => array (
