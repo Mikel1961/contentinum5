@@ -35,5 +35,5 @@ use Contentinum\Service\WebsiteServiceFactory;
  */
 class MediasServiceFactory extends WebsiteServiceFactory
 {
-	const CONTENTINUM_DATABASE = 'webmedia';
+	const CONTENTINUM_DATABASE = 'webmedias';
 }

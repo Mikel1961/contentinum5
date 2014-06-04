@@ -149,7 +149,13 @@ return array (
 					  'entitymanager' => 'doctrine.entitymanager.orm_default',		
 					  'entity' => 'Contentinum\Entity\WebPreferences',
 					  'sortby' => 'host',
-				),
+				    ),
+				    'webmedias' => array(
+				    		'cache' => 'websitemedias',
+				    		'entitymanager' => 'doctrine.entitymanager.orm_default',
+				    		'entity' => 'Contentinum\Entity\WebMedias',
+				    		'sortby' => 'media_source',
+				    ),				    
 				),
 				'log_configure' => array (
 						'log_priority' => 6,
