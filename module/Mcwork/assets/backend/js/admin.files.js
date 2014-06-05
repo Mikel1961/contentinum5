@@ -37,6 +37,7 @@ var tableRow = function (file,options, type){
 	return tr;
 };	
 
+
 $(document).ready(function() {
 	
 	var options = getConfiguration ('/mcwork/medias/configuration');
@@ -51,14 +52,33 @@ $(document).ready(function() {
 	
 	Dropzone.options.contentinumUpload = {
 		dictDefaultMessage: "Datei auswaehlen",
+		maxFilesize: 100,
 		addRemoveLinks: true,
 		uploadMultiple: true,
 		init: function() {
-			this.on("successmultiple", function(file, responseText){
-				console.log(file);
-				console.log(responseText);
-				//file.label = '<i class="fa fa-upload"></i> ' + file.name;
-				//$(".table > tbody").prepend(tableRow(file,options,'file'));
+			this.on("errormultiple", function(files, message, xhr){
+				console.log(files);
+				console.log(message);
+				
+				$().notiBarMessage({
+					domElement : '#alertMessages',
+					notibar : 'error',
+					messages : message
+				});				
+				
+			}),
+			this.on("successmultiple", function(files, response){
+				response = jQuery.parseJSON(response);			
+				console.log(files);
+				$.each(files, function( index, file ) {	
+					var uploaded = {};
+					if ( response.hasOwnProperty(file.name) ){
+						uploaded.name = response[file.name].filename;
+						uploaded.size = file.size;
+						uploaded.label = '<i class="fa fa-upload"></i> ' + uploaded.name;
+						$(".table > tbody").prepend(tableRow(uploaded,options,'file'));							
+					}					
+				});
 			});
 		},
 	};	
@@ -330,6 +350,8 @@ $(document).ready(function() {
 	$(document.body).on('click', ".tbl-info", function(){
 		var language = setLanguage();
 		var infoElement = $(this);
+		var data_originalname = $(this).attr('data-originalname');
+		var data_ident = $(this).attr('data-ident');
     	var data_type = $(this).attr('data-type');
     	var data_link = $(this).attr('data-link');
     	var data_download = $(this).attr('data-download');
@@ -448,12 +470,11 @@ $(document).ready(function() {
     		}else{
         		var itemt = language.renamelabelfi;
     		}
-    		
     		var output = '<div class="modal-content"><h5>'+itemt+':</h5>';
     		if ('dir' != data_type){
-	    		var fileext = data_name.substr(data_name.lastIndexOf('.') + 1);
+	    		var fileext = data_originalname.substr(data_originalname.lastIndexOf('.') + 1);
 	    		fileext = '.' + fileext;
-	    		var basename = data_name.replace(fileext, '');
+	    		var basename = data_originalname.replace(fileext, '');
     		} else {
     			var basename = data_name;
     			var fileext = '';
@@ -487,6 +508,8 @@ $(document).ready(function() {
 						cd : options.current,
 						fm : data_name,
 						nfm : newName,
+						orgname : data_originalname,
+						dbident : data_ident,
 					},
 					success : function(data) {
 						if (1 == data) {
@@ -529,7 +552,7 @@ $(document).ready(function() {
 				});	
 			});
 		});
-		return;			
+		return;	
 	});
 	
 	$('#btnDelete').click(function() {
