@@ -11,8 +11,8 @@
 				<param>
 					<value>allcontent</value>
 				</param>
-			</action>			
-			
+			</action>
+
 			<action row="40" set="boxend">
 				<param>
 					<value>section</value>
@@ -40,29 +40,29 @@
 				<param type="class">
 					<value>row</value>
 				</param>
-			</action>	
+			</action>
 			<action row="40" set="div">
 				<param type="class">
 					<value>large-12 columns</value>
 				</param>
-			</action>				
-			
+			</action>
+
 			<action row="100" set="assign">
 				<param>
 					<value>allcontent</value>
 				</param>
-			</action>			
-			
+			</action>
+
 			<action row="120" set="boxend">
 				<param>
 					<value>div</value>
 				</param>
-			</action>	
+			</action>
 			<action row="140" set="boxend">
 				<param>
 					<value>div</value>
 				</param>
-			</action>							
+			</action>
 		</sequence>
 		<header>
 			<styles>
@@ -77,6 +77,6 @@
 		</footer>
 		<alternative>
 			<!-- alternate adjustments -->
-		</alternative>	
-	</foundation>	
+		</alternative>
+	</foundation>
 </layout>

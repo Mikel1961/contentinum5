@@ -9,8 +9,8 @@
         <![CDATA[<div class="box box-bordered"><div class="box-title"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 	</_defaults>
-	
-	
+
+
 	<mcwork_contribution>
 		<title></title>
 		<bodyTagAttribs></bodyTagAttribs>
@@ -19,7 +19,7 @@
 		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
 		<content></content>
 		<footer></footer>
-		<template>content/contributions</template>	
+		<template>content/contributions</template>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
@@ -30,8 +30,8 @@
 			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
 			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\WebContent]]></entity>
-		</app>	
-	</mcwork_contribution> 
+		</app>
+	</mcwork_contribution>
 	<mcwork_contribution_add>
 		<title></title>
 		<bodyTagAttribs></bodyTagAttribs>
@@ -44,7 +44,7 @@
 		<tableedit>1</tableedit>
 		<template_widget>
         <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>	
+		</template_widget>
 		<app>
 			<controller></controller>
 			<worker><![CDATA[Mcwork\Model\SaveContent]]></worker>
@@ -52,12 +52,16 @@
 			<entity><![CDATA[Contentinum\Entity\WebContent]]></entity>
 			<targetentities>
 				<webPagesId><![CDATA[Contentinum\Entity\WebPagesParameter]]></webPagesId>
-			</targetentities>			
+			</targetentities>
 			<form><![CDATA[Mcwork\Form\ContentForm]]></form>
 			<formaction><![CDATA[/mcwork/contribution/add]]></formaction>
 			<settoroute><![CDATA[/mcwork/contribution]]></settoroute>
-			<populate><resource>index</resource> <htmlwidgets>content</htmlwidgets><publish>yes</publish></populate>
-		</app>	
+			<populate>
+				<resource>index</resource>
+				<htmlwidgets>content</htmlwidgets>
+				<publish>yes</publish>
+			</populate>
+		</app>
 	</mcwork_contribution_add>
 	<mcwork_contribution_edit>
 		<title></title>
@@ -79,13 +83,15 @@
 			<entity><![CDATA[Contentinum\Entity\WebContent]]></entity>
 			<targetentities>
 				<webPagesId><![CDATA[Contentinum\Entity\WebPagesParameter]]></webPagesId>
-			</targetentities>			
-			<setexclude><field>id</field></setexclude>
+			</targetentities>
+			<setexclude>
+				<field>id</field>
+			</setexclude>
 			<form><![CDATA[Mcwork\Form\ContentForm]]></form>
 			<formaction><![CDATA[/mcwork/contribution/edit]]></formaction>
 			<settoroute><![CDATA[/mcwork/contribution]]></settoroute>
-		</app>	
-	</mcwork_contribution_edit>		
+		</app>
+	</mcwork_contribution_edit>
 	<mcwork_contribution_delete>
 		<action>contenthandle</action>
 		<title></title>
@@ -101,24 +107,24 @@
 		<hasEntries>
 			<tablename>Contentinum\Entity\FieldTypeMetas</tablename>
 			<column>fieldTypes</column>
-		</hasEntries>		
+		</hasEntries>
 		<request>
 			<xhtmlrequest>1</xhtmlrequest>
 		</request>
 		<response>
 			<redirect>mcwork/contribution</redirect>
-		</response>		
+		</response>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<ctrlmethod>deleteRow</ctrlmethod>	
+			<ctrlmethod>deleteRow</ctrlmethod>
 			<worker><![CDATA[Mcwork\Model\DeleteItem]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>	
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\WebContent]]></entity>
-			<targetentities></targetentities>			
+			<targetentities></targetentities>
 		</app>
-	</mcwork_contribution_delete>		
-	
-	
+	</mcwork_contribution_delete>
+
+
 	<mcwork_pages>
 		<title></title>
 		<bodyTagAttribs></bodyTagAttribs>
@@ -127,7 +133,7 @@
 		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
 		<content></content>
 		<footer></footer>
-		<template>content/pages</template>	
+		<template>content/pages</template>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
@@ -138,8 +144,8 @@
 			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
 			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\WebPagesParameter]]></entity>
-		</app>	
-	</mcwork_pages> 
+		</app>
+	</mcwork_pages>
 	<mcwork_pages_add>
 		<title></title>
 		<bodyTagAttribs></bodyTagAttribs>
@@ -152,7 +158,7 @@
 		<tableedit>1</tableedit>
 		<template_widget>
         <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>	
+		</template_widget>
 		<app>
 			<controller></controller>
 			<worker><![CDATA[Mcwork\Model\SavePage]]></worker>
@@ -164,8 +170,13 @@
 			<form><![CDATA[Mcwork\Form\PageForm]]></form>
 			<formaction><![CDATA[/mcwork/pages/add]]></formaction>
 			<settoroute><![CDATA[/mcwork/pages]]></settoroute>
-			<populate><resource>index</resource> <htmlwidgets>content</htmlwidgets> <robots>index,follow</robots><publish>yes</publish></populate>
-		</app>	
+			<populate>
+				<resource>index</resource>
+				<htmlwidgets>content</htmlwidgets>
+				<robots>index,follow</robots>
+				<publish>yes</publish>
+			</populate>
+		</app>
 	</mcwork_pages_add>
 	<mcwork_pages_edit>
 		<title></title>
@@ -188,12 +199,14 @@
 			<targetentities>
 				<webPreferences><![CDATA[Contentinum\Entity\WebPreferences]]></webPreferences>
 			</targetentities>
-			<setexclude><field>id</field></setexclude>
+			<setexclude>
+				<field>id</field>
+			</setexclude>
 			<form><![CDATA[Mcwork\Form\PageForm]]></form>
 			<formaction><![CDATA[/mcwork/pages/edit]]></formaction>
 			<settoroute><![CDATA[/mcwork/pages]]></settoroute>
-		</app>	
-	</mcwork_pages_edit>		
+		</app>
+	</mcwork_pages_edit>
 	<mcwork_pages_delete>
 		<action>contenthandle</action>
 		<title></title>
@@ -209,26 +222,26 @@
 		<hasEntries>
 			<tablename>Contentinum\Entity\FieldTypeMetas</tablename>
 			<column>fieldTypes</column>
-		</hasEntries>		
+		</hasEntries>
 		<request>
 			<xhtmlrequest>1</xhtmlrequest>
 		</request>
 		<response>
 			<redirect>mcwork/pages</redirect>
-		</response>		
+		</response>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<ctrlmethod>deleteRow</ctrlmethod>	
+			<ctrlmethod>deleteRow</ctrlmethod>
 			<worker><![CDATA[Mcwork\Model\DeleteItem]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>	
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\WebPagesParameter]]></entity>
-			<targetentities></targetentities>			
+			<targetentities></targetentities>
 		</app>
-	</mcwork_pages_delete>	
-	
-	
-	
-	
+	</mcwork_pages_delete>
+
+
+
+
 	<mcwork_preferences>
 		<title></title>
 		<bodyTagAttribs></bodyTagAttribs>
@@ -237,7 +250,7 @@
 		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
 		<content></content>
 		<footer></footer>
-		<template>content/preferences</template>	
+		<template>content/preferences</template>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
@@ -248,8 +261,8 @@
 			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
 			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\WebPreferences]]></entity>
-		</app>	
-	</mcwork_preferences> 
+		</app>
+	</mcwork_preferences>
 	<mcwork_preferences_add>
 		<title></title>
 		<bodyTagAttribs></bodyTagAttribs>
@@ -262,7 +275,7 @@
 		<tableedit>1</tableedit>
 		<template_widget>
         <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>	
+		</template_widget>
 		<app>
 			<controller></controller>
 			<worker><![CDATA[Mcwork\Model\SavePreferences]]></worker>
@@ -272,8 +285,15 @@
 			<form><![CDATA[Mcwork\Form\PreferencesForm]]></form>
 			<formaction><![CDATA[/mcwork/preferences/add]]></formaction>
 			<settoroute><![CDATA[/mcwork/preferences]]></settoroute>
-			<populate><standardDomain>no</standardDomain><hostId>_default</hostId><charset>utf-8</charset><language>de</language><robots>index,follow</robots><metaViewport><![CDATA[width=device-width, initial-scale=1.0]]></metaViewport></populate>
-		</app>	
+			<populate>
+				<standardDomain>no</standardDomain>
+				<hostId>_default</hostId>
+				<charset>utf-8</charset>
+				<language>de</language>
+				<robots>index,follow</robots>
+				<metaViewport><![CDATA[width=device-width, initial-scale=1.0]]></metaViewport>
+			</populate>
+		</app>
 	</mcwork_preferences_add>
 	<mcwork_preferences_edit>
 		<title></title>
@@ -294,12 +314,14 @@
 			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\WebPreferences]]></entity>
 			<targetentities></targetentities>
-			<setexclude><field>id</field></setexclude>
+			<setexclude>
+				<field>id</field>
+			</setexclude>
 			<form><![CDATA[Mcwork\Form\PreferencesForm]]></form>
 			<formaction><![CDATA[/mcwork/preferences/edit]]></formaction>
 			<settoroute><![CDATA[/mcwork/preferences]]></settoroute>
-		</app>	
-	</mcwork_preferences_edit>		
+		</app>
+	</mcwork_preferences_edit>
 	<mcwork_preferences_delete>
 		<action>contenthandle</action>
 		<title></title>
@@ -315,24 +337,24 @@
 		<hasEntries>
 			<tablename>Contentinum\Entity\FieldTypeMetas</tablename>
 			<column>fieldTypes</column>
-		</hasEntries>		
+		</hasEntries>
 		<request>
 			<xhtmlrequest>1</xhtmlrequest>
 		</request>
 		<response>
 			<redirect>mcwork/preferences</redirect>
-		</response>		
+		</response>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<ctrlmethod>deleteRow</ctrlmethod>	
+			<ctrlmethod>deleteRow</ctrlmethod>
 			<worker><![CDATA[Mcwork\Model\DeleteItem]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>	
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\WebPreferences]]></entity>
-			<targetentities></targetentities>			
+			<targetentities></targetentities>
 		</app>
-	</mcwork_preferences_delete>	
-	
-	
+	</mcwork_preferences_delete>
+
+
 	<mcwork_pagecontent>
 		<title></title>
 		<bodyTagAttribs></bodyTagAttribs>
@@ -341,7 +363,7 @@
 		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
 		<content></content>
 		<footer></footer>
-		<template>content/pagecontent</template>	
+		<template>content/pagecontent</template>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
@@ -352,9 +374,9 @@
 			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
 			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\WebPagesContent]]></entity>
-		</app>	
-	</mcwork_pagecontent> 	
-	
+		</app>
+	</mcwork_pagecontent>
+
 	<mcwork_pagecontent_add>
 		<title></title>
 		<bodyTagAttribs></bodyTagAttribs>
@@ -367,7 +389,7 @@
 		<tableedit>1</tableedit>
 		<template_widget>
         <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>	
+		</template_widget>
 		<app>
 			<controller></controller>
 			<worker><![CDATA[Mcwork\Model\SavePage]]></worker>
@@ -380,8 +402,13 @@
 			<form><![CDATA[Mcwork\Form\PageForm]]></form>
 			<formaction><![CDATA[/mcwork/pagecontent/add]]></formaction>
 			<settoroute><![CDATA[/mcwork/pagecontent]]></settoroute>
-			<populate><resource>index</resource> <htmlwidgets>content</htmlwidgets> <robots>index,follow</robots><publish>yes</publish></populate>
-		</app>	
+			<populate>
+				<resource>index</resource>
+				<htmlwidgets>content</htmlwidgets>
+				<robots>index,follow</robots>
+				<publish>yes</publish>
+			</populate>
+		</app>
 	</mcwork_pagecontent_add>
 	<mcwork_pagecontent_edit>
 		<title></title>
@@ -402,15 +429,17 @@
 			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\WebPagesContent]]></entity>
 			<targetentities>
-			    <webContent><![CDATA[Contentinum\Entity\WebContent]]></webContent>
+				<webContent><![CDATA[Contentinum\Entity\WebContent]]></webContent>
 				<webPagesId><![CDATA[Contentinum\Entity\WebPagesParameter]]></webPagesId>
 			</targetentities>
-			<setexclude><field>id</field></setexclude>
+			<setexclude>
+				<field>id</field>
+			</setexclude>
 			<form><![CDATA[Mcwork\Form\PageForm]]></form>
 			<formaction><![CDATA[/mcwork/pagecontent/edit]]></formaction>
 			<settoroute><![CDATA[/mcwork/pagecontent]]></settoroute>
-		</app>	
-	</mcwork_pagecontent_edit>		
+		</app>
+	</mcwork_pagecontent_edit>
 	<mcwork_pagecontent_delete>
 		<action>contenthandle</action>
 		<title></title>
@@ -426,23 +455,23 @@
 		<hasEntries>
 			<tablename>Contentinum\Entity\FieldTypeMetas</tablename>
 			<column>fieldTypes</column>
-		</hasEntries>		
+		</hasEntries>
 		<request>
 			<xhtmlrequest>1</xhtmlrequest>
 		</request>
 		<response>
 			<redirect>mcwork/pagecontent</redirect>
-		</response>		
+		</response>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<ctrlmethod>deleteRow</ctrlmethod>	
+			<ctrlmethod>deleteRow</ctrlmethod>
 			<worker><![CDATA[Mcwork\Model\DeleteItem]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>	
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\WebPagesContent]]></entity>
-			<targetentities></targetentities>			
+			<targetentities></targetentities>
 		</app>
-	</mcwork_pagecontent_delete>		
-	
+	</mcwork_pagecontent_delete>
+
 	<mcwork_redirects>
 		<title></title>
 		<bodyTagAttribs></bodyTagAttribs>
@@ -451,7 +480,7 @@
 		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
 		<content></content>
 		<footer></footer>
-		<template>content/redirects</template>	
+		<template>content/redirects</template>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
@@ -462,8 +491,8 @@
 			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
 			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\WebRedirect]]></entity>
-		</app>	
-	</mcwork_redirects> 
+		</app>
+	</mcwork_redirects>
 	<mcwork_redirects_add>
 		<title></title>
 		<bodyTagAttribs></bodyTagAttribs>
@@ -476,7 +505,7 @@
 		<tableedit>1</tableedit>
 		<template_widget>
         <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>	
+		</template_widget>
 		<app>
 			<controller></controller>
 			<worker><![CDATA[Mcwork\Model\SaveRedirect]]></worker>
@@ -488,8 +517,13 @@
 			<form><![CDATA[Mcwork\Form\RedirectForm]]></form>
 			<formaction><![CDATA[/mcwork/redirects/add]]></formaction>
 			<settoroute><![CDATA[/mcwork/redirects]]></settoroute>
-			<populate><resource>index</resource> <htmlwidgets>content</htmlwidgets> <robots>index,follow</robots><publish>yes</publish></populate>
-		</app>	
+			<populate>
+				<resource>index</resource>
+				<htmlwidgets>content</htmlwidgets>
+				<robots>index,follow</robots>
+				<publish>yes</publish>
+			</populate>
+		</app>
 	</mcwork_redirects_add>
 	<mcwork_redirects_edit>
 		<title></title>
@@ -512,12 +546,14 @@
 			<targetentities>
 				<webPagesId><![CDATA[Contentinum\Entity\WebPagesParameter]]></webPagesId>
 			</targetentities>
-			<setexclude><field>id</field></setexclude>
+			<setexclude>
+				<field>id</field>
+			</setexclude>
 			<form><![CDATA[Mcwork\Form\RedirectForm]]></form>
 			<formaction><![CDATA[/mcwork/redirects/edit]]></formaction>
 			<settoroute><![CDATA[/mcwork/redirects]]></settoroute>
-		</app>	
-	</mcwork_redirects_edit>		
+		</app>
+	</mcwork_redirects_edit>
 	<mcwork_redirects_delete>
 		<action>contenthandle</action>
 		<title></title>
@@ -529,25 +565,25 @@
 		<footer></footer>
 		<toolbar></toolbar>
 		<tableedit></tableedit>
-		<template_widget></template_widget>	
+		<template_widget></template_widget>
 		<request>
 			<xhtmlrequest>1</xhtmlrequest>
 		</request>
 		<response>
 			<redirect>mcwork/redirects</redirect>
-		</response>		
+		</response>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<ctrlmethod>deleteRow</ctrlmethod>	
+			<ctrlmethod>deleteRow</ctrlmethod>
 			<worker><![CDATA[Mcwork\Model\DeleteItem]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>	
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\WebRedirect]]></entity>
-			<targetentities></targetentities>			
+			<targetentities></targetentities>
 		</app>
-	</mcwork_redirects_delete>		
-	
-	
-	
+	</mcwork_redirects_delete>
+
+
+
 	<mcwork_fieldtypes>
 		<title></title>
 		<bodyTagAttribs></bodyTagAttribs>
@@ -556,7 +592,7 @@
 		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
 		<content></content>
 		<footer></footer>
-		<template>content/fieldtypes</template>	
+		<template>content/fieldtypes</template>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
@@ -567,8 +603,8 @@
 			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
 			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\FieldTypes]]></entity>
-		</app>	
-	</mcwork_fieldtypes> 
+		</app>
+	</mcwork_fieldtypes>
 	<mcwork_fieldtypes_add>
 		<title></title>
 		<bodyTagAttribs></bodyTagAttribs>
@@ -581,7 +617,7 @@
 		<tableedit>1</tableedit>
 		<template_widget>
         <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>	
+		</template_widget>
 		<app>
 			<controller></controller>
 			<worker><![CDATA[ContentinumComponents\Mapper\Process]]></worker>
@@ -591,7 +627,7 @@
 			<form><![CDATA[Mcwork\Form\FieldtypesFrom]]></form>
 			<formaction><![CDATA[/mcwork/fieldtypes/add]]></formaction>
 			<settoroute><![CDATA[/mcwork/fieldtypes]]></settoroute>
-		</app>	
+		</app>
 	</mcwork_fieldtypes_add>
 	<mcwork_fieldtypes_edit>
 		<title></title>
@@ -612,12 +648,14 @@
 			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\FieldTypes]]></entity>
 			<targetentities></targetentities>
-			<setexclude><field>id</field></setexclude>
+			<setexclude>
+				<field>id</field>
+			</setexclude>
 			<form><![CDATA[Mcwork\Form\FieldtypesFrom]]></form>
 			<formaction><![CDATA[/mcwork/fieldtypes/edit]]></formaction>
 			<settoroute><![CDATA[/mcwork/fieldtypes]]></settoroute>
-		</app>	
-	</mcwork_fieldtypes_edit>		
+		</app>
+	</mcwork_fieldtypes_edit>
 	<mcwork_fieldtypes_delete>
 		<action>contenthandle</action>
 		<title></title>
@@ -633,22 +671,22 @@
 		<hasEntries>
 			<tablename>Contentinum\Entity\FieldTypeMetas</tablename>
 			<column>fieldTypes</column>
-		</hasEntries>		
+		</hasEntries>
 		<request>
 			<xhtmlrequest>1</xhtmlrequest>
 		</request>
 		<response>
 			<redirect>mcwork_fieldtypes</redirect>
-		</response>		
+		</response>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<ctrlmethod>deleteRow</ctrlmethod>	
+			<ctrlmethod>deleteRow</ctrlmethod>
 			<worker><![CDATA[Mcwork\Model\DeleteItem]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>	
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\FieldTypes]]></entity>
-			<targetentities></targetentities>			
-		</app>	
-	
+			<targetentities></targetentities>
+		</app>
+
 	</mcwork_fieldtypes_delete>
 	<mcwork_fieldmetas>
 		<title></title>
@@ -658,7 +696,7 @@
 		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
 		<content></content>
 		<footer></footer>
-		<template>content/fieldmetas</template>	
+		<template>content/fieldmetas</template>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
@@ -669,7 +707,7 @@
 			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
 			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\FieldTypeMetas]]></entity>
-		</app>	
+		</app>
 	</mcwork_fieldmetas>
 	<mcwork_fieldmetas_add>
 		<title></title>
@@ -683,7 +721,7 @@
 		<tableedit>1</tableedit>
 		<template_widget>
         <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>	
+		</template_widget>
 		<app>
 			<controller></controller>
 			<worker><![CDATA[ContentinumComponents\Mapper\Process]]></worker>
@@ -695,7 +733,7 @@
 			<form><![CDATA[Mcwork\Form\FieldmetasForm]]></form>
 			<formaction><![CDATA[/mcwork/fieldmetas/add]]></formaction>
 			<settoroute><![CDATA[/mcwork/fieldmetas]]></settoroute>
-		</app>	
+		</app>
 	</mcwork_fieldmetas_add>
 	<mcwork_fieldmetas_edit>
 		<title></title>
@@ -718,11 +756,13 @@
 			<targetentities>
 				<fieldTypes><![CDATA[Contentinum\Entity\FieldTypes]]></fieldTypes>
 			</targetentities>
-			<setexclude><field>id</field></setexclude>
+			<setexclude>
+				<field>id</field>
+			</setexclude>
 			<form><![CDATA[Mcwork\Form\FieldmetasForm]]></form>
 			<formaction><![CDATA[/mcwork/fieldmetas/edit]]></formaction>
 			<settoroute><![CDATA[/mcwork/fieldmetas]]></settoroute>
-		</app>	
+		</app>
 	</mcwork_fieldmetas_edit>
 	<mcwork_fieldmetas_delete>
 		<action>contenthandle</action>
@@ -739,20 +779,20 @@
 		<hasEntries>
 			<tablename>Contentinum\Entity\Accounts</tablename>
 			<column>fieldMetas</column>
-		</hasEntries>	
+		</hasEntries>
 		<request>
 			<xhtmlrequest>1</xhtmlrequest>
 		</request>
 		<response>
 			<redirect>/mcwork/fieldmetas</redirect>
-		</response>		
+		</response>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<ctrlmethod>deleteRow</ctrlmethod>	
+			<ctrlmethod>deleteRow</ctrlmethod>
 			<worker><![CDATA[Mcwork\Model\DeleteItem]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>	
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\FieldTypeMetas]]></entity>
-			<targetentities></targetentities>			
+			<targetentities></targetentities>
 		</app>
 	</mcwork_fieldmetas_delete>
 	<mcwork_accounts>
@@ -763,7 +803,7 @@
 		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
 		<content></content>
 		<footer></footer>
-		<template>content/accounts</template>	
+		<template>content/accounts</template>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
@@ -774,7 +814,7 @@
 			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
 			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\Accounts]]></entity>
-		</app>	
+		</app>
 	</mcwork_accounts>
 	<mcwork_accounts_add>
 		<title></title>
@@ -788,7 +828,7 @@
 		<tableedit>1</tableedit>
 		<template_widget>
         <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>	
+		</template_widget>
 		<app>
 			<controller></controller>
 			<worker><![CDATA[Mcwork\Model\SaveAccounts]]></worker>
@@ -800,7 +840,7 @@
 			<form><![CDATA[Mcwork\Form\AccountForm]]></form>
 			<formaction><![CDATA[/mcwork/accounts/add]]></formaction>
 			<settoroute><![CDATA[/mcwork/accounts]]></settoroute>
-		</app>	
+		</app>
 	</mcwork_accounts_add>
 	<mcwork_accounts_edit>
 		<title></title>
@@ -823,11 +863,13 @@
 			<targetentities>
 				<fieldMetas><![CDATA[Contentinum\Entity\FieldTypeMetas]]></fieldMetas>
 			</targetentities>
-			<setexclude><field>id</field></setexclude>
+			<setexclude>
+				<field>id</field>
+			</setexclude>
 			<form><![CDATA[Mcwork\Form\AccountForm]]></form>
 			<formaction><![CDATA[/mcwork/accounts/edit]]></formaction>
 			<settoroute><![CDATA[/mcwork/accounts]]></settoroute>
-		</app>	
+		</app>
 	</mcwork_accounts_edit>
 	<mcwork_accounts_delete>
 		<action>contenthandle</action>
@@ -844,22 +886,22 @@
 		<hasEntries>
 			<tablename>Contentinum\Entity\Contacts</tablename>
 			<column>accounts</column>
-		</hasEntries>		
+		</hasEntries>
 		<request>
 			<xhtmlrequest>1</xhtmlrequest>
 		</request>
 		<response>
 			<redirect>/mcwork/accounts</redirect>
-		</response>		
+		</response>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<ctrlmethod>deleteRow</ctrlmethod>	
+			<ctrlmethod>deleteRow</ctrlmethod>
 			<worker><![CDATA[Mcwork\Model\DeleteItem]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>	
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\Accounts]]></entity>
-			<targetentities></targetentities>			
-		</app>	
-	
+			<targetentities></targetentities>
+		</app>
+
 	</mcwork_accounts_delete>
 	<mcwork_contacts>
 		<title></title>
@@ -869,7 +911,7 @@
 		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
 		<content></content>
 		<footer></footer>
-		<template>content/contacts</template>	
+		<template>content/contacts</template>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
@@ -880,7 +922,7 @@
 			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
 			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\Contacts]]></entity>
-		</app>	
+		</app>
 	</mcwork_contacts>
 	<mcwork_contacts_add>
 		<title></title>
@@ -894,7 +936,7 @@
 		<tableedit>1</tableedit>
 		<template_widget>
         <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>	
+		</template_widget>
 		<app>
 			<controller></controller>
 			<worker><![CDATA[Mcwork\Model\SaveContacts]]></worker>
@@ -906,7 +948,7 @@
 			<form><![CDATA[Mcwork\Form\ContactForm]]></form>
 			<formaction><![CDATA[/mcwork/contacts/add]]></formaction>
 			<settoroute><![CDATA[/mcwork/contacts]]></settoroute>
-		</app>	
+		</app>
 	</mcwork_contacts_add>
 	<mcwork_contacts_edit>
 		<title></title>
@@ -929,11 +971,13 @@
 			<targetentities>
 				<accounts><![CDATA[Contentinum\Entity\Accounts]]></accounts>
 			</targetentities>
-			<setexclude><field>id</field></setexclude>
+			<setexclude>
+				<field>id</field>
+			</setexclude>
 			<form><![CDATA[Mcwork\Form\ContactForm]]></form>
 			<formaction><![CDATA[/mcwork/contacts/edit]]></formaction>
 			<settoroute><![CDATA[/mcwork/contacts]]></settoroute>
-		</app>	
+		</app>
 	</mcwork_contacts_edit>
 	<mcwork_contacts_delete>
 		<action>contenthandle</action>
@@ -950,20 +994,20 @@
 		<hasEntries>
 			<tablename>Contentinum\Entity\UsersV5</tablename>
 			<column>contact</column>
-		</hasEntries>		
+		</hasEntries>
 		<request>
 			<xhtmlrequest>1</xhtmlrequest>
 		</request>
 		<response>
 			<redirect>/mcwork/contacts</redirect>
-		</response>		
+		</response>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<ctrlmethod>deleteRow</ctrlmethod>	
+			<ctrlmethod>deleteRow</ctrlmethod>
 			<worker><![CDATA[Mcwork\Model\DeleteItem]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>	
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\Contacts]]></entity>
-			<targetentities></targetentities>			
+			<targetentities></targetentities>
 		</app>
 	</mcwork_contacts_delete>
 	<mcwork_users>
@@ -974,7 +1018,7 @@
 		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
 		<content></content>
 		<footer></footer>
-		<template>content/users</template>	
+		<template>content/users</template>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
@@ -985,7 +1029,7 @@
 			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
 			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\UsersV5]]></entity>
-		</app>	
+		</app>
 	</mcwork_users>
 	<mcwork_users_add>
 		<title></title>
@@ -999,7 +1043,7 @@
 		<tableedit>1</tableedit>
 		<template_widget>
         <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>	
+		</template_widget>
 		<app>
 			<controller></controller>
 			<worker><![CDATA[ContentinumComponents\Mapper\Process]]></worker>
@@ -1012,7 +1056,7 @@
 			<form><![CDATA[Mcwork\Form\UserAddForm]]></form>
 			<formaction><![CDATA[/mcwork/users/add]]></formaction>
 			<settoroute><![CDATA[/mcwork/users]]></settoroute>
-		</app>	
+		</app>
 	</mcwork_users_add>
 	<mcwork_users_edit>
 		<title></title>
@@ -1036,11 +1080,13 @@
 				<userGroups><![CDATA[Contentinum\Entity\UserGroups]]></userGroups>
 				<contact><![CDATA[Contentinum\Entity\Contacts]]></contact>
 			</targetentities>
-			<setexclude><field>id</field></setexclude>
+			<setexclude>
+				<field>id</field>
+			</setexclude>
 			<form><![CDATA[Mcwork\Form\ContactForm]]></form>
 			<formaction><![CDATA[/mcwork/users/edit]]></formaction>
 			<settoroute><![CDATA[/mcwork/users]]></settoroute>
-		</app>	
+		</app>
 	</mcwork_users_edit>
 	<mcwork_users_delete>
 		<action>contenthandle</action>
@@ -1054,20 +1100,20 @@
 		<toolbar></toolbar>
 		<tableedit></tableedit>
 		<template_widget></template_widget>
-		<hasEntries></hasEntries>		
+		<hasEntries></hasEntries>
 		<request>
 			<xhtmlrequest>1</xhtmlrequest>
 		</request>
 		<response>
 			<redirect>/mcwork/users</redirect>
-		</response>		
+		</response>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<ctrlmethod>deleteRow</ctrlmethod>	
+			<ctrlmethod>deleteRow</ctrlmethod>
 			<worker><![CDATA[Mcwork\Model\DeleteItem]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>	
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\UsersV5]]></entity>
-			<targetentities></targetentities>			
+			<targetentities></targetentities>
 		</app>
 	</mcwork_users_delete>
 	<mcwork_cache>
@@ -1084,13 +1130,13 @@
 		<tableedit>1</tableedit>
 		<template_widget>
         <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>	
+		</template_widget>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
 			<worker><![CDATA[Mcwork\Model\Cachecontent]]></worker>
 			<storage><![CDATA[ContentinumComponents\Storage\StorageManager]]></storage>
 			<entity><![CDATA[Mcwork\Entity\CacheFiles]]></entity>
-		</app>				
+		</app>
 	</mcwork_cache>
 	<mcwork_cache_clear>
 		<action>contenthandle</action>
@@ -1099,12 +1145,12 @@
 		</response>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<ctrlmethod>emptyCache</ctrlmethod>	
+			<ctrlmethod>emptyCache</ctrlmethod>
 			<worker><![CDATA[Mcwork\Model\Cachecontent]]></worker>
 			<storage><![CDATA[ContentinumComponents\Storage\StorageManager]]></storage>
 			<entity><![CDATA[Mcwork\Entity\CacheFiles]]></entity>
-			<targetentities></targetentities>			
-		</app>			
+			<targetentities></targetentities>
+		</app>
 	</mcwork_cache_clear>
 	<mcwork_logs>
 		<action>displaycontent</action>
@@ -1120,13 +1166,13 @@
 		<tableedit>1</tableedit>
 		<template_widget>
         <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>	
+		</template_widget>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
 			<worker><![CDATA[Mcwork\Model\Directorycontent]]></worker>
 			<storage><![CDATA[ContentinumComponents\Storage\StorageManager]]></storage>
 			<entity><![CDATA[Mcwork\Entity\LogFiles]]></entity>
-		</app>				
+		</app>
 	</mcwork_logs>
 	<mcwork_logs_display>
 		<action>displaycontent</action>
@@ -1142,13 +1188,13 @@
 		<tableedit></tableedit>
 		<template_widget>
         <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>	
+		</template_widget>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
 			<worker><![CDATA[Mcwork\Model\Filecontent]]></worker>
 			<storage><![CDATA[ContentinumComponents\Storage\StorageManager]]></storage>
 			<entity><![CDATA[Mcwork\Entity\LogFiles]]></entity>
-		</app>				
+		</app>
 	</mcwork_logs_display>
 	<mcwork_logs_download>
 		<action>downloadcontent</action>
@@ -1162,13 +1208,13 @@
 				<Pragma>public</Pragma>
 			</header>
 		</response>
-		<template>content/download</template>	
+		<template>content/download</template>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
 			<worker><![CDATA[Mcwork\Model\Filecontent]]></worker>
 			<storage><![CDATA[ContentinumComponents\Storage\StorageManager]]></storage>
 			<entity><![CDATA[Mcwork\Entity\LogFiles]]></entity>
-		</app>	
+		</app>
 	</mcwork_logs_download>
 	<mcwork_logs_clear>
 		<action>contenthandle</action>
@@ -1177,12 +1223,12 @@
 		</response>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<ctrlmethod>emptyLogFile</ctrlmethod>	
+			<ctrlmethod>emptyLogFile</ctrlmethod>
 			<worker><![CDATA[Mcwork\Model\Filecontent]]></worker>
 			<storage><![CDATA[ContentinumComponents\Storage\StorageManager]]></storage>
 			<entity><![CDATA[Mcwork\Entity\LogFiles]]></entity>
-			<targetentities></targetentities>			
-		</app>			
+			<targetentities></targetentities>
+		</app>
 	</mcwork_logs_clear>
 	<mcwork_logs_delete>
 		<action>contenthandle</action>
@@ -1191,12 +1237,12 @@
 		</response>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<ctrlmethod>deleteLogFile</ctrlmethod>	
+			<ctrlmethod>deleteLogFile</ctrlmethod>
 			<worker><![CDATA[Mcwork\Model\Filecontent]]></worker>
 			<storage><![CDATA[ContentinumComponents\Storage\StorageManager]]></storage>
 			<entity><![CDATA[Mcwork\Entity\LogFiles]]></entity>
-			<targetentities></targetentities>			
-		</app>			
+			<targetentities></targetentities>
+		</app>
 	</mcwork_logs_delete>
 	<Mcwork_Controller_Content_Medias>
 		<title>Mcwork_Controller_Content_Medias</title>

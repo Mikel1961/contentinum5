@@ -2,12 +2,13 @@
 return array(
     'default' => array(
         'Medias' => array(
-            'alternate-sizes' => array(
+            'alternate_sizes' => array(
+                'max' => '2600',
                 'thumbnail' => '200',
                 'mobile' => '360',
-                '1024' => '800',
-                '1441' => '1200',
-                '1921' => ''
+                's' => '800',
+                'l' => '1200',
+                'xl' => '1920'
             )
         )
     )
