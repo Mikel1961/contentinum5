@@ -57,11 +57,15 @@ class McworkMediasServiceFactory extends WebsiteServiceFactory
             $worker = new MediaQueries($sl->get($config['entitymanager']));
             $worker->setEntity($config['entity']);
             $datas = $worker->fetchMediaTable(array(
+                'id',
+                'mediaName',
                 'mediaSource',
                 'mediaInUse'
             ));
             foreach ($datas as $row) {
-                $result[$row['mediaSource']] = $row['mediaInUse'];
+                $result[$row['mediaSource']]['mediaInUse'] = $row['mediaInUse'];
+                $result[$row['mediaSource']]['id'] = $row['id'];
+                $result[$row['mediaSource']]['mediaName'] = $row['mediaName'];
             }
             $cache->setItem($key, $result);
         }
