@@ -32,13 +32,23 @@ use Zend\View\Model\ViewModel;
 
 /**
  * contentinum events
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class IndexController extends AbstractContentinumController
 {
+
     public function indexAction()
     {
-    	$this->adminlayout($this->layout (), $this->getServiceLocator()->get('Mcwork\Pages'),'Mcevent_Controller_Index',$this->getServiceLocator()->get('Contentinum\Acl\DefaultRole'),$this->getServiceLocator()->get('Contentinum\Acl\Acl'),$this->getServiceLocator()->get('viewHelperManager'));
-    	return new ViewModel(array('page' => 'Mcevent_Controller_Index', 'pagecontent' => '' , 'entries' => ''));
+        $this->adminlayout($this->layout(), $this->getServiceLocator()
+            ->get('Mcwork\Pages'), 'Mcevent_Controller_Index', $this->getServiceLocator()
+            ->get('Contentinum\Acl\DefaultRole'), $this->getServiceLocator()
+            ->get('Contentinum\Acl\Acl'), $this->getServiceLocator()
+            ->get('viewHelperManager'));
+        return new ViewModel(array(
+            'page' => 'Mcevent_Controller_Index',
+            'pagecontent' => '',
+            'entries' => ''
+        ));
     }
 }

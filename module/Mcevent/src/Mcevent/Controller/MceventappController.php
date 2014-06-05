@@ -32,45 +32,55 @@ use Zend\View\Model\ViewModel;
 
 /**
  * Mcevent module application controller
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class MceventappController extends AbstractBackendController
 {
-	/**
-	 * Page application
-	 * @see \ContentinumComponents\Controller\AbstractBackendController::application()
-	 */
-	protected function application($ctrl, $page, $mcworkpages, $role = null, $acl = null) 
-	{
-		$entries = array();		
-		$content = false;
-		if ($mcworkpages->$page){
-			$content = $mcworkpages->$page;
-		}
-		
-		$this->adminlayout($this->layout(),$mcworkpages,$page,$role,$acl,$this->getServiceLocator()->get('viewHelperManager'));
-		return new ViewModel(array('page' => $page, 'pagecontent' => $content , 'entries' => $entries));
-		
-	}
-	
-	/**
-	 * (non-PHPdoc)
-	 * @see \ContentinumComponents\Controller\AbstractBackendController::displaycontent()
-	 */
-	protected function displaycontent($ctrl, $page, $mcworkpages, $role = null, $acl = null)
-	{}
 
-	/**
-	 * (non-PHPdoc)
-	 * @see \ContentinumComponents\Controller\AbstractBackendController::downloadcontent()
-	 */
-	protected function downloadcontent($ctrl, $page, $mcworkpages, $role = null, $acl = null)
-	{}
-	
-	/**
-	 * (non-PHPdoc)
-	 * @see \ContentinumComponents\Controller\AbstractBackendController::contenthandle()
-	 */
-	protected function contenthandle($ctrl, $page, $mcworkpages, $role = null, $acl = null)
-	{}	
+    /**
+     * Page application
+     * 
+     * @see \ContentinumComponents\Controller\AbstractBackendController::application()
+     */
+    protected function application($ctrl, $page, $mcworkpages, $role = null, $acl = null)
+    {
+        $entries = array();
+        $content = false;
+        if ($mcworkpages->$page) {
+            $content = $mcworkpages->$page;
+        }
+        
+        $this->adminlayout($this->layout(), $mcworkpages, $page, $role, $acl, $this->getServiceLocator()
+            ->get('viewHelperManager'));
+        return new ViewModel(array(
+            'page' => $page,
+            'pagecontent' => $content,
+            'entries' => $entries
+        ));
+    }
+
+    /**
+     * (non-PHPdoc)
+     * 
+     * @see \ContentinumComponents\Controller\AbstractBackendController::displaycontent()
+     */
+    protected function displaycontent($ctrl, $page, $mcworkpages, $role = null, $acl = null)
+    {}
+
+    /**
+     * (non-PHPdoc)
+     * 
+     * @see \ContentinumComponents\Controller\AbstractBackendController::downloadcontent()
+     */
+    protected function downloadcontent($ctrl, $page, $mcworkpages, $role = null, $acl = null)
+    {}
+
+    /**
+     * (non-PHPdoc)
+     * 
+     * @see \ContentinumComponents\Controller\AbstractBackendController::contenthandle()
+     */
+    protected function contenthandle($ctrl, $page, $mcworkpages, $role = null, $acl = null)
+    {}
 }

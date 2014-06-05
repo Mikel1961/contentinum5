@@ -32,10 +32,12 @@ use Zend\View\Model\ViewModel;
 
 /**
  * User login
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class IndexController extends AbstractContentinumController
 {
+
     public function indexAction()
     {
         return new ViewModel();

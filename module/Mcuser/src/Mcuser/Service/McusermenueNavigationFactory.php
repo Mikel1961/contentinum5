@@ -28,18 +28,22 @@
 namespace Mcuser\Service;
 
 use Zend\Navigation\Service\AbstractNavigationFactory;
+
 /**
  * Module navigation event
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class McusermenueNavigationFactory extends AbstractNavigationFactory
 {
+
     /**
      * (non-PHPdoc)
+     * 
      * @see \Zend\Navigation\Service\AbstractNavigationFactory::getName()
      */
-	public function getName() 
-	{
-		return 'mcusermenue';
-	}	
+    public function getName()
+    {
+        return 'mcusermenue';
+    }
 }
