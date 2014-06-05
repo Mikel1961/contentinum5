@@ -1,5 +1,4 @@
 <?php
-
 namespace Contentinum\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -13,162 +12,181 @@ use ContentinumComponents\Entity\AbstractEntity;
  */
 class WebMediaMetas extends AbstractEntity
 {
+
     /**
-     * @var integer
      *
+     * @var integer 
+     *      
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private $id;
-        
+
     /**
-     * @var string
      *
+     * @var string 
+     * 
      * @ORM\Column(name="media_metas", type="text", nullable=true)
      */
     private $mediaMetas = '';
 
     /**
-     * @var integer
      *
+     * @var integer 
+     * 
      * @ORM\Column(name="created_by", type="integer", nullable=false)
      */
     private $createdBy = '0';
 
     /**
-     * @var integer
      *
+     * @var integer 
+     * 
      * @ORM\Column(name="update_by", type="integer", nullable=false)
      */
     private $updateBy = '0';
 
     /**
-     * @var \DateTime
      *
+     * @var \DateTime 
+     * 
      * @ORM\Column(name="register_date", type="datetime", nullable=false)
      */
     private $registerDate = '0000-00-00 00:00:00';
 
     /**
-     * @var \DateTime
      *
+     * @var \DateTime 
+     * 
      * @ORM\Column(name="up_date", type="datetime", nullable=false)
      */
     private $upDate = '0000-00-00 00:00:00';
-    
+
     /**
-     * @var \Contentinum\Entity\WebMedia
      *
+     * @var \Contentinum\Entity\WebMedia 
+     *      
      * @ORM\ManyToOne(targetEntity="Contentinum\Entity\WebMedias")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="web_medias_id", referencedColumnName="id")
+     *  @ORM\JoinColumn(name="web_medias_id", referencedColumnName="id")
      * })
      */
-    private $webMediasId;    
+    private $webMediasId;
 
     /**
      * Construct
-     * @param array $options
+     *
+     * @param array $options            
      */
-    public function __construct (array $options = null)
+    public function __construct(array $options = null)
     {
-    	if (is_array($options)) {
-    		$this->setOptions($options);
-    	}
+        if (is_array($options)) {
+            $this->setOptions($options);
+        }
     }
-    
-    /** (non-PHPdoc)
+
+    /**
+     * (non-PHPdoc)
+     *
      * @see \ContentinumComponents\Entity\AbstractEntity::getEntityName()
      */
     public function getEntityName()
     {
-    	return get_class($this);
+        return get_class($this);
     }
-    
-    /** (non-PHPdoc)
+
+    /**
+     * (non-PHPdoc)
+     *
      * @see \ContentinumComponents\Entity\AbstractEntity::getPrimaryKey()
      */
     public function getPrimaryKey()
     {
-    	return 'id';
+        return 'id';
     }
-    
-    /** (non-PHPdoc)
+
+    /**
+     * (non-PHPdoc)
+     *
      * @see \ContentinumComponents\Entity\AbstractEntity::getPrimaryValue()
      */
     public function getPrimaryValue()
     {
-    	return $this->id;
+        return $this->id;
     }
-    
-    /** (non-PHPdoc)
+
+    /**
+     * (non-PHPdoc)
+     *
      * @see \ContentinumComponents\Entity\AbstractEntity::getProperties()
      */
     public function getProperties()
     {
-    	return get_object_vars($this);
+        return get_object_vars($this);
     }
-    
+
     /**
-     * @param number $id
+     *
+     * @param number $id            
      *
      * @return WebImages
      */
     public function setId($id)
     {
-    	$this->id = $id;
-    
-    	return $this;
+        $this->id = $id;
+        
+        return $this;
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
 
-	/**
-	 * @return the $mediaMetas
-	 */
-	public function getMediaMetas() 
-	{
-		return $this->mediaMetas;
-	}
+    /**
+     *
+     * @return the $mediaMetas
+     */
+    public function getMediaMetas()
+    {
+        return $this->mediaMetas;
+    }
 
-	/**
-	 * @param string $mediaMetas
-	 * @return WebImages
-	 */
-	public function setMediaMetas($mediaMetas) 
-	{
-		$this->mediaMetas = $mediaMetas;
-		
-		return $this;
-	}
-
+    /**
+     *
+     * @param string $mediaMetas            
+     * @return WebImages
+     */
+    public function setMediaMetas($mediaMetas)
+    {
+        $this->mediaMetas = $mediaMetas;
+        
+        return $this;
+    }
 
     /**
      * Set createdBy
      *
-     * @param integer $createdBy
+     * @param integer $createdBy            
      * @return WebImages
      */
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
-
+        
         return $this;
     }
 
     /**
      * Get createdBy
      *
-     * @return integer 
+     * @return integer
      */
     public function getCreatedBy()
     {
@@ -178,20 +196,20 @@ class WebMediaMetas extends AbstractEntity
     /**
      * Set updateBy
      *
-     * @param integer $updateBy
+     * @param integer $updateBy            
      * @return WebImages
      */
     public function setUpdateBy($updateBy)
     {
         $this->updateBy = $updateBy;
-
+        
         return $this;
     }
 
     /**
      * Get updateBy
      *
-     * @return integer 
+     * @return integer
      */
     public function getUpdateBy()
     {
@@ -201,20 +219,20 @@ class WebMediaMetas extends AbstractEntity
     /**
      * Set registerDate
      *
-     * @param \DateTime $registerDate
+     * @param \DateTime $registerDate            
      * @return WebImages
      */
     public function setRegisterDate($registerDate)
     {
         $this->registerDate = $registerDate;
-
+        
         return $this;
     }
 
     /**
      * Get registerDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getRegisterDate()
     {
@@ -224,42 +242,44 @@ class WebMediaMetas extends AbstractEntity
     /**
      * Set upDate
      *
-     * @param \DateTime $upDate
+     * @param \DateTime $upDate            
      * @return WebImages
      */
     public function setUpDate($upDate)
     {
         $this->upDate = $upDate;
-
+        
         return $this;
     }
 
     /**
      * Get upDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpDate()
     {
         return $this->upDate;
     }
-	/**
-	 * @return the $webMediasId
-	 */
-	public function getWebMediasId() 
-	{
-		return $this->webMediasId;
-	}
 
-	/**
-	 * @param \Contentinum\Entity\WebMedia $webMediasId
-	 * @return WebImages
-	 */
-	public function setWebMediasId($webMediasId) 
-	{
-		$this->webMediasId = $webMediasId;
-		
-		return $this;
-	}
+    /**
+     *
+     * @return the $webMediasId
+     */
+    public function getWebMediasId()
+    {
+        return $this->webMediasId;
+    }
 
+    /**
+     *
+     * @param \Contentinum\Entity\WebMedia $webMediasId            
+     * @return WebImages
+     */
+    public function setWebMediasId($webMediasId)
+    {
+        $this->webMediasId = $webMediasId;
+        
+        return $this;
+    }
 }
