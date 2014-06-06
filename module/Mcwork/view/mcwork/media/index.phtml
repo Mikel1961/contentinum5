@@ -26,39 +26,33 @@
 * @version   1.0.0
 */
 ?>
-<div class="box">
-	<div class="box-title toolbar">
-		<h3>
-			<i class="fa fa-recorder"></i> <?php echo $this->translate($this->mcworkContent( $this->page, $this->pagecontent,'subheadline')); ?> </h3>
-		<ul class="button-group right">
-			<li><button id="btnSelect" class="small button"
-					data-status="unselect"><?php echo $this->translate('Select All'); ?></button></li>
-			<li><button id="btnCopy" class="small button"><?php echo $this->translate('Copy'); ?></button></li>
-			<li><button id="btnMove" class="small button"><?php echo $this->translate('Move'); ?></button></li>
-			<li><button id="btnZip" class="small button"><?php echo $this->translate('Zip'); ?></button></li>
-			<li><button id="btnDelete" class="small button"><?php echo $this->translate('Delete'); ?></button></li>
-		</ul>
-	</div>
-	<div class="box-content nopadding">
-		<div id="foldermediasfiles">
-			<section id="filescrollarea">
+<div class="box"><div class="box-title toolbar">
+<h3><i class="fa fa-recorder"></i> <?php echo $this->translate($this->mcworkContent( $this->page, $this->pagecontent,'subheadline')); ?> </h3>
+<ul class="button-group right">
+	<li><button id="btnSelect" class="small button" data-status="unselect"><?php echo $this->translate('Select All'); ?></button></li>
+	<li><button id="btnCopy" class="small button"><?php echo $this->translate('Copy'); ?></button></li>
+	<li><button id="btnMove" class="small button"><?php echo $this->translate('Move'); ?></button></li>
+	<li><button id="btnZip" class="small button"><?php echo $this->translate('Zip'); ?></button></li>
+	<li><button id="btnDelete" class="small button"><?php echo $this->translate('Delete'); ?></button></li>
+</ul>
+</div><div class="box-content nopadding"><div id="foldermediasfiles"><section id="filescrollarea">
 <?php
-echo $this->mediasTableView($this->entries);
+echo $this->mediasTableView($this->entries, $this->mediatable);
 $up = '';
 if ($this->currentFolder) {
     $up = '/' . str_replace(DS, $this->seperator, $this->currentFolder);
 }
 ?>
 </section>
-			<p><?php echo $this->translate('max_upload') .  ' ['. ini_get('upload_max_filesize'); ?>]</p>
-			<form id="contentinumUpload"
-				action="/mcwork/medias/upload<?php echo $up; ?>" method="post"
-				enctype="multipart/form-data" class="dropzone">
-				<div class="fallback">
-					<input name="file" type="file" multiple />
-				</div>
-			</form>
+<p><?php echo $this->translate('max_upload') .  ' ['. ini_get('upload_max_filesize'); ?>]</p>
+<form id="contentinumUpload"
+	action="/mcwork/medias/upload<?php echo $up; ?>" method="post"
+		enctype="multipart/form-data" class="dropzone">
+		<div class="fallback">
+			<input name="file" type="file" multiple />
 		</div>
+	</form>
+</div>
 <?php
 echo $this->translate($this->mcworkContent( $this->page, $this->pagecontent,'content'));
 ?>
