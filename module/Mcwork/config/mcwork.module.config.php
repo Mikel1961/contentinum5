@@ -44,6 +44,11 @@ return array(
                         'label' => 'Mcwork_Controller_Content_Medias',
                         'uri' => '/mcwork/medias/file',
                         'resource' => 'authorresource'
+                    ),
+                    array(
+                        'label' => 'Media meta description',
+                        'uri' => '/mcwork/mediametas',
+                        'resource' => 'authorresource'
                     )
                 )
             ),
@@ -320,7 +325,7 @@ return array(
                                         'action' => 'remove'
                                     )
                                 )
-                            ),
+                            ),                           
                             
                             'mcwork_app_medias_rename' => array(
                                 'type' => 'Zend\Mvc\Router\Http\Segment',

@@ -1244,6 +1244,57 @@
 			<targetentities></targetentities>
 		</app>
 	</mcwork_logs_delete>
+	
+	
+	<mcwork_mediametas>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>mediametas</headline>
+		<columnright></columnright>
+		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<content></content>
+		<footer></footer>
+		<template>content/mediametas</template>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
+			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebMediaMetas]]></entity>
+		</app>
+	</mcwork_mediametas>	
+	
+	<mcwork_mediametas_edit>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>edit_mediametas</headline>
+		<columnright></columnright>
+		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller></controller>
+			<worker><![CDATA[Mcwork\Model\SaveMediaMetas]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebMediaMetas]]></entity>
+			<targetentities>
+				<webMediasId><![CDATA[Contentinum\Entity\WebMediaMetas]]></webMediasId>
+			</targetentities>
+			<form><![CDATA[Mcwork\Form\MediaMetasForm]]></form>
+			<formaction><![CDATA[/mcwork/mediametas/edit]]></formaction>
+			<settoroute><![CDATA[/mcwork/mediametas]]></settoroute>
+		</app>
+	</mcwork_mediametas_edit>	
+	
 	<Mcwork_Controller_Content_Medias>
 		<title>Mcwork_Controller_Content_Medias</title>
 		<bodyTagAttribs></bodyTagAttribs>
