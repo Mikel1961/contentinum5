@@ -30,7 +30,7 @@ namespace Mcwork\Model;
 use ContentinumComponents\Mapper\Process;
 
 /**
- * Contacts model
+ * Media metas model
  * Prepare datas before save in database
  *
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
