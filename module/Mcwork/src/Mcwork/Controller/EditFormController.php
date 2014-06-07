@@ -86,6 +86,8 @@ class EditFormController extends AbstractFormController
             }
         }
         
+        $this->formFactory->setDataIdent($this->id);
+        
         if ($this->exclude) {
             $this->exclude['value'] = $this->id;
             $this->formFactory->setExclude($this->exclude);
