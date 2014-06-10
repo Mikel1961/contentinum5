@@ -1289,6 +1289,9 @@
 			<targetentities>
 				<webMediasId><![CDATA[Contentinum\Entity\WebMediaMetas]]></webMediasId>
 			</targetentities>
+			<unserialize>
+				<fields>mediaMetas</fields>
+			</unserialize>
 			<form><![CDATA[Mcwork\Form\MediaMetasForm]]></form>
 			<formaction><![CDATA[/mcwork/mediametas/edit]]></formaction>
 			<settoroute><![CDATA[/mcwork/mediametas]]></settoroute>
