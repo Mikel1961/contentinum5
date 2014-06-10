@@ -28,6 +28,7 @@
 namespace Mcwork\Model;
 
 use ContentinumComponents\Mapper\Process;
+use ContentinumComponents\Tools\HandleSerializeDatabase;
 
 /**
  * Media metas model
@@ -37,7 +38,12 @@ use ContentinumComponents\Mapper\Process;
  */
 class SaveMediaMetas extends Process
 {
-
+    /**
+     * Contains the field datas to serialize
+     * @var array
+     */
+    protected $serializeFields = array('alt', 'title', 'caption', 'description', 'longdescription','linkname', 'headline');
+       
     /**
      * Prepare datas
      * 
@@ -46,9 +52,30 @@ class SaveMediaMetas extends Process
     public function save($datas, $entity = null)
     {
         $entity = $this->handleEntity($entity);
+        $configuration = $this->getConfiguration();
         if (null === $entity->getPrimaryValue()) {
             parent::save($datas, $entity);
         } else {
+            $mediaMetas = array();
+            foreach ($this->serializeFields as $field){
+                if (isset($datas[$field])){
+                    $mediaMetas[$field] = $datas[$field];
+                    unset($datas[$field]);
+                }
+            }
+            if (!empty($mediaMetas)){
+                if ($configuration->default->Database_Settings->prepare_serialize_data){
+                    $prepare = $configuration->default->Database_Settings->prepare_serialize_data;
+                    $decode = $configuration->default->Database_Settings->decode_serialize_data;
+                    $datas['prepareSerialize'] = $prepare;
+                    $datas['decodeMetas'] = $decode;
+                    $dataserialize = new HandleSerializeDatabase($prepare);
+                    $datas['mediaMetas'] = $dataserialize->execSerialize($mediaMetas);
+                }
+                
+            } else {
+                $datas['mediaMetas'] = '';
+            }
             parent::save($datas, $entity);
         }
     }
