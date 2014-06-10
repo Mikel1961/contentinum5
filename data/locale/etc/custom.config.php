@@ -10,6 +10,10 @@ return array(
                 'l' => '1200',
                 'xl' => '1920'
             )
-        )
+        ),
+        'Database_Settings' => array(
+	           'prepare_serialize_data' => 'base64_encode',
+               'decode_serialize_data' => 'base64_decode',
+        ),
     )
 );
