@@ -22,6 +22,23 @@ class WebMediaMetas extends AbstractEntity
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private $id;
+    
+    /**
+     *
+     * @var string
+     *
+     * @ORM\Column(name="prepare_serialize", type="string", length=30, nullable=false)
+     */
+    private $prepareSerialize = '';    
+    
+    
+    /**
+     *
+     * @var string
+     *
+     * @ORM\Column(name="decode_metas", type="string", length=30, nullable=false)
+     */
+    private $decodeMetas = '';    
 
     /**
      *
@@ -130,7 +147,7 @@ class WebMediaMetas extends AbstractEntity
      *
      * @param number $id            
      *
-     * @return WebImages
+     * @return WebMediasMetas
      */
     public function setId($id)
     {
@@ -150,6 +167,45 @@ class WebMediaMetas extends AbstractEntity
     }
 
     /**
+	 * @return the $prepareSerialize
+	 */
+	public function getPrepareSerialize() 
+	{
+		return $this->prepareSerialize;
+	}
+
+	/**
+	 * @param string $prepareSerialize
+	 * @return WebMediasMetas
+	 */
+	public function setPrepareSerialize($prepareSerialize) 
+	{
+		$this->prepareSerialize = $prepareSerialize;
+		
+		return $this;
+	}
+
+
+	/**
+	 * @return the $decodeMetas
+	 */
+	public function getDecodeMetas() 
+	{
+		return $this->decodeMetas;
+	}
+
+	/**
+	 * @param string $decodeMetas
+	 * @return WebMediasMetas
+	 */
+	public function setDecodeMetas($decodeMetas) 
+	{
+		$this->decodeMetas = $decodeMetas;
+		
+		return $this;
+	}
+
+	/**
      *
      * @return the $mediaMetas
      */
@@ -161,7 +217,7 @@ class WebMediaMetas extends AbstractEntity
     /**
      *
      * @param string $mediaMetas            
-     * @return WebImages
+     * @return WebMediasMetas
      */
     public function setMediaMetas($mediaMetas)
     {
@@ -174,7 +230,7 @@ class WebMediaMetas extends AbstractEntity
      * Set createdBy
      *
      * @param integer $createdBy            
-     * @return WebImages
+     * @return WebMediasMetas
      */
     public function setCreatedBy($createdBy)
     {
@@ -197,7 +253,7 @@ class WebMediaMetas extends AbstractEntity
      * Set updateBy
      *
      * @param integer $updateBy            
-     * @return WebImages
+     * @return WebMediasMetas
      */
     public function setUpdateBy($updateBy)
     {
@@ -220,7 +276,7 @@ class WebMediaMetas extends AbstractEntity
      * Set registerDate
      *
      * @param \DateTime $registerDate            
-     * @return WebImages
+     * @return WebMediasMetas
      */
     public function setRegisterDate($registerDate)
     {
@@ -243,7 +299,7 @@ class WebMediaMetas extends AbstractEntity
      * Set upDate
      *
      * @param \DateTime $upDate            
-     * @return WebImages
+     * @return WebMediasMetas
      */
     public function setUpDate($upDate)
     {
@@ -274,7 +330,7 @@ class WebMediaMetas extends AbstractEntity
     /**
      *
      * @param \Contentinum\Entity\WebMedia $webMediasId            
-     * @return WebImages
+     * @return WebMediasMetas
      */
     public function setWebMediasId($webMediasId)
     {
