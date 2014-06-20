@@ -17,8 +17,10 @@ return array(
             $app = new Contentinum\Service\ContentinumApp();
             $params = $sl->getServiceLocator()->get('Mcwork\Pages');
             $app->setOptions($params->toArray());
+            $customer = $sl->getServiceLocator()->get('Contentinum\Customer');
             if (true === $app->isPageAvailable()) {
                 if (true === $app->setAppData()) {
+                    $imagesTypes = $conf->default->Medias->images_types->toArray();
                     $worker = null;
                     if (false != ($ctrlName = $app->getOptions('controller'))) {
                         $ctrl = new $ctrlName();
@@ -40,6 +42,7 @@ return array(
                     }
                     $ctrl->setEntity(new $entityName());
                     $ctrl->setWorker($worker);
+                    $ctrl->setConfiguration($customer);
                     return $ctrl;
                 }
             } else {
@@ -95,6 +98,7 @@ return array(
             $app = new Contentinum\Service\ContentinumApp();
             $app->setOptions($params->toArray());
             $app->cutUri();
+            $customer = $sl->getServiceLocator()->get('Contentinum\Customer');
             if (true === $app->isPageAvailable()) {
                 if (true === $app->setAppData()) {
                     $worker = null;
@@ -105,6 +109,7 @@ return array(
                         $worker = new $workerName($sl->getServiceLocator()->get('doctrine.entitymanager.orm_default'));
                     }
                     $entityName = $app->getOptions('entity');
+                    $worker->setConfiguration($customer);
                     $worker->setEntity(new $entityName());
                     $targetEntities = $app->getOptions('targetentities');
                     if (is_array($targetEntities) && ! empty($targetEntities)) {
@@ -116,8 +121,12 @@ return array(
                     $formFactory = new $formName($worker);
                     $decorators = $sl->getServiceLocator()->get('Mcwork\FormDecorators');
                     $formFactory->setDecorators($decorators->default->toArray());
-                    $formFactory->setServiceLocator($sl->getServiceLocator());
+                    $formFactory->setServiceLocator($sl->getServiceLocator());    
                     $ctrl = new Mcwork\Controller\EditFormController($formFactory);
+                    if (false != ($unserialize = $app->getOptions('unserialize'))) {
+                        $ctrl->setUnserialize($unserialize);
+                    }       
+                    $ctrl->setConfiguration($customer);             
                     $ctrl->setWorker($worker);
                     $ctrl->setFormAction($app->getOptions('formaction'));
                     $ctrl->setToRoute($app->getOptions('settoroute'));
