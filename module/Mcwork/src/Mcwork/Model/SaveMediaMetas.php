@@ -64,15 +64,17 @@ class SaveMediaMetas extends Process
                 }
             }
             if (!empty($mediaMetas)){
-                if ($configuration->default->Database_Settings->prepare_serialize_data){
-                    $prepare = $configuration->default->Database_Settings->prepare_serialize_data;
-                    $decode = $configuration->default->Database_Settings->decode_serialize_data;
-                    $datas['prepareSerialize'] = $prepare;
-                    $datas['decodeMetas'] = $decode;
-                    $dataserialize = new HandleSerializeDatabase($prepare);
-                    $datas['mediaMetas'] = $dataserialize->execSerialize($mediaMetas);
+                $prepare = false;
+                if ($entity->prepareSerialize){
+                    $prepare = $entity->prepareSerialize;
                 }
-                
+                if (false === $prepare && $configuration->default->Database_Settings->prepare_serialize_data){
+                    $prepare = $configuration->default->Database_Settings->prepare_serialize_data;
+                    $datas['prepareSerialize'] = $prepare;
+                    $datas['decodeMetas'] = $configuration->default->Database_Settings->decode_serialize_data;
+                }
+                $dataserialize = new HandleSerializeDatabase($prepare);
+                $datas['mediaMetas'] = $dataserialize->execSerialize($mediaMetas);
             } else {
                 $datas['mediaMetas'] = '';
             }

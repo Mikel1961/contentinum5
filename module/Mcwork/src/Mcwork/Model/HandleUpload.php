@@ -51,11 +51,17 @@ class HandleUpload extends Process
         if (false !== ($result = $this->alreadyExists($datas['mediaSource'], $entity))){
             $entity = $this->find($result,true);
         }
+        if ( isset($datas['mediaMetas'])) {
+            $metaDatas['mediaMetas'] = $datas['mediaMetas'];
+            $metaDatas['prepareSerialize'] = $datas['prepareSerialize'];
+            $metaDatas['decodeMetas'] = $datas['decodeMetas'];
+            unset($datas['mediaMetas']);
+        }
         $entity = $this->handleEntity($entity);
         if (null === $entity->getPrimaryValue()) {
             $msg = parent::save($datas, $entity);
             $lastInsertId = $this->getLastInsertId();
-            $this->addInMediaMetas($lastInsertId);
+            $this->addInMediaMetas($lastInsertId,$metaDatas);
             return $msg;
         } else {
             parent::save($datas, $entity);
@@ -66,7 +72,7 @@ class HandleUpload extends Process
      * Register media in media meta table
      * @param int $id
      */
-    public function addInMediaMetas($id)
+    public function addInMediaMetas($id,$datas)
     {
         $save = new SaveMediaMetas($this->getStorage());
         $datas['webMediasId'] = $this->find($id, true);

@@ -32,6 +32,18 @@ use ContentinumComponents\Controller\AbstractContentinumController;
 use Zend\View\Model\ViewModel;
 use Zend\Json\Json;
 use ContentinumComponents\Filter\Url\Prepare;
+use ContentinumComponents\File\Extension;
+use ContentinumComponents\File\Name;
+use ContentinumComponents\Images\Size;
+use ContentinumComponents\Images\Resize;
+use ContentinumComponents\Path\Clean;
+use Mcwork\Model\HandleUpload;
+use Contentinum\Entity\WebMedias;
+use Mcwork\Model\Cachecontent;
+use Mcwork\Entity\CacheFiles;
+use ContentinumComponents\Mapper\Worker;
+use Mcwork\Model\SaveMedias;
+use ContentinumComponents\Tools\HandleSerializeDatabase;
 
 /**
  * media controller backend file handle
@@ -43,17 +55,24 @@ class MediaController extends AbstractContentinumController
 
     /**
      * Folder url seperator
-     * 
+     *
      * @var string
      */
     protected $seperator = '_';
 
     /**
      * Base route this controller
-     * 
+     *
      * @var string
      */
     protected $baseroute = 'mcwork/medias';
+
+    /**
+     * Public host folder
+     *
+     * @var string
+     */
+    protected $hostfolder = 'public';
 
     /**
      * Backend start page
@@ -66,12 +85,14 @@ class MediaController extends AbstractContentinumController
         if ($params['mcworkpages']->Mcwork_Controller_Content_Medias) {
             $content = $params['mcworkpages']->Mcwork_Controller_Content_Medias;
         }
-        
         $this->adminlayout($this->layout(), $params['mcworkpages'], 'Mcwork_Controller_Content_Medias', $params['role'], $params['acl'], $this->getServiceLocator()
             ->get('viewHelperManager'));
         $entity = $this->getEntity();
         $cd = $this->currentFolder();
         return new ViewModel(array(
+            'host' => $params['host'],
+            'docroot' => $this->worker->getStorage()->getDocumentRoot(),
+            'mediatable' => $params['medias'],
             'page' => 'Mcwork_Controller_Content_Medias',
             'pagecontent' => $content,
             'basepath' => $entity->getCurrentPath(),
@@ -81,6 +102,8 @@ class MediaController extends AbstractContentinumController
         ));
     }
 
+    /**
+     */
     public function uploadAction()
     {
         $params = $this->initParams();
@@ -90,47 +113,104 @@ class MediaController extends AbstractContentinumController
         } else {
             $cd = '';
         }
-        
+        $conf = $this->getServiceLocator()->get('Contentinum\Customer');
+        $alternateSizes = $conf->default->Medias->alternate_sizes;
         if (! empty($_FILES)) {
+            $insert['prepareSerialize'] = $conf->default->Database_Settings->prepare_serialize_data;
+            $insert['decodeMetas'] = $conf->default->Database_Settings->decode_serialize_data;
+            $save = new HandleUpload($this->getServiceLocator()->get('doctrine.entitymanager.orm_default'));
+            $mcSerialize = new HandleSerializeDatabase($insert['prepareSerialize']);
             $target = $this->worker->getStorage()
                 ->setPath(DS . $this->entity->getCurrentPath())
-                ->getAdapter();
-            // var_dump($_FILES);
+                ->getAdapter() . DS . $cd;
+            $docRoot = $this->worker->getStorage()->getDocumentRoot();
             if (is_array($_FILES['file']['tmp_name'])) {
                 foreach ($_FILES['file']['tmp_name'] as $k => $file) {
-                    
-                    $tempFile = $file; // $_FILES['file']['tmp_name']; //3
-                    $fileName = $_FILES['file']['name'][$k];
-                    $insert['mediaName'] = $fileName;
+                    $tempFile = $file; // uploaded file tmp name
+                                       // prepare database insert
+                    $insert['mediaName'] = $_FILES['file']['name'][$k]; // original file name
                     $insert['mediaType'] = $_FILES['file']['type'][$k];
-                    $ext = substr($fileName, strrpos($fileName, '.'));
-                    $fileNameNoExt = substr($fileName, 0, strrpos($fileName, '.'));
-                    $fileNameNoExt = str_replace('.', '-', $fileNameNoExt);
-                    $filter = new Prepare();
-                    $targetFileNameNoExt = $filter->filter($fileNameNoExt);
-                    $targetFileName = $targetFileNameNoExt . $ext;
-                    $return[]['filename'] = $targetFileName;
-                    
-                    $targetFile = $target . DS . $cd . $targetFileName; // 5
-                                                                        // var_dump($fileName);
-                                                                        // var_dump($targetFileNameNoExt );
-                                                                        // var_dump($file);
-                                                                        // var_dump($targetFile);
-                                                                        // exit();
-                    move_uploaded_file($tempFile, $targetFile); // 6
+                    $ext = Extension::get($insert['mediaName']); // remove file extension
+                    $mediaName = Name::get($insert['mediaName']);
+                    $filter = new Prepare(); // filter filename to a url friendly string
+                                             // extract filename, replaces dots and withespace with a dash
+                    $targetFileNameNoExt = $filter->filter(str_replace('.', '-', $mediaName));
+                    unset($filter);
+                    $targetFileName = $targetFileNameNoExt . '.' . $ext; // add file extension to target filename
+                    $return[$insert['mediaName']]['filename'] = $targetFileName; // build server response
+                    $targetFile = $target . $targetFileName; // build target file
+                    $insert['mediaSource'] = Clean::get(str_replace($docRoot, '', $targetFile));
+                    $insert['mediaLink'] = str_replace(DS . $this->hostfolder, '', $insert['mediaSource']);
+                    move_uploaded_file($tempFile, $targetFile);
+                    $insert['mediaAlternate'] = '';
+                    $insert['mediaMetas'] = '';
+                    switch ($ext) {
+                        case "JPG":
+                        case "JPEG":
+                        case "jpg":
+                        case "jpeg":
+                        // $attribs['exif'] = exif_read_data($targetFile); // disable to much and to different datas
+                        case "PNG":
+                        case "png":
+                        case "GIF":
+                        case "gif":
+                            $insert['mediaMetas'] = $mcSerialize->execSerialize(array(
+                                'alt' => $mediaName
+                            ));
+                            $size = new Size($targetFile);
+                            $size->imgSize();
+                            if ($insert['mediaType'] != ($type = image_type_to_mime_type(exif_imagetype($targetFile)))) {
+                                $insert['mediaType'] = $type;
+                            }
+                            $attribs['dimensions'] = array(
+                                'height' => $size->getHeight(),
+                                'width' => $size->getWidth()
+                            );
+                            $insert['mediaAttribute'] = $mcSerialize->execSerialize($attribs);
+                            if (! is_dir($target . 'alternate')) {
+                                $this->getWorker()->makeDirectory('alternate', $this->getEntity(), $cd);
+                            }
+                            $resize = new Resize(200, $targetFile, $targetFileName, $target . 'alternate' . DS);
+                            foreach ($alternateSizes as $key => $value) {
+                                $resize->setTarget($value);
+                                if (false !== $resize->execute()) {
+                                    $source = Clean::get(str_replace($docRoot, '', $resize->getResizeImageSource()));
+                                    $mediaAlternate[$key]['mediaSource'] = $source;
+                                    $mediaAlternate[$key]['mediaLink'] = str_replace(DS . $this->hostfolder, '', $source);
+                                    $mediaAlternate[$key]['dimensions'] = $resize->getNewsize();
+                                }
+                            }
+                            $insert['mediaAlternate'] = $mcSerialize->execSerialize($mediaAlternate);
+                            break;
+                        case "ico":
+                        case "tiff":
+                        case "bmp":
+                            $insert['mediaMetas'] = $mcSerialize->execSerialize(array(
+                                'alt' => $mediaName
+                            ));
+                            break;
+                        default:
+                            $insert['mediaMetas'] = $mcSerialize->execSerialize(array(
+                                'linkname' => $mediaName
+                            ));
+                            break;
+                    }
+                    // save in media database
+                    $save->save($insert, new WebMedias());
                 }
+                $empty = new Cachecontent(); // empty file cache medias
+                $empty->emptyCache(array(
+                    'id' => 'mcworkwebsitemedias'
+                ), new CacheFiles(), $this->getServiceLocator());
+                // server response
                 echo Json::encode($return);
+                exit();
             } else {
-                
-                $tempFile = $_FILES['file']['tmp_name']; // 3
-                
-                $targetFile = $target . DS . $cd . $_FILES['file']['name']; // 5
-                
-                move_uploaded_file($tempFile, $targetFile); // 6
-                echo true;
+                echo Json::encode(array(
+                    'error' => 'wrong_param_to_upload_files'
+                ));
             }
         }
-        
         exit();
     }
 
@@ -288,9 +368,43 @@ class MediaController extends AbstractContentinumController
         $params = $this->initParams();
         $dirParams = $this->getRequest()->getPost();
         if (isset($dirParams['fm'])) {
+            $worker = new SaveMedias($this->getServiceLocator()->get('doctrine.entitymanager.orm_default'));
+            $worker->setEntity(new WebMedias());
+            $result = $worker->find($dirParams['dbident']);
+            $update['mediaName'] = $dirParams['nfm']; // $result->mediaName;
+            $ext = Extension::get($dirParams['nfm']);
+            $filter = new Prepare();
+            $fileNameNoExt = $filter->filter(str_replace('.', '-', Name::get($dirParams['nfm'])));
+            unset($filter);
+            $newFileName = $fileNameNoExt . '.' . $ext;
+            $update['mediaSource'] = str_replace($dirParams['fm'], $newFileName, $result->mediaSource);
+            $update['mediaLink'] = str_replace($dirParams['fm'], $newFileName, $result->mediaLink);
+            $mcSerialize = new HandleSerializeDatabase($result->decodeMetas);
+            $bulkRename = $mcSerialize->execUnserialize($result->mediaAlternate);
+            
             try {
-                $msg = $this->getWorker()->renameDirectory($dirParams['fm'], $dirParams['nfm'], $this->getEntity(), $dirParams['cd']);
+                $msg = $this->getWorker()->renameDirectory($dirParams['fm'], $newFileName, $this->getEntity(), $dirParams['cd']);
+                if (is_array($bulkRename) && ! empty($bulkRename)) {
+                    $mediaAlternate = serialize($bulkRename);
+                    $search = Name::get($dirParams['fm']) . '-';
+                    $replace = $fileNameNoExt . '-';
+                    $mediaAlternate = str_replace($search, $replace, $mediaAlternate);
+                    $mediaAlternate = unserialize($mediaAlternate);
+                    $update['mediaAlternate'] = $mcSerialize->execSerialize($mediaAlternate, $result->prepareSerialize);
+                    $docRoot = $this->worker->getStorage()->getDocumentRoot();
+                    foreach ($bulkRename as $key => $row) {
+                        $source = $docRoot . $row['mediaSource'];
+                        $destination = $docRoot . str_replace($search, $replace, $row['mediaSource']);
+                        $this->getWorker()
+                            ->getStorage()
+                            ->rename($source, $destination);
+                    }
+                }
+                $worker->save($update, $result);
                 echo true;
+                // var_dump($bulkRename);
+                // var_dump($update);exit;
+                // echo true;
             } catch (\Exception $e) {
                 echo Json::encode(array(
                     'error' => $e->getMessage()
@@ -330,7 +444,7 @@ class MediaController extends AbstractContentinumController
 
     /**
      * Get file content and provide this to download
-     * 
+     *
      * @return \Zend\View\Model\ViewModel
      */
     public function downloadAction()
@@ -353,7 +467,7 @@ class MediaController extends AbstractContentinumController
 
     /**
      * Fetch directory items and print as html table
-     * 
+     *
      * @return \Zend\View\Model\ViewModel
      */
     public function listAction()
@@ -377,7 +491,7 @@ class MediaController extends AbstractContentinumController
 
     /**
      * Get media files configuration
-     * 
+     *
      * @return Ambigous <string, mixed>
      */
     public function configurationAction()
@@ -394,9 +508,8 @@ class MediaController extends AbstractContentinumController
 
     /**
      * Get directory tree as html list
-     * 
-     * @param boolean $skip
-     *            skip or get tree with files
+     *
+     * @param boolean $skip skip or get tree with files
      * @return string html ul list with directory tree
      */
     protected function directoryTree($skip = true)
@@ -407,10 +520,9 @@ class MediaController extends AbstractContentinumController
 
     /**
      * Fetch all directory items
-     * 
-     * @param AbstractStorageEntity $entity            
-     * @param string $cd
-     *            current folder to get the items
+     *
+     * @param AbstractStorageEntity $entity
+     * @param string $cd current folder to get the items
      * @return array with AbstractStorageEntity
      */
     protected function directoryContent($entity, $cd = null)
@@ -420,9 +532,8 @@ class MediaController extends AbstractContentinumController
 
     /**
      * Decode current folder from query string
-     * 
-     * @param string $cd
-     *            name of current folder
+     *
+     * @param string $cd name of current folder
      * @return Ambigous <string, mixed>
      */
     protected function currentFolder($cd = null)
@@ -438,7 +549,7 @@ class MediaController extends AbstractContentinumController
 
     /**
      * Get folder url seperator
-     * 
+     *
      * @return string
      */
     public function getSeperator()
@@ -448,8 +559,8 @@ class MediaController extends AbstractContentinumController
 
     /**
      * Set folder url seperator
-     * 
-     * @param string $seperator            
+     *
+     * @param string $seperator
      * @return \Mcwork\Controller\MediaController
      */
     public function setSeperator($seperator)
@@ -460,7 +571,7 @@ class MediaController extends AbstractContentinumController
 
     /**
      * Get base route
-     * 
+     *
      * @return string
      */
     public function getBaseroute()
@@ -470,8 +581,8 @@ class MediaController extends AbstractContentinumController
 
     /**
      * Set base route
-     * 
-     * @param string $baseroute            
+     *
+     * @param string $baseroute
      * @return \Mcwork\Controller\MediaController
      */
     public function setBaseroute($baseroute)
@@ -490,7 +601,11 @@ class MediaController extends AbstractContentinumController
         return array(
             'mcworkpages' => $this->getServiceLocator()->get('Mcwork\Pages'),
             'acl' => $this->getServiceLocator()->get('Contentinum\Acl\Acl'),
-            'role' => $this->getServiceLocator()->get('Contentinum\Acl\DefaultRole')
+            'role' => $this->getServiceLocator()->get('Contentinum\Acl\DefaultRole'),
+            'medias' => $this->getServiceLocator()->get('Mcwork\Medias'),
+            'host' => $this->getRequest()
+                ->getUri()
+                ->getHost()
         );
     }
 }

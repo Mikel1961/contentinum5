@@ -25,14 +25,13 @@
  * @link      https://github.com/Mikel1961/contentinum-components
  * @version   1.0.0
  */
-
 use ContentinumComponents\Html\HtmlTable;
 use ContentinumComponents\Html\Table\FactoryTable;
 // prepare content, create a table
 $tableFactory = new HtmlTable(new FactoryTable());
 $ctrlpath = 'mediametas';
 // set table tag attributes
-$tableFactory->setAttributes('class', 'table table-hover table-nomargin table-striped dataTable dataTable-tools');
+$tableFactory->setAttributes('class', 'table table-hover table-nomargin table-striped dataTable');
 $i = 0;
 $iClass = 0;
 $headlines = array(
@@ -55,8 +54,7 @@ $headlines = array(
             'class' => 'hide-for-small text-right'
         )
     )
-)
-;
+);
 $ihead = count($headlines);
 foreach ($headlines as $column => $attributes) {
     $columns[] = $this->translate($column);
@@ -78,6 +76,7 @@ foreach ($headlines as $column => $attributes) {
 }
 $tableFactory->setHeadline($columns);
 $getUnserializeDatas = new ContentinumComponents\Tools\HandleSerializeDatabase();
+$imagesTypes = $this->customconfig->default->Medias->images_types->toArray();
 $i = 0;
 foreach ($this->entries as $entry) {
     $i ++;
@@ -106,59 +105,47 @@ foreach ($this->entries as $entry) {
                 'title' => 'Edit item',
                 'class' => 'small button'
             )
-        ),
-        'delete' => array(
-            'label' => 'Delete',
-            'href' => '/mcwork/' . $ctrlpath . '/delete',
-            'attribs' => array(
-                'data-name' => $entry->webMediasId->mediaName,
-                'data-ident' => 'row' . $i,
-                'title' => 'Delete item',
-                'class' => 'small button alert deleteitem'
-            )
         )
     );
     $rowContent = array();
     $rowContent[] = '<input id="row' . $i . '" type="checkbox" value="' . $entry->id . '" name="cb[]">';
-
-    $media = 'File';    
-    switch ($entry->webMediasId->mediaType){
-        case 'image/jpeg' :
-            if (false === ($mediaAlternate = @unserialize($entry->webMediasId->mediaAlternate))){
-            	$repair = new ContentinumComponents\Tools\RepairBrokenSerialized();
-            	if (false !== ($mediaAlternate = $repair->tryRepair($entry->webMediasId->mediaAlternate))){
-            		$mediaAlternate = @unserialize($mediaAlternate);
-            
-            	}
-            }
-            $media = 'Broken array!';
-            if (is_array($mediaAlternate)){
-                if (isset($mediaAlternate['thumbnail']['mediaLink'])){
-                    $media = '<img src="' . $mediaAlternate['thumbnail']['mediaLink'] . '" alt="">';
-                }
-            }           
-            break;
-        default:
-            $media = 'File';
-    }
     
+    $media = 'File';
+    $mediaAlternate = '';
+    if (isset($imagesTypes[$entry->webMediasId->mediaType])) {
+        
+        if (null != ($method = $entry->webMediasId->decodeMetas)) {
+            $mediaAlternate = $getUnserializeDatas->execUnserialize($entry->webMediasId->mediaAlternate, $method);
+        }
+        $media = 'Broken array!';
+        if (is_array($mediaAlternate)) {
+            if (isset($mediaAlternate['thumbnail']['mediaLink'])) {
+                $media = '<img src="' . $mediaAlternate['thumbnail']['mediaLink'] . '" alt="">';
+            }
+        }
+    } else {
+        switch ($entry->webMediasId->mediaType) {
+            default:
+                $media = 'File';
+        }
+    }
     $rowContent[] = $media;
     $rowContent[] = $entry->webMediasId->mediaName . $this->mcworkTableEdit($tbl);
     $str = '';
-    if (null != ($method = $entry->decodeMetas )){
-        $mediaMetas = $getUnserializeDatas->execUnserialize($entry->mediaMetas,$method);
-        if (is_array($mediaMetas)){
-        	$i = 1;
-        	foreach ($mediaMetas as $key => $value){
-        		if (strlen($value) > 1){
-        			if ($i > 1){
-        				$str .= '<br />';
-        			}
-        			$str .= $key . '="' . $value .'"';
-        			$i++;
-        		}
-        	}
-        }        
+    if (null != ($method = $entry->decodeMetas)) {
+        $mediaMetas = $getUnserializeDatas->execUnserialize($entry->mediaMetas, $method);
+        if (is_array($mediaMetas)) {
+            $i = 1;
+            foreach ($mediaMetas as $key => $value) {
+                if (strlen($value) > 1) {
+                    if ($i > 1) {
+                        $str .= '<br />';
+                    }
+                    $str .= $key . '="' . $value . '"';
+                    $i ++;
+                }
+            }
+        }
     }
     $rowContent[] = $str;
     $rowContent[] = $entry->upDate->format('d F Y H:i:s');
@@ -171,9 +158,6 @@ if (isset($this->toolbarcontent)) {
     $links = array(
         'edit' => array(
             'href' => '/mcwork/' . $ctrlpath . '/edit'
-        ),
-        'delete' => array(
-            'href' => '/mcwork/' . $ctrlpath . '/delete'
         )
     );
     $toolbar = $this->mcworkToolbar($links, true, $this->toolbarcontent->toArray());
