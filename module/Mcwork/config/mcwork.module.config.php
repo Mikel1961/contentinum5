@@ -532,6 +532,12 @@ return array(
     'assetic_configuration' => array(
         
         'controllers' => array(
+            'Mcwork\Controller\AddItems' => array(
+                '@mcworkform',
+                '@head_custom',
+                '@mcworkformscripts'
+                
+            ),
             'Mcwork\Controller\Index' => array(
                 '@mcworkcore',
                 '@head_custom',
@@ -628,6 +634,25 @@ return array(
                             )
                         )
                     ),
+                    
+                    'mcworkform' => array(
+                    		'assets' => array(
+                    				'backend/css/font-awesome.css',
+                    		        'backend/css/foundation.min.css',
+                    		        'backend/css/vendor/chosen.froms.css',
+                    		        'backend/css/vendor/jquery.datetimepicker.css',                    		    
+                    				'backend/css/admin.base.css',
+
+                    		),
+                    		'filters' => array(
+                    				'?CssRewriteFilter' => array(
+                    						'name' => 'Assetic\Filter\CssRewriteFilter'
+                    				),
+                    				'?CssMinFilter' => array(
+                    						'name' => 'Assetic\Filter\CssMinFilter'
+                    				)
+                    		)
+                    ),                    
                     'mcworktable' => array(
                         'assets' => array(
                             'backend/css/font-awesome.css',
@@ -702,6 +727,22 @@ return array(
                             )
                         )
                     ),
+                    'mcworkformscripts' => array(
+                    		'assets' => array(
+                    				'backend/js/vendor/jquery-1.10.2.min.js',
+                    				'backend/js/foundation.min.js',
+                    				'backend/js/vendor/chosen/chosen.jquery.js',
+                    		        'backend/js/vendor/jquery.datetimepicker.js',
+                    				'backend/js/admin.main.js',
+                    		        'backend/js/admin.form.js',
+                    		     
+                    		),
+                    		'filters' => array(
+                    				'?JSMinFilter' => array(
+                    						'name' => 'Assetic\Filter\JSMinFilter'
+                    				)
+                    		)
+                    ),                    
                     'mcworkscripts' => array(
                         'assets' => array(
                             'backend/js/vendor/jquery-1.10.2.min.js',
