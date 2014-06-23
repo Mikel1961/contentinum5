@@ -138,7 +138,7 @@ class ContentForm extends AbstractForms
                     
                     'options' => array(
                         'label' => 'Select a page',
-                        'empty_option' => '-- pages --',
+                        'empty_option' => '',
                         'value_options' => $this->getSelectOptions('webPagesId', array(
                             'value' => 'id',
                             'label' => 'label'
@@ -151,7 +151,8 @@ class ContentForm extends AbstractForms
                     'type' => 'Select',
                     'attributes' => array(
                         'required' => 'required',
-                        'id' => 'webPagesId'
+                        'id' => 'webPagesId',
+                        'class' => 'chosen-select',
                     )
                 )
             ),
@@ -175,6 +176,30 @@ class ContentForm extends AbstractForms
                     )
                 )
             ),
+            
+            array(
+            		'spec' => array(
+            				'name' => 'webMediasId',
+            		        'required' => true,
+            				'options' => array(
+            						'label' => 'Select a media',
+            						'value_options' => $this->getSelectOptions('webMediasId', array(
+            								'value' => 'id',
+            								'label' => 'mediaName'
+            						)),
+            						'deco-row' => $this->getDecorators(self::DECO_TAB_ROW),
+            						'deco-error' => $this->getDecorators(self::DECO_ERROR),
+            						'deco-error-msg' => 'Das Feld darf nicht leer sein ein Wert ist erforderlich'
+            				),
+            
+            				'type' => 'Select',
+            				'attributes' => array(
+            				    'required' => 'required',
+            						'id' => 'webMediasId',
+            						'class' => 'chosen-select',
+            				)
+            		)
+            ),            
             
             array(
                 'spec' => array(
