@@ -130,6 +130,14 @@ var translation = {
 
 };
 
+var dtPickerOptions = {
+		lang:'de',
+		format:'Y-m-d H:i',
+		step:30,
+		dayOfWeekStart:1,
+		allowBlank:true
+};
+
 var locale = function(options) {
 	var defaults = {
 		language : false,
