@@ -45,6 +45,12 @@ class McworkappController extends AbstractBackendController
      * @var string
      */
     protected $method;
+    
+    /**
+     * 
+     * @var unknown
+     */
+    protected $customerConfigure;
 
     /**
      * Get the worker method
@@ -67,8 +73,27 @@ class McworkappController extends AbstractBackendController
         $this->method = $method;
         return $this;
     }
-
+    
     /**
+	 * @return the $customerConfigure
+	 */
+	public function getCustomerConfigure() 
+	{
+		if (null == $this->customerConfigure){
+		    $this->customerConfigure = $this->getServiceLocator()->get('Contentinum\Customer');
+		}
+	    return $this->customerConfigure;
+	}
+
+	/**
+	 * @param \Zend\Config $customerConfigure
+	 */
+	public function setCustomerConfigure($customerConfigure) 
+	{
+		$this->customerConfigure = $customerConfigure;
+	}
+
+	/**
      * Page application
      *
      * @see \ContentinumComponents\Controller\AbstractBackendController::application()
@@ -243,6 +268,9 @@ class McworkappController extends AbstractBackendController
     protected function buildView(array $variables, $content, $mcworkpages)
     {
         $view = new ViewModel($variables);
+        
+        // customer configuration datas
+        $view->setVariable('customconfig', $this->getCustomerConfigure());
         
         // get html widget, if specified ...
         $widget = false;

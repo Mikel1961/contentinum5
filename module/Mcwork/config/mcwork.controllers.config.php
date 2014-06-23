@@ -53,6 +53,7 @@ return array(
         {
             $uripath = str_replace('/', '_', $_SERVER['REQUEST_URI']);
             $params = $sl->getServiceLocator()->get('Mcwork\Pages');
+            $customer = $sl->getServiceLocator()->get('Contentinum\Customer');
             $page = substr($uripath, 1, strlen($uripath));
             $app = new Contentinum\Service\ContentinumApp();
             $app->setOptions($params->toArray());
@@ -80,6 +81,7 @@ return array(
                     $formFactory->setServiceLocator($sl->getServiceLocator());
                     $ctrl = new Mcwork\Controller\AddFormController($formFactory);
                     $ctrl->setWorker($worker);
+                    $ctrl->setConfiguration($customer);
                     $ctrl->setFormAction($app->getOptions('formaction'));
                     $ctrl->setToRoute($app->getOptions('settoroute'));
                     $populate = $app->getOptions('populate');
@@ -94,11 +96,11 @@ return array(
         {
             $uripath = str_replace('/', '_', $_SERVER['REQUEST_URI']);
             $params = $sl->getServiceLocator()->get('Mcwork\Pages');
+            $customer = $sl->getServiceLocator()->get('Contentinum\Customer');
             $page = substr($uripath, 1, strlen($uripath));
             $app = new Contentinum\Service\ContentinumApp();
             $app->setOptions($params->toArray());
             $app->cutUri();
-            $customer = $sl->getServiceLocator()->get('Contentinum\Customer');
             if (true === $app->isPageAvailable()) {
                 if (true === $app->setAppData()) {
                     $worker = null;
@@ -126,8 +128,8 @@ return array(
                     if (false != ($unserialize = $app->getOptions('unserialize'))) {
                         $ctrl->setUnserialize($unserialize);
                     }       
-                    $ctrl->setConfiguration($customer);             
                     $ctrl->setWorker($worker);
+                    $ctrl->setConfiguration($customer);
                     $ctrl->setFormAction($app->getOptions('formaction'));
                     $ctrl->setToRoute($app->getOptions('settoroute'));
                     
@@ -143,6 +145,7 @@ return array(
         {
             $uripath = str_replace('/', '_', $_SERVER['REQUEST_URI']);
             $params = $sl->getServiceLocator()->get('Mcwork\Pages');
+            $customer = $sl->getServiceLocator()->get('Contentinum\Customer');
             $page = substr($uripath, 1, strlen($uripath));
             $app = new Contentinum\Service\ContentinumApp();
             $app->setOptions($params->toArray());
@@ -168,6 +171,7 @@ return array(
                         $ctrl = new Mcwork\Controller\McworkappController();
                     }
                     $ctrl->setWorker($worker);
+                    $ctrl->setConfiguration($customer);
                     if (false != ($methodName = $app->getOptions('ctrlmethod'))) {
                         $ctrl->setMethod($methodName);
                     }
