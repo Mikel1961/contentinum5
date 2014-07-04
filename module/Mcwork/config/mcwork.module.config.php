@@ -49,6 +49,11 @@ return array(
                         'label' => 'Media meta description',
                         'uri' => '/mcwork/mediametas',
                         'resource' => 'authorresource'
+                    ),
+                    array(
+                        'label' => 'Media Blocks',
+                        'uri' => '/mcwork/mediablockmetas',
+                        'resource' => 'authorresource'
                     )
                 )
             ),

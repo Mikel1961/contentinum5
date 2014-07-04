@@ -52,12 +52,14 @@
 			<entity><![CDATA[Contentinum\Entity\WebContent]]></entity>
 			<targetentities>
 				<webPagesId><![CDATA[Contentinum\Entity\WebPagesParameter]]></webPagesId>
+				<webMediasId><![CDATA[Contentinum\Entity\WebMedias]]></webMediasId>
 			</targetentities>
 			<form><![CDATA[Mcwork\Form\ContentForm]]></form>
 			<formaction><![CDATA[/mcwork/contribution/add]]></formaction>
 			<settoroute><![CDATA[/mcwork/contribution]]></settoroute>
 			<populate>
 				<resource>index</resource>
+				<webMediasId>1</webMediasId>
 				<htmlwidgets>content</htmlwidgets>
 				<publish>yes</publish>
 			</populate>
@@ -1246,6 +1248,109 @@
 	</mcwork_logs_delete>
 	
 	
+	<mcwork_mediablockmetas>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>mediablockmetas</headline>
+		<columnright></columnright>
+		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<content></content>
+		<footer></footer>
+		<template>content/mediablockmetas</template>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
+			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebMediaBlockMetas]]></entity>
+		</app>
+	</mcwork_mediablockmetas>
+	<mcwork_mediablockmetas_add>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>add_mediablockmetas</headline>
+		<columnright></columnright>
+		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller></controller>
+			<worker><![CDATA[Mcwork\Model\SaveMediaBlockMetas]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebMediaBlockMetas]]></entity>
+			<targetentities></targetentities>
+			<form><![CDATA[Mcwork\Form\MediaBlockMetasForm]]></form>
+			<formaction><![CDATA[/mcwork/mediablockmetas/add]]></formaction>
+			<settoroute><![CDATA[/mcwork/mediablockmetas]]></settoroute>
+			<populate>
+				<resource>index</resource>
+				<htmlwidgets>blockmedia</htmlwidgets>
+			</populate>
+		</app>
+	</mcwork_mediablockmetas_add>
+	<mcwork_mediablockmetas_edit>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>edit_mediablockmetas</headline>
+		<columnright></columnright>
+		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller></controller>
+			<worker><![CDATA[ContentinumComponents\Mapper\SaveMediaBlockMetas]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebMediaBlockMetas]]></entity>
+			<targetentities></targetentities>
+			<setexclude></setexclude>
+			<form><![CDATA[Mcwork\Form\MediaBlockMetasForm]]></form>
+			<formaction><![CDATA[/mcwork/mediablockmetas/edit]]></formaction>
+			<settoroute><![CDATA[/mcwork/mediablockmetas]]></settoroute>
+		</app>
+	</mcwork_mediablockmetas_edit>
+	<mcwork_mediablockmetas_delete>
+		<action>contenthandle</action>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline></headline>
+		<columnright></columnright>
+		<subheadline></subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar></toolbar>
+		<tableedit></tableedit>
+		<template_widget></template_widget>
+		<request>
+			<xhtmlrequest>1</xhtmlrequest>
+		</request>
+		<response>
+			<redirect>mcwork/mediablockmetas</redirect>
+		</response>
+		<app>
+			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
+			<ctrlmethod>deleteRow</ctrlmethod>
+			<worker><![CDATA[Mcwork\Model\DeleteItem]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebMediaBlockMetas]]></entity>
+			<targetentities></targetentities>
+		</app>
+	</mcwork_mediablockmetas_delete>	
+	
+	
 	<mcwork_mediametas>
 		<title></title>
 		<bodyTagAttribs></bodyTagAttribs>
@@ -1297,6 +1402,34 @@
 			<settoroute><![CDATA[/mcwork/mediametas]]></settoroute>
 		</app>
 	</mcwork_mediametas_edit>	
+	
+	<mcwork_mediametas_delete>
+		<action>contenthandle</action>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline></headline>
+		<columnright></columnright>
+		<subheadline></subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar></toolbar>
+		<tableedit></tableedit>
+		<template_widget></template_widget>
+		<request>
+			<xhtmlrequest>1</xhtmlrequest>
+		</request>
+		<response>
+			<redirect>mcwork/mediablockmetas</redirect>
+		</response>
+		<app>
+			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
+			<ctrlmethod>deleteRow</ctrlmethod>
+			<worker><![CDATA[Mcwork\Model\DeleteMedias]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebMediaMetas]]></entity>
+			<targetentities></targetentities>
+		</app>
+	</mcwork_mediametas_delete>		
 	
 	<Mcwork_Controller_Content_Medias>
 		<title>Mcwork_Controller_Content_Medias</title>
