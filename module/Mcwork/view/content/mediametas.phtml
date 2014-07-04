@@ -79,6 +79,7 @@ $getUnserializeDatas = new ContentinumComponents\Tools\HandleSerializeDatabase()
 $imagesTypes = $this->customconfig->default->Medias->images_types->toArray();
 $i = 0;
 foreach ($this->entries as $entry) {
+    if (1 !== $entry->id){
     $i ++;
     $tableedit = '';
     if (isset($this->tableeditcontent)) {
@@ -105,8 +106,24 @@ foreach ($this->entries as $entry) {
                 'title' => 'Edit item',
                 'class' => 'small button'
             )
-        )
+        ),
+        'delete' => array(
+        		'label' => 'Delete',
+        		'href' => '/mcwork/' . $ctrlpath . '/delete',
+        		'attribs' => array(
+        				'data-name' => $entry->webMediasId->mediaName,
+        				'data-ident' => 'row' . $i,
+        				'title' => 'Delete item',
+        				'class' => 'small button alert deleteitem'
+        		)
+        )        
     );
+    
+    
+    if ('1' == $entry->webMediasId->mediaInUse){
+    	unset($tbl['delete']);
+    }    
+    
     $rowContent = array();
     $rowContent[] = '<input id="row' . $i . '" type="checkbox" value="' . $entry->id . '" name="cb[]">';
     
@@ -135,14 +152,14 @@ foreach ($this->entries as $entry) {
     if (null != ($method = $entry->decodeMetas)) {
         $mediaMetas = $getUnserializeDatas->execUnserialize($entry->mediaMetas, $method);
         if (is_array($mediaMetas)) {
-            $i = 1;
+            $si = 1;
             foreach ($mediaMetas as $key => $value) {
                 if (strlen($value) > 1) {
-                    if ($i > 1) {
+                    if ($si > 1) {
                         $str .= '<br />';
                     }
                     $str .= $key . '="' . $value . '"';
-                    $i ++;
+                    $si ++;
                 }
             }
         }
@@ -150,6 +167,7 @@ foreach ($this->entries as $entry) {
     $rowContent[] = $str;
     $rowContent[] = $entry->upDate->format('d F Y H:i:s');
     $tableFactory->setHtmlContent($rowContent);
+    }
 }
 $html = $tableFactory->display();
 $html .= $this->translate($this->mcworkContent($this->page, $this->pagecontent, 'content'));
