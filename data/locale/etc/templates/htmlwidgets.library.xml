@@ -62,4 +62,208 @@
 			<tag></tag>
 		</image>
 	</content>
+	<contentmedialeft name="Display content media left">
+		<sequence>
+			<element type="entries">
+				<value>entries</value>
+			</element>
+			<element type="set">
+				<value>box</value>
+			</element>
+			<element type="set">
+				<value>inner</value>
+			</element>
+			<items>
+				<element type="tag">
+					<value>image</value>
+				</element>
+				<element type="tag">
+					<value>header</value>
+				</element>
+				<element type="tag">
+					<value>content</value>
+				</element>
+				<element type="tag">
+					<value>footer</value>
+				</element>
+				<element type="set">
+					<value>entry</value>
+				</element>
+			</items>
+		</sequence>
+		<box type="tag">
+			<tag></tag>
+		</box>
+		<inner type="tag">
+			<tag></tag>
+		</inner>
+		<entry type="tag">
+			<tag></tag>
+		</entry>
+		<header type="tag" escape="no">
+			<tag></tag>
+		</header>
+		<content type="tag" escape="no">
+			<tag></tag>
+		</content>
+		<footer type="tag" escape="no">
+			<tag></tag>
+		</footer>
+		<image type="tag">
+			<tag></tag>
+		</image>
+	</contentmedialeft>
+	<contentmediaright name="Display content media right">
+		<sequence>
+			<element type="entries">
+				<value>entries</value>
+			</element>
+			<element type="set">
+				<value>box</value>
+			</element>
+			<element type="set">
+				<value>inner</value>
+			</element>
+			<items>
+				<element type="tag">
+					<value>image</value>
+				</element>
+				<element type="tag">
+					<value>header</value>
+				</element>
+				<element type="tag">
+					<value>content</value>
+				</element>
+				<element type="tag">
+					<value>footer</value>
+				</element>
+				<element type="set">
+					<value>entry</value>
+				</element>
+			</items>
+		</sequence>
+		<box type="tag">
+			<tag></tag>
+		</box>
+		<inner type="tag">
+			<tag></tag>
+		</inner>
+		<entry type="tag">
+			<tag></tag>
+		</entry>
+		<header type="tag" escape="no">
+			<tag></tag>
+		</header>
+		<content type="tag" escape="no">
+			<tag></tag>
+		</content>
+		<footer type="tag" escape="no">
+			<tag></tag>
+		</footer>
+		<image type="tag">
+			<tag></tag>
+		</image>
+	</contentmediaright>
+	<contentmediacenter name="Display content media center">
+		<sequence>
+			<element type="entries">
+				<value>entries</value>
+			</element>
+			<element type="set">
+				<value>box</value>
+			</element>
+			<element type="set">
+				<value>inner</value>
+			</element>
+			<items>
+				<element type="tag">
+					<value>image</value>
+				</element>
+				<element type="tag">
+					<value>header</value>
+				</element>
+				<element type="tag">
+					<value>content</value>
+				</element>
+				<element type="tag">
+					<value>footer</value>
+				</element>
+				<element type="set">
+					<value>entry</value>
+				</element>
+			</items>
+		</sequence>
+		<box type="tag">
+			<tag></tag>
+		</box>
+		<inner type="tag">
+			<tag></tag>
+		</inner>
+		<entry type="tag">
+			<tag></tag>
+		</entry>
+		<header type="tag" escape="no">
+			<tag></tag>
+		</header>
+		<content type="tag" escape="no">
+			<tag></tag>
+		</content>
+		<footer type="tag" escape="no">
+			<tag></tag>
+		</footer>
+		<image type="tag">
+			<tag></tag>
+		</image>
+	</contentmediacenter>
+	<blockmedia name="Blockmedia no template">
+		<sequence>
+			<element type="entries">
+				<value>entries</value>
+			</element>
+			<element type="set">
+				<value>box</value>
+			</element>
+			<element type="set">
+				<value>inner</value>
+			</element>
+			<items>
+				<element type="tag">
+					<value>image</value>
+				</element>
+				<element type="tag">
+					<value>header</value>
+				</element>
+				<element type="tag">
+					<value>content</value>
+				</element>
+				<element type="tag">
+					<value>footer</value>
+				</element>
+				<element type="set">
+					<value>entry</value>
+				</element>
+			</items>
+		</sequence>
+		<box type="tag">
+			<tag></tag>
+		</box>
+		<inner type="tag">
+			<tag></tag>
+		</inner>
+		<entry type="tag">
+			<tag></tag>
+		</entry>
+		<header type="tag" escape="no">
+			<tag></tag>
+		</header>
+		<content type="tag" escape="no">
+			<tag></tag>
+		</content>
+		<footer type="tag" escape="no">
+			<tag></tag>
+		</footer>
+		<image type="tag">
+			<tag></tag>
+		</image>	
+	</blockmedia>
 </layout>
