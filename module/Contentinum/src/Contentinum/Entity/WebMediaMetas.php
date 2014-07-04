@@ -84,7 +84,7 @@ class WebMediaMetas extends AbstractEntity
      *
      * @var \Contentinum\Entity\WebMedia 
      *      
-     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\WebMedias")
+     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\WebMedias", cascade={"persist"})
      * @ORM\JoinColumns({
      *  @ORM\JoinColumn(name="web_medias_id", referencedColumnName="id")
      * })
