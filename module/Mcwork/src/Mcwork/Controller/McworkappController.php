@@ -51,6 +51,12 @@ class McworkappController extends AbstractBackendController
      * @var unknown
      */
     protected $customerConfigure;
+    
+    /**
+     * Service keys
+     * @var array
+     */
+    protected $services = array();
 
     /**
      * Get the worker method
@@ -91,6 +97,33 @@ class McworkappController extends AbstractBackendController
 	public function setCustomerConfigure($customerConfigure) 
 	{
 		$this->customerConfigure = $customerConfigure;
+	}
+
+	/**
+	 * @return the $services
+	 */
+	public function getServices($key = null) 
+	{
+		if (null !== $key && isset($this->services[$key])){
+		    return $this->services[$key];
+		}
+	    return $this->services;
+	}
+
+	/**
+	 * @param multitype: $services
+	 */
+	public function addServices($key, $service)
+	{
+		$this->services[$key] = $service;
+	}
+	/**
+	 * Set services 
+	 * @param array $services
+	 */
+	public function setServices(array $services) 
+	{
+		$this->services = $services;
 	}
 
 	/**
@@ -271,6 +304,13 @@ class McworkappController extends AbstractBackendController
         
         // customer configuration datas
         $view->setVariable('customconfig', $this->getCustomerConfigure());
+        
+        // set services to provide in view script
+        if (!empty($this->services)){
+            foreach ($this->services as $key => $service){
+                $view->setVariable($key, $this->getServiceLocator()->get($service) );
+            }
+        }
         
         // get html widget, if specified ...
         $widget = false;

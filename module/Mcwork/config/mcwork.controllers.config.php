@@ -20,7 +20,6 @@ return array(
             $customer = $sl->getServiceLocator()->get('Contentinum\Customer');
             if (true === $app->isPageAvailable()) {
                 if (true === $app->setAppData()) {
-                    $imagesTypes = $conf->default->Medias->images_types->toArray();
                     $worker = null;
                     if (false != ($ctrlName = $app->getOptions('controller'))) {
                         $ctrl = new $ctrlName();
@@ -35,6 +34,13 @@ return array(
                     if (false != ($entityManager = $app->getOptions('entitymanager'))) {
                         $worker = new $workerName($sl->getServiceLocator()->get($entityManager));
                     }
+                    
+                    $services = $app->getOptions('services');
+                    if (is_array($services) && ! empty($services)) {
+                    	foreach ($services as $key => $service) {
+                    		$ctrl->addServices($key,$service);
+                    	}
+                    }                    
                     
                     if (false != ($storage = $app->getOptions('storage'))) {
                         $worker = new $workerName();

@@ -1267,6 +1267,7 @@
 			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
 			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\WebMediaBlockMetas]]></entity>
+			<services><htmlwidgets><![CDATA[Contentinum\Htmlwidgets]]></htmlwidgets></services>
 		</app>
 	</mcwork_mediablockmetas>
 	<mcwork_mediablockmetas_add>

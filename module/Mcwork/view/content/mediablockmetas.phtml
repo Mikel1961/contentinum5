@@ -120,7 +120,12 @@ foreach ($this->entries as $entry) {
     $rowContent = array();
     $rowContent[] = '<input id="row' . $i . '" type="checkbox" value="' . $entry->id . '" name="cb[]">';
     $rowContent[] = $entry->headline . $this->mcworkTableEdit($tbl);
-    $rowContent[] = $entry->htmlwidgets;
+    $template = $entry->htmlwidgets;
+    if (isset($this->htmlwidgets->$template)){
+        $template = $this->htmlwidgets->$template->name;
+    }
+    
+    $rowContent[] = $template;
     //$rowContent[] = '&nbsp;';
     $rowContent[] = $entry->upDate->format('d F Y H:i:s'); // date ( "d.m.Y H:i:s", $entry->registerDate );
     $tableFactory->setHtmlContent($rowContent);
