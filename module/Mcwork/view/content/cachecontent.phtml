@@ -27,6 +27,7 @@
  */
 use ContentinumComponents\Html\HtmlTable;
 use ContentinumComponents\Html\Table\FactoryTable;
+$html = '';
 // prepare content, create a table
 $tableFactory = new HtmlTable(new FactoryTable());
 
@@ -35,8 +36,8 @@ $tableFactory->setAttributes('class', 'table table-hover table-nomargin table-bo
 $i = 0;
 $iClass = 0;
 $headlines = array(
-    'Cache' => array(),
-    'Key' => array(
+    'Frontend' => array(),
+    'Cache' => array(
         'head' => array(
             'class' => 'hide-for-small text-right'
         ),
@@ -75,6 +76,7 @@ foreach ($headlines as $column => $attributes) {
 $tableFactory->setHeadline($columns);
 $i = 0;
 foreach ($this->entries as $area => $entry) {
+    if ('frontend' == $entry['groupkey']){
     $tbl = array(
         'clear' => array(
             'label' => 'Clear',
@@ -109,8 +111,280 @@ foreach ($this->entries as $area => $entry) {
     $rowContent[] = $area;
     $rowContent[] = $date;
     $tableFactory->setHtmlContent($rowContent);
+    }
 }
-$html = $tableFactory->display();
+
+$html .= $tableFactory->display();
+
+
+$columns = array();
+// prepare content, create a table
+$tableFactory = new HtmlTable(new FactoryTable());
+
+// set table tag attributes
+$tableFactory->setAttributes('class', 'table table-hover table-nomargin table-bordered');
+$i = 0;
+$iClass = 0;
+$headlines = array(
+		'Backend' => array(),
+		'Cache' => array(
+				'head' => array(
+						'class' => 'hide-for-small text-right'
+				),
+				'body' => array(
+						'class' => 'hide-for-small text-right'
+				)
+		),
+		'Last write access' => array(
+				'head' => array(
+						'class' => 'hide-for-small text-right'
+				),
+				'body' => array(
+						'class' => 'hide-for-small text-right'
+				)
+		)
+);
+$ihead = count($headlines);
+foreach ($headlines as $column => $attributes) {
+	$columns[] = $this->translate($column);
+	if (is_array($attributes) && ! empty($attributes)) {
+		foreach ($attributes as $area => $attribute) {
+			switch ($area) {
+				case 'head':
+					$tableFactory->setHeadlineAttributtes('class', $attribute['class'], $i);
+					break;
+				case 'body':
+					$tableFactory->setTagAttributtes('class', $attribute['class'], $i);
+					break;
+				default:
+					break;
+			}
+		}
+	}
+	$i ++;
+}
+$tableFactory->setHeadline($columns);
+$i = 0;
+foreach ($this->entries as $area => $entry) {
+	if ('backend' == $entry['groupkey']){
+		$tbl = array(
+				'clear' => array(
+						'label' => 'Clear',
+						'href' => '/mcwork/cache/clear/' . $area,
+						'attribs' => array(
+								'title' => 'Empty cache',
+								'class' => 'small button'
+						)
+				)
+		);
+		$tableedit = '';
+		if (isset($this->tableeditcontent)) {
+			$links = array();
+			$tableedit = '';
+			$links = array(
+					'clear' => array(
+							'href' => '/mcwork/cache/clear/' . $area
+					)
+			);
+			$tableedit = $this->mcworkToolbar($links, true, $this->tableeditcontent->toArray());
+		}
+		if (isset($entry['metas'])) {
+			$clear = $tableedit;
+			$date = date("d.m.Y H:i:s", $entry['metas']['mtime']);
+		} else {
+			$clear = '';
+			$date = '';
+		}
+		$i ++;
+		$rowContent = array();
+		$rowContent[] = $entry['label'] . $clear;
+		$rowContent[] = $area;
+		$rowContent[] = $date;
+		$tableFactory->setHtmlContent($rowContent);
+	}
+}
+
+$html .= $tableFactory->display();
+
+$columns = array();
+// prepare content, create a table
+$tableFactory = new HtmlTable(new FactoryTable());
+
+// set table tag attributes
+$tableFactory->setAttributes('class', 'table table-hover table-nomargin table-bordered');
+$i = 0;
+$iClass = 0;
+$headlines = array(
+		'Configuration' => array(),
+		'Cache' => array(
+				'head' => array(
+						'class' => 'hide-for-small text-right'
+				),
+				'body' => array(
+						'class' => 'hide-for-small text-right'
+				)
+		),
+		'Last write access' => array(
+				'head' => array(
+						'class' => 'hide-for-small text-right'
+				),
+				'body' => array(
+						'class' => 'hide-for-small text-right'
+				)
+		)
+);
+$ihead = count($headlines);
+foreach ($headlines as $column => $attributes) {
+	$columns[] = $this->translate($column);
+	if (is_array($attributes) && ! empty($attributes)) {
+		foreach ($attributes as $area => $attribute) {
+			switch ($area) {
+				case 'head':
+					$tableFactory->setHeadlineAttributtes('class', $attribute['class'], $i);
+					break;
+				case 'body':
+					$tableFactory->setTagAttributtes('class', $attribute['class'], $i);
+					break;
+				default:
+					break;
+			}
+		}
+	}
+	$i ++;
+}
+$tableFactory->setHeadline($columns);
+$i = 0;
+foreach ($this->entries as $area => $entry) {
+	if ('configuration' == $entry['groupkey']){
+		$tbl = array(
+				'clear' => array(
+						'label' => 'Clear',
+						'href' => '/mcwork/cache/clear/' . $area,
+						'attribs' => array(
+								'title' => 'Empty cache',
+								'class' => 'small button'
+						)
+				)
+		);
+		$tableedit = '';
+		if (isset($this->tableeditcontent)) {
+			$links = array();
+			$tableedit = '';
+			$links = array(
+					'clear' => array(
+							'href' => '/mcwork/cache/clear/' . $area
+					)
+			);
+			$tableedit = $this->mcworkToolbar($links, true, $this->tableeditcontent->toArray());
+		}
+		if (isset($entry['metas'])) {
+			$clear = $tableedit;
+			$date = date("d.m.Y H:i:s", $entry['metas']['mtime']);
+		} else {
+			$clear = '';
+			$date = '';
+		}
+		$i ++;
+		$rowContent = array();
+		$rowContent[] = $entry['label'] . $clear;
+		$rowContent[] = $area;
+		$rowContent[] = $date;
+		$tableFactory->setHtmlContent($rowContent);
+	}
+}
+
+$html .= $tableFactory->display();
+
+
+$columns = array();
+// prepare content, create a table
+$tableFactory = new HtmlTable(new FactoryTable());
+
+// set table tag attributes
+$tableFactory->setAttributes('class', 'table table-hover table-nomargin table-bordered');
+$i = 0;
+$iClass = 0;
+$headlines = array(
+		'Datas' => array(),
+		'Cache' => array(
+				'head' => array(
+						'class' => 'hide-for-small text-right'
+				),
+				'body' => array(
+						'class' => 'hide-for-small text-right'
+				)
+		),
+		'Last write access' => array(
+				'head' => array(
+						'class' => 'hide-for-small text-right'
+				),
+				'body' => array(
+						'class' => 'hide-for-small text-right'
+				)
+		)
+);
+$ihead = count($headlines);
+foreach ($headlines as $column => $attributes) {
+	$columns[] = $this->translate($column);
+	if (is_array($attributes) && ! empty($attributes)) {
+		foreach ($attributes as $area => $attribute) {
+			switch ($area) {
+				case 'head':
+					$tableFactory->setHeadlineAttributtes('class', $attribute['class'], $i);
+					break;
+				case 'body':
+					$tableFactory->setTagAttributtes('class', $attribute['class'], $i);
+					break;
+				default:
+					break;
+			}
+		}
+	}
+	$i ++;
+}
+$tableFactory->setHeadline($columns);
+$i = 0;
+foreach ($this->entries as $area => $entry) {
+	if ('datas' == $entry['groupkey']){
+		$tbl = array(
+				'clear' => array(
+						'label' => 'Clear',
+						'href' => '/mcwork/cache/clear/' . $area,
+						'attribs' => array(
+								'title' => 'Empty cache',
+								'class' => 'small button'
+						)
+				)
+		);
+		$tableedit = '';
+		if (isset($this->tableeditcontent)) {
+			$links = array();
+			$tableedit = '';
+			$links = array(
+					'clear' => array(
+							'href' => '/mcwork/cache/clear/' . $area
+					)
+			);
+			$tableedit = $this->mcworkToolbar($links, true, $this->tableeditcontent->toArray());
+		}
+		if (isset($entry['metas'])) {
+			$clear = $tableedit;
+			$date = date("d.m.Y H:i:s", $entry['metas']['mtime']);
+		} else {
+			$clear = '';
+			$date = '';
+		}
+		$i ++;
+		$rowContent = array();
+		$rowContent[] = $entry['label'] . $clear;
+		$rowContent[] = $area;
+		$rowContent[] = $date;
+		$tableFactory->setHtmlContent($rowContent);
+	}
+}
+
+$html .= $tableFactory->display();
+
 $html .= $this->translate($this->mcworkContent($this->page, $this->pagecontent, 'content'));
 $toolbar = '';
 if (isset($this->toolbarcontent)) {

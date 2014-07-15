@@ -40,85 +40,15 @@ use Mcwork\Model\Exception\ParamNotExistsModelException;
  */
 class Cachecontent extends StorageFiles
 {
+    const MCWORK_CACHEKEYS  = 'Mcwork\Cachekeys';
+    const CACHE_FILESYSTEM = 'Contentinum\Cache\Filesystem7200';
 
     /**
      * Cache keys
      *
      * @var array
      */
-    protected $keys = array(
-        'websiteconfiguration' => array(
-            'group' => 'Layout',
-            'label' => 'Website Configuration',
-            'metas' => null
-        ),
-        'htmlwidgets' => array(
-            'group' => 'Layout',
-            'label' => 'Frontend Widgets',
-            'metas' => null
-        ),
-        'htmllayouts' => array(
-            'group' => 'Layout',
-            'label' => 'Frontend Layout',
-            'metas' => null
-        ),
-        'customconfig' => array(
-            'group' => 'Configuration',
-            'label' => 'Special custom settings',
-            'metas' => null
-        ),
-        'websitemedias' => array(
-            'group' => 'Content',
-            'label' => 'Website Medias',
-            'metas' => null
-        ),
-        'mcworkpages' => array(
-            'group' => 'Content',
-            'label' => 'Backend pages configuration and content',
-            'metas' => null
-        ),
-        'mcworktableedit' => array(
-            'group' => 'Configuration',
-            'label' => 'Table row edit toolbar',
-            'metas' => null
-        ),
-        
-        'mcworktoolbar' => array(
-            'group' => 'Configuration',
-            'label' => 'Table toolbar',
-            'metas' => null
-        ),
-        'mcworkwebsitemedias' => array(
-        		'group' => 'Data',
-        		'label' => 'Mcwork Medias Table',
-        		'metas' => null
-        ),                
-        'charset' => array(
-            'group' => 'Data',
-            'label' => 'Charset list',
-            'metas' => null
-        ),
-        'locale' => array(
-            'group' => 'Data',
-            'label' => 'Locale list',
-            'metas' => null
-        ),
-        'publish' => array(
-            'group' => 'Data',
-            'label' => 'Publish values list',
-            'metas' => null
-        ),
-        'resource' => array(
-            'group' => 'Data',
-            'label' => 'Recources access values list',
-            'metas' => null
-        ),
-        'httpstatuscode' => array(
-            'group' => 'Data',
-            'label' => 'List of HTTP Status codes',
-            'metas' => null
-        )
-    );
+    protected $keys = false;
 
     /**
      * Fetch cache datas
@@ -134,8 +64,8 @@ class Cachecontent extends StorageFiles
     {
         if (0 == $attribs['id']) {
             $cache = $this->getCacheConfiguration($sl);
-            
-            foreach ($this->keys as $key => $datas) {
+            $keys = $this->getCacheKeys($sl);
+            foreach ($keys as $key => $datas) {
                 if ($cache->hasItem($key)) {
                     $datas['metas'] = $cache->getMetadata($key);
                 }
@@ -144,8 +74,10 @@ class Cachecontent extends StorageFiles
             unset($datas);
             return $cacheData;
         } else {
-            if (isset($this->keys[$attribs['id']])) {
-                $tmp = $this->keys[$attribs['id']];
+            $keys = $this->getCacheKeys($sl);
+            
+            if (isset($keys[$attribs['id']])) {
+                $tmp = $keys[$attribs['id']];
                 if ($cache->hasItem($attribs['id'])) {
                     $tmp['metas'] = $cache->getMetadata($attribs['id']);
                 }
@@ -176,8 +108,9 @@ class Cachecontent extends StorageFiles
             }
             return 'success_remove_cache_item';
         } elseif ('all' == $attribs['id']) {
+            $keys = $this->getCacheKeys($sl);
             $cache = $this->getCacheConfiguration($sl);
-            foreach ($this->keys as $key => $datas) {
+            foreach ($keys as $key => $datas) {
                 if ($cache->hasItem($key)) {
                     $cache->removeItem($key);
                 }
@@ -186,6 +119,20 @@ class Cachecontent extends StorageFiles
         } else {
             throw new ParamNotExistsModelException('It was not a valid index passed');
         }
+    }
+    
+    /**
+     * Get cache keys
+     * @param ServiceLocatorInterface $sl
+     * @return array
+     */
+    protected function getCacheKeys($sl)
+    {
+        if (false === $this->keys){
+            $keys = $sl->get(self::MCWORK_CACHEKEYS);
+            $this->keys = $keys->toArray();
+        }
+        return $this->keys;
     }
 
     /**
@@ -196,6 +143,6 @@ class Cachecontent extends StorageFiles
      */
     protected function getCacheConfiguration($sl)
     {
-        return $sl->get('Contentinum\Cache\Filesystem7200');
+        return $sl->get(self::CACHE_FILESYSTEM);
     }
 }

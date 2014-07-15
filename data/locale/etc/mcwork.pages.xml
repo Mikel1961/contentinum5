@@ -1124,7 +1124,7 @@
 		<bodyTagAttribs></bodyTagAttribs>
 		<headline>Mcwork_Controller_Admin_Cache</headline>
 		<columnright></columnright>
-		<subheadline>List of cache files</subheadline>
+		<subheadline></subheadline>
 		<content></content>
 		<footer></footer>
 		<template>content/cachecontent</template>
@@ -1288,7 +1288,9 @@
 			<worker><![CDATA[Mcwork\Model\SaveMediaBlockMetas]]></worker>
 			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\WebMediaBlockMetas]]></entity>
-			<targetentities></targetentities>
+			<targetentities>
+				<webMediametasId><![CDATA[Contentinum\Entity\WebMediaMetas]]></webMediametasId>
+			</targetentities>
 			<form><![CDATA[Mcwork\Form\MediaBlockMetasForm]]></form>
 			<formaction><![CDATA[/mcwork/mediablockmetas/add]]></formaction>
 			<settoroute><![CDATA[/mcwork/mediablockmetas]]></settoroute>

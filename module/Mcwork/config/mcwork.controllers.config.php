@@ -265,8 +265,7 @@ return array(
             $ctrl = new Mcwork\Controller\MediaController();
             $ctrl->setEntity(new Mcwork\Entity\MediaFiles());
             $worker = new \ContentinumComponents\Storage\StorageDirectory();
-            $worker->setLogger($sl->getServiceLocator()
-                ->get('Contentinum\Logs\Applog'));
+            $worker->setLogger($sl->getServiceLocator()->get('Contentinum\Logs\Applog'));
             $worker->setStorage(new \ContentinumComponents\Storage\StorageManager());
             $ctrl->setWorker($worker);
             return $ctrl;

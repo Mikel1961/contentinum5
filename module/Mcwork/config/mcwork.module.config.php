@@ -434,7 +434,8 @@ return array(
             'Mcwork\Tableedit' => 'Mcwork\Service\McworkTableeditServiceFactory',
             'Mcwork\FormDecco' => 'Mcwork\Service\McworkDeccoFormServiceFactory',
             'Mcwork\FormDecorators' => 'Mcwork\Service\McworkFormdecoratorsServiceFactory',
-            'Mcwork\Medias' => 'Mcwork\Service\McworkMediasServiceFactory'
+            'Mcwork\Medias' => 'Mcwork\Service\McworkMediasServiceFactory',
+            'Mcwork\Cachekeys' => 'Mcwork\Service\McworkCacheKeysServiceFactory',
         )
     ),
     
@@ -453,7 +454,8 @@ return array(
         'etc_cfg_files' => array(
             'mcworktoolbar' => __DIR__ . '/../../../data/locale/etc/mcwork.toolbar.php',
             'mcworktableedit' => __DIR__ . '/../../../data/locale/etc/mcwork.tableedit.php',
-            'mcworkformdecco' => __DIR__ . '/../../../data/locale/etc/mcwork.formdecorators.php'
+            'mcworkformdecco' => __DIR__ . '/../../../data/locale/etc/mcwork.formdecorators.php',
+            'mcworkcachekeys' => __DIR__ . '/../../../data/locale/etc/mcwork.caches.php'
         ),
         'db_cache_keys' => array(
             'mcworkwebmedias' => array(
