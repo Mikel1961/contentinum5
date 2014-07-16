@@ -306,7 +306,7 @@ input.small.button {
 
 button,.button {
 	border-color: #2980B9;
-	border-width: 2px;
+	border-width: 1px;
 	-webkit-box-shadow: none;
 	box-shadow: none;
 	transition: border-color 300ms ease-out 0s;
