@@ -612,7 +612,7 @@ return array(
                     'mcworkcore' => array(
                         'assets' => array(
                             'backend/css/font-awesome.css',
-                            'backend/css/foundation.min.css',
+                            'backend/css/foundation.css',
                             'backend/css/admin.base.css'
                         ),
                         'filters' => array(
@@ -627,7 +627,7 @@ return array(
                     'mcworkmedias' => array(
                         'assets' => array(
                             'backend/css/font-awesome.css',
-                            'backend/css/foundation.min.css',
+                            'backend/css/foundation.css',
                             'backend/css/admin.base.css',
                             'backend/css/admin.table.css',
                             'backend/css/vendor/dropzone.3.10.2.css'
@@ -645,7 +645,7 @@ return array(
                     'mcworkform' => array(
                     		'assets' => array(
                     				'backend/css/font-awesome.css',
-                    		        'backend/css/foundation.min.css',
+                    		        'backend/css/foundation.css',
                     		        'backend/css/vendor/chosen.froms.css',
                     		        'backend/css/vendor/jquery.datetimepicker.css',                    		    
                     				'backend/css/admin.base.css',
@@ -663,7 +663,7 @@ return array(
                     'mcworktable' => array(
                         'assets' => array(
                             'backend/css/font-awesome.css',
-                            'backend/css/foundation.min.css',
+                            'backend/css/foundation.css',
                             'backend/css/admin.base.css',
                             'backend/css/admin.table.css'
                         ),
@@ -681,7 +681,7 @@ return array(
                             'backend/css/font-awesome.css',
                             'backend/css/vendor/TableTools.css',
                             'backend/css/admin.chosen.css',
-                            'backend/css/foundation.min.css',
+                            'backend/css/foundation.css',
                             'backend/css/admin.base.css',
                             'backend/css/admin.table.css'
                         ),
@@ -722,8 +722,8 @@ return array(
                         'assets' => array(
                             'backend/js/vendor/jquery-1.10.2.min.js',
                             'backend/js/foundation.min.js',
-                            'backend/js/vendor/datatable/jquery.dataTables.min.js',
-                            'backend/js/vendor/datatable/TableTools.min.js',
+                            'backend/js/vendor/datatable.v1.10.1/jquery.dataTables.min.js',
+                            //'backend/js/vendor/datatable/TableTools.min.js',
                             'backend/js/vendor/chosen/chosen.jquery.min.js',
                             'backend/js/admin.main.js',
                             'backend/js/admin.table.js'
