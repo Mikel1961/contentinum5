@@ -45,7 +45,7 @@ class SavePage extends Process
      * 
      * @see \ContentinumComponents\Mapper\Process::save()
      */
-    public function save($datas, $entity = null)
+    public function save($datas, $entity = null, $stage = '', $id = null)
     {
         $entity = $this->handleEntity($entity);
         if (null === $entity->getPrimaryValue()) {
@@ -62,7 +62,7 @@ class SavePage extends Process
                 $insert['statuscode'] = '301';
             }
             $datas['scope'] = $datas['url'];
-            $msg = parent::save($datas, $entity);
+            $msg = parent::save($datas, $entity, $stage, $id);
             $this->setRedirect($insert);
             return $msg;
         }

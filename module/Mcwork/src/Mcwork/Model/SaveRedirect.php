@@ -44,17 +44,17 @@ class SaveRedirect extends Process
      * 
      * @see \ContentinumComponents\Mapper\Process::save()
      */
-    public function save($datas, $entity = null)
+    public function save($datas, $entity = null, $stage = '', $id = null)
     {
         $entity = $this->handleEntity($entity);
         if (null === $entity->getPrimaryValue()) {
             $filter = new Prepare();
             $datas['redirect'] = $filter->filter($datas['redirect']);
-            parent::save($datas, $entity);
+            parent::save($datas, $entity, $stage, $id);
         } else {
             $filter = new Prepare();
             $datas['redirect'] = $filter->filter($datas['redirect']);
-            parent::save($datas, $entity);
+            parent::save($datas, $entity, $stage, $id);
         }
     }
 }

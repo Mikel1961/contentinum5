@@ -46,7 +46,7 @@ class HandleUpload extends Process
      * 
      * @see \ContentinumComponents\Mapper\Process::save()
      */
-    public function save($datas, $entity = null)
+    public function save($datas, $entity = null, $stage = '', $id = null)
     {
         if (false !== ($result = $this->alreadyExists($datas['mediaSource'], $entity))){
             $entity = $this->find($result,true);
@@ -64,7 +64,7 @@ class HandleUpload extends Process
             $this->addInMediaMetas($lastInsertId,$metaDatas);
             return $msg;
         } else {
-            parent::save($datas, $entity);
+            parent::save($datas, $entity, $stage, $id);
         }
     }
     
@@ -75,8 +75,10 @@ class HandleUpload extends Process
     public function addInMediaMetas($id,$datas)
     {
         $save = new SaveMediaMetas($this->getStorage());
+        $save->setLogger($this->getLogger());
         $datas['webMediasId'] = $this->find($id, true);
         $save->save($datas, new WebMediaMetas());
+        unset($save);
     }
     
     /**

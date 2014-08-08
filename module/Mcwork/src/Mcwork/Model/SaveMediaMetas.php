@@ -49,7 +49,7 @@ class SaveMediaMetas extends Process
      * 
      * @see \ContentinumComponents\Mapper\Process::save()
      */
-    public function save($datas, $entity = null)
+    public function save($datas, $entity = null, $stage = '', $id = null)
     {
         $entity = $this->handleEntity($entity);
         $configuration = $this->getConfiguration();
@@ -78,7 +78,7 @@ class SaveMediaMetas extends Process
             } else {
                 $datas['mediaMetas'] = '';
             }
-            parent::save($datas, $entity);
+            parent::save($datas, $entity, $stage, $id);
         }
     }
 }

@@ -45,7 +45,7 @@ class SaveAccounts extends Process
      * 
      * @see \ContentinumComponents\Mapper\Process::save()
      */
-    public function save($datas, $entity = null)
+    public function save($datas, $entity = null, $stage = '', $id = null)
     {
         $entity = $this->handleEntity($entity);
         if (null === $entity->getPrimaryValue()) {
@@ -54,12 +54,12 @@ class SaveAccounts extends Process
             $datas['organisation_scope'] = $filter->filter($datas['organisation']);
             unset($filter);
             $datas['account_id'] = Id::get();
-            parent::save($datas, $entity);
+            parent::save($datas, $entity, $stage, $id);
         } else {
             $filter = new Prepare();
             $datas['organisation_scope'] = $filter->filter($datas['organisation']);
             unset($filter);
-            parent::save($datas, $entity);
+            parent::save($datas, $entity, $stage, $id);
         }
     }
 }

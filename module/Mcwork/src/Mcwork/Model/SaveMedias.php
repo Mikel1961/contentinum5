@@ -42,13 +42,13 @@ class SaveMedias extends Process
      *
      * @see \ContentinumComponents\Mapper\Process::save()
      */
-    public function save($datas, $entity = null)
+    public function save($datas, $entity = null, $stage = '', $id = null)
     {
     	$entity = $this->handleEntity($entity);
     	if (null === $entity->getPrimaryValue()) {
-    		parent::save($datas, $entity);
+    		parent::save($datas, $entity, $stage, $id);
     	} else {
-    		parent::save($datas, $entity);
+    		parent::save($datas, $entity, $stage, $id);
     	}
     }    
 }

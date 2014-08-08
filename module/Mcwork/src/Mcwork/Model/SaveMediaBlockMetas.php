@@ -37,5 +37,17 @@ use ContentinumComponents\Mapper\Process;
  */
 class SaveMediaBlockMetas extends Process
 {
-    
+    /**
+     * Prepare datas before save
+     * decide is it a insert or update
+     *
+     * @see \ContentinumComponents\Mapper\Process::save()
+     */
+    public function save($datas, $entity = null)
+    {
+        var_dump($_POST);
+        var_dump('<p><p><p>');
+        var_dump($datas);
+        exit();
+    }
 }
