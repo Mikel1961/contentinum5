@@ -359,6 +359,7 @@ $(document).ready(function() {
 		var data_crypt = $(this).attr('data-crypt');
 		var data_size = $(this).attr('data-size');
 		var data_time = $(this).attr('data-time');
+		var data_childs = $(this).attr('data-childs');
     	
     	$('#modal').html(' ');
     	
@@ -379,8 +380,11 @@ $(document).ready(function() {
     	if ('application/zip' == data_type){
     		output += '<button id="unzip-button" type="button" class="button">Unzip</button>';	
     	}    	  		
-   		output += '<button id="rename-button" type="button" class="button">' + language.btnrename + '</button>';
-		output += '<button id="cancel-button" type="button" class="button">' + language.btncancel + '</button>';
+   		if ('file' == data_childs || 'n' == data_childs){
+   			output += '<button id="rename-button" type="button" class="button">' + language.btnrename + '</button>';
+   		}
+		
+   		output += '<button id="cancel-button" type="button" class="button">' + language.btncancel + '</button>';
 		output += '</div>';   
 		output += '<a class="close-reveal-modal"></a>';
 		
