@@ -39,7 +39,11 @@ use Contentinum\Entity\WebMedias;
  */
 class HandleUpload extends Process
 {
-
+    /**
+     * Prepared meta datas for db insert
+     * @var array
+     */
+    private $mediaMetas = array();
     /**
      * Prepare datas before save
      * decide is it a insert or update
@@ -59,9 +63,9 @@ class HandleUpload extends Process
         }
         $entity = $this->handleEntity($entity);
         if (null === $entity->getPrimaryValue()) {
-            $msg = parent::save($datas, $entity);
+            $msg = parent::save($datas, $entity, $stage, $id);
             $lastInsertId = $this->getLastInsertId();
-            $this->addInMediaMetas($lastInsertId,$metaDatas);
+            $this->prepareMediaMetas($lastInsertId,$metaDatas);
             return $msg;
         } else {
             parent::save($datas, $entity, $stage, $id);
@@ -69,16 +73,33 @@ class HandleUpload extends Process
     }
     
     /**
-     * Register media in media meta table
+     * Prepare media meta datas
+     * 
+     * @param int $id media ident
+     * @param array $datas
+     */
+    public function prepareMediaMetas($id,$datas)
+    {
+        $datas['webMediasId'] = $this->find($id, false);
+        $this->addMediaMetas($datas,$id);
+    }
+
+    /**
+     * Save media in media meta table
+     * 
      * @param int $id
      */
-    public function addInMediaMetas($id,$datas)
+    public function addInMediaMetas()
     {
-        $save = new SaveMediaMetas($this->getStorage());
-        $save->setLogger($this->getLogger());
-        $datas['webMediasId'] = $this->find($id, true);
-        $save->save($datas, new WebMediaMetas());
-        unset($save);
+        try {
+            foreach ($this->mediaMetas as $datas) {
+                $save = new SaveMediaMetas($this->getStorage());
+                $save->setLogger($this->getLogger());
+                $save->save($datas, new WebMediaMetas());
+                unset($save);
+            }
+            return true;
+        } catch (\Exception $e) {}
     }
     
     /**
@@ -104,4 +125,37 @@ class HandleUpload extends Process
         	return $result[0]->id;
         }        
     }
+	/**
+	 * @return the $mediaMetas
+	 */
+	public function getMediaMetas() 
+	{
+		return $this->mediaMetas;
+	}
+
+	/**
+	 * @param multitype: $mediaMetas
+	 * @return HandleUpload
+	 */
+	public function setMediaMetas(array $mediaMetas) 
+	{
+		$this->mediaMetas = $mediaMetas;
+		return $this;
+	}
+	
+	/**
+	 * 
+	 * @param multitype: $mediaMetas
+	 * @param string $key
+	 * @return HandleUpload
+	 */
+	public function addMediaMetas($mediaMetas, $key = null)
+	{
+		if (null === $key){
+		    return $this->setMediaMetas($mediaMetas);
+		}
+		$this->mediaMetas[$key] = $mediaMetas;
+		return $this;
+	}
+
 }

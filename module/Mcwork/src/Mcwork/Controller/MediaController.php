@@ -103,6 +103,7 @@ class MediaController extends AbstractContentinumController
     }
 
     /**
+     * Uplod medias save meta datas in database
      */
     public function uploadAction()
     {
@@ -119,6 +120,7 @@ class MediaController extends AbstractContentinumController
             $insert['prepareSerialize'] = $conf->default->Database_Settings->prepare_serialize_data;
             $insert['decodeMetas'] = $conf->default->Database_Settings->decode_serialize_data;
             $save = new HandleUpload($this->getServiceLocator()->get('doctrine.entitymanager.orm_default'));
+            $save->setLogger($this->worker->getLogger());
             $mcSerialize = new HandleSerializeDatabase($insert['prepareSerialize']);
             $target = $this->worker->getStorage()
                 ->setPath(DS . $this->entity->getCurrentPath())
@@ -198,6 +200,7 @@ class MediaController extends AbstractContentinumController
                     // save in media database
                     $save->save($insert, new WebMedias());
                 }
+                $save->addInMediaMetas(); // save meta datas from uploaded files
                 $empty = new Cachecontent(); // empty file cache medias
                 $empty->emptyCache(array(
                     'id' => 'mcworkwebsitemedias'
@@ -385,12 +388,20 @@ class MediaController extends AbstractContentinumController
             try {
                 $msg = $this->getWorker()->renameDirectory($dirParams['fm'], $newFileName, $this->getEntity(), $dirParams['cd']);
                 if (is_array($bulkRename) && ! empty($bulkRename)) {
-                    $mediaAlternate = serialize($bulkRename);
                     $search = Name::get($dirParams['fm']) . '-';
-                    $replace = $fileNameNoExt . '-';
-                    $mediaAlternate = str_replace($search, $replace, $mediaAlternate);
-                    $mediaAlternate = unserialize($mediaAlternate);
-                    $update['mediaAlternate'] = $mcSerialize->execSerialize($mediaAlternate, $result->prepareSerialize);
+                    $replace = $fileNameNoExt . '-';                    
+                    $bulkRenamed = array();
+                    foreach ($bulkRename as $key => $bulkRow){
+                        if ( isset($bulkRow['mediaSource']) ){ 
+                            $bulkRow['mediaSource'] = str_replace($search, $replace, $bulkRow['mediaSource'] );
+                        }
+                        if ( isset($bulkRow['mediaLink']) ){
+                        	$bulkRow['mediaLink'] = str_replace($search, $replace, $bulkRow['mediaLink'] );
+                        }  
+                        $bulkRenamed[$key] = $bulkRow;
+                        
+                    }
+                    $update['mediaAlternate'] = $mcSerialize->execSerialize($bulkRenamed, $result->prepareSerialize);
                     $docRoot = $this->worker->getStorage()->getDocumentRoot();
                     foreach ($bulkRename as $key => $row) {
                         $source = $docRoot . $row['mediaSource'];
@@ -402,9 +413,6 @@ class MediaController extends AbstractContentinumController
                 }
                 $worker->save($update, $result);
                 echo true;
-                // var_dump($bulkRename);
-                // var_dump($update);exit;
-                // echo true;
             } catch (\Exception $e) {
                 echo Json::encode(array(
                     'error' => $e->getMessage()
