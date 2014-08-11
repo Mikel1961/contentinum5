@@ -49,24 +49,7 @@ class WebMedias extends AbstractEntity
      * @ORM\Column(name="media_type", type="string", length=50, nullable=false)
      */
     private $mediaType = '';
-    
-    /**
-     *
-     * @var string
-     *
-     * @ORM\Column(name="prepare_serialize", type="string", length=30, nullable=false)
-     */
-    private $prepareSerialize = '';
-    
-    
-    /**
-     *
-     * @var string
-     *
-     * @ORM\Column(name="decode_metas", type="string", length=30, nullable=false)
-     */
-    private $decodeMetas = '';    
-    
+        
     /**
      * @var string
      *
@@ -80,6 +63,14 @@ class WebMedias extends AbstractEntity
      * @ORM\Column(name="media_alternate", type="text", nullable=true)
      */
     private $mediaAlternate = '';
+    
+    /**
+     *
+     * @var string
+     *
+     * @ORM\Column(name="media_metas", type="text", nullable=true)
+     */
+    private $mediaMetas = '';    
 
     /**
      * @var boolean
@@ -87,6 +78,13 @@ class WebMedias extends AbstractEntity
      * @ORM\Column(name="media_in_use", type="boolean", nullable=false)
      */
     private $mediaInUse = '0';
+        
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="meta_coding", type="string", length=20, nullable=false)
+     */    
+    private $metaCoding = '';
 
     /**
      * @var integer
@@ -258,45 +256,6 @@ class WebMedias extends AbstractEntity
 	}
 	
 	/**
-	 * @return the $prepareSerialize
-	 */
-	public function getPrepareSerialize()
-	{
-		return $this->prepareSerialize;
-	}
-	
-	/**
-	 * @param string $prepareSerialize
-	 * @return WebMediasMetas
-	 */
-	public function setPrepareSerialize($prepareSerialize)
-	{
-		$this->prepareSerialize = $prepareSerialize;
-	
-		return $this;
-	}
-	
-	
-	/**
-	 * @return the $decodeMetas
-	 */
-	public function getDecodeMetas()
-	{
-		return $this->decodeMetas;
-	}
-	
-	/**
-	 * @param string $decodeMetas
-	 * @return WebMediasMetas
-	 */
-	public function setDecodeMetas($decodeMetas)
-	{
-		$this->decodeMetas = $decodeMetas;
-	
-		return $this;
-	}	
-
-	/**
 	 * @return the $mediaAttribute
 	 */
 	public function getMediaAttribute() 
@@ -333,6 +292,27 @@ class WebMedias extends AbstractEntity
 		
 		return $this;
 	}
+	
+	/**
+	 *
+	 * @return the $mediaMetas
+	 */
+	public function getMediaMetas()
+	{
+		return $this->mediaMetas;
+	}
+	
+	/**
+	 *
+	 * @param string $mediaMetas
+	 * @return WebMedias
+	 */
+	public function setMediaMetas($mediaMetas)
+	{
+		$this->mediaMetas = $mediaMetas;
+	
+		return $this;
+	}	
 
 	/**
 	 * @return the $mediaInUse
@@ -349,6 +329,25 @@ class WebMedias extends AbstractEntity
 	public function setMediaInUse($mediaInUse) 
 	{
 		$this->mediaInUse = $mediaInUse;
+		
+		return $this;
+	}
+
+	/**
+	 * @return the $metaCoding
+	 */
+	public function getMetaCoding() 
+	{
+		return $this->metaCoding;
+	}
+
+	/**
+	 * @param string $metaCoding
+	 * @return WebMedias
+	 */
+	public function setMetaCoding($metaCoding) 
+	{
+		$this->metaCoding = $metaCoding;
 		
 		return $this;
 	}
