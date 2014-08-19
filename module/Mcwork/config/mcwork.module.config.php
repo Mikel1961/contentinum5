@@ -32,12 +32,12 @@ return array(
                         'resource' => 'authorresource'
                     ),
                     array(
-                        'label' => 'Mcwork_Controller_Content_Navigation',
+                        'label' => 'Navigation',
                         'uri' => '/mcwork/navigation',
                         'resource' => 'publisherresource'
                     ),
                     array(
-                        'label' => 'Mcwork_Controller_Content_Menue',
+                        'label' => 'Menue',
                         'uri' => '/mcwork/menue',
                         'resource' => 'publisherresource'
                     ),

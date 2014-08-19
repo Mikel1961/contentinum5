@@ -120,6 +120,91 @@ table {
 	background: #7F8C8D
 }
 
+
+.turquoise-color {
+	color: #1ABC9C
+}
+
+.green-sea-color {
+	color: #16A085
+}
+
+.emerald-color {
+	color: #2ECC71
+}
+
+.nephritis-color {
+	color: #27AE60
+}
+
+.peter-river-color {
+	color: #3498DB
+}
+
+.belize-hole-color {
+	color: #2980B9
+}
+
+.amethyst-color {
+	color: #9B59B6
+}
+
+.wisteria-color {
+	color: #8E44AD
+}
+
+.wet-aspahlt-color {
+	color: #34495E
+}
+
+.midnight-blue-color {
+	color: #2C3E50
+}
+
+.sun-flower-color {
+	color: #F1C40F
+}
+
+.orange-color {
+	color: #F39C12
+}
+
+.carrot-color {
+	color: #E67E22
+}
+
+.pumpkim-color {
+	color: #D35400
+}
+
+.alizarin-color {
+	color: #E74C3C
+}
+
+.pomegranate-color {
+	color: #C0392B
+}
+
+.clouds-color {
+	color: #ECF0F1
+}
+
+.silver-color {
+	color: #BDC3C7
+}
+
+.concrete-color {
+	color: #95A5A6
+}
+
+.asbestos-color {
+	color: #7F8C8D
+}
+
+.pdf-color {
+	color:#BB0706;
+}
+
 .row {
 	max-width: 100%;
 }
@@ -129,8 +214,8 @@ form.custom .custom.dropdown {
 }
 
 #filescrollarea {
-	height: 400px;
-	overflow-y: scroll;
+	/*height: 400px;
+	overflow-y: scroll;*/
 	margin-bottom: 1em;
 }
 

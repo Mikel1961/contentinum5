@@ -55,51 +55,15 @@ class HandleUpload extends Process
         if (false !== ($result = $this->alreadyExists($datas['mediaSource'], $entity))){
             $entity = $this->find($result,true);
         }
-        if ( isset($datas['mediaMetas'])) {
-            $metaDatas['mediaMetas'] = $datas['mediaMetas'];
-            $metaDatas['prepareSerialize'] = $datas['prepareSerialize'];
-            $metaDatas['decodeMetas'] = $datas['decodeMetas'];
-            unset($datas['mediaMetas']);
-        }
         $entity = $this->handleEntity($entity);
         if (null === $entity->getPrimaryValue()) {
-            $msg = parent::save($datas, $entity, $stage, $id);
-            $lastInsertId = $this->getLastInsertId();
-            $this->prepareMediaMetas($lastInsertId,$metaDatas);
-            return $msg;
+            return parent::save($datas, $entity, $stage, $id);
         } else {
+            if ( isset($datas['mediaMetas'])) {
+            	unset($datas['mediaMetas']);
+            }            
             parent::save($datas, $entity, $stage, $id);
         }
-    }
-    
-    /**
-     * Prepare media meta datas
-     * 
-     * @param int $id media ident
-     * @param array $datas
-     */
-    public function prepareMediaMetas($id,$datas)
-    {
-        $datas['webMediasId'] = $this->find($id, false);
-        $this->addMediaMetas($datas,$id);
-    }
-
-    /**
-     * Save media in media meta table
-     * 
-     * @param int $id
-     */
-    public function addInMediaMetas()
-    {
-        try {
-            foreach ($this->mediaMetas as $datas) {
-                $save = new SaveMediaMetas($this->getStorage());
-                $save->setLogger($this->getLogger());
-                $save->save($datas, new WebMediaMetas());
-                unset($save);
-            }
-            return true;
-        } catch (\Exception $e) {}
     }
     
     /**

@@ -52,7 +52,6 @@ class SaveMediaMetas extends Process
     public function save($datas, $entity = null, $stage = '', $id = null)
     {
         $entity = $this->handleEntity($entity);
-        $configuration = $this->getConfiguration();
         if (null === $entity->getPrimaryValue()) {
             parent::save($datas, $entity);
         } else {
@@ -63,17 +62,9 @@ class SaveMediaMetas extends Process
                     unset($datas[$field]);
                 }
             }
+            $datas = array();
             if (!empty($mediaMetas)){
-                $prepare = false;
-                if ($entity->prepareSerialize){
-                    $prepare = $entity->prepareSerialize;
-                }
-                if (false === $prepare && $configuration->default->Database_Settings->prepare_serialize_data){
-                    $prepare = $configuration->default->Database_Settings->prepare_serialize_data;
-                    $datas['prepareSerialize'] = $prepare;
-                    $datas['decodeMetas'] = $configuration->default->Database_Settings->decode_serialize_data;
-                }
-                $dataserialize = new HandleSerializeDatabase($prepare);
+                $dataserialize = new HandleSerializeDatabase();
                 $datas['mediaMetas'] = $dataserialize->execSerialize($mediaMetas);
             } else {
                 $datas['mediaMetas'] = '';

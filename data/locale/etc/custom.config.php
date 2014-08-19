@@ -2,6 +2,7 @@
 return array(
     'default' => array(
         'Medias' => array(
+            'max_filesize' => 50,
             'alternate_sizes' => array(
                 'max' => '2600',
                 'thumbnail' => '200',
@@ -24,13 +25,43 @@ return array(
                 'image/xbm' => null,
                 'image/x-icon' => null,
                 'image/vnd.microsoft.icon' => null
+            ),
+            'allowed_uploads' => array(
+                'bmp' => null,
+                'csv' => null,
+                'doc' => null,
+                'epg' => null,
+                'gif' => true,
+                'ico' => true,
+                'jpg' => true,
+                'jpeg' => true,
+                'JPG' => true,
+                'odg' => null,
+                'odp' => null,
+                'ods' => null,
+                'odt' => null,
+                'pdf' => true,
+                'png' => true,
+                'ppt' => null,
+                'swf' => null,
+                'txt' => null,
+                'xcf' => null,
+                'xls' => null,
+                'mp3' => true,
+                'mp4' => true,
+                'htm' => null,
+                'html' => null,
+                'flv' => null,
+                'D83' => null,
+                'P83' => null,
+                'X83'=> null,
+                'd83' => null,
+                'p83' => null,
+                'x83'=> null,
+                'p81'=> null,
+                'P81'=> null,
             )
             
-        )
-        ,
-        'Database_Settings' => array(
-            'prepare_serialize_data' => 'base64_encode',
-            'decode_serialize_data' => 'base64_decode'
         )
     )
 );

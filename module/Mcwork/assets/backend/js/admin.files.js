@@ -47,41 +47,67 @@ $(document).ready(function() {
 		options.ext = '/' + options.current.replace(options.ds, options.seperator);
 	}	
 	
-
-	
-	
-	Dropzone.options.contentinumUpload = {
-		dictDefaultMessage: "Datei auswaehlen",
-		maxFilesize: 100,
-		addRemoveLinks: true,
-		uploadMultiple: true,
-		init: function() {
-			this.on("errormultiple", function(files, message, xhr){
-				console.log(files);
-				console.log(message);
-				
-				$().notiBarMessage({
-					domElement : '#alertMessages',
-					notibar : 'error',
-					messages : message
-				});				
-				
-			}),
-			this.on("successmultiple", function(files, response){
-				response = jQuery.parseJSON(response);			
-				console.log(files);
-				$.each(files, function( index, file ) {	
-					var uploaded = {};
-					if ( response.hasOwnProperty(file.name) ){
-						uploaded.name = response[file.name].filename;
-						uploaded.size = file.size;
-						uploaded.label = '<i class="fa fa-upload"></i> ' + uploaded.name;
-						$(".table > tbody").prepend(tableRow(uploaded,options,'file'));							
-					}					
-				});
-			});
-		},
-	};	
+	$(document.body).on('click', '#btnUpload', function(){	
+		var language = setLanguage();
+		var data_action = $(this).attr('data-action');
+		
+		$('#modal').html(' ');
+		
+   		var output = '<div class="modal-descr"><h4>Upload <span id="server-process">  </span></h4><hr />';
+    	output += '<div class="modal-content">';
+		output += '<div class="row"><div class="large-12 columns">';
+    	output += '<form id="contentinumUpload" action="/mcwork/medias/upload" method="post" enctype="multipart/form-data" class="dropzone">';
+		output += '<div class="fallback"><input name="file" type="file" multiple /> </div>';
+		output += '</form>';
+		output += '</div></div></div>';
+   		output += '<div class="modal-buttons right">';
+		output += '<button id="cancel-button" type="button" class="button alert">' + language.btnclose + '</button>';
+		output += '</div>';   
+		output += '<a class="close-reveal-modal"></a>';
+		
+		$('#modal').append(output);
+		$('#modal').foundation('reveal', 'open');	
+		
+		var mcworkDropzone = new Dropzone("form#contentinumUpload", { 
+			    url: data_action,
+				dictDefaultMessage: "Datei auswaehlen",
+				maxFilesize: options.maxFilesize,
+				acceptedFiles: options.allowedUploads,
+				addRemoveLinks: true,
+				uploadMultiple: true,
+				init: function() {
+					this.on("errormultiple", function(files, message, xhr){
+						console.log(files);
+						console.log(message);
+						
+						$().notiBarMessage({
+							domElement : '#alertMessages',
+							notibar : 'error',
+							messages : message
+						});				
+						
+					}),
+					this.on("successmultiple", function(files, response){
+						response = jQuery.parseJSON(response);			
+						console.log(files);
+						$.each(files, function( index, file ) {	
+							var uploaded = {};
+							if ( response.hasOwnProperty(file.name) ){
+								uploaded.name = response[file.name].filename;
+								uploaded.size = file.size;
+								uploaded.label = '<i class="fa fa-upload"></i> ' + uploaded.name;
+								$(".table > tbody").prepend(tableRow(uploaded,options,'file'));							
+							}					
+						});
+					});
+				},
+		});				
+		
+		$('#cancel-button').click(function() {
+			$('#modal').foundation('reveal', 'close');
+		});			
+		
+	});
 
 	
 	$('#btnSelect').click(function() {
@@ -89,16 +115,13 @@ $(document).ready(function() {
 		var tableElement = $('.table');										   
 		var ch = tableElement.find('tbody input[type=checkbox]');										 
 		if($(this).attr('data-status') == 'unselect' ) {
-		
 			//check all rows in table
 			ch.each(function(){ 
 				$(this).prop('checked',true);
 			});
 			$('#btnSelect').html(language.unselect);			
 			$(this).attr('data-status', 'select');
-		
 		} else {
-			
 			//uncheck all rows in table
 			ch.each(function(){ 
 				$(this).prop('checked',false); 
@@ -281,11 +304,11 @@ $(document).ready(function() {
 		var datas = $('input:checkbox:checked').serializeArray();
  		var table = $('.table');
  		var ch = table.find('tbody input:checkbox:checked');
-		
+ 		
 		$('#big_modal').html(' ');
 		var output = '<p class="lead text-search-info">' + language.copytitle + '</p>';
 		output += '<hr />';
-		output += '<p id="dir-links" class="lead"><figure class="center"><img src="/assets/images/loader6.gif" width="31" height="31" alt="wait..." /></figure></p>';
+		output += '<p id="dir-links" class="lead"> </p><p><i class="fa fa-spinner fa-spin fa-2x alizarin-color"> </i> ' + language.copytarget + '</p>';
 		output += '<hr />';
 		output += '<button id="cancel-button" type="button" class="button right">' + language.btncancel + '</button>';
 		output += '</div>';
@@ -303,7 +326,9 @@ $(document).ready(function() {
 			$('#big_modal').foundation('reveal', 'close');
 		});	
 		
-		$(document.body).on('click', ".setlink", function(){
+		$(document.body).on('click', ".setlink", function(ev){
+			ev.stopImmediatePropagation();
+			ev.preventDefault();
 			var dest = $(this).attr('data-link');
 				$.ajax({
 					url : "/mcwork/medias/copy",
@@ -323,9 +348,18 @@ $(document).ready(function() {
 								domElement : '#alertMessages',
 								notibar : 'success',
 								messages : language.success_copy,
-							});						
+							});	
+							
+							console.log(datas);
+							
 						} else {
 							$('#big_modal').foundation('reveal', 'close');
+					
+							url = '';
+							datas = '';
+					 		table = '';
+					 		ch = '';			
+
 							var msg = '';
 							var obj = jQuery.parseJSON(data);
 							if (obj.error) {
@@ -564,8 +598,37 @@ $(document).ready(function() {
 		if (isSelected() == false) return false;
 
 		var language = setLanguage();
+		var datainuse = '';
+		var datatype = '';
+		var nodelmsg = '';
+ 		$("input[type=checkbox]:checked").each(function() {
+			// console.log($(this).val());
+			// console.log($(this).attr('data-inuse'));
+			datainuse = $(this).attr('data-inuse');
+			datatype = $(this).attr('data-type');
+			if (1 == datainuse){
+				
+				if (nodelmsg.length > 0){
+					nodelmsg += '<br />'
+				}
+				
+				if ('dir' == datatype) {
+					nodelmsg += '<i class="fa fa-exclamation-triangle alizarin-color"></i> ' + $(this).val() + ' ' + language.dirfileinusenodel;
+				} else {
+					nodelmsg += '<i class="fa fa-exclamation-triangle alizarin-color"></i> ' + $(this).val() + ' ' + language.fileinusenodel;
+				}				
+				
+				$(this).prop('checked',false);
+			}
+
+ 		});
+		
 		$('#modal').html(' ');
-		var output = '<p class="lead">' + language.dirdelete + '</p><hr />';
+		var output = '<p class="lead">' + language.dirdelete + '</p>';
+		if (nodelmsg.length > 0){
+			output += '<p>' + nodelmsg + '</p>';
+		}
+		output += '<hr />';
 		output += '<div class="modal-buttons right">';
 		output += '<button id="confirm-button" type="button" class="alert button">' + language.btndelete + '</button>';
 		output += '<button id="cancel-button" type="button" class="button">' + language.btncancel + '</button>';

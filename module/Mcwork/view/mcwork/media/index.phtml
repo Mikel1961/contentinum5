@@ -25,10 +25,18 @@
 * @link      https://github.com/Mikel1961/contentinum-components
 * @version   1.0.0
 */
+
+$up = '';
+if ($this->currentFolder) {
+	$up = '/' . str_replace(DS, $this->seperator, $this->currentFolder);
+}
+$attrData = ' data-action="/mcwork/medias/upload' . $up . '"';
+$attrData .= ' data-maxfilesize="' . ini_get('upload_max_filesize') . '"';
 ?>
 <div class="box"><div class="box-title toolbar">
 <h3><i class="fa fa-recorder"></i> <?php echo $this->translate($this->mcworkContent( $this->page, $this->pagecontent,'subheadline')); ?> </h3>
 <ul class="button-group right">
+    <li><button id="btnUpload" class="small button" <?php echo $attrData;  ?>><?php echo $this->translate('Upload'); ?></button></li>
 	<li><button id="btnSelect" class="small button" data-status="unselect"><?php echo $this->translate('Select All'); ?></button></li>
 	<li><button id="btnCopy" class="small button"><?php echo $this->translate('Copy'); ?></button></li>
 	<li><button id="btnMove" class="small button"><?php echo $this->translate('Move'); ?></button></li>
@@ -38,21 +46,8 @@
 </div><div class="box-content nopadding"><div id="foldermediasfiles"><section id="filescrollarea">
 <?php
 echo $this->mediasTableView($this->entries, $this->mediatable);
-$up = '';
-if ($this->currentFolder) {
-    $up = '/' . str_replace(DS, $this->seperator, $this->currentFolder);
-}
 ?>
-</section>
-<p><?php echo $this->translate('max_upload') .  ' ['. ini_get('upload_max_filesize'); ?>]</p>
-<form id="contentinumUpload"
-	action="/mcwork/medias/upload<?php echo $up; ?>" method="post"
-		enctype="multipart/form-data" class="dropzone">
-		<div class="fallback">
-			<input name="file" type="file" multiple />
-		</div>
-	</form>
-</div>
+</section></div>
 <?php
 echo $this->translate($this->mcworkContent( $this->page, $this->pagecontent,'content'));
 ?>

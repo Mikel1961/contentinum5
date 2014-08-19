@@ -50,7 +50,6 @@ class McworkMediasServiceFactory extends WebsiteServiceFactory
     protected function queryDbCacheResult($config, $sl)
     {
         $result = array();
-        $result = array();
         $cache = $sl->get('Contentinum\Cache\Filesystem7200');
         $key = $config['cache'];
         if (! ($result = $cache->getItem($key))) {
@@ -60,12 +59,14 @@ class McworkMediasServiceFactory extends WebsiteServiceFactory
                 'id',
                 'mediaName',
                 'mediaSource',
+                'mediaType',
                 'mediaInUse'
             ));
             foreach ($datas as $row) {
                 $result[$row['mediaSource']]['mediaInUse'] = $row['mediaInUse'];
                 $result[$row['mediaSource']]['id'] = $row['id'];
                 $result[$row['mediaSource']]['mediaName'] = $row['mediaName'];
+                $result[$row['mediaSource']]['mediaType'] = $row['mediaType'];
             }
             $cache->setItem($key, $result);
         }
