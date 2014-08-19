@@ -4,29 +4,30 @@ return array(
         'default' => array(
             array(
                 'label' => 'Mcwork_Controller_Index',
-                'route' => 'mcwork',
+                //'route' => 'mcwork',
+                'uri' => '/mcwork/dashboard',
                 'order' => 1
             ),
             array(
-                'label' => 'Mcwork_Controller_Content',
-                'uri' => '/mcwork/content',
+                'label' => 'Content',
+                'uri' => '#',//mcwork/content',
                 'order' => 2,
                 'resource' => 'authorresource',
                 'listClass' => 'has-dropdown',
                 'subUlClass' => 'dropdown',
                 'pages' => array(
                     array(
-                        'label' => 'Mcwork_Controller_Content_Pages',
+                        'label' => 'Pages',
                         'uri' => '/mcwork/pages',
                         'resource' => 'publisherresource'
                     ),
                     array(
-                        'label' => 'Mcwork_Controller_Content_PageContent',
+                        'label' => 'PageContent',
                         'uri' => '/mcwork/pagecontent',
                         'resource' => 'authorresource'
                     ),
                     array(
-                        'label' => 'Mcwork_Controller_Content_Contribution',
+                        'label' => 'Contribution',
                         'uri' => '/mcwork/contribution',
                         'resource' => 'authorresource'
                     ),
@@ -47,7 +48,7 @@ return array(
                     ),
                     array(
                         'label' => 'Media meta description',
-                        'uri' => '/mcwork/mediametas',
+                        'uri' => '/mcwork/medias/metadatas',
                         'resource' => 'authorresource'
                     ),
                     array(
@@ -59,7 +60,7 @@ return array(
             ),
             array(
                 'label' => 'Mcwork_Controller_Conf',
-                'uri' => '/mcwork/configuration',
+                'uri' => '#',///mcwork/configuration',
                 'order' => 3,
                 'resource' => 'adminresource',
                 'listClass' => 'has-dropdown',
@@ -89,7 +90,7 @@ return array(
             ),
             array(
                 'label' => 'Mcwork_Controller_Admin',
-                'uri' => '/mcwork/administration',
+                'uri' => '#',//mcwork/administration',
                 'order' => 4,
                 'resource' => 'authorresource',
                 'listClass' => 'has-dropdown',
@@ -146,7 +147,7 @@ return array(
                         'action' => 'index'
                     )
                 )
-            ),
+            ),          
             'mcwork' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
@@ -254,6 +255,45 @@ return array(
                                     )
                                 )
                             ),
+                            'mcwork_app_mediametas' => array(
+                            		'type' => 'Zend\Mvc\Router\Http\Segment',
+                            		'options' => array(
+                            				'route' => '/metadatas[/][:id]',
+                            				'constraints' => array(
+                            						'id' => '[a-zA-Z0-9/_-]+'
+                            				),
+                            				'defaults' => array(
+                            						'controller' => 'Mcwork\Controller\Content\Mediametadatas',
+                            						'action' => 'index'
+                            				)
+                            		)
+                            ),  
+                            'mcwork_app_savemetas' => array(
+                            		'type' => 'Zend\Mvc\Router\Http\Segment',
+                            		'options' => array(
+                            				'route' => '/savemetas[/][:id]',
+                            				'constraints' => array(
+                            						'id' => '[a-zA-Z0-9/_-]+'
+                            				),
+                            				'defaults' => array(
+                            						'controller' => 'Mcwork\Controller\Content\Mediametadatas',
+                            						'action' => 'savemetas'
+                            				)
+                            		)
+                            ), 
+                            'mcwork_app_mediametatags' => array(
+                            		'type' => 'Zend\Mvc\Router\Http\Segment',
+                            		'options' => array(
+                            				'route' => '/mediametatags[/][:id]',
+                            				'constraints' => array(
+                            						'id' => '[a-zA-Z0-9/_-]+'
+                            				),
+                            				'defaults' => array(
+                            						'controller' => 'Mcwork\Controller\Content\Mediametadatas',
+                            						'action' => 'mediametatags'
+                            				)
+                            		)
+                            ),                                                                                 
                             'mcwork_app_medias_configuration' => array(
                                 'type' => 'Zend\Mvc\Router\Http\Segment',
                                 'options' => array(
@@ -537,9 +577,14 @@ return array(
         )
     ),
     'assetic_configuration' => array(
-        
         'controllers' => array(
             'Mcwork\Controller\AddItems' => array(
+                '@mcworkform',
+                '@head_custom',
+                '@mcworkformscripts'
+                
+            ),
+            'Mcwork\Controller\EditItem'  => array(
                 '@mcworkform',
                 '@head_custom',
                 '@mcworkformscripts'
@@ -555,46 +600,16 @@ return array(
                 '@head_custom',
                 '@mcworktblscripts'
             ),
-            'Mcwork\Controller\Admin\Users' => array(
-                '@mcworkdyntable',
-                '@head_custom',
-                '@mcworktblscripts'
-            ),
-            'Mcwork\Controller\Conf\Fieldtypes' => array(
-                '@mcworkdyntable',
-                '@head_custom',
-                '@mcworktblscripts'
-            ),
-            'Mcwork\Controller\Conf\Fieldmetas' => array(
-                '@mcworkdyntable',
-                '@head_custom',
-                '@mcworktblscripts'
-            ),
-            'Mcwork\Controller\Admin\Contacts' => array(
-                '@mcworkdyntable',
-                '@head_custom',
-                '@mcworktblscripts'
-            ),
-            'Mcwork\Controller\Admin\Accounts' => array(
-                '@mcworkdyntable',
-                '@head_custom',
-                '@mcworktblscripts'
-            ),
-            'Mcwork\Controller\Admin\Logs' => array(
-                '@mcworktable',
-                '@head_custom',
-                '@mcworkscripts'
-            ),
-            'Mcwork\Controller\Admin\Cache' => array(
-                '@mcworktable',
-                '@head_custom',
-                '@mcworkscripts'
-            ),
             'Mcwork\Controller\Content\Medias' => array(
                 '@mcworkmedias',
                 '@head_custom',
                 '@mcfilescripts'
-            )
+            ),
+            'Mcwork\Controller\Content\Mediametadatas' => array(
+                '@mcworkmediametas',
+                '@head_custom',                
+                '@mcworkmediametascripts'
+            ),
         ),
         'routes' => array(
             'mcwork(.*)' => array(
@@ -641,6 +656,25 @@ return array(
                             )
                         )
                     ),
+                    
+                    'mcworkmediametas' => array(
+                    		'assets' => array(
+                    				'backend/css/font-awesome.css',
+                    				'backend/css/foundation.css',
+                    		        'backend/css/vendor/mcwork.tagging.css',   
+                    		        'backend/css/vendor/jquery-ui-autocomplete.css',                    		                     		    
+                    				'backend/css/admin.base.css',
+                    		        'backend/css/admin.dyngrid.css',
+                    		),
+                    		'filters' => array(
+                    				'?CssRewriteFilter' => array(
+                    						'name' => 'Assetic\Filter\CssRewriteFilter'
+                    				),
+                    				'?CssMinFilter' => array(
+                    						'name' => 'Assetic\Filter\CssMinFilter'
+                    				)
+                    		)
+                    ),                    
                     
                     'mcworkform' => array(
                     		'assets' => array(
@@ -718,6 +752,9 @@ return array(
                             )
                         )
                     ),
+                               
+                    
+                    
                     'mcworktblscripts' => array(
                         'assets' => array(
                             'backend/js/vendor/jquery-1.10.2.min.js',
@@ -749,7 +786,24 @@ return array(
                     						'name' => 'Assetic\Filter\JSMinFilter'
                     				)
                     		)
-                    ),                    
+                    ), 
+                    'mcworkmediametascripts' => array(
+                    		'assets' => array(
+                    				'backend/js/vendor/jquery.js',
+                    				'backend/js/foundation.min.js',
+                    		        'backend/js/vendor/jquery.imagesloaded.js',
+                    		        'backend/js/vendor/jquery.wookmark.js',
+                    		        'backend/js/vendor/mcwork.tagging.js',
+                    		        'backend/js/vendor/jquery-ui-autocomplete.js',                    		    
+                    				'backend/js/admin.main.js',
+                    		        'backend/js/admin.dyngrid.js',
+                    		),
+                    		'filters' => array(
+                    				'?JSMinFilter' => array(
+                    						'name' => 'Assetic\Filter\JSMinFilter'
+                    				)
+                    		)
+                    ),                                       
                     'mcworkscripts' => array(
                         'assets' => array(
                             'backend/js/vendor/jquery-1.10.2.min.js',

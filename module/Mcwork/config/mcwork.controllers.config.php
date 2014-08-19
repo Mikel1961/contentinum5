@@ -260,6 +260,15 @@ return array(
                 }
             }
         },
+        'Mcwork\Controller\Content\Mediametadatas' => function ($sl)
+        {
+            $ctrl = new Mcwork\Controller\MediametadatasController();
+        	$ctrl->setEntity(new Contentinum\Entity\WebMedias());
+        	$worker = new \ContentinumComponents\Mapper\Worker($sl->getServiceLocator()->get('doctrine.entitymanager.orm_default'));
+        	$worker->setLogger($sl->getServiceLocator()->get('Contentinum\Logs\Applog'));
+        	$ctrl->setWorker($worker);
+        	return $ctrl;
+        },        
         'Mcwork\Controller\Content\Medias' => function ($sl)
         {
             $ctrl = new Mcwork\Controller\MediaController();
@@ -268,6 +277,8 @@ return array(
             $worker->setLogger($sl->getServiceLocator()->get('Contentinum\Logs\Applog'));
             $worker->setStorage(new \ContentinumComponents\Storage\StorageManager());
             $ctrl->setWorker($worker);
+            $ctrl->setEm($sl->getServiceLocator()->get('doctrine.entitymanager.orm_default'));
+            $ctrl->setConfiguration($sl->getServiceLocator()->get('Contentinum\Customer'));
             return $ctrl;
         }
     )

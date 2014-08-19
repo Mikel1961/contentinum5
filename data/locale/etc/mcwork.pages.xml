@@ -1434,11 +1434,21 @@
 		</app>
 	</mcwork_mediametas_delete>		
 	
+	<Mcwork_Controller_MediaMetas>
+		<title>Mcwork_Controller_MediaMetas</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>Mcwork_Controller_MediaMetas</headline>
+		<columnright></columnright>
+		<subheadline></subheadline>
+		<content></content>
+		<footer></footer>	
+	</Mcwork_Controller_MediaMetas>
+	
 	<Mcwork_Controller_Content_Medias>
 		<title>Mcwork_Controller_Content_Medias</title>
 		<bodyTagAttribs></bodyTagAttribs>
 		<headline>Mcwork_Controller_Content_Medias</headline>
-		<columnright><![CDATA[<div id="clNewFolder" class="row collapse"><div class="small-9 columns"><input id="new-folder" type="text" placeholder="New Folder" pattern="^[a-z0-9-_]*$"><span class="errNewFolder"> </span></div><div class="small-3 columns"><a id="btnNewFolder" href="#" class="button postfix">New Folder</a></div></div>]]>
+		<columnright><![CDATA[<div id="clNewFolder" class="row collapse"><div class="small-9 columns"><input id="new-folder" type="text"><span class="errNewFolder"> </span></div><div class="small-3 columns"><a id="btnNewFolder" href="#" class="button postfix">New Folder</a></div></div>]]>
 		</columnright>
 		<subheadline>Media and Document files</subheadline>
 		<content></content>
