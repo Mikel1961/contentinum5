@@ -1,755 +1,1033 @@
+var McworkFiles = {
 
+	lng : false,
+	element : false,
+	url : false,
+	layout : 'table',
+	requestDebug : 0,
+	requestType : 'POST',
+	requestSync : true,
+	postDatas : {},
+	uploadAction : '/mcwork/medias/upload',
+	formIdUpload : 'contentinumUpload',
+	newFolderId : 'new-folder',
+	currentFolderId : 'current-folder',
+	row_new_upload : 'newupload',
+	row_new_dir : 'newdir',
+	icon_file_archive : 'fa-archive',
+	icon_file_pdf : 'fa-file-pdf-o',
+	
+	
+	options : {},
+	tblinfo : {},
 
+	modalHeader : {
+		tag : 'header',
+		inner_tag : {
+			1 : 'div'
+		},
+		tag_css_class : 'row',
+		tag_inner_css_class : {
+			1 : 'large-12 columns'
+		},
+		tag_attribute : {
+			'role' : 'banner'
+		},
+		content : {}
 
-var tableRow = function (file,options, type){
-	var AktuellesDatum=new Date();
-	var fd = AktuellesDatum.getDate() + '.' + (AktuellesDatum.getMonth ()+1) + '.' + (AktuellesDatum.getYear()-100+2000);
-	fd += ' ' +  AktuellesDatum.getHours() + ':' + AktuellesDatum.getMinutes() + ':' + AktuellesDatum.getSeconds();
-	var tagclass = 'class="newupload"';
-	var attribs = '';
-	if ('dir' == type){
-		attribs = ' colspan="2"';
-		tagclass = 'class="newdir"';
-	}
-	var tr = '<tr '+ tagclass +'><td><input type="checkbox" name="cb[]" value="'+file.name+'"></td>';
-	tr += '<td class="filename"'+ attribs +'>'+file.label+'</td>';
-	if ('file' == type){
-		tr += '<td class="hide-for-small text-right">'+ Math.ceil(file.size/1024) +' KB</td>';
-	}
-	tr += '<td class="hide-for-small text-right">'+ fd +'</td>';
-	tr += '<td class="cellToolbar"><button type="button" data-type="'+file.type+'" ';
-	if ('file' == type){
-		tr += 'data-download="http://labs.contentinum5.net/'+ options.baseroute +'/download/'+file.name + options.ext +'" ';
-		//tr += 'data-link="/home/mike/webs/web1/contentinum5/public/images/'+file.name+'" ';
-		if (options.current.length > 1) {
-		   var datalink = options.current + options.ds + file.name;
+	},
+
+	modalBody : {
+		tag : 'section',
+		inner_tag : {
+			1 : 'div',
+			2 : 'div'
+		},
+		tag_css_class : 'row',
+		tag_inner_css_class : {
+			1 : 'large-5 columns',
+			2 : 'large-7 columns'
+		},
+		tag_attribute : {
+			'id' : 'content',
+			'role' : 'main'
+		},
+		content : {}
+	},
+
+	modalFooter : {
+		tag : 'footer',
+		inner_tag : {
+			1 : 'div'
+		},
+		tag_css_class : 'row',
+		tag_inner_css_class : {
+			1 : 'large-12 columns'
+		},
+		tag_attribute : {
+			'role' : 'contentinfo'
+		},
+		content : {},
+	},
+
+	zipForm : {
+
+		1 : {
+			'spec' : {
+				'name' : 'archive-name',
+				'required' : false,
+				'options' : {
+					'label' : 'zip',
+					'deco-row' : 'text',
+					'description' : 'namearchiv',
+				},
+				'type' : 'Text',
+				'attributes' : {
+					'id' : 'archive-name',
+				}
+
+			}
+
+		},
+
+	},
+	
+	downloadForm : {
+		1 : {
+			'spec' : {
+				'name' : 'link',
+				'required' : false,
+				'options' : {
+					'label' : 'downloadlink',
+					'deco-row' : 'text',
+				},
+				'type' : 'Text',
+				'attributes' : {
+					'id' : 'link',
+					'readonly' : 'readonly',
+				}
+
+			}
+
+		},		
+	},
+	
+	renameForm : {
+		1 : {
+			'spec' : {
+				'name' : 'new-name',
+				'required' : false,
+				'options' : {
+					'label' : '',
+					'deco-row' : 'collapse',
+				},
+				'type' : 'Text',
+				'attributes' : {
+					'id' : 'new-name',
+					'crypt' : 'crypt',
+				}
+
+			}
+
+		},		
+	},	
+
+	uploadAttributes : {
+		action : 'data-action',
+		maxfilesize : 'data-maxfilesize',
+		current : 'data-currentfolder'
+	},
+
+	fileAttributes : {
+		originalname : 'data-originalname',
+		ident : 'data-ident',
+		type : 'data-type',
+		link : 'data-link',
+		download : 'data-download',
+		name : 'data-name',
+		crypt : 'data-crypt',
+		size : 'data-size',
+		time : 'data-time',
+		childs : 'data-childs',
+	},
+
+	fileAttributesData : {},
+
+	configuration : function(url, store) {
+		var setup = Mcwork.app_ajax_setup;
+		setup.url = url;
+		if (false == store) {
+			return Mcwork.getJsonServer(setup);
 		} else {
-			 var datalink = file.name;
+			this[store] = Mcwork.getJsonServer(setup);
+			return true;
 		}
-		tr += 'data-link="'+ options.ds + options.dc + options.ds + options.repository + options.ds + datalink + '" ';
-	}
-	tr += 'data-name="'+file.name+'" data-crypt="'+file.name+'" ';
-	if ('file' == type){
-		tr += 'data-size="'+ Math.ceil(file.size/1024) +' KB" ';
-	}
-	tr += 'data-time="'+ fd +'" ';
-	tr += 'class="tbl-info tiny"><i class="fa fa-gear"></i></button></td></tr>';
-	return tr;
-};	
-
-
-$(document).ready(function() {
+	},
 	
-	var options = getConfiguration ('/mcwork/medias/configuration');
-	options.ext = '';	
-    options.current = $('#current-folder').val();	 
-	if (options.current.length > 1) {
-		options.ext = '/' + options.current.replace(options.ds, options.seperator);
-	}	
-	
-	$(document.body).on('click', '#btnUpload', function(){	
-		var language = setLanguage();
-		var data_action = $(this).attr('data-action');
-		
-		$('#modal').html(' ');
-		
-   		var output = '<div class="modal-descr"><h4>Upload <span id="server-process">  </span></h4><hr />';
-    	output += '<div class="modal-content">';
-		output += '<div class="row"><div class="large-12 columns">';
-    	output += '<form id="contentinumUpload" action="/mcwork/medias/upload" method="post" enctype="multipart/form-data" class="dropzone">';
-		output += '<div class="fallback"><input name="file" type="file" multiple /> </div>';
-		output += '</form>';
-		output += '</div></div></div>';
-   		output += '<div class="modal-buttons right">';
-		output += '<button id="cancel-button" type="button" class="button alert">' + language.btnclose + '</button>';
-		output += '</div>';   
-		output += '<a class="close-reveal-modal"></a>';
-		
-		$('#modal').append(output);
-		$('#modal').foundation('reveal', 'open');	
-		
-		var mcworkDropzone = new Dropzone("form#contentinumUpload", { 
-			    url: data_action,
-				dictDefaultMessage: "Datei auswaehlen",
-				maxFilesize: options.maxFilesize,
-				acceptedFiles: options.allowedUploads,
-				addRemoveLinks: true,
-				uploadMultiple: true,
-				init: function() {
-					this.on("errormultiple", function(files, message, xhr){
-						console.log(files);
-						console.log(message);
-						
-						$().notiBarMessage({
-							domElement : '#alertMessages',
-							notibar : 'error',
-							messages : message
-						});				
-						
-					}),
-					this.on("successmultiple", function(files, response){
-						response = jQuery.parseJSON(response);			
-						console.log(files);
-						$.each(files, function( index, file ) {	
+	fileextension: function(fname){
+		return fname.substr((~-fname.lastIndexOf(".") >>> 0) + 2);
+	},
+
+	tableCheckedRowDatas : function() {
+		McworkFiles.postDatas = $('input:checkbox:checked').serializeArray();
+	},
+
+	tableCheckedRows : function() {
+		var table = $('.table');
+		return table.find('tbody input:checkbox:checked');
+	},
+
+	setCurrent : function() {
+		this.options.ext = '';
+		this.options.current = $('#' + this.currentFolderId).val();
+		if (this.options.current.length > 1) {
+			this.options.ext = '/' + this.options.current.replace(this.options.ds, this.options.seperator);
+		}
+	},
+
+	setMediaAttribsData : function(elm, attributes) {
+		this.fileAttributesData = Mcwork.getDataAttribes(this[attributes], elm);
+	},
+
+	actualDate : function(type) {
+		var ad = new Date();
+		return ad.getDate() + '.' + (ad.getMonth() + 1) + '.' + (ad.getYear() - 100 + 2000) + ' ' + ad.getHours() + ':' + ad.getMinutes() + ':' + ad.getSeconds();
+	},
+
+	tableRow : function(type, file) {
+		var tr = '<tr';
+		tr += ('dir' == type ) ? ' class="' + this.row_new_dir + '">' : ' class="' + this.row_new_upload + '">';
+		tr += '<td><input type="checkbox" name="cb[]" value="' + file.name + '"></td>';
+		tr += '<td class="filename"';
+		tr += ('dir' == type ) ? ' colspan="2"' : '';
+		tr += '>' + file.label + '</td>';
+		if ('file' == type) {
+			tr += '<td class="hide-for-small text-right">' + Math.ceil(file.size / 1024) + ' KB</td>';
+		}
+		tr += '<td class="hide-for-small text-right">' + this.actualDate() + '</td>';
+		tr += '<td class="cellToolbar"><button type="button" data-type="' + file.type + '" ';
+		if ('file' == type) {
+			tr += 'data-download="' + this.options.host + '/' + this.options.baseroute + '/download/' + file.name + this.options.ext + '" ';
+			if (this.options.current.length > 1) {
+				var datalink = this.options.current + options.ds + file.name;
+			} else {
+				var datalink = file.name;
+			}
+			tr += 'data-link="' + this.options.ds + this.options.dc + this.options.ds + this.options.repository + this.options.ds + datalink + '" ';
+		}
+		tr += 'data-name="' + file.name + '" data-crypt="' + file.name + '" ';
+		if ('file' == type) {
+			tr += 'data-size="' + Math.ceil(file.size / 1024) + ' KB" ';
+		}
+		tr += 'data-time="' + this.actualDate() + '" ';
+		tr += 'class="tbl-info tiny">' + Mcwork.icon(Mcwork.icon_gear) + '</button></td></tr>';
+		return tr;
+	},
+
+	addRow : function(type, file) {
+		switch(this.layout) {
+		case 'table':
+			return this.tableRow(type, file);
+			break;
+		default:
+			break;
+		}
+		return false;
+	},
+
+	uploadForm : function() {
+
+		var header = this.modalHeader;
+		header['content'][1] = '<h4 id="upheadline">Upload <span id="server-process">  </span></h4><hr />';
+		var html = $().setHtml(header, {}, {});
+		delete header;
+
+		var body = Mcwork.stdHtmlTemplate;
+		body['content'][1] = '<form id="' + this.formIdUpload + '" action="" method="post" enctype="multipart/form-data" class="dropzone">';
+		body['content'][1] += '<div class="fallback"><input name="file" type="file" multiple /> </div>';
+		body['content'][1] += '</form>';
+		html += $().setHtml(body, {}, {});
+		delete body;
+
+		var footer = this.modalFooter;
+		footer['content'][1] = '<div class="modal-buttons right">';
+		footer['content'][1] += McworkHtml.block('button', Mcwork.translate('btn', 'close'), {
+			'type' : 'button',
+			'id' : 'cancel-button',
+			'class' : 'button'
+		});
+		footer['content'][1] += '</div>';
+		html += $().setHtml(footer, {}, {});
+		delete footer;
+		return html;
+
+	},
+
+	fileform : function(type) {
+		var header = this.modalHeader;
+		switch(type) {
+		case 'zip':
+			header['content'][1] = '<h4 id="modalheadline">' + Mcwork.translate('heads', 'zip') + ' <span id="server-process">  </span></h4><hr />';
+			break;
+		case 'copy':
+		case 'move':
+			header['content'][1] = '<h4 id="modalheadline">' + Mcwork.translate('heads', 'copytitle') + ' <span id="server-process">  </span></h4><hr />';
+			break;
+		case 'delete':
+			header['content'][1] = '<h4 id="modalheadline">' + Mcwork.translate('heads', 'delete') + ' <span id="server-process">  </span></h4><hr />';
+			break;
+		case 'file':
+			if ( 'dir' == this.fileAttributesData.type ){
+				var label = Mcwork.translate('heads','folder');
+			} else {
+				var label = Mcwork.translate('heads','file');
+			}
+			header['content'][1] = '<h4 id="modalheadline">' + label + ' [ <em>' + this.fileAttributesData.name + '</em> ] <span id="server-process">  </span></h4><hr />';
+		break;	
+		case 'unzip':
+			header['content'][1] = '<h4 id="modalheadline">' + Mcwork.translate('heads','unzip') + ' <span id="server-process">  </span></h4><hr />';
+		break;
+		case 'rename':
+			if ( 'dir' == this.fileAttributesData.type ){
+				var label = Mcwork.translate('heads','renamedir');
+			} else {
+				var label = Mcwork.translate('heads','renamefile');
+			}
+			header['content'][1] = '<h4 id="modalheadline">' + label + ' [ <em>' + this.fileAttributesData.name + '</em> ] <span id="server-process">  </span></h4><hr />';
+		break;		
+		default:
+			header['content'][1] = '<h4 id="modalheadline">unknown <span id="server-process">  </span></h4><hr />';
+			break;
+
+		}
+
+		var html = $().setHtml(header, {}, {});
+		delete header;
+
+		var body = Mcwork.stdHtmlTemplate;
+
+		switch(type) {
+		case 'zip':
+			body['content'][1] = $().mcworkBuildForm({
+				attributes : {
+					id : 'formzip'
+				},
+				populateValues : {
+					'archive-name' : 'archive.zip'
+				}
+			}, this.zipForm);
+			break;
+		case 'copy':
+		case 'move':
+			body['content'][1] = '<p id="dir-links">' + Mcwork.iconprocess(Mcwork.icon_gear) + '</p>';
+			break;
+		case 'delete':
+			body['content'][1] = '<p>' + Mcwork.translate('messages', 'dirdelete') + '</p>';
+			break;
+		case 'file':
+			if ( 'dir' == this.fileAttributesData.type ){
+				body['content'][1] = '<p>' + this.fileAttributesData.name + '</p>';
+			} else {
+				body['content'][1] = $().mcworkBuildForm({
+					attributes : {
+						id : 'formdownload'
+					},
+					populateValues : {
+						'link' :   this.fileAttributesData.download,
+					}
+				}, this.downloadForm);
+			}
+		break;	
+		case 'unzip':
+		body['content'][1] = '<p>' + Mcwork.translate('messages', 'unziparchive').replace("%1", '<em>[ ' + this.fileAttributesData.name + ' ]</em>' ); + '</p>';
+		break;	
+		case 'rename':
+			if ( 'dir' != this.fileAttributesData.type ){
+
+			    if (typeof this.fileAttributesData.originalname === 'undefined'){
+			    	filename = this.fileAttributesData.name;
+			    } else {
+			    	filename = this.fileAttributesData.originalname;
+			    }				
+				
+	    		var fileext = filename.substr( filename.lastIndexOf('.') + 1);
+	    		fileext = '.' + fileext;
+	    		var basename = filename.replace(fileext, '');
+    		} else {
+    			var basename = this.fileAttributesData.name;
+    			var fileext = '-';
+    		}
+			body['content'][1] = $().mcworkBuildForm({
+				attributes : {
+					id : 'formrename'
+				},
+				populateValues : {
+					'new-name' :   basename,
+				},
+				collapseContent : {
+					'new-name' :   fileext,
+				},
+			}, this.renameForm);
+		break;					
+		default:
+			body['content'][1] = '<p>unknown ?</p>';
+			break;
+
+		}
+		html += $().setHtml(body, {}, {});
+		delete body;
+
+		var footer = this.modalFooter;
+		footer['content'][1] = '<div class="modal-buttons right">';
+		switch(type) {
+		case 'copy':
+		case 'move':
+			break;
+		case 'zip':
+			footer['content'][1] += McworkHtml.block('button', Mcwork.translate('btn', 'zip'), {
+				'type' : 'button',
+				'id' : 'confirm-button',
+				'class' : 'button'
+			});
+			break;
+		case 'delete':
+			footer['content'][1] += McworkHtml.block('button', Mcwork.translate('btn', 'delete'), {
+				'type' : 'button',
+				'id' : 'confirm-button',
+				'class' : 'button alert'
+			});
+			break;
+		case 'file':
+		    if ( 'dir' != this.fileAttributesData.type ){
+				footer['content'][1] += McworkHtml.block('button', 'Download', { 'type' : 'button', 'id' : 'download-button', 'class' : 'button'});		    	
+		    }
+		    if ( 'application/zip' == this.fileAttributesData.type ){
+		    	footer['content'][1] += McworkHtml.block('button', 'Unzip', { 'type' : 'button', 'id' : 'unzip-button', 'class' : 'button'});	
+		    }
+		    if ('file' == this.fileAttributesData.childs || 'n' == this.fileAttributesData.childs){
+		    	footer['content'][1] += McworkHtml.block('button', Mcwork.translate('btn', 'rename') , { 'type' : 'button', 'id' : 'rename-button', 'class' : 'button'});	
+		    }
+			break;	
+		case 'unzip':
+		    footer['content'][1] += McworkHtml.block('button', Mcwork.translate('btn', 'unzip') , { 'type' : 'button', 'id' : 'unzip-confirm-button', 'class' : 'button'});	
+		break;
+		case 'rename':
+		    footer['content'][1] += McworkHtml.block('button', Mcwork.translate('btn', 'rename') , { 'type' : 'button', 'id' : 'rename-confirm-button', 'class' : 'button'});	
+		break;		
+		default:
+			break;
+		}
+		footer['content'][1] += McworkHtml.block('button', Mcwork.translate('btn', 'close'), {
+			'type' : 'button',
+			'id' : 'cancel-button',
+			'class' : 'button'
+		});
+		footer['content'][1] += '</div>';
+		html += $().setHtml(footer, {}, {});
+		delete footer;
+		return html;
+	},
+};
+
+(function($) {
+
+	$.fn.UploadFiles = function(app, elm) {
+		app.element = elm;
+		app.setMediaAttribsData(elm, 'uploadAttributes');
+		app.configuration('/mcwork/medias/configuration', 'options');
+
+		$(Mcwork.std_modal).attr('role', 'dialog');
+		$(Mcwork.std_modal).attr('aria-labelledby', 'modal');
+		$(Mcwork.std_modal).html(app.uploadForm());
+		$(Mcwork.std_modal).foundation('reveal', 'open');
+
+		var mcworkDropzone = new Dropzone("form#" + app.formIdUpload, {
+			url : app.fileAttributesData.action,
+			dictDefaultMessage : "Datei auswaehlen",
+			maxFilesize : app.fileAttributesData.maxFilesize,
+			acceptedFiles : app.options.allowedUploads,
+			addRemoveLinks : true,
+			uploadMultiple : true,
+			init : function() {
+				this.on("processingmultiple", function(files, message, xhr) {
+					$('#server-process').html(Mcwork.iconprocess(Mcwork.icon_gear));
+					Mcwork.hasRemoveClass('#upheadline', Mcwork.font_color_success);
+					$('#upheadline').addClass(Mcwork.font_color_warn);
+					Mcwork.hasRemoveClass('#cancel-button', 'success');
+					$('#cancel-button').addClass('disabled');
+				}), this.on("errormultiple", function(files, message, xhr) {
+					$('#server-process').html(Mcwork.iconwarn(Mcwork.icon_warn));
+				}), this.on("successmultiple", function(files, response) {
+					response = jQuery.parseJSON(response);
+					if (response.servererror) {
+						Mcwork.modalError(Mcwork.translate('errors', 'server'), Mcwork.translate('text', 'message'),  Mcwork.translate('server', response.servererror));
+					} else {
+						$.each(files, function(index, file) {
 							var uploaded = {};
-							if ( response.hasOwnProperty(file.name) ){
+							if (response.hasOwnProperty(file.name)) {
 								uploaded.name = response[file.name].filename;
 								uploaded.size = file.size;
-								uploaded.label = '<i class="fa fa-upload"></i> ' + uploaded.name;
-								$(".table > tbody").prepend(tableRow(uploaded,options,'file'));							
-							}					
-						});
-					});
-				},
-		});				
-		
-		$('#cancel-button').click(function() {
-			$('#modal').foundation('reveal', 'close');
-		});			
-		
-	});
-
-	
-	$('#btnSelect').click(function() {
-		var language = setLanguage();	
-		var tableElement = $('.table');										   
-		var ch = tableElement.find('tbody input[type=checkbox]');										 
-		if($(this).attr('data-status') == 'unselect' ) {
-			//check all rows in table
-			ch.each(function(){ 
-				$(this).prop('checked',true);
-			});
-			$('#btnSelect').html(language.unselect);			
-			$(this).attr('data-status', 'select');
-		} else {
-			//uncheck all rows in table
-			ch.each(function(){ 
-				$(this).prop('checked',false); 
-			});	
-			$('#btnSelect').html(language.selectall);
-			$(this).attr('data-status', 'unselect');
-		}
-	});	
-	
-	$('#btnZip').click(function(){
-    	if (isSelected() == false) return false;
-    	    	
-		var language = setLanguage();	
-		var datas = $('input:checkbox:checked').serializeArray();
-		var table = $('.table');
- 		var ch = table.find('tbody input:checkbox:checked');		
-		
-    	$('#modal').html(' ');
-
-		var output = '<div class="modal-content"><h5>Add to archive:</h5>';
-		output += '<input type="text" name="archive-name" id="archive-name" value="archive.zip" /></div>';
-		output += '<div class="modal-buttons right">';
-		output += '<button id="confirm-button" type="button" class="button">Create Zip</button>';
-		output += '<button id="cancel-button" type="button" class="button">' + language.btncancel + '</button>';
-		output += '</div>';
-		output += '<a class="close-reveal-modal"></a>';
-		
-		$('#modal').append(output);	
-		$('#modal').foundation('reveal', 'open');	
-		
-		$('#cancel-button').click(function() {
-			$('#modal').foundation('reveal', 'close');
-			return;
-		});	
-		
-		$('#confirm-button').click(function(){
-			var archivename = $('#archive-name').val();
-			if (archivename == ''){
-				$('#modal').foundation('reveal', 'close');
-	    		 return;
-			}
-			$.ajax({
-				url : "/mcwork/medias/zip",
-				type : 'POST',
-				data : {
-					cd : options.current,
-					cb : datas,
-					af : archivename,
-				},
-				success : function(data) {
-					if (1 == data) {
-						$('#modal').foundation('reveal', 'close');
-						ch.each(function(){
-						 	$(this).attr('checked',false);
-						});
-						$().notiBarMessage({
-							domElement : '#alertMessages',
-							notibar : 'success',
-							messages : 'gezipt',
-						});	
-						$.ajax({
-							url : "/mcwork/medias/properties",
-							type : 'POST',
-							data : {
-								cd : options.current,
-								fn : archivename,
-							},	
-							success : function(data) {
-								var file = jQuery.parseJSON(data);
-								file.name = file.basename;
-								file.type = file.mimetype;
-								file.label = '<i class="fa fa-archive"></i> ' + file.name;
-								$(".table > tbody").prepend(tableRow(file,options,'file'));
-							}						
-						});									
-					} else {
-						$('#modal').foundation('reveal', 'close');
-						var msg = '';
-						var obj = jQuery.parseJSON(data);
-						if (obj.error) {
-							msg = (language[obj.error]) ? language[obj.error] : obj.error;
-						}						
-						$('#modal').html(' ');
-						$('#modal').append('<p class="lead">'+ language.runtimeerror + ': ' + msg + '</p><hr />');
-						$('#modal').append('<button id="cancel-button" type="button" class="button right">' + language.btnclose + '</button>');
-						$('#modal').append('<a class="close-reveal-modal"></a>');
-						$('#modal').foundation('reveal', 'open');
-						$('#cancel-button').click(function() {
-							$('#modal').foundation('reveal', 'close');
-						});
-					}
-				},
-			});	
-		});
-	});
-	
-    $('#btnMove').click(function(){
-    	
-    	if (isSelected() == false) return false;
-    	    	
-		var language = setLanguage();
-		var url = '/mcwork/medias/tree';
-		var datas = $('input:checkbox:checked').serializeArray();
- 		var table = $('.table');
- 		var ch = table.find('tbody input:checkbox:checked');
-		
-		$('#big_modal').html(' ');
-		var output = '<p class="lead text-search-info">' + language.copytitle + '</p>';
-		output += '<hr />';
-		output += '<p id="dir-links" class="lead"><figure class="center"><img src="/assets/images/loader6.gif" width="31" height="31" alt="wait..." /></figure></p>';
-		output += '<hr />';
-		output += '<button id="cancel-button" type="button" class="button right">' + language.btncancel + '</button>';
-		output += '</div>';
-		output += '<a class="close-reveal-modal"></a>';
-		
-		$('#big_modal').append(output);
-		$('#big_modal').foundation('reveal', 'open');		
-	
-		// get data via ajax
-		$.get(url, function(data) {
-			$('#dir-links').html(data);
-		});
-		
-		$('#cancel-button').click(function() {
-			$('#big_modal').foundation('reveal', 'close');
-		});	
-		
-		$(document.body).on('click', ".setlink", function(){
-			var dest = $(this).attr('data-link');
-				$.ajax({
-					url : "/mcwork/medias/move",
-					type : 'POST',
-					data : {
-						cd : options.current,
-						cb : datas,
-						df : dest,
-					},
-					success : function(data) {
-						if (1 == data) {
-							 ch.each(function(){
-								var parentElm = $(this).parents('td');
-			    				$(parentElm).parents('tr').fadeOut(function(){ 
-			    		    		$(parentElm).remove();
-			    				});	
-							 });							
-							$('#big_modal').foundation('reveal', 'close');
-							$().notiBarMessage({
-								domElement : '#alertMessages',
-								notibar : 'success',
-								messages : language.success_move,
-							});						
-						} else {
-							$('#big_modal').foundation('reveal', 'close');
-							var msg = '';
-							var obj = jQuery.parseJSON(data);
-							if (obj.error) {
-								msg = (language[obj.error]) ? language[obj.error] : obj.error;
-							}						
-							$('#modal').html(' ');
-							$('#modal').append('<p class="lead">'+ language.runtimeerror + ': ' + msg + '</p><hr />');
-							$('#modal').append('<button id="cancel-button" type="button" class="button right">' + language.btnclose + '</button>');
-							$('#modal').append('<a class="close-reveal-modal"></a>');
-							$('#cancel-button').click(function() {
-								$('#modal').foundation('reveal', 'close');
-							});
-						}
-					},
-					
-				});
-		});				    	
-    });		
-	
-	
-    $('#btnCopy').click(function(){
-    	
-    	if (isSelected() == false) return false;
-    	
-		var language = setLanguage();
-		var url = '/mcwork/medias/tree';
-		var datas = $('input:checkbox:checked').serializeArray();
- 		var table = $('.table');
- 		var ch = table.find('tbody input:checkbox:checked');
- 		
-		$('#big_modal').html(' ');
-		var output = '<p class="lead text-search-info">' + language.copytitle + '</p>';
-		output += '<hr />';
-		output += '<p id="dir-links" class="lead"> </p><p><i class="fa fa-spinner fa-spin fa-2x alizarin-color"> </i> ' + language.copytarget + '</p>';
-		output += '<hr />';
-		output += '<button id="cancel-button" type="button" class="button right">' + language.btncancel + '</button>';
-		output += '</div>';
-		output += '<a class="close-reveal-modal"></a>';
-		
-		$('#big_modal').append(output);
-		$('#big_modal').foundation('reveal', 'open');		
-	
-		// get data via ajax
-		$.get(url, function(data) {
-			$('#dir-links').html(data);
-		});
-		
-		$('#cancel-button').click(function() {
-			$('#big_modal').foundation('reveal', 'close');
-		});	
-		
-		$(document.body).on('click', ".setlink", function(ev){
-			ev.stopImmediatePropagation();
-			ev.preventDefault();
-			var dest = $(this).attr('data-link');
-				$.ajax({
-					url : "/mcwork/medias/copy",
-					type : 'POST',
-					data : {
-						cd : options.current,
-						cb : datas,
-						df : dest,
-					},
-					success : function(data) {
-						if (1 == data) {
-							 ch.each(function(){
-							 	$(this).prop('checked',false);
-							 });
-							$('#big_modal').foundation('reveal', 'close');
-							$().notiBarMessage({
-								domElement : '#alertMessages',
-								notibar : 'success',
-								messages : language.success_copy,
-							});	
-							
-							console.log(datas);
-							
-						} else {
-							$('#big_modal').foundation('reveal', 'close');
-					
-							url = '';
-							datas = '';
-					 		table = '';
-					 		ch = '';			
-
-							var msg = '';
-							var obj = jQuery.parseJSON(data);
-							if (obj.error) {
-								msg = (language[obj.error]) ? language[obj.error] : obj.error;
-							}						
-							$('#modal').html(' ');
-							$('#modal').append('<p class="lead">'+ language.runtimeerror + ': ' + msg + '</p><hr />');
-							$('#modal').append('<button id="cancel-button" type="button" class="button right">' + language.btnclose + '</button>');
-							$('#modal').append('<a class="close-reveal-modal"></a>');
-							$('#cancel-button').click(function() {
-								$('#modal').foundation('reveal', 'close');
-							});
-						}
-					},
-					
-				});
-		});				    	
-    });		
-	
-	
-	//$('.tbl-info').click(function(){
-	$(document.body).on('click', ".tbl-info", function(){
-		var language = setLanguage();
-		var infoElement = $(this);
-		var data_originalname = $(this).attr('data-originalname');
-		var data_ident = $(this).attr('data-ident');
-    	var data_type = $(this).attr('data-type');
-    	var data_link = $(this).attr('data-link');
-    	var data_download = $(this).attr('data-download');
-		var data_name = $(this).attr('data-name');
-		var data_crypt = $(this).attr('data-crypt');
-		var data_size = $(this).attr('data-size');
-		var data_time = $(this).attr('data-time');
-		var data_childs = $(this).attr('data-childs');
-    	
-    	$('#modal').html(' ');
-    	
-		if (data_type == 'dir'){
-			var label = language.itemfolder;
-		}else{
-    		var label = language.itemfile;
-		}    	
-
-   		var output = '<div class="modal-descr"><h4>'+ label +': '+data_name+'</h4><hr />';
-    	if ('dir' != data_type){
-    		output += '<div class="modal-content"><h5>Download Link</h5><input type="text" name="link" id="link" value="'+data_download+'" readonly="readonly" /></div>';
-    	}
-   		output += '<div class="modal-buttons right">';	   		
-    	if ('dir' != data_type){
-    		output += '<button id="download-button" type="button" class="button">Download</button>';
-    	} 
-    	if ('application/zip' == data_type){
-    		output += '<button id="unzip-button" type="button" class="button">Unzip</button>';	
-    	}    	  		
-   		if ('file' == data_childs || 'n' == data_childs){
-   			output += '<button id="rename-button" type="button" class="button">' + language.btnrename + '</button>';
-   		}
-		
-   		output += '<button id="cancel-button" type="button" class="button">' + language.btncancel + '</button>';
-		output += '</div>';   
-		output += '<a class="close-reveal-modal"></a>';
-		
-		$('#modal').append(output);
-		$('#modal').foundation('reveal', 'open');
-
-		$('#cancel-button').click(function() {
-			$('#modal').foundation('reveal', 'close');
-		});	
-		
-		$('#unzip-button').click(function(){
-				
-    		$('#second_modal').html(' ');
-
-    		var output = '<div class="modal-content"><h5>Unzip archive content here?</h5></div><hr />';
-    		output += '<div class="modal-buttons right">';
-    		output += '<button id="unzip-confirm-button" type="button" class="button">Unzip</button>';
-    		output += '<button id="second-cancel-button" type="button" class="button">' + language.btncancel + '</button>';
-    		output += '</div>';
-    		output += '<a class="close-reveal-modal"></a>';
-    		
-    		$('#second_modal').append(output);
-    		$('#second_modal').foundation('reveal', 'open');
-
-    		$('#second-cancel-button').click(function(){
-    			$('#second_modal').foundation('reveal', 'close');
-    	    });
-			   	    
-    	    $('#unzip-confirm-button').click(function(){
-				$.ajax({
-					url : "/mcwork/medias/unzip",
-					type : 'POST',
-					data : {
-						cd : options.current,
-						af : data_name,
-					},
-					success : function(data) {
-						if (1 == data) {
-							$('#second_modal').foundation('reveal', 'close');
-							$().notiBarMessage({
-								domElement : '#alertMessages',
-								notibar : 'success',
-								messages : 'ungezipt',
-							});	
-							$.ajax({
-								url : "/mcwork/medias/list" + options.ext,
-								beforeSend : function() {
-									$('#foldermediasfiles').html('<figure class="center"><img src="/assets/images/loader6.gif" width="31" height="31" alt="wait..." /></figure>');
-								},
-								success : function(data) {
-									$('#foldermediasfiles').html(data);
-								}
-							});											
-						} else {
-							$('#second_modal').foundation('reveal', 'close');
-							var msg = '';
-							var obj = jQuery.parseJSON(data);
-							if (obj.error) {
-								msg = (language[obj.error]) ? language[obj.error] : obj.error;
-							}						
-							$('#modal').html(' ');
-							$('#modal').append('<p class="lead">'+ language.runtimeerror + ': ' + msg + '</p><hr />');
-							$('#modal').append('<button id="cancel-button" type="button" class="button right">' + language.btnclose + '</button>');
-							$('#modal').append('<a class="close-reveal-modal"></a>');
-							$('#modal').foundation('reveal', 'open');
-							$('#cancel-button').click(function() {
-								$('#modal').foundation('reveal', 'close');
-								return;
-							});
-						}
-					},
-				});	    	    
-    	   });
-    	    		
-		});
-		
-		$('#download-button').click(function(){
-			window.location.href = '/mcwork/medias/download/' + data_crypt + options.ext;	
-		});	
-		
-		$('#rename-button').click(function(){
-			
-    		$('#second_modal').html(' ');
-
-    		if (data_type == 'dir'){
-    			var itemt = language.renamelabelfo;
-    		}else{
-        		var itemt = language.renamelabelfi;
-    		}
-    		var output = '<div class="modal-content"><h5>'+itemt+':</h5>';
-    		if ('dir' != data_type){
-	    		var fileext = data_originalname.substr(data_originalname.lastIndexOf('.') + 1);
-	    		fileext = '.' + fileext;
-	    		var basename = data_originalname.replace(fileext, '');
-    		} else {
-    			var basename = data_name;
-    			var fileext = '';
-    		}
-    		
-    		output += '<div class="row collapse"><div class="small-9 columns">';
-    		output += '<input type="text" name="new-name" id="new-name" value="'+basename+'" crypt="'+data_crypt+'" />';
-    		output += '</div><div class="small-3 columns">';
-    		output += '<span class="postfix">'+ fileext +'</span>';
-    		output += '</div></div>';
-    		output += '</div>';
-    		output += '<div class="modal-buttons right">';
-    		output += '<button id="confirm-button" type="button" class="button">' + language.btnrename + '</button>';
-    		output += '<button id="second-cancel-button" type="button" class="button">' + language.btncancel + '</button>';
-    		output += '</div>';
-    		output += '<a class="close-reveal-modal"></a>';
-    		
-    		$('#second_modal').append(output);
-    		$('#second_modal').foundation('reveal', 'open');
-    		
-			$('#second-cancel-button').click(function() {
-				$('#second_modal').foundation('reveal', 'close');
-			});	
-			
-			$('#confirm-button').click(function(){
-				var newName = $('#new-name').val() + fileext;
-				$.ajax({
-					url : "/mcwork/medias/rename",
-					type : 'POST',
-					data : {
-						cd : options.current,
-						fm : data_name,
-						nfm : newName,
-						orgname : data_originalname,
-						dbident : data_ident,
-					},
-					success : function(data) {
-						if (1 == data) {
-							if ('dir' == data_type){
-								var href = $( "td a:contains('"+ data_name +"')" ).attr('href');
-								href = href.replace(data_name, newName);
-								var content = '<a href="'+ href +'"><i class="fa fa-folder"></i> ' + newName + '</a>';
-							} else {
-								var content = '<i class="fa fa-file"></i> ' + newName;
+								uploaded.label = Mcwork.icon(Mcwork.icon_upload) + ' ' + uploaded.name;
+								$(".table > tbody").prepend(app.addRow('file', uploaded));
 							}
-							$( "input[value|='"+ data_name +"']" ).val(newName);
-							$( "td:contains('"+ data_name +"')" ).html(content);
-							infoElement.attr('data-name', newName);
-							infoElement.attr('data-crypt', newName);
-							infoElement.attr('data-download', data_download.replace(data_name, newName));
-						    infoElement.attr('data-link', data_link.replace(data_name, newName));
-							$('#second_modal').foundation('reveal', 'close');
-							$().notiBarMessage({
-								domElement : '#alertMessages',
-								notibar : 'success',
-								messages : language.renamesuccess
-							});						
-						} else {
-							$('#second_modal').foundation('reveal', 'close');
-							var msg = '';
-							var obj = jQuery.parseJSON(data);
-							if (obj.error) {
-								msg = (language[obj.error]) ? language[obj.error] : obj.error;
-							}						
-							$('#modal').html(' ');
-							$('#modal').append('<p class="lead">'+ language.runtimeerror + ': ' + msg + '</p><hr />');
-							$('#modal').append('<button id="cancel-button" type="button" class="button right">' + language.btnclose + '</button>');
-							$('#modal').append('<a class="close-reveal-modal"></a>');
-							$('#modal').foundation('reveal', 'open');
-							$('#cancel-button').click(function() {
-								$('#modal').foundation('reveal', 'close');
-							});
-						}
-					},
-				});	
-			});
-		});
-		return;	
-	});
-	
-	$('#btnDelete').click(function() {
-		
-		if (isSelected() == false) return false;
-
-		var language = setLanguage();
-		var datainuse = '';
-		var datatype = '';
-		var nodelmsg = '';
- 		$("input[type=checkbox]:checked").each(function() {
-			// console.log($(this).val());
-			// console.log($(this).attr('data-inuse'));
-			datainuse = $(this).attr('data-inuse');
-			datatype = $(this).attr('data-type');
-			if (1 == datainuse){
-				
-				if (nodelmsg.length > 0){
-					nodelmsg += '<br />'
-				}
-				
-				if ('dir' == datatype) {
-					nodelmsg += '<i class="fa fa-exclamation-triangle alizarin-color"></i> ' + $(this).val() + ' ' + language.dirfileinusenodel;
-				} else {
-					nodelmsg += '<i class="fa fa-exclamation-triangle alizarin-color"></i> ' + $(this).val() + ' ' + language.fileinusenodel;
-				}				
-				
-				$(this).prop('checked',false);
-			}
-
- 		});
-		
-		$('#modal').html(' ');
-		var output = '<p class="lead">' + language.dirdelete + '</p>';
-		if (nodelmsg.length > 0){
-			output += '<p>' + nodelmsg + '</p>';
-		}
-		output += '<hr />';
-		output += '<div class="modal-buttons right">';
-		output += '<button id="confirm-button" type="button" class="alert button">' + language.btndelete + '</button>';
-		output += '<button id="cancel-button" type="button" class="button">' + language.btncancel + '</button>';
-		output += '</div>';
-		output += '<a class="close-reveal-modal"></a>';
-
-		$('#modal').append(output);
-		$('#modal').foundation('reveal', 'open');
-
-		$('#cancel-button').click(function() {
-			var table = $('.table');
-			var ch = table.find('tbody input:checkbox:checked');
-			ch.each(function(){ 
-				$(this).prop('checked',false);
-			});		
-			$('#modal').foundation('reveal', 'close');
-		});
-
-		$('#confirm-button').click(function() {
-			var datas = $('input:checkbox:checked').serializeArray();
-	 		var table = $('.table');
-	 		var ch = table.find('tbody input:checkbox:checked');	
-			$('#modal').html('<p class="lead"><figure class="center"><img src="/assets/images/loader6.gif" width="31" height="31" alt="wait..." /></figure></p>');
-			$.ajax({
-				url : "/mcwork/medias/remove",
-				type : 'POST',
-				data : {
-					cd : options.current,
-					cb : datas
-				},
-				success : function(data) {
-					if (1 == data) {
-						ch.each(function(){
-							var parentElm = $(this).parents('td');
-		    				$(parentElm).parents('tr').fadeOut(function(){ 
-		    		    		$(parentElm).remove();
-		    				});								
 						});
-						$().notiBarMessage({
-							domElement : '#alertMessages',
-							notibar : 'success',
-							messages : language.rm_dir_success,
-						});						
-						$('#modal').foundation('reveal', 'close');
-					} else {
-						var msg = '';
-						var obj = jQuery.parseJSON(data);
-						if (obj.error) {
-							msg = (language[obj.error]) ? language[obj.error] : obj.error;
-						}						
-						$('#modal').html(' ');
-						$('#modal').append('<p class="lead">'+ language.runtimeerror + ': ' + msg + '</p><hr />');
-						$('#modal').append('<button id="cancel-button" type="button" class="button right">' + language.btnclose + '</button>');
-						$('#modal').append('<a class="close-reveal-modal"></a>');
-						$('#cancel-button').click(function() {
-							$('#modal').foundation('reveal', 'close');
-						});
+						$('#server-process').html(Mcwork.iconsuccess(Mcwork.icon_success));
+						Mcwork.hasRemoveClass('#upheadline', Mcwork.font_color_warn);
+						$('#upheadline').addClass(Mcwork.font_color_success);
+						Mcwork.hasRemoveClass('#cancel-button', 'disabled');
+						$('#cancel-button').addClass('success');
 					}
-				},
-			});
+				});
+			},
 		});
-		return;
-	});
 
-	$('#btnNewFolder').click(function() {
-		var language = setLanguage();
-		if ('' == $('#new-folder').val()) {
-			$('.errNewFolder').html(language.requiredfield);
-			$('.errNewFolder').css('display', 'block');
-			$('#new-folder').css('border-color', '#EF6432');
-		} else if ($('#new-folder').val().search($('#new-folder').attr('pattern'))) {
-			$('.errNewFolder').html(language.newdirfield);
-			$('.errNewFolder').css('display', 'block');
-			$('#new-folder').css('border-color', '#EF6432');
+		$(document.body).on('click', '#cancel-button', function(ev) {
+			delete app;
+			$(Mcwork.std_modal).foundation('reveal', 'close');
+		});
+
+	};
+
+})(jQuery);
+
+(function($) {
+
+	$.fn.MakeDirectory = function(app, elm) {
+		app.element = elm;
+		var error = false;
+		if ('' == $('#' + app.newFolderId).val()) {
+			error = true;
+			var msg =  Mcwork.translate('usr', 'requiredentry');
+		} else if ($('#' + app.newFolderId).val().search($('#' + app.newFolderId).attr('pattern'))) {
+			error = true;
+			var msg = Mcwork.translate('val', 'newdir');
 		} else {
-			$('.errNewFolder').html('');
-			$('.errNewFolder').removeClass('display');
-			$('#new-folder').css('border-color', '#222222');
-			var newFolder = $('#new-folder').val();
-			$('#new-folder').val('');
+			error = false;
+		}
+
+		if (true === error) {
+			Mcwork.modalError(Mcwork.translate('errors', 'usrinput'), Mcwork.translate('text', 'message'), msg);
+		} else {
+			var newFolder = $('#' + app.newFolderId).val();
+			$('#' + app.newFolderId).val('');
+			app.url = '/mcwork/medias/makedir';
+			app.configuration('/mcwork/medias/configuration', 'options');
+			app.setCurrent();
 			$.ajax({
-				url : "/mcwork/medias/makedir",
+				url : app.url,
 				type : 'POST',
 				data : {
-					cd : options.current,
+					cd : app.options.current,
 					nf : newFolder
 				},
 				beforeSend : function() {
-					$().notiBarMessage({
-						domElement : '#alertMessages',
-						notibar : 'waitresponse',
-						messages : language.serverresponse
-					});
+					Mcwork.modalProcess(Mcwork.translate('heads', 'makedir') + ' [ ' + newFolder + ' ]', Mcwork.translate('messages', 'serveraction'), false);
 				},
 				success : function(data) {
 					var obj = jQuery.parseJSON(data);
 					if (obj.error) {
-						$().notiBarMessage({
-							domElement : '#alertMessages',
-							notibar : 'error',
-							messages : (language[obj.errmsg]) ? language[obj.errmsg] : obj.errmsg
-						});
+						Mcwork.modalError(Mcwork.translate('errors', 'server'), Mcwork.translate('text', 'message'), Mcwork.translate('server', obj.error));
 					} else {
-						$().notiBarMessage({
-							domElement : '#alertMessages',
-							notibar : 'success',
-							messages : (language[obj.messages]) ? language[obj.messages] : obj.messages
-						});
+						Mcwork.modalSuccess( Mcwork.translate('heads', 'makedir'), Mcwork.translate('server', obj.messages)  + ': [ ' + newFolder + ' ]');
 						var file = new Object;
 						file.name = newFolder;
-						if (options.ext.length > 1) {
-							options.ext = options.ext + options.seperator + newFolder;
+						if (app.options.ext.length > 1) {
+							app.options.ext = app.options.ext + app.options.seperator + newFolder;
 						} else {
-							options.ext = '/' + newFolder;
+							app.options.ext = '/' + newFolder;
 						}
-						file.label = '<i class="fa fa-folder-open"></i> <a href="/'+ options.baseroute + options.ext +' ">' + newFolder + '</a>';
-						$(".table > tbody").prepend(tableRow(file,options,'dir'));
-
+						file.label = Mcwork.icon(Mcwork.icon_folder_open) + ' <a href="/' + app.options.baseroute + app.options.ext + ' ">' + newFolder + '</a>';
+						$(".table > tbody").prepend(app.addRow('dir', file));
+						delete file, newFolder;
 					}
+				},
+				error: function (xhr, ajaxOptions, thrownError) {									
+						var msg = 'Response Status: ' + xhr.status + ' ' + thrownError;
+						Mcwork.modalError(Mcwork.translate('errors', 'server'), Mcwork.translate('text', 'message'), Mcwork.translate('server', msg));
 				}
 			});
 		}
+		$(document.body).on('click', '#cancel-button', function(ev) {
+			delete app;
+			$(Mcwork.std_modal).foundation('reveal', 'close');
+		});
+
+	};
+
+})(jQuery);
+
+(function($) {
+	$.fn.McworkZip = function(app, elm) {
+		if (Mcwork.isTableRowSelected() === true) {
+
+			app.tableCheckedRowDatas();
+			var ch = app.tableCheckedRows();
+
+			$(Mcwork.std_modal).attr('role', 'dialog');
+			$(Mcwork.std_modal).attr('aria-labelledby', 'modal');
+			$(Mcwork.std_modal).html(app.fileform('zip'));
+			$(Mcwork.std_modal).foundation('reveal', 'open');
+
+			$('#confirm-button').click(function() {
+
+				var error = false;
+				if ('' == $('#archive-name').val()) {
+					error = true;
+					var msg = Mcwork.translate('usr', 'requiredentry');
+				} else {
+					error = false;
+				}
+
+				if (true === error) {
+					Mcwork.modalError(Mcwork.translate('errors', 'usrinput'), Mcwork.translate('text', 'message'), msg);
+				} else {
+					var archivename = $('#archive-name').val();
+					app.url = '/mcwork/medias/zip';
+					app.configuration('/mcwork/medias/configuration', 'options');
+					app.setCurrent();
+
+					$.ajax({
+						url : app.url,
+						type : 'POST',
+						data : {
+							cd : app.options.current,
+							cb : McworkFiles.postDatas,
+							af : archivename,
+						},
+						beforeSend : function() {
+							Mcwork.modalProcess(Mcwork.translate('heads', 'zip') + ' [ ' + archivename + ' ]', Mcwork.translate('messages', 'serveraction'), false);
+						},
+						success : function(data) {
+							if (1 == data) {
+								ch.each(function() {
+									$(this).attr('checked', false);
+								});
+								app.url = '/mcwork/medias/properties';
+								$.ajax({
+									url : app.url,
+									type : 'POST',
+									data : {
+										cd : app.options.current,
+										fn : archivename,
+									},
+									success : function(data) {
+										var file = jQuery.parseJSON(data);
+										file.name = file.basename;
+										file.type = file.mimetype;
+										file.label = Mcwork.icon(app.icon_file_archive) + ' ' + file.name;
+										$(".table > tbody").prepend(app.addRow('file', file));
+
+										Mcwork.modalSuccess(Mcwork.translate('heads', 'zip'), Mcwork.translate('server', obj.messages ) + ': [ ' + archivename + ' ]');
+									}
+								});
+							} else {
+								var msg = '';
+								var obj = jQuery.parseJSON(data);
+								if (obj.error) {
+									Mcwork.modalError(Mcwork.translate('errors', 'server'), Mcwork.translate('text', 'message'), Mcwork.translate('server', obj.error));
+								}
+
+							}
+					},
+					error: function (xhr, ajaxOptions, thrownError) {									
+							var msg = 'Response Status: ' + xhr.status + ' ' + thrownError;
+							Mcwork.modalError(Mcwork.translate('errors', 'server'), Mcwork.translate('text', 'message'), Mcwork.translate('server', msg));
+					}
+					});
+
+				}
+
+			});
+		}
+
+		$(document.body).on('click', '#cancel-button', function(ev) {
+			delete app;
+			$(Mcwork.std_modal).foundation('reveal', 'close');
+		});
+
+	};
+})(jQuery);
+
+(function($) {
+	$.fn.McworkMoveCopy = function(app, elm, type) {
+		if (Mcwork.isTableRowSelected() === true) {
+
+			app.tableCheckedRowDatas();
+			var ch = app.tableCheckedRows();
+
+			$(Mcwork.std_modal).attr('role', 'dialog');
+			$(Mcwork.std_modal).attr('aria-labelledby', 'modal');
+			$(Mcwork.std_modal).html(app.fileform(type));
+			$(Mcwork.std_modal).foundation('reveal', 'open');
+
+			$.get('/mcwork/medias/tree', function(data) {
+				$('#dir-links').html(data);
+			});
+
+			$(document.body).on('click', ".setlink", function() {
+				ev.stopImmediatePropagation();
+				ev.preventDefault();
+				if ('copy' == type) {
+					app.url = '/mcwork/medias/copy';
+					var headline = Mcwork.translate('heads', 'copydest');
+				} else {
+					app.url = '/mcwork/medias/move';
+					var headline = Mcwork.translate('heads', 'movedest');
+				}
+
+				app.configuration('/mcwork/medias/configuration', 'options');
+				app.setCurrent();
+
+				var dest = $(this).attr('data-link');
+				$.ajax({
+					url : app.url,
+					type : 'POST',
+					data : {
+						cd : app.options.current,
+						cb : McworkFiles.postDatas,
+						df : dest,
+					},
+					beforeSend : function() {
+						Mcwork.modalProcess(headline + ' [ ' + dest + ' ]', Mcwork.translate('messages', 'serveraction'), false);
+					},
+					success : function(data) {
+						if (1 == data) {
+							if ('move' == type) {
+								ch.each(function() {
+									var parentElm = $(this).parents('td');
+									$(parentElm).parents('tr').fadeOut(function() {
+										$(parentElm).remove();
+									});
+								});
+							}
+							Mcwork.modalSuccess(headline, Mcwork.translate('server', obj.messages) + ': [ ' + dest + ' ]');
+						} else {
+							var msg = '';
+							var obj = jQuery.parseJSON(data);
+							if (obj.error) {
+								Mcwork.modalError(Mcwork.translate('errors', 'server'), Mcwork.translate('text', 'message'), Mcwork.translate('server', obj.error));
+							}
+						}
+					},
+					error: function (xhr, ajaxOptions, thrownError) {									
+							var msg = 'Response Status: ' + xhr.status + ' ' + thrownError;
+							Mcwork.modalError(Mcwork.translate('errors', 'server'), Mcwork.translate('text', 'message'), Mcwork.translate('server', msg));
+					}
+				});
+			});
+		}
+
+		$(document.body).on('click', '#cancel-button', function(ev) {
+			delete app;
+			$(Mcwork.std_modal).foundation('reveal', 'close');
+		});
+
+	};
+})(jQuery);
+
+(function($) {
+	$.fn.McworkDelete = function(app, elm) {
+		
+		if (Mcwork.isTableRowSelected() === true) {
+			app.lng = Mcwork.language;
+
+			var nodelmsg = '';
+			var iconwarn = Mcwork.iconwarn(Mcwork.icon_warn);
+			$("input[type=checkbox]:checked").each(function() {
+				var datainuse = $(this).attr('data-inuse');
+				var datatype = $(this).attr('data-type');
+				if (1 == datainuse) {
+					if (nodelmsg.length > 0) {
+						nodelmsg += '<br />';
+					}
+					if ('dir' == datatype) {
+						nodelmsg += iconwarn + ' ' + $(this).val() + ' ' + Mcwork.translate('messages', 'dirinuse');
+					} else {
+						nodelmsg += iconwarn + ' ' + $(this).val() + ' ' + Mcwork.translate('messages', 'fileinuse');
+					}
+
+					$(this).prop('checked', false);
+				}
+			});
+
+			app.tableCheckedRowDatas();
+			var ch = app.tableCheckedRows();
+
+			$(Mcwork.std_modal).attr('role', 'dialog');
+			$(Mcwork.std_modal).attr('aria-labelledby', 'modal');
+			$(Mcwork.std_modal).html(app.fileform('delete'));
+			$(Mcwork.std_modal).foundation('reveal', 'open');
+
+			$.get('/mcwork/medias/tree', function(data) {
+				$('#dir-links').html(data);
+			});
+
+			$(document.body).on('click', ".setlink", function() {
+				ev.stopImmediatePropagation();
+				ev.preventDefault();
+				if ('copy' == type) {
+					app.url = '/mcwork/medias/copy';
+					var headline = Mcwork.translate('heads', 'copydest');
+				} else {
+					app.url = '/mcwork/medias/move';
+					var headline = Mcwork.translate('heads', 'movedest');
+				}
+
+				app.configuration('/mcwork/medias/configuration', 'options');
+				app.setCurrent();
+
+				var dest = $(this).attr('data-link');
+				$.ajax({
+					url : app.url,
+					type : 'POST',
+					data : {
+						cd : app.options.current,
+						cb : McworkFiles.postDatas,
+						df : dest,
+					},
+					beforeSend : function() {
+						Mcwork.modalProcess(headline + ' [ ' + dest + ' ]', Mcwork.translate('messages', 'serveraction'), false);
+					},
+					success : function(data) {
+						if (1 == data) {
+							if ('move' == type) {
+								ch.each(function() {
+									var parentElm = $(this).parents('td');
+									$(parentElm).parents('tr').fadeOut(function() {
+										$(parentElm).remove();
+									});
+								});
+							}
+							Mcwork.modalSuccess(headline, Mcwork.translate('server', obj.messages ) + ': [ ' + dest + ' ]');
+						} else {
+							var msg = '';
+							var obj = jQuery.parseJSON(data);
+							if (obj.error) {
+								Mcwork.modalError(Mcwork.translate('errors', 'server'), Mcwork.translate('text', 'message'), Mcwork.translate('server', obj.error));
+							}
+						}
+					},
+					error: function (xhr, ajaxOptions, thrownError) {									
+							var msg = 'Response Status: ' + xhr.status + ' ' + thrownError;
+							Mcwork.modalError(Mcwork.translate('errors', 'server'), Mcwork.translate('text', 'message'), Mcwork.translate('server', msg));
+					}
+				});
+			});
+		}
+
+		$(document.body).on('click', '#cancel-button', function(ev) {
+			delete app;
+			$(Mcwork.std_modal).foundation('reveal', 'close');
+		});
+
+	};
+})(jQuery);
+
+(function ($){
+	$.fn.FileAttribute = function(app, elm) {
+
+		app.element = elm;		
+		app.setMediaAttribsData(elm, 'fileAttributes');
+		app.configuration('/mcwork/medias/configuration', 'options');	
+		app.setCurrent();	
+		
+		$(Mcwork.std_modal).attr('role', 'dialog');
+		$(Mcwork.std_modal).attr('aria-labelledby', 'modal');
+		$(Mcwork.std_modal).html(app.fileform('file'));
+		$(Mcwork.std_modal).foundation('reveal', 'open');	
+		
+		$('#download-button').click(function(){
+			window.location.href = '/mcwork/medias/download/' + app.fileAttributesData.crypt + app.options.ext;
+		});			
+		
+		
+		$('#unzip-button').click(function(){
+			$(Mcwork.std_modal).html(app.fileform('unzip'));
+			
+			
+			$('#unzip-confirm-button').click(function(){
+				app.url = '/mcwork/medias/unzip';
+				$.ajax({
+					url : app.url,
+					type : 'POST',
+					data : {
+						cd : app.options.current,
+						af : app.fileAttributesData.name,
+					},
+					beforeSend : function() {
+						Mcwork.modalProcess(Mcwork.translate('heads', 'unzip') + ' [ ' + app.fileAttributesData.name + ' ]', Mcwork.translate('messages', 'serveraction'), false);
+					},					
+					success : function(data) {
+						if (1 == data) {	
+							app.url = "/mcwork/medias/list" + app.options.ext;
+							$.ajax({
+								url : app.url,
+								beforeSend : function() {
+									$('#processhead').html( Mcwork.translate('heads', 'fetchnewfilelist')   );
+								},
+								success : function(data) {
+									try {
+										var msg = 'unknownerror';
+										var obj = jQuery.parseJSON(data);
+										if (obj.error) {
+											msg = obj.error;
+										}
+										Mcwork.modalError(Mcwork.translate('errors', 'server'), Mcwork.translate('text', 'message'), Mcwork.translate('server', msg));
+									} catch (e) {
+										$('#foldermediasfiles').html(data);
+										delete app;
+										$(Mcwork.std_modal).foundation('reveal', 'close');	
+									}								
+								},
+								error: function (xhr, ajaxOptions, thrownError) {									
+									var msg = 'Response Status: ' + xhr.status + ' ' + thrownError;
+									Mcwork.modalError(Mcwork.translate('errors', 'server'), Mcwork.translate('text', 'message'), Mcwork.translate('server', msg));
+								}								
+							});											
+						} else {
+							var msg = 'unknownerror';
+							var obj = jQuery.parseJSON(data);
+							if (obj.error) {
+								msg = obj.error;
+							}
+							Mcwork.modalError(Mcwork.translate('errors', 'server'), Mcwork.translate('text', 'message'), Mcwork.translate('server', msg));
+						}
+					},
+					error: function (xhr, ajaxOptions, thrownError) {									
+						var msg = 'Response Status: ' + xhr.status + ' ' + thrownError;
+						Mcwork.modalError(Mcwork.translate('errors', 'server'), Mcwork.translate('text', 'message'), Mcwork.translate('server', msg));
+					}						
+				});					
+				
+				
+			});
+		});
+		
+		$('#rename-button').click(function(){
+			$(Mcwork.std_modal).html(app.fileform('rename'));
+			
+			$('#rename-confirm-button').click(function(){
+				app.url = '/mcwork/medias/unzip';
+				var newName = $('#new-name').val();
+				newName = newName.trim();
+				var extension = app.fileextension(app.fileAttributesData.name);
+				newName += ( extension.length > 0) ? '.' + extension : ''; 
+
+				if ( false === Mcwork.isset(app.fileAttributesData.originalname) ){
+					var originalname = app.fileAttributesData.name;
+				} else {
+					var originalname = app.fileAttributesData.originalname;
+				}
+				
+				$.ajax({
+					url : app.url,
+					type : 'POST',
+					data : {
+						cd : app.options.current,
+						fm :  app.fileAttributesData.name,
+						nfm : newName,
+						orgname : originalname,
+						dbident : app.fileAttributesData.ident,
+					},
+					beforeSend : function() {
+						Mcwork.modalProcess(Mcwork.translate('heads', 'rename') + ' [ ' + app.fileAttributesData.name  + ' > ' + newName + ' ]', Mcwork.translate('messages', 'serveraction'), false);
+					},						
+					success : function(data) {
+						if (1 == data) {
+							var oldName = app.fileAttributesData.name;
+							if ('dir' == app.fileAttributesData.type){
+								var filetype = 'dir';
+								var href = $( "td a:contains('"+ oldName +"')" ).attr('href');
+								href = href.replace(oldName, newName);
+								var content = '<a href="'+ href +'">' + Mcwork.icon(Mcwork.icon_folder)  + ' ' + newName + '</a>';
+							} else {
+								var filetype = 'file';
+								var content = Mcwork.icon(Mcwork.icon_file)  + ' ' + newName;
+							}
+							$( "input[value|='"+ oldName +"']" ).val(newName);
+							$( "td:contains('"+ oldName +"')" ).html(content);
+							$(app.element).attr('data-name', newName);
+							$(app.element).attr('data-crypt', newName);
+							$(app.element).attr('data-download', app.fileAttributesData.download.replace(oldName, newName));
+						    $(app.element).attr('data-link', app.fileAttributesData.link.replace(oldName, newName));
+						    
+						    var messages = Mcwork.translate('server', 'rename_' + filetype + '_success' );
+						    messages = messages.replace('%1', '<em>' + oldName + '</em>' );
+						    messages = messages.replace('%2', '<em>' + newName + '</em>' );
+						    
+						    Mcwork.modalSuccess(Mcwork.translate('heads', 'rename' + filetype), messages);
+						} else {
+							var msg = 'unknownerror';
+							var obj = jQuery.parseJSON(data);
+							if (obj.error) {
+								msg = obj.error;
+							}
+							Mcwork.modalError(Mcwork.translate('errors', 'server'), Mcwork.translate('text', 'message'), Mcwork.translate('server', msg));
+						}
+					},
+					error: function (xhr, ajaxOptions, thrownError) {									
+							var msg = 'Response Status: ' + xhr.status + ' ' + thrownError;
+							Mcwork.modalError(Mcwork.translate('errors', 'server'), Mcwork.translate('text', 'message'), Mcwork.translate('server', msg));
+					}	
+				});	
+			});			
+			
+		});
+		
+		
+		$(document.body).on('click', '#cancel-button', function(ev) {
+			delete app;
+			$(Mcwork.std_modal).foundation('reveal', 'close');
+		});			
+		
+	};
+})(jQuery);
+
+$(document).ready(function() {
+
+	$(document.body).on('click', '#btnUpload', function(ev) {
+		ev.preventDefault();
+		ev.stopImmediatePropagation();
+		$().UploadFiles(McworkFiles, this);
+		return false;
 	});
+
+	$('#btnNewFolder').click(function(ev) {
+		ev.preventDefault();
+		$().MakeDirectory(McworkFiles, this);
+		return false;
+	});
+
+	$('#btnZip').click(function(ev) {
+		ev.preventDefault();
+		$().McworkZip(McworkFiles, this);
+		return false;
+	});
+
+	$('#btnMove').click(function(ev) {
+		ev.preventDefault();
+		$().McworkMoveCopy(McworkFiles, this, 'move');
+		return false;
+	});
+
+	$('#btnCopy').click(function(ev) {
+		ev.preventDefault();
+		$().McworkMoveCopy(McworkFiles, this, 'copy');
+		return false;
+	});
+
+	$('#btnDelete').click(function(ev) {
+		ev.preventDefault();
+		$().McworkDelete(McworkFiles, this);
+		return false;
+	});
+	
+	$(document.body).on('click', ".tbl-info", function(ev){
+		ev.preventDefault();
+		ev.stopImmediatePropagation();		
+		$().FileAttribute(McworkFiles, this);
+		return false;
+	});
+
 });
+
