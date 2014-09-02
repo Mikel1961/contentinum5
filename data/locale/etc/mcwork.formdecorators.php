@@ -3,8 +3,8 @@ return array(
     'default' => array(
         'deco-form' => array(
             'form-attributtes' => array(
-                'id' => 'myForm',
-                'data-abide' => 'data-abide'
+                'id' => 'mcworkForm',
+                //'data-abide' => 'data-abide'
             )
         ),
         'deco-row' => array(
@@ -30,6 +30,12 @@ return array(
                 )
             )
         ),
+        'deco-element-row' => array(
+            'tag' => 'p',
+            'attributes' => array(
+                'class' => 'formElement'
+            )
+        ),        
         'deco-desc' => array(
             'tag' => 'span',
             'attributes' => array(
