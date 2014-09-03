@@ -83,7 +83,11 @@ return array(
                     $formName = $app->getOptions('form');
                     $formFactory = new $formName($worker);
                     $decorators = $sl->getServiceLocator()->get('Mcwork\FormDecorators');
-                    $formFactory->setDecorators($decorators->default->toArray());
+                    $decorators = $decorators->default->toArray();
+                    if ( false != ( $formAttribs = $app->getOptions('formattributes')  ) ){
+                        $decorators['deco-form']['form-attributtes'] = array_merge($decorators['deco-form']['form-attributtes'],$formAttribs);
+                    }
+                    $formFactory->setDecorators($decorators);
                     $formFactory->setServiceLocator($sl->getServiceLocator());
                     $ctrl = new Mcwork\Controller\AddFormController($formFactory);
                     $ctrl->setWorker($worker);
@@ -260,9 +264,9 @@ return array(
                 }
             }
         },
-        'Mcwork\Controller\Content\Mediametadatas' => function ($sl)
+        'Mcwork\Controller\Content\Mcwork' => function ($sl)
         {
-            $ctrl = new Mcwork\Controller\MediametadatasController();
+            $ctrl = new Mcwork\Controller\McworkController();
         	$ctrl->setEntity(new Contentinum\Entity\WebMedias());
         	$worker = new \ContentinumComponents\Mapper\Worker($sl->getServiceLocator()->get('doctrine.entitymanager.orm_default'));
         	$worker->setLogger($sl->getServiceLocator()->get('Contentinum\Logs\Applog'));

@@ -628,6 +628,9 @@
 			<targetentities></targetentities>
 			<form><![CDATA[Mcwork\Form\FieldtypesFrom]]></form>
 			<formaction><![CDATA[/mcwork/fieldtypes/add]]></formaction>
+			<formattributes>
+				<data-rules>fieldtypes</data-rules>
+			</formattributes>
 			<settoroute><![CDATA[/mcwork/fieldtypes]]></settoroute>
 		</app>
 	</mcwork_fieldtypes_add>
