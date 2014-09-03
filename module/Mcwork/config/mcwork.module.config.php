@@ -285,7 +285,7 @@ return array(
                                         'id' => '[a-zA-Z0-9/_-]+'
                                     ),
                                     'defaults' => array(
-                                        'controller' => 'Mcwork\Controller\Content\Mediametadatas',
+                                        'controller' => 'Mcwork\Controller\Content\Mcwork',
                                         'action' => 'index'
                                     )
                                 )
@@ -298,7 +298,7 @@ return array(
                                         'id' => '[a-zA-Z0-9/_-]+'
                                     ),
                                     'defaults' => array(
-                                        'controller' => 'Mcwork\Controller\Content\Mediametadatas',
+                                        'controller' => 'Mcwork\Controller\Content\Mcwork',
                                         'action' => 'savemetas'
                                     )
                                 )
@@ -312,7 +312,7 @@ return array(
                                         'id' => '[a-zA-Z0-9/_-]+'
                                     ),
                                     'defaults' => array(
-                                        'controller' => 'Mcwork\Controller\Content\Mediametadatas',
+                                        'controller' => 'Mcwork\Controller\Content\Mcwork',
                                         'action' => 'application'
                                     )
                                 )
@@ -496,6 +496,7 @@ return array(
             'Mcwork\Tableedit' => 'Mcwork\Service\McworkTableeditServiceFactory',
             'Mcwork\FormDecco' => 'Mcwork\Service\McworkDeccoFormServiceFactory',
             'Mcwork\FormDecorators' => 'Mcwork\Service\McworkFormdecoratorsServiceFactory',
+            'Mcwork\FormRules' => 'Mcwork\Service\McworkFormrulesServiceFactory',
             'Mcwork\Medias' => 'Mcwork\Service\McworkMediasServiceFactory',
             'Mcwork\Cachekeys' => 'Mcwork\Service\McworkCacheKeysServiceFactory'
         )
@@ -518,6 +519,7 @@ return array(
             'mcworkbuttons' => __DIR__ . '/../../../data/locale/etc/mcwork.buttons.php',
             'mcworktableedit' => __DIR__ . '/../../../data/locale/etc/mcwork.tableedit.php',
             'mcworkformdecco' => __DIR__ . '/../../../data/locale/etc/mcwork.formdecorators.php',
+            'mcworkformrules' => __DIR__ . '/../../../data/locale/etc/mcwork.formrules.php',
             'mcworkcachekeys' => __DIR__ . '/../../../data/locale/etc/mcwork.caches.php'
         ),
         'db_cache_keys' => array(
@@ -625,7 +627,7 @@ return array(
                 '@head_custom',
                 '@mcfilescripts'
             ),
-            'Mcwork\Controller\Content\Mediametadatas' => array(
+            'Mcwork\Controller\Content\Mcwork' => array(
                 '@mcworkmediametas',
                 '@head_custom',
                 '@mcworkmediametascripts'
@@ -776,6 +778,7 @@ return array(
                     'mcworktblscripts' => array(
                         'assets' => array(
                             'backend/js/vendor/jquery-1.10.2.min.js',
+                            'backend/js/mcwork.language.js',
                             'backend/js/foundation.min.js',
                             'backend/js/vendor/datatable.v1.10.1/jquery.dataTables.min.js',
                             
@@ -793,6 +796,7 @@ return array(
                     'mcworkformscripts' => array(
                         'assets' => array(
                             'backend/js/vendor/jquery-1.10.2.min.js',
+                            'backend/js/mcwork.language.js',
                             'backend/js/foundation.min.js',
                             'backend/js/vendor/chosen/chosen.jquery.js',
                             'backend/js/vendor/jquery.datetimepicker.js',
@@ -808,6 +812,7 @@ return array(
                     'mcworkmediametascripts' => array(
                         'assets' => array(
                             'backend/js/vendor/jquery.js',
+                            'backend/js/mcwork.language.js',
                             'backend/js/foundation.min.js',
                             'backend/js/vendor/jquery.imagesloaded.js',
                             'backend/js/vendor/jquery.wookmark.js',
@@ -825,6 +830,7 @@ return array(
                     'mcworkscripts' => array(
                         'assets' => array(
                             'backend/js/vendor/jquery-1.10.2.min.js',
+                            'backend/js/mcwork.language.js',
                             'backend/js/foundation.min.js',
                             'backend/js/admin.main.js'
                         ),
