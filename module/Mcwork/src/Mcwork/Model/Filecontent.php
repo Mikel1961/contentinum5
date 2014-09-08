@@ -38,7 +38,7 @@ use ContentinumComponents\Storage\AbstractStorageEntity;
  */
 class Filecontent extends StorageFiles
 {
-
+    private $target = '';
     /**
      * Reads the entire file and makes it back as a string
      * 
