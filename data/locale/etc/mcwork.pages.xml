@@ -4,142 +4,29 @@
 		<layout>mcwork/layout/admin</layout>
 		<title>contentinum5</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<template_widget>
-        <![CDATA[<div class="box box-bordered"><div class="box-title"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box box-bordered"><div class="box-title"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 	</_defaults>
 
-
-	<mcwork_contribution>
-		<title></title>
-		<bodyTagAttribs></bodyTagAttribs>
-		<headline>contribution</headline>
-		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
-		<content></content>
-		<footer></footer>
-		<template>content/contributions</template>
-		<toolbar>1</toolbar>
-		<tableedit>1</tableedit>
-		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>
-		<app>
-			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
-			<entity><![CDATA[Contentinum\Entity\WebContent]]></entity>
-		</app>
-	</mcwork_contribution>
-	<mcwork_contribution_add>
-		<title></title>
-		<bodyTagAttribs></bodyTagAttribs>
-		<headline>add_contribution</headline>
-		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
-		<content></content>
-		<footer></footer>
-		<toolbar>1</toolbar>
-		<tableedit>1</tableedit>
-		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>
-		<app>
-			<controller></controller>
-			<worker><![CDATA[Mcwork\Model\SaveContent]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
-			<entity><![CDATA[Contentinum\Entity\WebContent]]></entity>
-			<targetentities>
-				<webPagesId><![CDATA[Contentinum\Entity\WebPagesParameter]]></webPagesId>
-				<webMediasId><![CDATA[Contentinum\Entity\WebMedias]]></webMediasId>
-			</targetentities>
-			<form><![CDATA[Mcwork\Form\ContentForm]]></form>
-			<formaction><![CDATA[/mcwork/contribution/add]]></formaction>
-			<settoroute><![CDATA[/mcwork/contribution]]></settoroute>
-			<populate>
-				<resource>index</resource>
-				<webMediasId>1</webMediasId>
-				<htmlwidgets>content</htmlwidgets>
-				<publish>yes</publish>
-			</populate>
-		</app>
-	</mcwork_contribution_add>
-	<mcwork_contribution_edit>
-		<title></title>
-		<bodyTagAttribs></bodyTagAttribs>
-		<headline>edit_contribution</headline>
-		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
-		<content></content>
-		<footer></footer>
-		<toolbar>1</toolbar>
-		<tableedit>1</tableedit>
-		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>
-		<app>
-			<controller></controller>
-			<worker><![CDATA[Mcwork\Model\SaveContent]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
-			<entity><![CDATA[Contentinum\Entity\WebContent]]></entity>
-			<targetentities>
-				<webPagesId><![CDATA[Contentinum\Entity\WebPagesParameter]]></webPagesId>
-			</targetentities>
-			<setexclude>
-				<field>id</field>
-			</setexclude>
-			<form><![CDATA[Mcwork\Form\ContentForm]]></form>
-			<formaction><![CDATA[/mcwork/contribution/edit]]></formaction>
-			<settoroute><![CDATA[/mcwork/contribution]]></settoroute>
-		</app>
-	</mcwork_contribution_edit>
-	<mcwork_contribution_delete>
-		<action>contenthandle</action>
-		<title></title>
-		<bodyTagAttribs></bodyTagAttribs>
-		<headline></headline>
-		<columnright></columnright>
-		<subheadline></subheadline>
-		<content></content>
-		<footer></footer>
-		<toolbar></toolbar>
-		<tableedit></tableedit>
-		<template_widget></template_widget>
-		<hasEntries>
-			<tablename>Contentinum\Entity\FieldTypeMetas</tablename>
-			<column>fieldTypes</column>
-		</hasEntries>
-		<request>
-			<xhtmlrequest>1</xhtmlrequest>
-		</request>
-		<response>
-			<redirect>mcwork/contribution</redirect>
-		</response>
-		<app>
-			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<ctrlmethod>deleteRow</ctrlmethod>
-			<worker><![CDATA[Mcwork\Model\DeleteItem]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
-			<entity><![CDATA[Contentinum\Entity\WebContent]]></entity>
-			<targetentities></targetentities>
-		</app>
-	</mcwork_contribution_delete>
-
-
 	<mcwork_pages>
-		<title></title>
+		<title>Pages</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>pages</headline>
+		<headline>Pages</headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<template>content/pages</template>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
@@ -149,17 +36,19 @@
 		</app>
 	</mcwork_pages>
 	<mcwork_pages_add>
-		<title></title>
+		<title>add_Pages</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>add_pages</headline>
+		<headline>add_Pages</headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller></controller>
@@ -181,17 +70,19 @@
 		</app>
 	</mcwork_pages_add>
 	<mcwork_pages_edit>
-		<title></title>
+		<title>edit_Pages</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>edit_pages</headline>
+		<headline>edit_Pages</headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller></controller>
@@ -241,135 +132,21 @@
 		</app>
 	</mcwork_pages_delete>
 
-
-
-
-	<mcwork_preferences>
-		<title></title>
-		<bodyTagAttribs></bodyTagAttribs>
-		<headline>preferences</headline>
-		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
-		<content></content>
-		<footer></footer>
-		<template>content/preferences</template>
-		<toolbar>1</toolbar>
-		<tableedit>1</tableedit>
-		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>
-		<app>
-			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
-			<entity><![CDATA[Contentinum\Entity\WebPreferences]]></entity>
-		</app>
-	</mcwork_preferences>
-	<mcwork_preferences_add>
-		<title></title>
-		<bodyTagAttribs></bodyTagAttribs>
-		<headline>add_preferences</headline>
-		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
-		<content></content>
-		<footer></footer>
-		<toolbar>1</toolbar>
-		<tableedit>1</tableedit>
-		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>
-		<app>
-			<controller></controller>
-			<worker><![CDATA[Mcwork\Model\SavePreferences]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
-			<entity><![CDATA[Contentinum\Entity\WebPreferences]]></entity>
-			<targetentities></targetentities>
-			<form><![CDATA[Mcwork\Form\PreferencesForm]]></form>
-			<formaction><![CDATA[/mcwork/preferences/add]]></formaction>
-			<settoroute><![CDATA[/mcwork/preferences]]></settoroute>
-			<populate>
-				<standardDomain>no</standardDomain>
-				<hostId>_default</hostId>
-				<charset>utf-8</charset>
-				<language>de</language>
-				<robots>index,follow</robots>
-				<metaViewport><![CDATA[width=device-width, initial-scale=1.0]]></metaViewport>
-			</populate>
-		</app>
-	</mcwork_preferences_add>
-	<mcwork_preferences_edit>
-		<title></title>
-		<bodyTagAttribs></bodyTagAttribs>
-		<headline>edit_preferences</headline>
-		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
-		<content></content>
-		<footer></footer>
-		<toolbar>1</toolbar>
-		<tableedit>1</tableedit>
-		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>
-		<app>
-			<controller></controller>
-			<worker><![CDATA[ContentinumComponents\Mapper\Process]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
-			<entity><![CDATA[Contentinum\Entity\WebPreferences]]></entity>
-			<targetentities></targetentities>
-			<setexclude>
-				<field>id</field>
-			</setexclude>
-			<form><![CDATA[Mcwork\Form\PreferencesForm]]></form>
-			<formaction><![CDATA[/mcwork/preferences/edit]]></formaction>
-			<settoroute><![CDATA[/mcwork/preferences]]></settoroute>
-		</app>
-	</mcwork_preferences_edit>
-	<mcwork_preferences_delete>
-		<action>contenthandle</action>
-		<title></title>
-		<bodyTagAttribs></bodyTagAttribs>
-		<headline></headline>
-		<columnright></columnright>
-		<subheadline></subheadline>
-		<content></content>
-		<footer></footer>
-		<toolbar></toolbar>
-		<tableedit></tableedit>
-		<template_widget></template_widget>
-		<hasEntries>
-			<tablename>Contentinum\Entity\FieldTypeMetas</tablename>
-			<column>fieldTypes</column>
-		</hasEntries>
-		<request>
-			<xhtmlrequest>1</xhtmlrequest>
-		</request>
-		<response>
-			<redirect>mcwork/preferences</redirect>
-		</response>
-		<app>
-			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<ctrlmethod>deleteRow</ctrlmethod>
-			<worker><![CDATA[Mcwork\Model\DeleteItem]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
-			<entity><![CDATA[Contentinum\Entity\WebPreferences]]></entity>
-			<targetentities></targetentities>
-		</app>
-	</mcwork_preferences_delete>
-
-
 	<mcwork_pagecontent>
-		<title></title>
+		<title>PageContent</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>pagecontent</headline>
+		<headline>PageContent</headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<template>content/pagecontent</template>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
@@ -378,19 +155,20 @@
 			<entity><![CDATA[Contentinum\Entity\WebPagesContent]]></entity>
 		</app>
 	</mcwork_pagecontent>
-
 	<mcwork_pagecontent_add>
-		<title></title>
+		<title>add_PageContent</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>add_pagecontent</headline>
+		<headline>add_PageContent</headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller></controller>
@@ -413,17 +191,19 @@
 		</app>
 	</mcwork_pagecontent_add>
 	<mcwork_pagecontent_edit>
-		<title></title>
+		<title>edit_PageContent</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>edit_pagecontent</headline>
+		<headline>edit_PageContent</headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller></controller>
@@ -474,19 +254,570 @@
 		</app>
 	</mcwork_pagecontent_delete>
 
-	<mcwork_redirects>
+	<mcwork_contribution>
+		<title>Contribution</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>Contribution</headline>
+		<columnright></columnright>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
+		<content></content>
+		<footer></footer>
+		<template>content/contributions</template>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
+			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebContent]]></entity>
+		</app>
+	</mcwork_contribution>
+
+	<mcwork_contribution_add>
+		<title>add_Contribution</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>add_Contribution</headline>
+		<columnright></columnright>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller></controller>
+			<worker><![CDATA[Mcwork\Model\SaveContent]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebContent]]></entity>
+			<targetentities>
+				<webPagesId><![CDATA[Contentinum\Entity\WebPagesParameter]]></webPagesId>
+				<webMediasId><![CDATA[Contentinum\Entity\WebMedias]]></webMediasId>
+			</targetentities>
+			<form><![CDATA[Mcwork\Form\ContentForm]]></form>
+			<formaction><![CDATA[/mcwork/contribution/add]]></formaction>
+			<formattributes>
+				<data-rules>contribution</data-rules>
+				<data-process>add</data-process>
+			</formattributes>
+			<formbuttons>
+				<save></save>
+				<saveplus><attribs><data-request>add</data-request></attribs></saveplus>
+				<apply></apply>
+				<upload></upload>
+				<cancel>
+				   <label>Cancel</label>
+				   <attribs>
+				      <data-back>/mcwork/dashboard</data-back>
+				   </attribs>
+				</cancel>
+			</formbuttons>				
+			<settoroute><![CDATA[/mcwork/contribution]]></settoroute>
+			<populate>
+				<resource>index</resource>
+				<webMediasId>1</webMediasId>
+				<htmlwidgets>content</htmlwidgets>
+				<publish>yes</publish>
+			</populate>
+		</app>
+	</mcwork_contribution_add>
+	<mcwork_contribution_edit>
+		<title>edit_Contribution</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>edit_Contribution</headline>
+		<columnright></columnright>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller></controller>
+			<worker><![CDATA[Mcwork\Model\SaveContent]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebContent]]></entity>
+			<targetentities>
+				<webPagesId><![CDATA[Contentinum\Entity\WebPagesParameter]]></webPagesId>
+			</targetentities>
+			<setexclude>
+				<field>id</field>
+			</setexclude>
+			<form><![CDATA[Mcwork\Form\ContentForm]]></form>
+			<formaction><![CDATA[/mcwork/contribution/edit]]></formaction>
+			<settoroute><![CDATA[/mcwork/contribution]]></settoroute>
+		</app>
+	</mcwork_contribution_edit>
+	<mcwork_contribution_delete>
+		<action>contenthandle</action>
 		<title></title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>redirects</headline>
+		<headline></headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline></subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar></toolbar>
+		<tableedit></tableedit>
+		<template_widget></template_widget>
+		<hasEntries>
+			<tablename>Contentinum\Entity\FieldTypeMetas</tablename>
+			<column>fieldTypes</column>
+		</hasEntries>
+		<request>
+			<xhtmlrequest>1</xhtmlrequest>
+		</request>
+		<response>
+			<redirect>mcwork/contribution</redirect>
+		</response>
+		<app>
+			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
+			<ctrlmethod>deleteRow</ctrlmethod>
+			<worker><![CDATA[Mcwork\Model\DeleteItem]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebContent]]></entity>
+			<targetentities></targetentities>
+		</app>
+	</mcwork_contribution_delete>
+
+	<Mcwork_Controller_Content_Medias>
+		<title>Medias</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>Medias</headline>
+		<columnright>
+			<![CDATA[<div id="clNewFolder" class="row collapse"><div class="small-9 columns"><input id="new-folder" type="text"><span class="errNewFolder"> </span></div><div class="small-3 columns"><a id="btnNewFolder" href="#" class="button postfix">New Folder</a></div></div>]]>
+		</columnright>
+		<subheadline>Media and Document files</subheadline>
+		<content></content>
+		<footer></footer>
+	</Mcwork_Controller_Content_Medias>
+	
+
+	
+	<Mcwork_Controller_MediaMetas>
+		<title>MediaMetas</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>MediaMetas</headline>
+		<columnright></columnright>
+		<subheadline></subheadline>
+		<content></content>
+		<footer></footer>	
+	</Mcwork_Controller_MediaMetas>	
+
+	
+	
+	<mcwork_mediagroup>
+		<title>MediaGroup</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>MediaGroup</headline>
+		<columnright></columnright>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
+		<content></content>
+		<footer></footer>
+		<template>content/mediagroups</template>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
+			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebMediaGroup]]></entity>
+		</app>
+	</mcwork_mediagroup>
+
+	<mcwork_mediagroup_add>
+		<title>add_MediaGroup</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>add_MediaGroup</headline>
+		<columnright></columnright>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller></controller>
+			<worker><![CDATA[ContentinumComponents\Mapper\Process]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebMediaGroup]]></entity>
+			<targetentities></targetentities>
+			<form><![CDATA[Mcwork\Form\MediaGroupForm]]></form>
+			<formaction><![CDATA[/mcwork/mediagroup/add]]></formaction>
+			<formattributes>
+				<data-rules>mediagroup</data-rules>
+				<data-process>add</data-process>
+			</formattributes>
+			<formbuttons>
+				<save></save>
+				<saveplus><attribs><data-request>add</data-request></attribs></saveplus>
+				<cancel>
+				   <label>Cancel</label>
+				   <attribs>
+				      <data-back>/mcwork/dashboard</data-back>
+				   </attribs>
+				</cancel>
+			</formbuttons>				
+			<settoroute><![CDATA[/mcwork/mediagroup]]></settoroute>
+			<populate>
+				<resource>index</resource>
+				<htmlwidgets>content</htmlwidgets>
+			</populate>
+		</app>
+	</mcwork_mediagroup_add>
+	<mcwork_mediagroup_edit>
+		<title>edit_MediaGroup</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>edit_MediaGroup</headline>
+		<columnright></columnright>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller></controller>
+			<worker><![CDATA[ContentinumComponents\Mapper\Process]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebMediaGroup]]></entity>
+			<targetentities></targetentities>
+			<form><![CDATA[Mcwork\Form\MediaGroupForm]]></form>
+			<formaction><![CDATA[/mcwork/mediagroup/edit]]></formaction>
+			<formattributes>
+				<data-rules>mediagroup</data-rules>
+				<data-process>edit</data-process>
+			</formattributes>			
+			<settoroute><![CDATA[/mcwork/mediagroup]]></settoroute>
+		</app>
+	</mcwork_mediagroup_edit>
+	
+	
+	
+	
+	<mcwork_mediagroup_delete>
+		<action>contenthandle</action>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline></headline>
+		<columnright></columnright>
+		<subheadline></subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar></toolbar>
+		<tableedit></tableedit>
+		<template_widget></template_widget>
+		<hasEntries>
+			<tablename>Contentinum\Entity\WebMediaCategories</tablename>
+			<column>webMediagroupId</column>
+		</hasEntries>
+		<request>
+			<xhtmlrequest>1</xhtmlrequest>
+		</request>
+		<response>
+			<redirect>mcwork/mediagroup</redirect>
+		</response>
+		<app>
+			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
+			<ctrlmethod>deleteRow</ctrlmethod>
+			<worker><![CDATA[Mcwork\Model\DeleteItem]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebMediaGroup]]></entity>
+			<targetentities></targetentities>
+		</app>
+	</mcwork_mediagroup_delete>
+	
+	
+	<mcwork_mediacategories>
+		<title>MediaGroup</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>MediaGroup</headline>
+		<columnright></columnright>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
+		<content></content>
+		<footer></footer>
+		<template>content/mediacategoriess</template>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
+			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebMediaGroup]]></entity>
+		</app>
+	</mcwork_mediacategories>
+
+	<mcwork_mediacategories_add>
+		<title>add_MediaGroup</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>add_MediaGroup</headline>
+		<columnright></columnright>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller></controller>
+			<worker><![CDATA[ContentinumComponents\Mapper\Process]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebMediaGroup]]></entity>
+			<targetentities></targetentities>
+			<form><![CDATA[Mcwork\Form\MediaGroupForm]]></form>
+			<formaction><![CDATA[/mcwork/mediacategories/add]]></formaction>
+			<formattributes>
+				<data-rules>mediacategories</data-rules>
+				<data-process>add</data-process>
+			</formattributes>
+			<formbuttons>
+				<save></save>
+				<saveplus><attribs><data-request>add</data-request></attribs></saveplus>
+				<cancel>
+				   <label>Cancel</label>
+				   <attribs>
+				      <data-back>/mcwork/dashboard</data-back>
+				   </attribs>
+				</cancel>
+			</formbuttons>				
+			<settoroute><![CDATA[/mcwork/mediacategories]]></settoroute>
+			<populate>
+				<resource>index</resource>
+				<htmlwidgets>content</htmlwidgets>
+			</populate>
+		</app>
+	</mcwork_mediacategories_add>
+	<mcwork_mediacategories_edit>
+		<title>edit_mediaGroup</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>edit_mediaGroup</headline>
+		<columnright></columnright>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller></controller>
+			<worker><![CDATA[ContentinumComponents\Mapper\Process]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebMediaGroup]]></entity>
+			<targetentities></targetentities>
+			<form><![CDATA[Mcwork\Form\MediaGroupForm]]></form>
+			<formaction><![CDATA[/mcwork/mediacategories/edit]]></formaction>
+			<formattributes>
+				<data-rules>mediacategories</data-rules>
+				<data-process>edit</data-process>
+			</formattributes>			
+			<settoroute><![CDATA[/mcwork/mediacategories]]></settoroute>
+		</app>
+	</mcwork_mediacategories_edit>
+	
+	
+	
+	
+	<mcwork_mediacategories_delete>
+		<action>contenthandle</action>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline></headline>
+		<columnright></columnright>
+		<subheadline></subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar></toolbar>
+		<tableedit></tableedit>
+		<template_widget></template_widget>
+		<request>
+			<xhtmlrequest>1</xhtmlrequest>
+		</request>
+		<response>
+			<redirect>mcwork/mediacategories</redirect>
+		</response>
+		<app>
+			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
+			<ctrlmethod>deleteRow</ctrlmethod>
+			<worker><![CDATA[Mcwork\Model\DeleteItem]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebMediaGroup]]></entity>
+			<targetentities></targetentities>
+		</app>
+	</mcwork_mediacategories_delete>	
+	
+	
+	
+	<mcwork_preferences>
+		<title>Preferences</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>Preferences</headline>
+		<columnright></columnright>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
+		<content></content>
+		<footer></footer>
+		<template>content/preferences</template>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
+			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebPreferences]]></entity>
+		</app>
+	</mcwork_preferences>
+	<mcwork_preferences_add>
+		<title>add_Preferences</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>add_Preferences</headline>
+		<columnright></columnright>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller></controller>
+			<worker><![CDATA[Mcwork\Model\SavePreferences]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebPreferences]]></entity>
+			<targetentities></targetentities>
+			<form><![CDATA[Mcwork\Form\PreferencesForm]]></form>
+			<formaction><![CDATA[/mcwork/preferences/add]]></formaction>
+			<settoroute><![CDATA[/mcwork/preferences]]></settoroute>
+			<populate>
+				<standardDomain>no</standardDomain>
+				<hostId>_default</hostId>
+				<charset>utf-8</charset>
+				<language>de</language>
+				<robots>index,follow</robots>
+				<metaViewport><![CDATA[width=device-width, initial-scale=1.0]]></metaViewport>
+			</populate>
+		</app>
+	</mcwork_preferences_add>
+	<mcwork_preferences_edit>
+		<title>edit_Preferences</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>edit_Preferences</headline>
+		<columnright></columnright>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller></controller>
+			<worker><![CDATA[ContentinumComponents\Mapper\Process]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebPreferences]]></entity>
+			<targetentities></targetentities>
+			<setexclude>
+				<field>id</field>
+			</setexclude>
+			<form><![CDATA[Mcwork\Form\PreferencesForm]]></form>
+			<formaction><![CDATA[/mcwork/preferences/edit]]></formaction>
+			<settoroute><![CDATA[/mcwork/preferences]]></settoroute>
+		</app>
+	</mcwork_preferences_edit>
+	<mcwork_preferences_delete>
+		<action>contenthandle</action>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline></headline>
+		<columnright></columnright>
+		<subheadline></subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar></toolbar>
+		<tableedit></tableedit>
+		<template_widget></template_widget>
+		<hasEntries>
+			<tablename>Contentinum\Entity\FieldTypeMetas</tablename>
+			<column>fieldTypes</column>
+		</hasEntries>
+		<request>
+			<xhtmlrequest>1</xhtmlrequest>
+		</request>
+		<response>
+			<redirect>mcwork/preferences</redirect>
+		</response>
+		<app>
+			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
+			<ctrlmethod>deleteRow</ctrlmethod>
+			<worker><![CDATA[Mcwork\Model\DeleteItem]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebPreferences]]></entity>
+			<targetentities></targetentities>
+		</app>
+	</mcwork_preferences_delete>
+	
+	<mcwork_redirects>
+		<title>Redirects</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>Redirects</headline>
+		<columnright></columnright>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<template>content/redirects</template>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
@@ -496,17 +827,19 @@
 		</app>
 	</mcwork_redirects>
 	<mcwork_redirects_add>
-		<title></title>
+		<title>add_Redirects</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>add_redirects</headline>
+		<headline>add_Redirects</headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller></controller>
@@ -528,21 +861,23 @@
 		</app>
 	</mcwork_redirects_add>
 	<mcwork_redirects_edit>
-		<title></title>
+		<title>edit_Redirects</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>edit_redirects</headline>
+		<headline>edit_Redirects</headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller></controller>
-			<worker><![CDATA[ContentinumComponents\Mapper\SaveRedirect]]></worker>
+			<worker><![CDATA[Mcwork\Model\SaveRedirect]]></worker>
 			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
 			<entity><![CDATA[Contentinum\Entity\WebRedirect]]></entity>
 			<targetentities>
@@ -583,22 +918,21 @@
 			<targetentities></targetentities>
 		</app>
 	</mcwork_redirects_delete>
-
-
-
 	<mcwork_fieldtypes>
-		<title></title>
+		<title>Fieldtypes</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>fieldtypes</headline>
+		<headline>Fieldtypes</headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<template>content/fieldtypes</template>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
@@ -608,17 +942,19 @@
 		</app>
 	</mcwork_fieldtypes>
 	<mcwork_fieldtypes_add>
-		<title></title>
+		<title>add_Fieldtypes</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>add_fieldtypes</headline>
+		<headline>add_Fieldtypes</headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller></controller>
@@ -630,22 +966,25 @@
 			<formaction><![CDATA[/mcwork/fieldtypes/add]]></formaction>
 			<formattributes>
 				<data-rules>fieldtypes</data-rules>
-			</formattributes>
+				<data-process>add</data-process>
+			</formattributes>						
 			<settoroute><![CDATA[/mcwork/fieldtypes]]></settoroute>
 		</app>
 	</mcwork_fieldtypes_add>
 	<mcwork_fieldtypes_edit>
-		<title></title>
+		<title>edit_Fieldtypes</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>edit_fieldtypes</headline>
+		<headline>edit_Fieldtypes</headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller></controller>
@@ -658,6 +997,10 @@
 			</setexclude>
 			<form><![CDATA[Mcwork\Form\FieldtypesFrom]]></form>
 			<formaction><![CDATA[/mcwork/fieldtypes/edit]]></formaction>
+			<formattributes>
+				<data-rules>fieldtypes</data-rules>
+				<data-process>edit</data-process>
+			</formattributes>				
 			<settoroute><![CDATA[/mcwork/fieldtypes]]></settoroute>
 		</app>
 	</mcwork_fieldtypes_edit>
@@ -693,19 +1036,22 @@
 		</app>
 
 	</mcwork_fieldtypes_delete>
+	
 	<mcwork_fieldmetas>
-		<title></title>
+		<title>Fieldconf</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>fieldmetas</headline>
+		<headline>Fieldconf</headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<template>content/fieldmetas</template>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
@@ -715,17 +1061,19 @@
 		</app>
 	</mcwork_fieldmetas>
 	<mcwork_fieldmetas_add>
-		<title></title>
+		<title>add_Fieldconf</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>add_fieldmetas</headline>
+		<headline>add_Fieldconf</headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller></controller>
@@ -741,17 +1089,19 @@
 		</app>
 	</mcwork_fieldmetas_add>
 	<mcwork_fieldmetas_edit>
-		<title></title>
+		<title>edit_Fieldconf</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>edit_fieldmetas</headline>
+		<headline>edit_Fieldconf</headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller></controller>
@@ -800,19 +1150,151 @@
 			<targetentities></targetentities>
 		</app>
 	</mcwork_fieldmetas_delete>
-	<mcwork_accounts>
+	
+	
+	
+	
+	
+	
+	
+	
+	<Mcwork_Controller_MediaMetas>
+		<title>Mcwork_Controller_MediaMetas</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>Mcwork_Controller_MediaMetas</headline>
+		<columnright></columnright>
+		<subheadline></subheadline>
+		<content></content>
+		<footer></footer>
+	</Mcwork_Controller_MediaMetas>
+
+	
+
+
+	<mcwork_mediagroupitems>
+		<title>Mediagroupitems</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>Mediagroupitems</headline>
+		<columnright></columnright>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
+		<content></content>
+		<footer></footer>
+		<template>content/mediagroupitems</template>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
+			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebMediaGroupitems]]></entity>
+		</app>
+	</mcwork_mediagroupitems>
+
+	<mcwork_mediagroupitems_add>
+		<title>add_Mediagroupitems</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>add_Mediagroupitems</headline>
+		<columnright></columnright>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller></controller>
+			<worker><![CDATA[Mcwork\Model\SaveMediaGroupItems]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebMediaGroupitems]]></entity>
+			<targetentities></targetentities>
+			<form><![CDATA[Mcwork\Form\MediaGroupitemsForm]]></form>
+			<formaction><![CDATA[/mcwork/mediagroupitems/add]]></formaction>
+			<settoroute><![CDATA[/mcwork/mediagroupitems]]></settoroute>
+			<populate>
+				<resource>index</resource>
+				<htmlwidgets>content</htmlwidgets>
+			</populate>
+		</app>
+	</mcwork_mediagroupitems_add>
+	<mcwork_mediagroupitems_edit>
+		<title>edit_Mediagroupitems</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>edit_Mediagroupitems</headline>
+		<columnright></columnright>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller></controller>
+			<worker><![CDATA[Mcwork\Model\SaveMediaGroupItems]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebMediaGroupitems]]></entity>
+			<targetentities></targetentities>
+			<form><![CDATA[Mcwork\Form\MediaGroupitemsForm]]></form>
+			<formaction><![CDATA[/mcwork/mediagroupitems/edit]]></formaction>
+			<settoroute><![CDATA[/mcwork/mediagroupitems]]></settoroute>
+		</app>
+	</mcwork_mediagroupitems_edit>
+	<mcwork_mediagroupitems_delete>
+		<action>contenthandle</action>
 		<title></title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>accounts</headline>
+		<headline></headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline></subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar></toolbar>
+		<tableedit></tableedit>
+		<template_widget></template_widget>
+		<hasEntries></hasEntries>
+		<request>
+			<xhtmlrequest>1</xhtmlrequest>
+		</request>
+		<response>
+			<redirect>mcwork/mediagroupitems</redirect>
+		</response>
+		<app>
+			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
+			<ctrlmethod>deleteRow</ctrlmethod>
+			<worker><![CDATA[Mcwork\Model\DeleteItem]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebMediaGroupitems]]></entity>
+			<targetentities></targetentities>
+		</app>
+	</mcwork_mediagroupitems_delete>
+
+	<mcwork_accounts>
+		<title>Directories</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>Directories</headline>
+		<columnright></columnright>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<template>content/accounts</template>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
@@ -822,17 +1304,19 @@
 		</app>
 	</mcwork_accounts>
 	<mcwork_accounts_add>
-		<title></title>
+		<title>add_Directories</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>add_accounts</headline>
+		<headline>add_Directories</headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller></controller>
@@ -848,17 +1332,19 @@
 		</app>
 	</mcwork_accounts_add>
 	<mcwork_accounts_edit>
-		<title></title>
+		<title>edit_Directories</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>edit_accounts</headline>
+		<headline>edit_Directories</headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller></controller>
@@ -909,18 +1395,20 @@
 
 	</mcwork_accounts_delete>
 	<mcwork_contacts>
-		<title></title>
+		<title>Contacts</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>contacts</headline>
+		<headline>Contacts</headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<template>content/contacts</template>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
@@ -930,17 +1418,19 @@
 		</app>
 	</mcwork_contacts>
 	<mcwork_contacts_add>
-		<title></title>
+		<title>add_Contacts</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>add_contacts</headline>
+		<headline>add_Contacts</headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller></controller>
@@ -956,17 +1446,19 @@
 		</app>
 	</mcwork_contacts_add>
 	<mcwork_contacts_edit>
-		<title></title>
+		<title>edit_Contacts</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>edit_contacts</headline>
+		<headline>edit_Contacts</headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller></controller>
@@ -1015,19 +1507,22 @@
 			<targetentities></targetentities>
 		</app>
 	</mcwork_contacts_delete>
+		
 	<mcwork_users>
-		<title></title>
+		<title>Users</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>users</headline>
+		<headline>Users</headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<template>content/users</template>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
@@ -1037,17 +1532,19 @@
 		</app>
 	</mcwork_users>
 	<mcwork_users_add>
-		<title></title>
+		<title>add_Users</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>add_users</headline>
+		<headline>add_Users</headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller></controller>
@@ -1064,17 +1561,19 @@
 		</app>
 	</mcwork_users_add>
 	<mcwork_users_edit>
-		<title></title>
+		<title>edit_Users</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>edit_users</headline>
+		<headline>edit_Users</headline>
 		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
 		<content></content>
 		<footer></footer>
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller></controller>
@@ -1121,47 +1620,12 @@
 			<targetentities></targetentities>
 		</app>
 	</mcwork_users_delete>
-	<mcwork_cache>
-		<action>displaycontent</action>
-		<title>Mcwork_Controller_Admin_Cache</title>
-		<bodyTagAttribs></bodyTagAttribs>
-		<headline>Mcwork_Controller_Admin_Cache</headline>
-		<columnright></columnright>
-		<subheadline></subheadline>
-		<content></content>
-		<footer></footer>
-		<template>content/cachecontent</template>
-		<toolbar>1</toolbar>
-		<tableedit>1</tableedit>
-		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>
-		<app>
-			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<worker><![CDATA[Mcwork\Model\Cachecontent]]></worker>
-			<storage><![CDATA[ContentinumComponents\Storage\StorageManager]]></storage>
-			<entity><![CDATA[Mcwork\Entity\CacheFiles]]></entity>
-		</app>
-	</mcwork_cache>
-	<mcwork_cache_clear>
-		<action>contenthandle</action>
-		<response>
-			<redirect>/mcwork/cache</redirect>
-		</response>
-		<app>
-			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<ctrlmethod>emptyCache</ctrlmethod>
-			<worker><![CDATA[Mcwork\Model\Cachecontent]]></worker>
-			<storage><![CDATA[ContentinumComponents\Storage\StorageManager]]></storage>
-			<entity><![CDATA[Mcwork\Entity\CacheFiles]]></entity>
-			<targetentities></targetentities>
-		</app>
-	</mcwork_cache_clear>
+	
 	<mcwork_logs>
 		<action>displaycontent</action>
-		<title>Mcwork_Controller_Admin_Logs</title>
+		<title>Logs</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>Mcwork_Controller_Admin_Logs</headline>
+		<headline>Logs</headline>
 		<columnright></columnright>
 		<subheadline>Log files of applications</subheadline>
 		<content></content>
@@ -1170,7 +1634,7 @@
 		<toolbar>1</toolbar>
 		<tableedit>1</tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
@@ -1181,9 +1645,9 @@
 	</mcwork_logs>
 	<mcwork_logs_display>
 		<action>displaycontent</action>
-		<title>Mcwork_Controller_Admin_Logs</title>
+		<title>Logs</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>Mcwork_Controller_Admin_Logs</headline>
+		<headline>Logs</headline>
 		<columnright></columnright>
 		<subheadline>Display file content</subheadline>
 		<content></content>
@@ -1192,7 +1656,7 @@
 		<toolbar>1</toolbar>
 		<tableedit></tableedit>
 		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
 		</template_widget>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
@@ -1250,211 +1714,41 @@
 		</app>
 	</mcwork_logs_delete>
 	
-	
-	<mcwork_mediablockmetas>
-		<title></title>
+	<mcwork_cache>
+		<action>displaycontent</action>
+		<title>Cache</title>
 		<bodyTagAttribs></bodyTagAttribs>
-		<headline>mediablockmetas</headline>
-		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
-		<content></content>
-		<footer></footer>
-		<template>content/mediablockmetas</template>
-		<toolbar>1</toolbar>
-		<tableedit>1</tableedit>
-		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>
-		<app>
-			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
-			<entity><![CDATA[Contentinum\Entity\WebMediaBlockMetas]]></entity>
-			<services><htmlwidgets><![CDATA[Contentinum\Htmlwidgets]]></htmlwidgets></services>
-		</app>
-	</mcwork_mediablockmetas>
-	<mcwork_mediablockmetas_add>
-		<title></title>
-		<bodyTagAttribs></bodyTagAttribs>
-		<headline>add_mediablockmetas</headline>
-		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
-		<content></content>
-		<footer></footer>
-		<toolbar>1</toolbar>
-		<tableedit>1</tableedit>
-		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>
-		<app>
-			<controller></controller>
-			<worker><![CDATA[Mcwork\Model\SaveMediaBlockMetas]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
-			<entity><![CDATA[Contentinum\Entity\WebMediaBlockMetas]]></entity>
-			<targetentities>
-				<webMediametasId><![CDATA[Contentinum\Entity\WebMediaMetas]]></webMediametasId>
-			</targetentities>
-			<form><![CDATA[Mcwork\Form\MediaBlockMetasForm]]></form>
-			<formaction><![CDATA[/mcwork/mediablockmetas/add]]></formaction>
-			<settoroute><![CDATA[/mcwork/mediablockmetas]]></settoroute>
-			<populate>
-				<resource>index</resource>
-				<htmlwidgets>blockmedia</htmlwidgets>
-			</populate>
-		</app>
-	</mcwork_mediablockmetas_add>
-	<mcwork_mediablockmetas_edit>
-		<title></title>
-		<bodyTagAttribs></bodyTagAttribs>
-		<headline>edit_mediablockmetas</headline>
-		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
-		<content></content>
-		<footer></footer>
-		<toolbar>1</toolbar>
-		<tableedit>1</tableedit>
-		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>
-		<app>
-			<controller></controller>
-			<worker><![CDATA[ContentinumComponents\Mapper\SaveMediaBlockMetas]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
-			<entity><![CDATA[Contentinum\Entity\WebMediaBlockMetas]]></entity>
-			<targetentities></targetentities>
-			<setexclude></setexclude>
-			<form><![CDATA[Mcwork\Form\MediaBlockMetasForm]]></form>
-			<formaction><![CDATA[/mcwork/mediablockmetas/edit]]></formaction>
-			<settoroute><![CDATA[/mcwork/mediablockmetas]]></settoroute>
-		</app>
-	</mcwork_mediablockmetas_edit>
-	<mcwork_mediablockmetas_delete>
-		<action>contenthandle</action>
-		<title></title>
-		<bodyTagAttribs></bodyTagAttribs>
-		<headline></headline>
+		<headline>Cache</headline>
 		<columnright></columnright>
 		<subheadline></subheadline>
 		<content></content>
 		<footer></footer>
-		<toolbar></toolbar>
-		<tableedit></tableedit>
-		<template_widget></template_widget>
-		<request>
-			<xhtmlrequest>1</xhtmlrequest>
-		</request>
+		<template>content/cachecontent</template>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
+			<worker><![CDATA[Mcwork\Model\AdministrateCaches]]></worker>
+			<storage><![CDATA[ContentinumComponents\Storage\StorageManager]]></storage>
+			<entity><![CDATA[Mcwork\Entity\CacheFiles]]></entity>
+		</app>
+	</mcwork_cache>
+	<mcwork_cache_clear>
+		<action>contenthandle</action>
 		<response>
-			<redirect>mcwork/mediablockmetas</redirect>
+			<redirect>/mcwork/cache</redirect>
 		</response>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<ctrlmethod>deleteRow</ctrlmethod>
-			<worker><![CDATA[Mcwork\Model\DeleteItem]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
-			<entity><![CDATA[Contentinum\Entity\WebMediaBlockMetas]]></entity>
+			<ctrlmethod>emptyCache</ctrlmethod>
+			<worker><![CDATA[Mcwork\Model\AdministrateCaches]]></worker>
+			<storage><![CDATA[ContentinumComponents\Storage\StorageManager]]></storage>
+			<entity><![CDATA[Mcwork\Entity\CacheFiles]]></entity>
 			<targetentities></targetentities>
 		</app>
-	</mcwork_mediablockmetas_delete>	
+	</mcwork_cache_clear>
 	
-	
-	<mcwork_mediametas>
-		<title></title>
-		<bodyTagAttribs></bodyTagAttribs>
-		<headline>mediametas</headline>
-		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
-		<content></content>
-		<footer></footer>
-		<template>content/mediametas</template>
-		<toolbar>1</toolbar>
-		<tableedit>1</tableedit>
-		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>
-		<app>
-			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
-			<entity><![CDATA[Contentinum\Entity\WebMediaMetas]]></entity>
-		</app>
-	</mcwork_mediametas>	
-	
-	<mcwork_mediametas_edit>
-		<title></title>
-		<bodyTagAttribs></bodyTagAttribs>
-		<headline>edit_mediametas</headline>
-		<columnright></columnright>
-		<subheadline><![CDATA[<i class="fa fa-recorder"></i>]]></subheadline>
-		<content></content>
-		<footer></footer>
-		<toolbar>1</toolbar>
-		<tableedit>1</tableedit>
-		<template_widget>
-        <![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
-		</template_widget>
-		<app>
-			<controller></controller>
-			<worker><![CDATA[Mcwork\Model\SaveMediaMetas]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
-			<entity><![CDATA[Contentinum\Entity\WebMediaMetas]]></entity>
-			<targetentities>
-				<webMediasId><![CDATA[Contentinum\Entity\WebMediaMetas]]></webMediasId>
-			</targetentities>
-			<unserialize>
-				<fields>mediaMetas</fields>
-			</unserialize>
-			<form><![CDATA[Mcwork\Form\MediaMetasForm]]></form>
-			<formaction><![CDATA[/mcwork/mediametas/edit]]></formaction>
-			<settoroute><![CDATA[/mcwork/mediametas]]></settoroute>
-		</app>
-	</mcwork_mediametas_edit>	
-	
-	<mcwork_mediametas_delete>
-		<action>contenthandle</action>
-		<title></title>
-		<bodyTagAttribs></bodyTagAttribs>
-		<headline></headline>
-		<columnright></columnright>
-		<subheadline></subheadline>
-		<content></content>
-		<footer></footer>
-		<toolbar></toolbar>
-		<tableedit></tableedit>
-		<template_widget></template_widget>
-		<request>
-			<xhtmlrequest>1</xhtmlrequest>
-		</request>
-		<response>
-			<redirect>mcwork/mediablockmetas</redirect>
-		</response>
-		<app>
-			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<ctrlmethod>deleteRow</ctrlmethod>
-			<worker><![CDATA[Mcwork\Model\DeleteMedias]]></worker>
-			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
-			<entity><![CDATA[Contentinum\Entity\WebMediaMetas]]></entity>
-			<targetentities></targetentities>
-		</app>
-	</mcwork_mediametas_delete>		
-	
-	<Mcwork_Controller_MediaMetas>
-		<title>Mcwork_Controller_MediaMetas</title>
-		<bodyTagAttribs></bodyTagAttribs>
-		<headline>Mcwork_Controller_MediaMetas</headline>
-		<columnright></columnright>
-		<subheadline></subheadline>
-		<content></content>
-		<footer></footer>	
-	</Mcwork_Controller_MediaMetas>
-	
-	<Mcwork_Controller_Content_Medias>
-		<title>Mcwork_Controller_Content_Medias</title>
-		<bodyTagAttribs></bodyTagAttribs>
-		<headline>Mcwork_Controller_Content_Medias</headline>
-		<columnright><![CDATA[<div id="clNewFolder" class="row collapse"><div class="small-9 columns"><input id="new-folder" type="text"><span class="errNewFolder"> </span></div><div class="small-3 columns"><a id="btnNewFolder" href="#" class="button postfix">New Folder</a></div></div>]]>
-		</columnright>
-		<subheadline>Media and Document files</subheadline>
-		<content></content>
-		<footer></footer>
-	</Mcwork_Controller_Content_Medias>
 </pages>
