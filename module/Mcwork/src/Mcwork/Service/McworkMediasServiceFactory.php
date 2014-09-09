@@ -28,7 +28,7 @@
 namespace Mcwork\Service;
 
 use Contentinum\Service\WebsiteServiceFactory;
-use Mcwork\Model\MediaQueries;
+use Mcwork\Model\AdministrateCaches;
 
 /**
  * Config key website preferences
@@ -53,7 +53,7 @@ class McworkMediasServiceFactory extends WebsiteServiceFactory
         $cache = $sl->get('Contentinum\Cache\Filesystem7200');
         $key = $config['cache'];
         if (! ($result = $cache->getItem($key))) {
-            $worker = new MediaQueries($sl->get($config['entitymanager']));
+            $worker = new AdministrateCaches($sl->get($config['entitymanager']));
             $worker->setEntity($config['entity']);
             $datas = $worker->fetchMediaTable(array(
                 'id',
