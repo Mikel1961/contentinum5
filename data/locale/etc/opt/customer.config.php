@@ -1,8 +1,31 @@
 <?php
 return array(
     'default' => array(
+        'Host' => array(
+
+            'public_folder' => 'public',
+            'denied_folder' => 'data',
+            'public_directory_path' => 'public/medias/',
+            'denied_directory_path' => 'data/files/',
+
+        ),
         'Medias' => array(
             'max_filesize' => 50,
+            'alternate_size_folder' => '_alternate',
+            'media_attribute_fields' => array(
+                'images' => array(
+                    'alt',
+                    'title',
+                    'caption',
+                    'description',
+                    'longdescription'
+                ),
+                'files' => array(
+                    'description',
+                    'linkname',
+                    'headline'
+                )
+            ),
             'alternate_sizes' => array(
                 'max' => '2600',
                 'thumbnail' => '200',
@@ -10,6 +33,21 @@ return array(
                 's' => '800',
                 'l' => '1200',
                 'xl' => '1920'
+            ),
+            'file_icons' => array(
+                     'file' => 'fa-file-o',
+                     'archive' => 'fa-file-archive-o',
+                     'audio' => 'fa-file-audio-o',
+                     'code' => 'fa-file-code-o',
+                     'excel' => 'fa-file-excel-o',
+                     'image' => 'fa-file-image-o',
+                     'pdf' => 'fa-file-pdf-o', 
+                     'powerpoint' => 'fa-file-powerpoint-o',
+                     'text' => 'fa-file-text-o',
+                     'video' => 'fa-file-video-o',
+                     'word' => 'fa-file-word-o',
+                     'file_bg' => 'fa-file',
+                     'text_bg' => 'fa-file-text',
             ),
             'images_types' => array(
                 'image/gif' => true,
@@ -54,14 +92,14 @@ return array(
                 'flv' => null,
                 'D83' => null,
                 'P83' => null,
-                'X83'=> null,
+                'X83' => null,
                 'd83' => null,
                 'p83' => null,
-                'x83'=> null,
-                'p81'=> null,
-                'P81'=> null,
+                'x83' => null,
+                'p81' => null,
+                'P81' => null
             )
-            
         )
+        
     )
 );
