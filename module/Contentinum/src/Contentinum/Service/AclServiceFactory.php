@@ -28,10 +28,10 @@
 namespace Contentinum\Service;
 
 use Zend\ServiceManager\FactoryInterface;
-use Contentinum\Service\AclAwareInterface;
+use Contentinum\Service\Acl\AwareInterface;
 use Zend\Permissions\Acl\Acl;
 
-class AclServiceFactory implements FactoryInterface, AclAwareInterface
+class AclServiceFactory implements FactoryInterface, AwareInterface
 {
 
     /**

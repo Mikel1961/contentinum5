@@ -32,9 +32,9 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use ContentinumComponents\Mapper\Worker;
 
 /**
- * Contentinum xml template files service
- * Load file content as config instance from cache is available
- * If cache empty or expired load content from xml file and add to cache
+ * Contentinum website services
+ * Load content as a config instance from cache, if is available
+ * If cache empty or expired execute a database query
  * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
@@ -67,12 +67,12 @@ abstract class WebsiteServiceFactory implements FactoryInterface
     }
 
     /**
-     * Get result from cache or read from xml file
+     * Get result from cache or execute database query
      * 
-     * @param string $file path to file and filename
-     * @param string $key template file ident
+     * @param array $config query and cache parameters 
      * @param ServiceLocatorInterface $sl
-     */
+     * @return multitype:NULL
+     */    
     protected function queryDbCacheResult($config, $sl)
     {
         $result = array();
