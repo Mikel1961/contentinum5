@@ -36,12 +36,6 @@ class WebPreferences extends AbstractEntity
      */
     private $host;
     
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="htmlstructure", type="string", length=50, nullable=false)
-     */    
-    private $htmlstructure = 'default';
 
     /**
      * @var string
@@ -50,12 +44,6 @@ class WebPreferences extends AbstractEntity
      */
     private $standardDomain = 'no';
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="charset", type="string", length=20, nullable=false)
-     */
-    private $charset = 'utf8';
 
     /**
      * @var string
@@ -64,12 +52,6 @@ class WebPreferences extends AbstractEntity
      */
     private $title = '';
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="favicon", type="string", length=80, nullable=false)
-     */
-    private $favicon = '';
     
     /**
      * @var string
@@ -77,13 +59,7 @@ class WebPreferences extends AbstractEntity
      * @ORM\Column(name="meta_description", type="text", nullable=false)
      */    
     private $metaDescription = '';
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="meta_keywords", type="text", nullable=false)
-     */
-    private $metaKeywords = '';    
+     
 
     /**
      * @var string
@@ -95,9 +71,9 @@ class WebPreferences extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="language", type="string", length=40, nullable=false)
+     * @ORM\Column(name="locale", type="string", length=40, nullable=false)
      */
-    private $language = 'de';
+    private $locale = '';
 
     /**
      * @var string
@@ -113,47 +89,20 @@ class WebPreferences extends AbstractEntity
      */
     private $siteverification = '';
     
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="meta_viewport", type="string", length=100, nullable=false)
-     */    
-    private $metaViewport = 'width=device-width, initial-scale=1.0';
     
     /**
      * @var string
      *
-     * @ORM\Column(name="robots", type="string", length=100, nullable=false)
-     */    
-    private $robots = 'index, follow';
-    
+     * @ORM\Column(name="head_script", type="text", nullable=false)
+     */
+    private $headScript = '';
+
     /**
      * @var string
      *
-     * @ORM\Column(name="global_top_script", type="text", nullable=false)
-     */    
-    private $globalTopScript = '';
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="global_bottom_script", type="text", nullable=false)
-     */    
-    private $globalBottomScript = '';
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="global_experttop_script", type="text", nullable=false)
-     */    
-    private $globalExperttopScript = '';
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="global_expertbottom_script", type="text", nullable=false)
-     */    
-    private $globalExpertbottomScript = '';
+     * @ORM\Column(name="body_footer_script", type="text", nullable=false)
+     */
+    private $bodyFooterScript = '';
 
     /**
      * @var integer
@@ -247,525 +196,245 @@ class WebPreferences extends AbstractEntity
     {
         return $this->id;
     }
-
-    /**
-     * Set hostId
-     *
-     * @param string $hostId
-     * @return WebPreferences
-     */
-    public function setHostId($hostId)
-    {
-        $this->hostId = $hostId;
-
-        return $this;
-    }
-
-    /**
-     * Get hostId
-     *
-     * @return string 
+	/**
+     * @return the $hostId
      */
     public function getHostId()
     {
         return $this->hostId;
     }
 
-    /**
-     * Set host
-     *
-     * @param string $host
-     * @return WebPreferences
+	/**
+     * @param string $hostId
      */
-    public function setHost($host)
+    public function setHostId($hostId)
     {
-        $this->host = $host;
-
-        return $this;
+        $this->hostId = $hostId;
     }
 
-    /**
-     * Get host
-     *
-     * @return string 
+	/**
+     * @return the $host
      */
     public function getHost()
     {
         return $this->host;
     }
 
-    /**
-	 * @return the $htmlstructure
-	 */
-	public function getHtmlstructure() 
-	{
-		return $this->layout;
-	}
-
 	/**
-	 * @param string $htmlstructure
-	 * @return WebPreferences
-	 */
-	public function setHtmlstructure($htmlstructure) 
-	{
-		$this->htmlstructure = $htmlstructure;
-		
-		return $this;
-	}
-
-	/**
-     * Set standardDomain
-     *
-     * @param string $standardDomain
-     * @return WebPreferences
+     * @param string $host
      */
-    public function setStandardDomain($standardDomain)
+    public function setHost($host)
     {
-        $this->standardDomain = $standardDomain;
-
-        return $this;
+        $this->host = $host;
     }
 
-    /**
-     * Get standardDomain
-     *
-     * @return string 
+	/**
+     * @return the $standardDomain
      */
     public function getStandardDomain()
     {
         return $this->standardDomain;
     }
 
-    /**
-     * Set charset
-     *
-     * @param string $charset
-     * @return WebPreferences
+	/**
+     * @param string $standardDomain
      */
-    public function setCharset($charset)
+    public function setStandardDomain($standardDomain)
     {
-        $this->charset = $charset;
-
-        return $this;
+        $this->standardDomain = $standardDomain;
     }
 
-    /**
-     * Get charset
-     *
-     * @return string 
-     */
-    public function getCharset()
-    {
-        return $this->charset;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     * @return WebPreferences
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string 
+	/**
+     * @return the $title
      */
     public function getTitle()
     {
         return $this->title;
     }
 
-    /**
-     * Set favicon
-     *
-     * @param string $favicon
-     * @return WebPreferences
+	/**
+     * @param string $title
      */
-    public function setFavicon($favicon)
+    public function setTitle($title)
     {
-        $this->favicon = $favicon;
-
-        return $this;
+        $this->title = $title;
     }
 
-    /**
-     * Get favicon
-     *
-     * @return string 
+	/**
+     * @return the $metaDescription
      */
-    public function getFavicon()
+    public function getMetaDescription()
     {
-        return $this->favicon;
+        return $this->metaDescription;
     }
 
-    /**
-     * Get meta description
-     * 
-	 * @return the $meta_description
-	 */
-	public function getMetaDescription() 
-	{
-		return $this->meta_description;
-	}
-
 	/**
-	 * Set meta description
-	 * 
-	 * @param string $metaDescription
-	 * @return WebPreferences
-	 */
-	public function setMetaDescription($metaDescription) 
-	{
-		$this->meta_description = $metaDescription;
-		
-		return $this;
-	}
-
-	/**
-	 * Get meta keywords
-	 * 
-	 * @return the $meta_keywords
-	 */
-	public function getMetaKeywords()
-	{
-		return $this->meta_keywords;
-	}
-
-	/**
-	 * Set meta keywords
-	 * 
-	 * @param string $metaKeywords
-	 * @return WebPreferences
-	 */
-	public function setMetaKeywords($metaKeywords) 
-	{
-		$this->meta_keywords = $metaKeywords;
-		
-		return $this;
-	}
-
-	/**
-     * Set author
-     *
-     * @param string $author
-     * @return WebPreferences
+     * @param string $metaDescription
      */
-    public function setAuthor($author)
+    public function setMetaDescription($metaDescription)
     {
-        $this->author = $author;
-
-        return $this;
+        $this->metaDescription = $metaDescription;
     }
 
-    /**
-     * Get author
-     *
-     * @return string 
+	/**
+     * @return the $author
      */
     public function getAuthor()
     {
         return $this->author;
     }
 
-    /**
-     * Set language
-     *
-     * @param string $language
-     * @return WebPreferences
+	/**
+     * @param string $author
      */
-    public function setLanguage($language)
+    public function setAuthor($author)
     {
-        $this->language = $language;
-
-        return $this;
+        $this->author = $author;
     }
 
-    /**
-     * Get language
-     *
-     * @return string 
+	/**
+     * @return the $locale
      */
-    public function getLanguage()
+    public function getLocale()
     {
-        return $this->language;
+        return $this->locale;
     }
 
-    /**
-     * Set googleaccount
-     *
-     * @param string $googleaccount
-     * @return WebPreferences
+	/**
+     * @param string $locale
      */
-    public function setGoogleaccount($googleaccount)
+    public function setLocale($locale)
     {
-        $this->googleaccount = $googleaccount;
-
-        return $this;
+        $this->locale = $locale;
     }
 
-    /**
-     * Get googleaccount
-     *
-     * @return string 
+	/**
+     * @return the $googleaccount
      */
     public function getGoogleaccount()
     {
         return $this->googleaccount;
     }
 
-    /**
-     * Set siteverification
-     *
-     * @param string $siteverification
-     * @return WebPreferences
+	/**
+     * @param string $googleaccount
      */
-    public function setSiteverification($siteverification)
+    public function setGoogleaccount($googleaccount)
     {
-        $this->siteverification = $siteverification;
-
-        return $this;
+        $this->googleaccount = $googleaccount;
     }
 
-    /**
-     * Get siteverification
-     *
-     * @return string 
+	/**
+     * @return the $siteverification
      */
     public function getSiteverification()
     {
         return $this->siteverification;
     }
 
-    /**
-	 * @return the $metaViewport
-	 */
-	public function getMetaViewport() 
-	{
-		return $this->metaViewport;
-	}
-
 	/**
-	 * @param string $metaViewport
-	 * @return WebPreferences
-	 */
-	public function setMetaViewport($metaViewport) 
-	{
-		$this->metaViewport = $metaViewport;
-		
-		return $this;
-	}
-
-	/**
-     * Get meta value robots
-     * 
-	 * @return the $robots
-	 */
-	public function getRobots() 
-	{
-		return $this->robots;
-	}
-
-	/**
-	 * Set meta value robots
-	 * 
-	 * @param string $robots
-	 * @return WebPreferences
-	 */
-	public function setRobots($robots) 
-	{
-		$this->robots = $robots;
-		
-		return $this;
-	}
-
-	/**
-	 * Get global js file adjustment (header link value)
-	 * 
-	 * @return the $globalTopScript
-	 */
-	public function getGlobalTopScript() 
-	{
-		return $this->globalTopScript;
-	}
-
-	/**
-	 * Set global js file adjustment (header link value)
-	 * 
-	 * @param string $globalTopScript
-	 * @return WebPreferences
-	 */
-	public function setGlobalTopScript($globalTopScript) 
-	{
-		$this->globalTopScript = $globalTopScript;
-		
-		return $this;
-	}
-
-	/**
-	 * Get global js file adjustment (body end tag link value)
-	 * 
-	 * @return the $globalBottomScript
-	 */
-	public function getGlobalBottomScript() 
-	{
-		return $this->globalBottomScript;
-	}
-
-	/**
-	 * Set global js file adjustment (body end tag link value)
-	 * 
-	 * @param string $globalBottomScript
-	 * @return WebPreferences
-	 */
-	public function setGlobalBottomScript($globalBottomScript) 
-	{
-		$this->globalBottomScript = $globalBottomScript;
-		
-		return $this;
-	}
-
-	/**
-	 * Get global js file adjustment (header script value)
-	 * 
-	 * @return the $globalExperttopScript
-	 */
-	public function getGlobalExperttopScript() 
-	{
-		return $this->globalExperttopScript;
-	}
-
-	/**
-	 * Set global js file adjustment (header script value)
-	 * 
-	 * @param string $globalExperttopScript
-	 * @return WebPreferences
-	 */
-	public function setGlobalExperttopScript($globalExperttopScript) 
-	{
-		$this->globalExperttopScript = $globalExperttopScript;
-		
-		return $this;
-	}
-
-	/**
-	 * Get global js file adjustment (body end tag script value)
-	 * 
-	 * @return the $globalExpertbottomScript
-	 */
-	public function getGlobalExpertbottomScript() 
-	{
-		return $this->globalExpertbottomScript;
-	}
-
-	/**
-	 * Set global js file adjustment (body end tag script value)
-	 * 
-	 * @param string $globalExpertbottomScript
-	 * @return WebPreferences
-	 */
-	public function setGlobalExpertbottomScript($globalExpertbottomScript) 
-	{
-		$this->globalExpertbottomScript = $globalExpertbottomScript;
-		
-		return $this;
-	}
-
-	/**
-     * Set createdBy
-     *
-     * @param integer $createdBy
-     * @return WebPreferences
+     * @param string $siteverification
      */
-    public function setCreatedBy($createdBy)
+    public function setSiteverification($siteverification)
     {
-        $this->createdBy = $createdBy;
-
-        return $this;
+        $this->siteverification = $siteverification;
     }
 
-    /**
-     * Get createdBy
-     *
-     * @return integer 
+	/**
+     * @return the $headScript
+     */
+    public function getHeadScript()
+    {
+        return $this->headScript;
+    }
+
+	/**
+     * @param string $headScript
+     */
+    public function setHeadScript($headScript)
+    {
+        $this->headScript = $headScript;
+    }
+
+	/**
+     * @return the $bodyFooterScript
+     */
+    public function getBodyFooterScript()
+    {
+        return $this->bodyFooterScript;
+    }
+
+	/**
+     * @param string $bodyFooterScript
+     */
+    public function setBodyFooterScript($bodyFooterScript)
+    {
+        $this->bodyFooterScript = $bodyFooterScript;
+    }
+
+	/**
+     * @return the $createdBy
      */
     public function getCreatedBy()
     {
         return $this->createdBy;
     }
 
-    /**
-     * Set updateBy
-     *
-     * @param integer $updateBy
-     * @return WebPreferences
+	/**
+     * @param number $createdBy
      */
-    public function setUpdateBy($updateBy)
+    public function setCreatedBy($createdBy)
     {
-        $this->updateBy = $updateBy;
-
-        return $this;
+        $this->createdBy = $createdBy;
     }
 
-    /**
-     * Get updateBy
-     *
-     * @return integer 
+	/**
+     * @return the $updateBy
      */
     public function getUpdateBy()
     {
         return $this->updateBy;
     }
 
-    /**
-     * Set registerDate
-     *
-     * @param \DateTime $registerDate
-     * @return WebPreferences
+	/**
+     * @param number $updateBy
      */
-    public function setRegisterDate($registerDate)
+    public function setUpdateBy($updateBy)
     {
-        $this->registerDate = $registerDate;
-
-        return $this;
+        $this->updateBy = $updateBy;
     }
 
-    /**
-     * Get registerDate
-     *
-     * @return \DateTime 
+	/**
+     * @return the $registerDate
      */
     public function getRegisterDate()
     {
         return $this->registerDate;
     }
 
-    /**
-     * Set upDate
-     *
-     * @param \DateTime $upDate
-     * @return WebPreferences
+	/**
+     * @param DateTime $registerDate
      */
-    public function setUpDate($upDate)
+    public function setRegisterDate($registerDate)
     {
-        $this->upDate = $upDate;
-
-        return $this;
+        $this->registerDate = $registerDate;
     }
 
-    /**
-     * Get upDate
-     *
-     * @return \DateTime 
+	/**
+     * @return the $upDate
      */
     public function getUpDate()
     {
         return $this->upDate;
     }
+
+	/**
+     * @param DateTime $upDate
+     */
+    public function setUpDate($upDate)
+    {
+        $this->upDate = $upDate;
+    }
+
+
 }

@@ -21,6 +21,27 @@ class WebContent extends AbstractEntity
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private $id;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="web_contentgroup_id", type="integer", nullable=false)
+     */
+    private $webContentgroup;    
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="web_pages_id", type="integer", nullable=false)
+     */
+    private $webPages;    
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="htmlwidgets", type="string", length=50, nullable=false)
+     */
+    private $htmlwidgets = '';    
 
     /**
      * @var string
@@ -55,14 +76,14 @@ class WebContent extends AbstractEntity
      *
      * @ORM\Column(name="modul_display", type="string", length=250, nullable=false)
      */
-    private $modulDisplay = '0';
+    private $modulDisplay = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="modul_config", type="string", length=250, nullable=false)
      */
-    private $modulConfig;
+    private $modulConfig = '';
 
     /**
      * @var string
@@ -273,6 +294,17 @@ class WebContent extends AbstractEntity
      * @ORM\Column(name="up_date", type="datetime", nullable=false)
      */
     private $upDate = '0000-00-00 00:00:00';
+    
+    /**
+     *
+     * @var \Contentinum\Entity\WebMedia
+     *
+     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\WebMedias")
+     * @ORM\JoinColumns({
+     *  @ORM\JoinColumn(name="web_medias_id", referencedColumnName="id")
+     * })
+     */
+    private $webMediasId;    
 
     /**
      * Construct
@@ -340,6 +372,61 @@ class WebContent extends AbstractEntity
     }
 
     /**
+     * @return the $webContentgroup
+     */
+    public function getWebContentgroup()
+    {
+        return $this->webContentgroup;
+    }
+
+	/**
+     * @param number $webContentgroup
+     */
+    public function setWebContentgroup($webContentgroup)
+    {
+        $this->webContentgroup = $webContentgroup;
+    }
+
+	/**
+     * @return the $webPages
+     */
+    public function getWebPages()
+    {
+        return $this->webPages;
+    }
+
+	/**
+     * @param number $webPages
+     */
+    public function setWebPages($webPages)
+    {
+        $this->webPages = $webPages;
+    }
+    
+    /**
+     * Set htmlwidgets
+     *
+     * @param string $htmlwidgets
+     * @return WebPagesContent
+     */
+    public function setHtmlwidgets($htmlwidgets)
+    {
+        $this->htmlwidgets = $htmlwidgets;
+    
+        return $this;
+    }
+    
+    /**
+     * Get htmlwidgets
+     *
+     * @return string
+     */
+    public function getHtmlwidgets()
+    {
+        return $this->htmlwidgets;
+    }    
+
+	/**
      * Set link
      *
      * @param string $link
@@ -1166,4 +1253,25 @@ class WebContent extends AbstractEntity
     {
         return $this->upDate;
     }
+    
+    /**
+     *
+     * @return the $webMediasId
+     */
+    public function getWebMediasId()
+    {
+    	return $this->webMediasId;
+    }
+    
+    /**
+     *
+     * @param \Contentinum\Entity\WebMedia $webMediasId
+     * @return WebMediasMetas
+     */
+    public function setWebMediasId($webMediasId)
+    {
+    	$this->webMediasId = $webMediasId;
+    
+    	return $this;
+    }    
 }

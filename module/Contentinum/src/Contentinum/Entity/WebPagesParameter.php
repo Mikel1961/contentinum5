@@ -39,20 +39,6 @@ class WebPagesParameter extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="htmlstructure", type="string", length=50, nullable=false)
-     */
-    private $htmlstructure = '';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="htmlwidgets", type="string", length=50, nullable=false)
-     */
-    private $htmlwidgets = '';
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="resource", type="string", length=50, nullable=false)
      */
     private $resource = '';
@@ -78,12 +64,6 @@ class WebPagesParameter extends AbstractEntity
      */
     private $url = '';
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="rel_link", type="string", length=50, nullable=false)
-     */
-    private $relLink = 'no';
 
     /**
      * @var string
@@ -92,47 +72,6 @@ class WebPagesParameter extends AbstractEntity
      */
     private $params = '';
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="settings", type="text", nullable=false)
-     */
-    private $settings = '';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="body_id", type="string", length=250, nullable=false)
-     */
-    private $bodyId = '';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="body_class", type="string", length=250, nullable=false)
-     */
-    private $bodyClass = '';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="head_script", type="text", nullable=false)
-     */
-    private $headScript = '';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="body_footer_script", type="text", nullable=false)
-     */
-    private $bodyFooterScript = '';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="meta_docstart", type="text", nullable=false)
-     */
-    private $metaDocstart = '';
 
     /**
      * @var string
@@ -151,30 +90,9 @@ class WebPagesParameter extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="meta_keywords", type="text", nullable=false)
-     */
-    private $metaKeywords = '';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="meta_viewport", type="string", length=100, nullable=false)
-     */
-    private $metaViewport = '';
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="robots", type="string", length=60, nullable=false)
      */
     private $robots = '';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nocache", type="string", length=1, nullable=false)
-     */
-    private $nocache = 'n';
 
     /**
      * @var string
@@ -186,51 +104,17 @@ class WebPagesParameter extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="publish_cms", type="string", length=4, nullable=false)
+     * @ORM\Column(name="language", type="string", length=10, nullable=false)
      */
-    private $publishCms = 'both';
-
+    private $language = '';
+    
     /**
      * @var string
      *
-     * @ORM\Column(name="publish_up", type="string", nullable=false)
+     * @ORM\Column(name="language_parent", type="integer", nullable=false)
      */
-    private $publishUp = '0000-00-00 00:00:00';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="publish_down", type="string", nullable=false)
-     */
-    private $publishDown = '0000-00-00 00:00:00';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="maintenance", type="text", nullable=false)
-     */
-    private $maintenance = '';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="maintenance_start", type="string", nullable=false)
-     */
-    private $maintenanceStart = '0000-00-00 00:00:00';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="maintenance_end", type="string", nullable=false)
-     */
-    private $maintenanceEnd = '0000-00-00 00:00:00';
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="deleted", type="boolean", nullable=false)
-     */
-    private $deleted = '0';
+    private $languageParent = '0';    
+    
 
     /**
      * @var boolean
@@ -343,719 +227,230 @@ class WebPagesParameter extends AbstractEntity
     }
 
     /**
-     * Set hostId
-     *
-     * @param string $hostId
-     * @return WebPages
-     */
-    public function setHostId($hostId)
-    {
-        $this->hostId = $hostId;
-
-        return $this;
-    }
-
-    /**
-     * Get hostId
-     *
-     * @return string 
+     * @return the $hostId
      */
     public function getHostId()
     {
         return $this->hostId;
     }
 
-    /**
-     * Set scope
-     *
-     * @param string $scope
-     * @return WebPages
+	/**
+     * @param string $hostId
      */
-    public function setScope($scope)
+    public function setHostId($hostId)
     {
-        $this->scope = $scope;
-
-        return $this;
+        $this->hostId = $hostId;
     }
 
-    /**
-     * Get scope
-     *
-     * @return string 
+	/**
+     * @return the $scope
      */
     public function getScope()
     {
         return $this->scope;
     }
 
-    /**
-     * Set htmlstructure
-     *
-     * @param string $htmlstructure
-     * @return WebPages
+	/**
+     * @param string $scope
      */
-    public function setHtmlstructure($htmlstructure)
+    public function setScope($scope)
     {
-        $this->htmlstructure = $htmlstructure;
-
-        return $this;
+        $this->scope = $scope;
     }
 
-    /**
-     * Get htmlstructure
-     *
-     * @return string 
-     */
-    public function getHtmlstructure()
-    {
-        return $this->htmlstructure;
-    }
-
-    /**
-     * Set htmlwidgets
-     *
-     * @param string $htmlwidgets
-     * @return WebPages
-     */
-    public function setHtmlwidgets($htmlwidgets)
-    {
-        $this->htmlwidgets = $htmlwidgets;
-
-        return $this;
-    }
-
-    /**
-     * Get htmlwidgets
-     *
-     * @return string 
-     */
-    public function getHtmlwidgets()
-    {
-        return $this->htmlwidgets;
-    }
-
-    /**
-     * Set resource
-     *
-     * @param string $resource
-     * @return WebPages
-     */
-    public function setResource($resource)
-    {
-        $this->resource = $resource;
-
-        return $this;
-    }
-
-    /**
-     * Get resource
-     *
-     * @return string 
+	/**
+     * @return the $resource
      */
     public function getResource()
     {
         return $this->resource;
     }
 
-    /**
-     * Set label
-     *
-     * @param string $label
-     * @return WebPages
+	/**
+     * @param string $resource
      */
-    public function setLabel($label)
+    public function setResource($resource)
     {
-        $this->label = $label;
-
-        return $this;
+        $this->resource = $resource;
     }
 
-    /**
-     * Get label
-     *
-     * @return string 
+	/**
+     * @return the $label
      */
     public function getLabel()
     {
         return $this->label;
     }
 
-    /**
-     * Set title
-     *
-     * @param string $title
-     * @return WebPages
+	/**
+     * @param string $label
      */
-    public function setTitle($title)
+    public function setLabel($label)
     {
-        $this->title = $title;
-
-        return $this;
+        $this->label = $label;
     }
 
-    /**
-     * Get title
-     *
-     * @return string 
+	/**
+     * @return the $title
      */
     public function getTitle()
     {
         return $this->title;
     }
 
-    /**
-     * Set url
-     *
-     * @param string $url
-     * @return WebPages
+	/**
+     * @param string $title
      */
-    public function setUrl($url)
+    public function setTitle($title)
     {
-        $this->url = $url;
-
-        return $this;
+        $this->title = $title;
     }
 
-    /**
-     * Get url
-     *
-     * @return string 
+	/**
+     * @return the $url
      */
     public function getUrl()
     {
         return $this->url;
     }
 
-    /**
-     * Set relLink
-     *
-     * @param string $relLink
-     * @return WebPages
+	/**
+     * @param string $url
      */
-    public function setRelLink($relLink)
+    public function setUrl($url)
     {
-        $this->relLink = $relLink;
-
-        return $this;
+        $this->url = $url;
     }
 
-    /**
-     * Get relLink
-     *
-     * @return string 
-     */
-    public function getRelLink()
-    {
-        return $this->relLink;
-    }
-
-    /**
-     * Set params
-     *
-     * @param string $params
-     * @return WebPages
-     */
-    public function setParams($params)
-    {
-        $this->params = $params;
-
-        return $this;
-    }
-
-    /**
-     * Get params
-     *
-     * @return string 
+	/**
+     * @return the $params
      */
     public function getParams()
     {
         return $this->params;
     }
 
-    /**
-     * Set settings
-     *
-     * @param string $settings
-     * @return WebPages
+	/**
+     * @param string $params
      */
-    public function setSettings($settings)
+    public function setParams($params)
     {
-        $this->settings = $settings;
-
-        return $this;
+        $this->params = $params;
     }
 
-    /**
-     * Get settings
-     *
-     * @return string 
-     */
-    public function getSettings()
-    {
-        return $this->settings;
-    }
-
-    /**
-     * Set bodyId
-     *
-     * @param string $bodyId
-     * @return WebPages
-     */
-    public function setBodyId($bodyId)
-    {
-        $this->bodyId = $bodyId;
-
-        return $this;
-    }
-
-    /**
-     * Get bodyId
-     *
-     * @return string 
-     */
-    public function getBodyId()
-    {
-        return $this->bodyId;
-    }
-
-    /**
-     * Set bodyClass
-     *
-     * @param string $bodyClass
-     * @return WebPages
-     */
-    public function setBodyClass($bodyClass)
-    {
-        $this->bodyClass = $bodyClass;
-
-        return $this;
-    }
-
-    /**
-     * Get bodyClass
-     *
-     * @return string 
-     */
-    public function getBodyClass()
-    {
-        return $this->bodyClass;
-    }
-
-    /**
-     * Set headScript
-     *
-     * @param string $headScript
-     * @return WebPages
-     */
-    public function setHeadScript($headScript)
-    {
-        $this->headScript = $headScript;
-
-        return $this;
-    }
-
-    /**
-     * Get headScript
-     *
-     * @return string 
-     */
-    public function getHeadScript()
-    {
-        return $this->headScript;
-    }
-
-    /**
-     * Set bodyFooterScript
-     *
-     * @param string $bodyFooterScript
-     * @return WebPages
-     */
-    public function setBodyFooterScript($bodyFooterScript)
-    {
-        $this->bodyFooterScript = $bodyFooterScript;
-
-        return $this;
-    }
-
-    /**
-     * Get bodyFooterScript
-     *
-     * @return string 
-     */
-    public function getBodyFooterScript()
-    {
-        return $this->bodyFooterScript;
-    }
-
-    /**
-     * Set metaDocstart
-     *
-     * @param string $metaDocstart
-     * @return WebPages
-     */
-    public function setMetaDocstart($metaDocstart)
-    {
-        $this->metaDocstart = $metaDocstart;
-
-        return $this;
-    }
-
-    /**
-     * Get metaDocstart
-     *
-     * @return string 
-     */
-    public function getMetaDocstart()
-    {
-        return $this->metaDocstart;
-    }
-
-    /**
-     * Set metaTitle
-     *
-     * @param string $metaTitle
-     * @return WebPages
-     */
-    public function setMetaTitle($metaTitle)
-    {
-        $this->metaTitle = $metaTitle;
-
-        return $this;
-    }
-
-    /**
-     * Get metaTitle
-     *
-     * @return string 
+	/**
+     * @return the $metaTitle
      */
     public function getMetaTitle()
     {
         return $this->metaTitle;
     }
 
-    /**
-     * Set metaDescription
-     *
-     * @param string $metaDescription
-     * @return WebPages
+	/**
+     * @param string $metaTitle
      */
-    public function setMetaDescription($metaDescription)
+    public function setMetaTitle($metaTitle)
     {
-        $this->metaDescription = $metaDescription;
-
-        return $this;
+        $this->metaTitle = $metaTitle;
     }
 
-    /**
-     * Get metaDescription
-     *
-     * @return string 
+	/**
+     * @return the $metaDescription
      */
     public function getMetaDescription()
     {
         return $this->metaDescription;
     }
 
-    /**
-     * Set metaKeywords
-     *
-     * @param string $metaKeywords
-     * @return WebPages
+	/**
+     * @param string $metaDescription
      */
-    public function setMetaKeywords($metaKeywords)
+    public function setMetaDescription($metaDescription)
     {
-        $this->metaKeywords = $metaKeywords;
-
-        return $this;
+        $this->metaDescription = $metaDescription;
     }
 
-    /**
-     * Get metaKeywords
-     *
-     * @return string 
-     */
-    public function getMetaKeywords()
-    {
-        return $this->metaKeywords;
-    }
-
-    /**
-     * Set metaViewport
-     *
-     * @param string $metaViewport
-     * @return WebPages
-     */
-    public function setMetaViewport($metaViewport)
-    {
-        $this->metaViewport = $metaViewport;
-
-        return $this;
-    }
-
-    /**
-     * Get metaViewport
-     *
-     * @return string 
-     */
-    public function getMetaViewport()
-    {
-        return $this->metaViewport;
-    }
-
-    /**
-     * Set robots
-     *
-     * @param string $robots
-     * @return WebPages
-     */
-    public function setRobots($robots)
-    {
-        $this->robots = $robots;
-
-        return $this;
-    }
-
-    /**
-     * Get robots
-     *
-     * @return string 
+	/**
+     * @return the $robots
      */
     public function getRobots()
     {
         return $this->robots;
     }
 
-    /**
-     * Set nocache
-     *
-     * @param string $nocache
-     * @return WebPages
+	/**
+     * @param string $robots
      */
-    public function setNocache($nocache)
+    public function setRobots($robots)
     {
-        $this->nocache = $nocache;
-
-        return $this;
+        $this->robots = $robots;
     }
 
-    /**
-     * Get nocache
-     *
-     * @return string 
-     */
-    public function getNocache()
-    {
-        return $this->nocache;
-    }
-
-    /**
-     * Set publish
-     *
-     * @param string $publish
-     * @return WebPages
-     */
-    public function setPublish($publish)
-    {
-        $this->publish = $publish;
-
-        return $this;
-    }
-
-    /**
-     * Get publish
-     *
-     * @return string 
+	/**
+     * @return the $publish
      */
     public function getPublish()
     {
         return $this->publish;
     }
 
-    /**
-     * Set publishCms
-     *
-     * @param string $publishCms
-     * @return WebPages
+	/**
+     * @param string $publish
      */
-    public function setPublishCms($publishCms)
+    public function setPublish($publish)
     {
-        $this->publishCms = $publishCms;
-
-        return $this;
+        $this->publish = $publish;
     }
 
-    /**
-     * Get publishCms
-     *
-     * @return string 
+	/**
+     * @return the $language
      */
-    public function getPublishCms()
+    public function getLanguage()
     {
-        return $this->publishCms;
+        return $this->language;
     }
 
-    /**
-     * Set publishUp
-     *
-     * @param string $publishUp
-     * @return WebPages
+	/**
+     * @param string $language
      */
-    public function setPublishUp($publishUp)
+    public function setLanguage($language)
     {
-        $this->publishUp = $publishUp;
-
-        return $this;
+        $this->language = $language;
     }
 
-    /**
-     * Get publishUp
-     *
-     * @return string 
+	/**
+     * @return the $languageParent
      */
-    public function getPublishUp()
+    public function getLanguageParent()
     {
-        return $this->publishUp;
+        return $this->languageParent;
     }
 
-    /**
-     * Set publishDown
-     *
-     * @param string $publishDown
-     * @return WebPages
+	/**
+     * @param string $languageParent
      */
-    public function setPublishDown($publishDown)
+    public function setLanguageParent($languageParent)
     {
-        $this->publishDown = $publishDown;
-
-        return $this;
+        $this->languageParent = $languageParent;
     }
 
-    /**
-     * Get publishDown
-     *
-     * @return string 
-     */
-    public function getPublishDown()
-    {
-        return $this->publishDown;
-    }
-
-    /**
-     * Set maintenance
-     *
-     * @param string $maintenance
-     * @return WebPages
-     */
-    public function setMaintenance($maintenance)
-    {
-        $this->maintenance = $maintenance;
-
-        return $this;
-    }
-
-    /**
-     * Get maintenance
-     *
-     * @return string 
-     */
-    public function getMaintenance()
-    {
-        return $this->maintenance;
-    }
-
-    /**
-     * Set maintenanceStart
-     *
-     * @param string $maintenanceStart
-     * @return WebPages
-     */
-    public function setMaintenanceStart($maintenanceStart)
-    {
-        $this->maintenanceStart = $maintenanceStart;
-
-        return $this;
-    }
-
-    /**
-     * Get maintenanceStart
-     *
-     * @return string 
-     */
-    public function getMaintenanceStart()
-    {
-        return $this->maintenanceStart;
-    }
-
-    /**
-     * Set maintenanceEnd
-     *
-     * @param string $maintenanceEnd
-     * @return WebPages
-     */
-    public function setMaintenanceEnd($maintenanceEnd)
-    {
-        $this->maintenanceEnd = $maintenanceEnd;
-
-        return $this;
-    }
-
-    /**
-     * Get maintenanceEnd
-     *
-     * @return string 
-     */
-    public function getMaintenanceEnd()
-    {
-        return $this->maintenanceEnd;
-    }
-
-    /**
-     * Set deleted
-     *
-     * @param boolean $deleted
-     * @return WebPages
-     */
-    public function setDeleted($deleted)
-    {
-        $this->deleted = $deleted;
-
-        return $this;
-    }
-
-    /**
-     * Get deleted
-     *
-     * @return boolean 
-     */
-    public function getDeleted()
-    {
-        return $this->deleted;
-    }
-
-    /**
-     * Set onlylink
-     *
-     * @param boolean $onlylink
-     * @return WebPages
-     */
-    public function setOnlylink($onlylink)
-    {
-        $this->onlylink = $onlylink;
-
-        return $this;
-    }
-
-    /**
-     * Get onlylink
-     *
-     * @return boolean 
+	/**
+     * @return the $onlylink
      */
     public function getOnlylink()
     {
         return $this->onlylink;
     }
 
-    /**
+	/**
+     * @param boolean $onlylink
+     */
+    public function setOnlylink($onlylink)
+    {
+        $this->onlylink = $onlylink;
+    }
+
+	/**
      * Set createdBy
      *
      * @param integer $createdBy

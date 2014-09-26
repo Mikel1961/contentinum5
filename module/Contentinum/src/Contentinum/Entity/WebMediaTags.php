@@ -9,7 +9,7 @@ use ContentinumComponents\Entity\AbstractEntity;
 /**
  * WebMediaTags
  *
- * @ORM\Table(name="web_media_tags", uniqueConstraints={@ORM\UniqueConstraint(name="MEDIATAGID", columns={"tag_name"})})
+ * @ORM\Table(name="web_tags", uniqueConstraints={@ORM\UniqueConstraint(name="WEBTAGID", columns={"tag_name"})})
  * @ORM\Entity
  */
 class WebMediaTags extends AbstractEntity
@@ -22,6 +22,13 @@ class WebMediaTags extends AbstractEntity
 	 * @ORM\GeneratedValue(strategy="NONE")
 	 */
 	private $id;
+	
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="tag_group", type="string", length=200, nullable=false)
+	 */	
+	private $tagGroup = 'medias';
 	
 	/**
 	 * @var string
@@ -122,6 +129,26 @@ class WebMediaTags extends AbstractEntity
 	{
 		return $this->id;
 	}
+
+	/**
+     * @return the $tagGroup
+     */
+    public function getTagGroup()
+    {
+        return $this->tagGroup;
+    }
+
+	/**
+     * @param string $tagGroup
+     * 
+     * @return WebMediaTags
+     */
+    public function setTagGroup($tagGroup)
+    {
+        $this->tagGroup = $tagGroup;
+        
+        return $this;
+    }
 
 	/**
 	 * Get tage name

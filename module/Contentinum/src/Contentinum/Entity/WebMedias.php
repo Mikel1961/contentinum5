@@ -85,6 +85,12 @@ class WebMedias extends AbstractEntity
      * @ORM\Column(name="meta_coding", type="string", length=20, nullable=false)
      */    
     private $metaCoding = '';
+    
+    /**
+     *
+     * @var string @ORM\Column(name="resource", type="string", length=50, nullable=false)
+     */
+    private $resource = 'index';    
 
     /**
      * @var integer
@@ -351,6 +357,28 @@ class WebMedias extends AbstractEntity
 		
 		return $this;
 	}
+	
+	/**
+	 *
+	 * @return the $resource
+	 */
+	public function getResource()
+	{
+		return $this->resource;
+	}
+	
+	/**
+	 *
+	 * @param string $resource
+	 *
+	 * @return WebMedias
+	 */
+	public function setResource($resource)
+	{
+		$this->resource = $resource;
+	
+		return $this;
+	}	
 
 	/**
      * Set createdBy

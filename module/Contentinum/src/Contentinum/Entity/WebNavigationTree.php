@@ -25,13 +25,6 @@ class WebNavigationTree extends AbstractEntity
     /**
      * @var integer
      *
-     * @ORM\Column(name="web_navigation_id", type="integer", nullable=false)
-     */
-    private $webNavigationId = '0';
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="parent_from", type="integer", nullable=false)
      */
     private $parentFrom = '0';
@@ -48,7 +41,14 @@ class WebNavigationTree extends AbstractEntity
      *
      * @ORM\Column(name="rel_link", type="string", length=50, nullable=false)
      */
-    private $relLink = 'no';
+    private $relLink = '';
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="target_link", type="string", length=20, nullable=false)
+     */    
+    private $targetLink = '';
 
     /**
      * @var string
@@ -72,11 +72,11 @@ class WebNavigationTree extends AbstractEntity
     private $publish = 'no';
 
     /**
-     * @var boolean
+     * @var string
      *
-     * @ORM\Column(name="deleted", type="boolean", nullable=false)
+     * @ORM\Column(name="resource", type="string", length=50, nullable=false)
      */
-    private $deleted = '0';
+    private $resource = '';
 
     /**
      * @var integer
@@ -107,14 +107,24 @@ class WebNavigationTree extends AbstractEntity
     private $upDate = '0000-00-00 00:00:00';
 
     /**
-     * @var \Contentinum\Entity\WebPages
+     * @var \Contentinum\Entity\WebPagesParameter
      *
-     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\WebPages")
+     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\WebPagesParameter")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="web_pages_id", referencedColumnName="id")
      * })
      */
     private $webPages;
+    
+    /**
+     * @var \Contentinum\Entity\WebNavigations
+     *
+     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\WebNavigations")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="web_navigation_id", referencedColumnName="id")
+     * })
+     */
+    private $webNavigations;    
 
     /**
      * Construct
@@ -179,29 +189,6 @@ class WebNavigationTree extends AbstractEntity
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set webNavigationId
-     *
-     * @param integer $webNavigationId
-     * @return WebNavigationTree
-     */
-    public function setWebNavigationId($webNavigationId)
-    {
-        $this->webNavigationId = $webNavigationId;
-
-        return $this;
-    }
-
-    /**
-     * Get webNavigationId
-     *
-     * @return integer 
-     */
-    public function getWebNavigationId()
-    {
-        return $this->webNavigationId;
     }
 
     /**
@@ -274,6 +261,22 @@ class WebNavigationTree extends AbstractEntity
     }
 
     /**
+     * @return the $targetLink
+     */
+    public function getTargetLink()
+    {
+        return $this->targetLink;
+    }
+
+	/**
+     * @param string $targetLink
+     */
+    public function setTargetLink($targetLink)
+    {
+        $this->targetLink = $targetLink;
+    }
+
+	/**
      * Set class
      *
      * @param string $class
@@ -343,26 +346,26 @@ class WebNavigationTree extends AbstractEntity
     }
 
     /**
-     * Set deleted
+     * Set resource
      *
-     * @param boolean $deleted
-     * @return WebNavigationTree
+     * @param string $resource
+     * @return WebContent
      */
-    public function setDeleted($deleted)
+    public function setResource($resource)
     {
-        $this->deleted = $deleted;
+        $this->resource = $resource;
 
         return $this;
     }
 
     /**
-     * Get deleted
+     * Get resource
      *
-     * @return boolean 
+     * @return string 
      */
-    public function getDeleted()
+    public function getResource()
     {
-        return $this->deleted;
+        return $this->resource;
     }
 
     /**
@@ -460,10 +463,10 @@ class WebNavigationTree extends AbstractEntity
     /**
      * Set webPages
      *
-     * @param \Contentinum\Entity\WebPages $webPages
+     * @param \Contentinum\Entity\WebPagesParameter $webPages
      * @return WebNavigationTree
      */
-    public function setWebPages(\Contentinum\Entity\WebPages $webPages = null)
+    public function setWebPages(\Contentinum\Entity\WebPagesParameter $webPages = null)
     {
         $this->webPages = $webPages;
 
@@ -473,10 +476,27 @@ class WebNavigationTree extends AbstractEntity
     /**
      * Get webPages
      *
-     * @return \Contentinum\Entity\WebPages 
+     * @return \Contentinum\Entity\WebPagesParameter 
      */
     public function getWebPages()
     {
         return $this->webPages;
     }
+    
+	/**
+     * @return the $webNavigations
+     */
+    public function getWebNavigations()
+    {
+        return $this->webNavigations;
+    }
+
+	/**
+     * @param \Contentinum\Entity\WebNavigations $webNavigations
+     */
+    public function setWebNavigations($webNavigations)
+    {
+        $this->webNavigations = $webNavigations;
+    }
+
 }

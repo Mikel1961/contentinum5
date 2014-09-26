@@ -35,20 +35,27 @@ class WebNavigations extends AbstractEntity
      * @ORM\Column(name="tpl_assign", type="string", length=25, nullable=false)
      */
     private $tplAssign = '';
+    
+    /**
+     * @var string 
+     * 
+     * @ORM\Column(name="htmlwidgets", type="string", length=50, nullable=false)
+     */
+    private $htmlwidgets = '';    
 
     /**
      * @var string
      *
      * @ORM\Column(name="menue", type="string", length=3, nullable=false)
      */
-    private $menue;
+    private $menue = 'std';
 
     /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=150, nullable=false)
      */
-    private $title;
+    private $title = '';
 
     /**
      * @var string
@@ -76,7 +83,7 @@ class WebNavigations extends AbstractEntity
      *
      * @ORM\Column(name="publish", type="string", length=10, nullable=false)
      */
-    private $publish = 'no';
+    private $publish = 'yes';
 
     /**
      * @var integer
@@ -216,6 +223,28 @@ class WebNavigations extends AbstractEntity
     {
         return $this->tplAssign;
     }
+    
+    /**
+     *
+     * @return the $htmlwidgets
+     */
+    public function getHtmlwidgets()
+    {
+        return $this->htmlwidgets;
+    }
+    
+    /**
+     *
+     * @param string $htmlwidgets
+     *
+     * @return WebMediaGroup
+     */
+    public function setHtmlwidgets($htmlwidgets)
+    {
+        $this->htmlwidgets = $htmlwidgets;
+    
+        return $this;
+    }    
 
     /**
      * Set menue

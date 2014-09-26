@@ -21,108 +21,108 @@ class WebPagesContent extends AbstractEntity
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private $id;
-
+    
     /**
      * @var integer
      *
      * @ORM\Column(name="item_rang", type="integer", nullable=false)
      */
     private $itemRang = '0';
-
+    
     /**
      * @var string
      *
      * @ORM\Column(name="htmlwidgets", type="string", length=50, nullable=false)
      */
     private $htmlwidgets = '';
-
+    
     /**
      * @var string
      *
      * @ORM\Column(name="adjustments", type="text", nullable=false)
      */
-    private $adjustments = '';
-
+    private $adjustments = 'CONTENT';
+    
     /**
      * @var string
      *
      * @ORM\Column(name="file", type="string", length=250, nullable=false)
      */
     private $file = '';
-
+    
     /**
      * @var string
      *
      * @ORM\Column(name="tpl_assign", type="string", length=20, nullable=false)
      */
-    private $tplAssign = 'content';
-
+    private $tplAssign = 'allcontent';
+    
     /**
      * @var boolean
      *
      * @ORM\Column(name="medias", type="boolean", nullable=true)
      */
     private $medias = '1';
-
+    
     /**
      * @var string
      *
      * @ORM\Column(name="publish", type="string", length=10, nullable=false)
      */
     private $publish = 'no';
-
+    
     /**
      * @var string
      *
      * @ORM\Column(name="publish_up", type="string", nullable=false)
      */
     private $publishUp = '0000-00-00 00:00:00';
-
+    
     /**
      * @var string
      *
      * @ORM\Column(name="publish_down", type="string", nullable=false)
      */
     private $publishDown = '0000-00-00 00:00:00';
-
+    
     /**
      * @var integer
      *
      * @ORM\Column(name="created_by", type="integer", nullable=false)
      */
     private $createdBy = '0';
-
+    
     /**
      * @var integer
      *
      * @ORM\Column(name="update_by", type="integer", nullable=false)
      */
     private $updateBy = '0';
-
+    
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="register_date", type="datetime", nullable=false)
      */
     private $registerDate = '0000-00-00 00:00:00';
-
+    
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="up_date", type="datetime", nullable=false)
      */
-    private $upDate = '0000-00-00 00:00:00';
-
+    private $upDate = '0000-00-00 00:00:00';    
+    
     /**
-     * @var \Contentinum\Entity\WebContent
+     * @var \Contentinum\Entity\WebContentGroups
      *
-     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\WebContent")
+     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\WebContentGroups")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="web_content_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="web_contentgroup_id", referencedColumnName="id")
      * })
      */
-    private $webContent;
-    
+    private $webContentgroup;
+
     /**
      * @var \Contentinum\Entity\WebPagesParameter
      *
@@ -130,8 +130,8 @@ class WebPagesContent extends AbstractEntity
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="web_pages_id", referencedColumnName="id")
      * })
-     */    
-    private $webPagesId;    
+     */
+    private $webPages; 
 
     /**
      * Construct
@@ -496,50 +496,38 @@ class WebPagesContent extends AbstractEntity
     {
         return $this->upDate;
     }
-    
-    /**
-     * Set webPagesId
-     *
-     * @param \Contentinum\Entity\WebPagesParameter $webPagesId
-     * @return WebRedirect
+
+	/**
+     * @param \Contentinum\Entity\WebContentGroups $webContentgroup
      */
-    public function setWebPagesId(\Contentinum\Entity\WebPagesParameter $webPagesId)
+    public function setWebContentgroup(\Contentinum\Entity\WebContentGroups $webContentgroup)
     {
-    	$this->webPagesId = $webPagesId;
-    
-    	return $this;
+        $this->webContentgroup = $webContentgroup;
     }
     
     /**
-     * Get webPagesId
-     *
-     * @return \Contentinum\Entity\WebPagesParameter
+     * @return the $webContentgroup
      */
-    public function getWebPagesId()
+    public function getWebContentgroup()
     {
-    	return $this->webPagesId;
-    }    
+        return $this->webContentgroup;
+    }  
 
-    /**
-     * Set webContent
-     *
-     * @param \Contentinum\Entity\WebContent $webContent
-     * @return WebPagesContent
+	/**
+     * @param \Contentinum\Entity\WebPagesParameter $webPages
      */
-    public function setWebContent(\Contentinum\Entity\WebContent $webContent = null)
+    public function setWebPages(\Contentinum\Entity\WebPagesParameter $webPages)
     {
-        $this->webContent = $webContent;
-
-        return $this;
+        $this->webPages = $webPages;
     }
 
     /**
-     * Get webContent
-     *
-     * @return \Contentinum\Entity\WebContent 
+     * @return the $webPages
      */
-    public function getWebContent()
+    public function getWebPages()
     {
-        return $this->webContent;
+        return $this->webPages;
     }
+    
+
 }
