@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data version="1.0.0">
+	<status_301 value="301" name="301 - Moved Permanently"></status_301>
+	<status_303 value="303" name="303 - See Other"></status_303>
+	<status_307 value="307" name="307 - Temporary Redirect"></status_307>
+	<status_308 value="308"
+		name="308 - Permanent Redirect [Experimentell according to RFC]"></status_308>
+</data>

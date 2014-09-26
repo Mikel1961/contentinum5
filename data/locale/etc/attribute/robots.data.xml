@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data version="1.0.0">
+	<index_follow value="index,follow"
+		name="Index the page, follow the links on the page"></index_follow>
+	<index_nofollow value="index, nofollow"
+		name="Index the page, nofollow the links on the page"></index_nofollow>
+	<noindex value="noindex"
+		name="Disallow search engines from showing this page in their results"></noindex>
+	<nocache value="nocache"
+		name="Prevents the search engines from showing a cached copy of this page"></nocache>
+	<none value="none" name="Don’t do anything with this page at all"></none>
+</data>

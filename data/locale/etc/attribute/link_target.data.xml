@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data version="1.0.0">
+	<_blank name="Load in a new window"></_blank>	
+	<_self name="Load in the same frame as it was clicked"></_self>	
+	<_parent name="Load in the parent frameset"></_parent>	
+	<_top name="Load in the full body of the window"></_top>	
+</data>
