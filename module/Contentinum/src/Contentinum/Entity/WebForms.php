@@ -8,7 +8,7 @@ use ContentinumComponents\Entity\AbstractEntity;
 /**
  * WebForms
  *
- * @ORM\Table(name="web_forms")
+ * @ORM\Table(name="web_forms", indexes={@ORM\Index(name="FORMNAME", columns={"headline"})})
  * @ORM\Entity
  */
 class WebForms extends AbstractEntity
@@ -18,7 +18,7 @@ class WebForms extends AbstractEntity
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
@@ -32,37 +32,44 @@ class WebForms extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="tags", type="string", length=2, nullable=false)
+     * @ORM\Column(name="htmlwidgets", type="string", length=50, nullable=false)
      */
-    private $tags = 'h2';
+    private $htmlwidgets;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="resource", type="string", length=50, nullable=false)
+     */
+    private $resource;
 
     /**
      * @var string
      *
      * @ORM\Column(name="subheadline", type="string", length=250, nullable=false)
      */
-    private $subheadline = '';
+    private $subheadline;
 
     /**
      * @var string
      *
      * @ORM\Column(name="script", type="string", length=250, nullable=false)
      */
-    private $script = '';
+    private $script;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", nullable=false)
+     * @ORM\Column(name="description", type="text", length=65535, nullable=false)
      */
-    private $description = '';
+    private $description;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="responsetext", type="text", nullable=false)
+     * @ORM\Column(name="responsetext", type="text", length=65535, nullable=false)
      */
-    private $responsetext = '';
+    private $responsetext;
 
     /**
      * @var string
@@ -74,7 +81,7 @@ class WebForms extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=250, nullable=false)
+     * @ORM\Column(name="email", type="text", length=65535, nullable=false)
      */
     private $email;
 
@@ -83,73 +90,83 @@ class WebForms extends AbstractEntity
      *
      * @ORM\Column(name="emailname", type="string", length=250, nullable=false)
      */
-    private $emailname = '';
+    private $emailname;
 
     /**
      * @var string
      *
      * @ORM\Column(name="emailcc", type="string", length=250, nullable=false)
      */
-    private $emailcc = '';
+    private $emailcc;
 
     /**
      * @var string
      *
      * @ORM\Column(name="replayemail", type="string", length=100, nullable=false)
      */
-    private $replayemail = '';
+    private $replayemail;
 
     /**
      * @var string
      *
      * @ORM\Column(name="replayname", type="string", length=60, nullable=false)
      */
-    private $replayname = '';
+    private $replayname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="emailtext", type="text", nullable=false)
+     * @ORM\Column(name="emailtext", type="text", length=65535, nullable=false)
      */
-    private $emailtext = '';
+    private $emailtext;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="created_by", type="integer", nullable=false)
      */
-    private $createdBy = '0';
+    private $createdBy;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="update_by", type="integer", nullable=false)
      */
-    private $updateBy = '0';
+    private $updateBy;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="register_date", type="datetime", nullable=false)
      */
-    private $registerDate = '0000-00-00 00:00:00';
+    private $registerDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="up_date", type="datetime", nullable=false)
      */
-    private $upDate = '0000-00-00 00:00:00';
-
+    private $upDate;
+    
+    /**
+     * @var \Contentinum\Entity\WebPreferences
+     *
+     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\WebPreferences")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="web_preferences_id", referencedColumnName="id")
+     * })
+     */
+    private $webPreferences;    
+    
     /**
      * Construct
      * @param array $options
      */
     public function __construct (array $options = null)
     {
-    	if (is_array($options)) {
-    		$this->setOptions($options);
-    	}
+        if (is_array($options)) {
+            $this->setOptions($options);
+        }
     }
     
     /** (non-PHPdoc)
@@ -157,7 +174,7 @@ class WebForms extends AbstractEntity
      */
     public function getEntityName()
     {
-    	return get_class($this);
+        return get_class($this);
     }
     
     /** (non-PHPdoc)
@@ -165,7 +182,7 @@ class WebForms extends AbstractEntity
      */
     public function getPrimaryKey()
     {
-    	return 'id';
+        return 'id';
     }
     
     /** (non-PHPdoc)
@@ -173,7 +190,7 @@ class WebForms extends AbstractEntity
      */
     public function getPrimaryValue()
     {
-    	return $this->id;
+        return $this->id;
     }
     
     /** (non-PHPdoc)
@@ -181,420 +198,341 @@ class WebForms extends AbstractEntity
      */
     public function getProperties()
     {
-    	return get_object_vars($this);
+        return get_object_vars($this);
     }
     
     /**
      * @param number $id
      *
-     * @return WebForms
+     * @return Accounts
      */
     public function setId($id)
     {
-    	$this->id = $id;
+        $this->id = $id;
     
-    	return $this;
-    }    
-
-
+        return $this;
+    }
+    
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
-
-    /**
-     * Set headline
-     *
-     * @param string $headline
-     * @return WebForms
-     */
-    public function setHeadline($headline)
-    {
-        $this->headline = $headline;
-
-        return $this;
-    }
-
-    /**
-     * Get headline
-     *
-     * @return string 
+    
+	/**
+     * @return the $headline
      */
     public function getHeadline()
     {
         return $this->headline;
     }
 
-    /**
-     * Set tags
-     *
-     * @param string $tags
-     * @return WebForms
+	/**
+     * @param string $headline
      */
-    public function setTags($tags)
+    public function setHeadline($headline)
     {
-        $this->tags = $tags;
-
-        return $this;
+        $this->headline = $headline;
     }
 
-    /**
-     * Get tags
-     *
-     * @return string 
+	/**
+     * @return the $htmlwidgets
      */
-    public function getTags()
+    public function getHtmlwidgets()
     {
-        return $this->tags;
+        return $this->htmlwidgets;
     }
 
-    /**
-     * Set subheadline
-     *
-     * @param string $subheadline
-     * @return WebForms
+	/**
+     * @param string $htmlwidgets
      */
-    public function setSubheadline($subheadline)
+    public function setHtmlwidgets($htmlwidgets)
     {
-        $this->subheadline = $subheadline;
-
-        return $this;
+        $this->htmlwidgets = $htmlwidgets;
     }
 
-    /**
-     * Get subheadline
-     *
-     * @return string 
+	/**
+     * @return the $resource
+     */
+    public function getResource()
+    {
+        return $this->resource;
+    }
+
+	/**
+     * @param string $resource
+     */
+    public function setResource($resource)
+    {
+        $this->resource = $resource;
+    }
+
+	/**
+     * @return the $subheadline
      */
     public function getSubheadline()
     {
         return $this->subheadline;
     }
 
-    /**
-     * Set script
-     *
-     * @param string $script
-     * @return WebForms
+	/**
+     * @param string $subheadline
      */
-    public function setScript($script)
+    public function setSubheadline($subheadline)
     {
-        $this->script = $script;
-
-        return $this;
+        $this->subheadline = $subheadline;
     }
 
-    /**
-     * Get script
-     *
-     * @return string 
+	/**
+     * @return the $script
      */
     public function getScript()
     {
         return $this->script;
     }
 
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return WebForms
+	/**
+     * @param string $script
      */
-    public function setDescription($description)
+    public function setScript($script)
     {
-        $this->description = $description;
-
-        return $this;
+        $this->script = $script;
     }
 
-    /**
-     * Get description
-     *
-     * @return string 
+	/**
+     * @return the $description
      */
     public function getDescription()
     {
         return $this->description;
     }
 
-    /**
-     * Set responsetext
-     *
-     * @param string $responsetext
-     * @return WebForms
+	/**
+     * @param string $description
      */
-    public function setResponsetext($responsetext)
+    public function setDescription($description)
     {
-        $this->responsetext = $responsetext;
-
-        return $this;
+        $this->description = $description;
     }
 
-    /**
-     * Get responsetext
-     *
-     * @return string 
+	/**
+     * @return the $responsetext
      */
     public function getResponsetext()
     {
         return $this->responsetext;
     }
 
-    /**
-     * Set emailsubject
-     *
-     * @param string $emailsubject
-     * @return WebForms
+	/**
+     * @param string $responsetext
      */
-    public function setEmailsubject($emailsubject)
+    public function setResponsetext($responsetext)
     {
-        $this->emailsubject = $emailsubject;
-
-        return $this;
+        $this->responsetext = $responsetext;
     }
 
-    /**
-     * Get emailsubject
-     *
-     * @return string 
+	/**
+     * @return the $emailsubject
      */
     public function getEmailsubject()
     {
         return $this->emailsubject;
     }
 
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return WebForms
+	/**
+     * @param string $emailsubject
      */
-    public function setEmail($email)
+    public function setEmailsubject($emailsubject)
     {
-        $this->email = $email;
-
-        return $this;
+        $this->emailsubject = $emailsubject;
     }
 
-    /**
-     * Get email
-     *
-     * @return string 
+	/**
+     * @return the $email
      */
     public function getEmail()
     {
         return $this->email;
     }
 
-    /**
-     * Set emailname
-     *
-     * @param string $emailname
-     * @return WebForms
+	/**
+     * @param string $email
      */
-    public function setEmailname($emailname)
+    public function setEmail($email)
     {
-        $this->emailname = $emailname;
-
-        return $this;
+        $this->email = $email;
     }
 
-    /**
-     * Get emailname
-     *
-     * @return string 
+	/**
+     * @return the $emailname
      */
     public function getEmailname()
     {
         return $this->emailname;
     }
 
-    /**
-     * Set emailcc
-     *
-     * @param string $emailcc
-     * @return WebForms
+	/**
+     * @param string $emailname
      */
-    public function setEmailcc($emailcc)
+    public function setEmailname($emailname)
     {
-        $this->emailcc = $emailcc;
-
-        return $this;
+        $this->emailname = $emailname;
     }
 
-    /**
-     * Get emailcc
-     *
-     * @return string 
+	/**
+     * @return the $emailcc
      */
     public function getEmailcc()
     {
         return $this->emailcc;
     }
 
-    /**
-     * Set replayemail
-     *
-     * @param string $replayemail
-     * @return WebForms
+	/**
+     * @param string $emailcc
      */
-    public function setReplayemail($replayemail)
+    public function setEmailcc($emailcc)
     {
-        $this->replayemail = $replayemail;
-
-        return $this;
+        $this->emailcc = $emailcc;
     }
 
-    /**
-     * Get replayemail
-     *
-     * @return string 
+	/**
+     * @return the $replayemail
      */
     public function getReplayemail()
     {
         return $this->replayemail;
     }
 
-    /**
-     * Set replayname
-     *
-     * @param string $replayname
-     * @return WebForms
+	/**
+     * @param string $replayemail
      */
-    public function setReplayname($replayname)
+    public function setReplayemail($replayemail)
     {
-        $this->replayname = $replayname;
-
-        return $this;
+        $this->replayemail = $replayemail;
     }
 
-    /**
-     * Get replayname
-     *
-     * @return string 
+	/**
+     * @return the $replayname
      */
     public function getReplayname()
     {
         return $this->replayname;
     }
 
-    /**
-     * Set emailtext
-     *
-     * @param string $emailtext
-     * @return WebForms
+	/**
+     * @param string $replayname
      */
-    public function setEmailtext($emailtext)
+    public function setReplayname($replayname)
     {
-        $this->emailtext = $emailtext;
-
-        return $this;
+        $this->replayname = $replayname;
     }
 
-    /**
-     * Get emailtext
-     *
-     * @return string 
+	/**
+     * @return the $emailtext
      */
     public function getEmailtext()
     {
         return $this->emailtext;
     }
 
-    /**
-     * Set createdBy
-     *
-     * @param integer $createdBy
-     * @return WebForms
+	/**
+     * @param string $emailtext
      */
-    public function setCreatedBy($createdBy)
+    public function setEmailtext($emailtext)
     {
-        $this->createdBy = $createdBy;
-
-        return $this;
+        $this->emailtext = $emailtext;
     }
 
-    /**
-     * Get createdBy
-     *
-     * @return integer 
+	/**
+     * @return the $createdBy
      */
     public function getCreatedBy()
     {
         return $this->createdBy;
     }
 
-    /**
-     * Set updateBy
-     *
-     * @param integer $updateBy
-     * @return WebForms
+	/**
+     * @param number $createdBy
      */
-    public function setUpdateBy($updateBy)
+    public function setCreatedBy($createdBy)
     {
-        $this->updateBy = $updateBy;
-
-        return $this;
+        $this->createdBy = $createdBy;
     }
 
-    /**
-     * Get updateBy
-     *
-     * @return integer 
+	/**
+     * @return the $updateBy
      */
     public function getUpdateBy()
     {
         return $this->updateBy;
     }
 
-    /**
-     * Set registerDate
-     *
-     * @param \DateTime $registerDate
-     * @return WebForms
+	/**
+     * @param number $updateBy
      */
-    public function setRegisterDate($registerDate)
+    public function setUpdateBy($updateBy)
     {
-        $this->registerDate = $registerDate;
-
-        return $this;
+        $this->updateBy = $updateBy;
     }
 
-    /**
-     * Get registerDate
-     *
-     * @return \DateTime 
+	/**
+     * @return the $registerDate
      */
     public function getRegisterDate()
     {
         return $this->registerDate;
     }
 
-    /**
-     * Set upDate
-     *
-     * @param \DateTime $upDate
-     * @return WebForms
+	/**
+     * @param DateTime $registerDate
      */
-    public function setUpDate($upDate)
+    public function setRegisterDate($registerDate)
     {
-        $this->upDate = $upDate;
-
-        return $this;
+        $this->registerDate = $registerDate;
     }
 
-    /**
-     * Get upDate
-     *
-     * @return \DateTime 
+	/**
+     * @return the $upDate
      */
     public function getUpDate()
     {
         return $this->upDate;
     }
+
+	/**
+     * @param DateTime $upDate
+     */
+    public function setUpDate($upDate)
+    {
+        $this->upDate = $upDate;
+    }
+    
+    /**
+     * Set webPreferences
+     *
+     * @param \Contentinum\Entity\WebPreferences $webPreferences
+     * @return WebPages
+     */
+    public function setWebPreferences(\Contentinum\Entity\WebPreferences $webPreferences = null)
+    {
+        $this->webPreferences = $webPreferences;
+    
+        return $this;
+    }
+    
+    /**
+     * Get webPreferences
+     *
+     * @return \Contentinum\Entity\WebPreferences
+     */
+    public function getWebPreferences()
+    {
+        return $this->webPreferences;
+    }
+
 }
+

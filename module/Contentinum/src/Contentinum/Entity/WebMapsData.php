@@ -8,7 +8,7 @@ use ContentinumComponents\Entity\AbstractEntity;
 /**
  * WebMapsData
  *
- * @ORM\Table(name="web_maps_data", indexes={@ORM\Index(name="MAPIDENTREF", columns={"web_maps_id"})})
+ * @ORM\Table(name="web_maps_data", indexes={@ORM\Index(name="MAPSPARENT", columns={"web_maps_id"}), @ORM\Index(name="MAPSMEDIA", columns={"web_medias_id"})})
  * @ORM\Entity
  */
 class WebMapsData extends AbstractEntity
@@ -60,51 +60,54 @@ class WebMapsData extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", nullable=false)
+     * @ORM\Column(name="description", type="text", length=65535, nullable=false)
      */
     private $description;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="img_source", type="string", length=100, nullable=false)
-     */
-    private $imgSource;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="publish", type="string", length=10, nullable=false)
      */
-    private $publish = 'no';
+    private $publish;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="created_by", type="integer", nullable=false)
      */
-    private $createdBy = '0';
+    private $createdBy;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="update_by", type="integer", nullable=false)
      */
-    private $updateBy = '0';
+    private $updateBy;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="register_date", type="datetime", nullable=false)
      */
-    private $registerDate = '0000-00-00 00:00:00';
+    private $registerDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="up_date", type="datetime", nullable=false)
      */
-    private $upDate = '0000-00-00 00:00:00';
+    private $upDate;
+
+    /**
+     * @var \Contentinum\Entity\WebMedias
+     *
+     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\WebMedias")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="web_medias_id", referencedColumnName="id")
+     * })
+     */
+    private $webMedias;
 
     /**
      * @var \Contentinum\Entity\WebMaps
@@ -115,16 +118,16 @@ class WebMapsData extends AbstractEntity
      * })
      */
     private $webMaps;
-
+    
     /**
      * Construct
      * @param array $options
      */
     public function __construct (array $options = null)
     {
-    	if (is_array($options)) {
-    		$this->setOptions($options);
-    	}
+        if (is_array($options)) {
+            $this->setOptions($options);
+        }
     }
     
     /** (non-PHPdoc)
@@ -132,7 +135,7 @@ class WebMapsData extends AbstractEntity
      */
     public function getEntityName()
     {
-    	return get_class($this);
+        return get_class($this);
     }
     
     /** (non-PHPdoc)
@@ -140,7 +143,7 @@ class WebMapsData extends AbstractEntity
      */
     public function getPrimaryKey()
     {
-    	return 'id';
+        return 'id';
     }
     
     /** (non-PHPdoc)
@@ -148,7 +151,7 @@ class WebMapsData extends AbstractEntity
      */
     public function getPrimaryValue()
     {
-    	return $this->id;
+        return $this->id;
     }
     
     /** (non-PHPdoc)
@@ -156,327 +159,240 @@ class WebMapsData extends AbstractEntity
      */
     public function getProperties()
     {
-    	return get_object_vars($this);
+        return get_object_vars($this);
     }
     
     /**
      * @param number $id
      *
-     * @return WebMaps
+     * @return Accounts
      */
     public function setId($id)
     {
-    	$this->id = $id;
+        $this->id = $id;
     
-    	return $this;
+        return $this;
     }
-
+    
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
-
-    /**
-     * Set latitude
-     *
-     * @param string $latitude
-     * @return WebMapsData
-     */
-    public function setLatitude($latitude)
-    {
-        $this->latitude = $latitude;
-
-        return $this;
-    }
-
-    /**
-     * Get latitude
-     *
-     * @return string 
+    
+	/**
+     * @return the $latitude
      */
     public function getLatitude()
     {
         return $this->latitude;
     }
 
-    /**
-     * Set longitude
-     *
-     * @param string $longitude
-     * @return WebMapsData
+	/**
+     * @param string $latitude
      */
-    public function setLongitude($longitude)
+    public function setLatitude($latitude)
     {
-        $this->longitude = $longitude;
-
-        return $this;
+        $this->latitude = $latitude;
     }
 
-    /**
-     * Get longitude
-     *
-     * @return string 
+	/**
+     * @return the $longitude
      */
     public function getLongitude()
     {
         return $this->longitude;
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return WebMapsData
+	/**
+     * @param string $longitude
      */
-    public function setName($name)
+    public function setLongitude($longitude)
     {
-        $this->name = $name;
-
-        return $this;
+        $this->longitude = $longitude;
     }
 
-    /**
-     * Get name
-     *
-     * @return string 
+	/**
+     * @return the $name
      */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     * Set street
-     *
-     * @param string $street
-     * @return WebMapsData
+	/**
+     * @param string $name
      */
-    public function setStreet($street)
+    public function setName($name)
     {
-        $this->street = $street;
-
-        return $this;
+        $this->name = $name;
     }
 
-    /**
-     * Get street
-     *
-     * @return string 
+	/**
+     * @return the $street
      */
     public function getStreet()
     {
         return $this->street;
     }
 
-    /**
-     * Set city
-     *
-     * @param string $city
-     * @return WebMapsData
+	/**
+     * @param string $street
      */
-    public function setCity($city)
+    public function setStreet($street)
     {
-        $this->city = $city;
-
-        return $this;
+        $this->street = $street;
     }
 
-    /**
-     * Get city
-     *
-     * @return string 
+	/**
+     * @return the $city
      */
     public function getCity()
     {
         return $this->city;
     }
 
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return WebMapsData
+	/**
+     * @param string $city
      */
-    public function setDescription($description)
+    public function setCity($city)
     {
-        $this->description = $description;
-
-        return $this;
+        $this->city = $city;
     }
 
-    /**
-     * Get description
-     *
-     * @return string 
+	/**
+     * @return the $description
      */
     public function getDescription()
     {
         return $this->description;
     }
 
-    /**
-     * Set imgSource
-     *
-     * @param string $imgSource
-     * @return WebMapsData
+	/**
+     * @param string $description
      */
-    public function setImgSource($imgSource)
+    public function setDescription($description)
     {
-        $this->imgSource = $imgSource;
-
-        return $this;
+        $this->description = $description;
     }
 
-    /**
-     * Get imgSource
-     *
-     * @return string 
-     */
-    public function getImgSource()
-    {
-        return $this->imgSource;
-    }
-
-    /**
-     * Set publish
-     *
-     * @param string $publish
-     * @return WebMapsData
-     */
-    public function setPublish($publish)
-    {
-        $this->publish = $publish;
-
-        return $this;
-    }
-
-    /**
-     * Get publish
-     *
-     * @return string 
+	/**
+     * @return the $publish
      */
     public function getPublish()
     {
         return $this->publish;
     }
 
-    /**
-     * Set createdBy
-     *
-     * @param integer $createdBy
-     * @return WebMapsData
+	/**
+     * @param string $publish
      */
-    public function setCreatedBy($createdBy)
+    public function setPublish($publish)
     {
-        $this->createdBy = $createdBy;
-
-        return $this;
+        $this->publish = $publish;
     }
 
-    /**
-     * Get createdBy
-     *
-     * @return integer 
+	/**
+     * @return the $createdBy
      */
     public function getCreatedBy()
     {
         return $this->createdBy;
     }
 
-    /**
-     * Set updateBy
-     *
-     * @param integer $updateBy
-     * @return WebMapsData
+	/**
+     * @param number $createdBy
      */
-    public function setUpdateBy($updateBy)
+    public function setCreatedBy($createdBy)
     {
-        $this->updateBy = $updateBy;
-
-        return $this;
+        $this->createdBy = $createdBy;
     }
 
-    /**
-     * Get updateBy
-     *
-     * @return integer 
+	/**
+     * @return the $updateBy
      */
     public function getUpdateBy()
     {
         return $this->updateBy;
     }
 
-    /**
-     * Set registerDate
-     *
-     * @param \DateTime $registerDate
-     * @return WebMapsData
+	/**
+     * @param number $updateBy
      */
-    public function setRegisterDate($registerDate)
+    public function setUpdateBy($updateBy)
     {
-        $this->registerDate = $registerDate;
-
-        return $this;
+        $this->updateBy = $updateBy;
     }
 
-    /**
-     * Get registerDate
-     *
-     * @return \DateTime 
+	/**
+     * @return the $registerDate
      */
     public function getRegisterDate()
     {
         return $this->registerDate;
     }
 
-    /**
-     * Set upDate
-     *
-     * @param \DateTime $upDate
-     * @return WebMapsData
+	/**
+     * @param DateTime $registerDate
      */
-    public function setUpDate($upDate)
+    public function setRegisterDate($registerDate)
     {
-        $this->upDate = $upDate;
-
-        return $this;
+        $this->registerDate = $registerDate;
     }
 
-    /**
-     * Get upDate
-     *
-     * @return \DateTime 
+	/**
+     * @return the $upDate
      */
     public function getUpDate()
     {
         return $this->upDate;
     }
 
-    /**
-     * Set webMaps
-     *
-     * @param \Contentinum\Entity\WebMaps $webMaps
-     * @return WebMapsData
+	/**
+     * @param DateTime $upDate
      */
-    public function setWebMaps(\Contentinum\Entity\WebMaps $webMaps = null)
+    public function setUpDate($upDate)
     {
-        $this->webMaps = $webMaps;
-
-        return $this;
+        $this->upDate = $upDate;
     }
 
-    /**
-     * Get webMaps
-     *
-     * @return \Contentinum\Entity\WebMaps 
+	/**
+     * @return the $webMedias
+     */
+    public function getWebMedias()
+    {
+        return $this->webMedias;
+    }
+
+	/**
+     * @param \Contentinum\Entity\WebMedias $webMedias
+     */
+    public function setWebMedias($webMedias)
+    {
+        $this->webMedias = $webMedias;
+    }
+
+	/**
+     * @return the $webMaps
      */
     public function getWebMaps()
     {
         return $this->webMaps;
     }
+
+	/**
+     * @param \Contentinum\Entity\WebMaps $webMaps
+     */
+    public function setWebMaps($webMaps)
+    {
+        $this->webMaps = $webMaps;
+    }
+    
+
+
 }
+

@@ -8,7 +8,7 @@ use ContentinumComponents\Entity\AbstractEntity;
 /**
  * WebMaps
  *
- * @ORM\Table(name="web_maps")
+ * @ORM\Table(name="web_maps", indexes={@ORM\Index(name="MAPSNAME", columns={"headline"})})
  * @ORM\Entity
  */
 class WebMaps extends AbstractEntity
@@ -18,7 +18,7 @@ class WebMaps extends AbstractEntity
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
@@ -32,86 +32,96 @@ class WebMaps extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="tags", type="string", length=2, nullable=false)
+     * @ORM\Column(name="htmlwidgets", type="string", length=50, nullable=false)
      */
-    private $tags = 'h2';
+    private $htmlwidgets;
 
     /**
      * @var string
      *
      * @ORM\Column(name="subheadline", type="string", length=250, nullable=false)
      */
-    private $subheadline = '';
+    private $subheadline;
 
     /**
      * @var string
      *
      * @ORM\Column(name="mapkey", type="string", length=250, nullable=false)
      */
-    private $mapkey = '';
+    private $mapkey;
 
     /**
      * @var string
      *
      * @ORM\Column(name="centerlatitude", type="string", length=40, nullable=false)
      */
-    private $centerlatitude = '51.165691';
+    private $centerlatitude;
 
     /**
      * @var string
      *
      * @ORM\Column(name="centerlongitude", type="string", length=40, nullable=false)
      */
-    private $centerlongitude = '10.451526';
+    private $centerlongitude;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="startzoom", type="boolean", nullable=false)
      */
-    private $startzoom = '5';
+    private $startzoom;
 
     /**
      * @var string
      *
      * @ORM\Column(name="script", type="string", length=250, nullable=false)
      */
-    private $script = '';
+    private $script;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", nullable=false)
+     * @ORM\Column(name="description", type="text", length=65535, nullable=false)
      */
-    private $description = '';
+    private $description;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="created_by", type="integer", nullable=false)
      */
-    private $createdBy = 0;
+    private $createdBy;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="update_by", type="integer", nullable=false)
      */
-    private $updateBy = 0;
+    private $updateBy;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="register_date", type="datetime", nullable=false)
      */
-    private $registerDate = '0000-00-00 00:00:00';
+    private $registerDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="up_date", type="datetime", nullable=false)
      */
-    private $upDate = '0000-00-00 00:00:00';
+    private $upDate;
+    
+    /**
+     * @var \Contentinum\Entity\WebPreferences
+     *
+     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\WebPreferences")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="web_preferences_id", referencedColumnName="id")
+     * })
+     */
+    private $webPreferences;    
 
     /**
      * Construct
@@ -119,9 +129,9 @@ class WebMaps extends AbstractEntity
      */
     public function __construct (array $options = null)
     {
-    	if (is_array($options)) {
-    		$this->setOptions($options);
-    	}
+        if (is_array($options)) {
+            $this->setOptions($options);
+        }
     }
     
     /** (non-PHPdoc)
@@ -129,7 +139,7 @@ class WebMaps extends AbstractEntity
      */
     public function getEntityName()
     {
-    	return get_class($this);
+        return get_class($this);
     }
     
     /** (non-PHPdoc)
@@ -137,7 +147,7 @@ class WebMaps extends AbstractEntity
      */
     public function getPrimaryKey()
     {
-    	return 'id';
+        return 'id';
     }
     
     /** (non-PHPdoc)
@@ -145,7 +155,7 @@ class WebMaps extends AbstractEntity
      */
     public function getPrimaryValue()
     {
-    	return $this->id;
+        return $this->id;
     }
     
     /** (non-PHPdoc)
@@ -153,327 +163,261 @@ class WebMaps extends AbstractEntity
      */
     public function getProperties()
     {
-    	return get_object_vars($this);
+        return get_object_vars($this);
     }
     
     /**
      * @param number $id
      *
-     * @return WebMaps
+     * @return Accounts
      */
     public function setId($id)
     {
-    	$this->id = $id;
+        $this->id = $id;
     
-    	return $this;
+        return $this;
     }
-
+    
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
-
-    /**
-     * Set headline
-     *
-     * @param string $headline
-     * @return WebMaps
-     */
-    public function setHeadline($headline)
-    {
-        $this->headline = $headline;
-
-        return $this;
-    }
-
-    /**
-     * Get headline
-     *
-     * @return string 
+    
+	/**
+     * @return the $headline
      */
     public function getHeadline()
     {
         return $this->headline;
     }
 
-    /**
-     * Set tags
-     *
-     * @param string $tags
-     * @return WebMaps
+	/**
+     * @param string $headline
      */
-    public function setTags($tags)
+    public function setHeadline($headline)
     {
-        $this->tags = $tags;
-
-        return $this;
+        $this->headline = $headline;
     }
 
-    /**
-     * Get tags
-     *
-     * @return string 
+	/**
+     * @return the $htmlwidgets
      */
-    public function getTags()
+    public function getHtmlwidgets()
     {
-        return $this->tags;
+        return $this->htmlwidgets;
     }
 
-    /**
-     * Set subheadline
-     *
-     * @param string $subheadline
-     * @return WebMaps
+	/**
+     * @param string $htmlwidgets
      */
-    public function setSubheadline($subheadline)
+    public function setHtmlwidgets($htmlwidgets)
     {
-        $this->subheadline = $subheadline;
-
-        return $this;
+        $this->htmlwidgets = $htmlwidgets;
     }
 
-    /**
-     * Get subheadline
-     *
-     * @return string 
+	/**
+     * @return the $subheadline
      */
     public function getSubheadline()
     {
         return $this->subheadline;
     }
 
-    /**
-     * Set mapkey
-     *
-     * @param string $mapkey
-     * @return WebMaps
+	/**
+     * @param string $subheadline
      */
-    public function setMapkey($mapkey)
+    public function setSubheadline($subheadline)
     {
-        $this->mapkey = $mapkey;
-
-        return $this;
+        $this->subheadline = $subheadline;
     }
 
-    /**
-     * Get mapkey
-     *
-     * @return string 
+	/**
+     * @return the $mapkey
      */
     public function getMapkey()
     {
         return $this->mapkey;
     }
 
-    /**
-     * Set centerlatitude
-     *
-     * @param string $centerlatitude
-     * @return WebMaps
+	/**
+     * @param string $mapkey
      */
-    public function setCenterlatitude($centerlatitude)
+    public function setMapkey($mapkey)
     {
-        $this->centerlatitude = $centerlatitude;
-
-        return $this;
+        $this->mapkey = $mapkey;
     }
 
-    /**
-     * Get centerlatitude
-     *
-     * @return string 
+	/**
+     * @return the $centerlatitude
      */
     public function getCenterlatitude()
     {
         return $this->centerlatitude;
     }
 
-    /**
-     * Set centerlongitude
-     *
-     * @param string $centerlongitude
-     * @return WebMaps
+	/**
+     * @param string $centerlatitude
      */
-    public function setCenterlongitude($centerlongitude)
+    public function setCenterlatitude($centerlatitude)
     {
-        $this->centerlongitude = $centerlongitude;
-
-        return $this;
+        $this->centerlatitude = $centerlatitude;
     }
 
-    /**
-     * Get centerlongitude
-     *
-     * @return string 
+	/**
+     * @return the $centerlongitude
      */
     public function getCenterlongitude()
     {
         return $this->centerlongitude;
     }
 
-    /**
-     * Set startzoom
-     *
-     * @param boolean $startzoom
-     * @return WebMaps
+	/**
+     * @param string $centerlongitude
      */
-    public function setStartzoom($startzoom)
+    public function setCenterlongitude($centerlongitude)
     {
-        $this->startzoom = $startzoom;
-
-        return $this;
+        $this->centerlongitude = $centerlongitude;
     }
 
-    /**
-     * Get startzoom
-     *
-     * @return boolean 
+	/**
+     * @return the $startzoom
      */
     public function getStartzoom()
     {
         return $this->startzoom;
     }
 
-    /**
-     * Set script
-     *
-     * @param string $script
-     * @return WebMaps
+	/**
+     * @param boolean $startzoom
      */
-    public function setScript($script)
+    public function setStartzoom($startzoom)
     {
-        $this->script = $script;
-
-        return $this;
+        $this->startzoom = $startzoom;
     }
 
-    /**
-     * Get script
-     *
-     * @return string 
+	/**
+     * @return the $script
      */
     public function getScript()
     {
         return $this->script;
     }
 
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return WebMaps
+	/**
+     * @param string $script
      */
-    public function setDescription($description)
+    public function setScript($script)
     {
-        $this->description = $description;
-
-        return $this;
+        $this->script = $script;
     }
 
-    /**
-     * Get description
-     *
-     * @return string 
+	/**
+     * @return the $description
      */
     public function getDescription()
     {
         return $this->description;
     }
 
-    /**
-     * Set createdBy
-     *
-     * @param integer $createdBy
-     * @return WebMaps
+	/**
+     * @param string $description
      */
-    public function setCreatedBy($createdBy)
+    public function setDescription($description)
     {
-        $this->createdBy = $createdBy;
-
-        return $this;
+        $this->description = $description;
     }
 
-    /**
-     * Get createdBy
-     *
-     * @return integer 
+	/**
+     * @return the $createdBy
      */
     public function getCreatedBy()
     {
         return $this->createdBy;
     }
 
-    /**
-     * Set updateBy
-     *
-     * @param integer $updateBy
-     * @return WebMaps
+	/**
+     * @param number $createdBy
      */
-    public function setUpdateBy($updateBy)
+    public function setCreatedBy($createdBy)
     {
-        $this->updateBy = $updateBy;
-
-        return $this;
+        $this->createdBy = $createdBy;
     }
 
-    /**
-     * Get updateBy
-     *
-     * @return integer 
+	/**
+     * @return the $updateBy
      */
     public function getUpdateBy()
     {
         return $this->updateBy;
     }
 
-    /**
-     * Set registerDate
-     *
-     * @param \DateTime $registerDate
-     * @return WebMaps
+	/**
+     * @param number $updateBy
      */
-    public function setRegisterDate($registerDate)
+    public function setUpdateBy($updateBy)
     {
-        $this->registerDate = $registerDate;
-
-        return $this;
+        $this->updateBy = $updateBy;
     }
 
-    /**
-     * Get registerDate
-     *
-     * @return \DateTime 
+	/**
+     * @return the $registerDate
      */
     public function getRegisterDate()
     {
         return $this->registerDate;
     }
 
-    /**
-     * Set upDate
-     *
-     * @param \DateTime $upDate
-     * @return WebMaps
+	/**
+     * @param DateTime $registerDate
      */
-    public function setUpDate($upDate)
+    public function setRegisterDate($registerDate)
     {
-        $this->upDate = $upDate;
-
-        return $this;
+        $this->registerDate = $registerDate;
     }
 
-    /**
-     * Get upDate
-     *
-     * @return \DateTime 
+	/**
+     * @return the $upDate
      */
     public function getUpDate()
     {
         return $this->upDate;
     }
+
+	/**
+     * @param DateTime $upDate
+     */
+    public function setUpDate($upDate)
+    {
+        $this->upDate = $upDate;
+    }
+    
+    /**
+     * Set webPreferences
+     *
+     * @param \Contentinum\Entity\WebPreferences $webPreferences
+     * @return WebPages
+     */
+    public function setWebPreferences(\Contentinum\Entity\WebPreferences $webPreferences = null)
+    {
+        $this->webPreferences = $webPreferences;
+    
+        return $this;
+    }
+    
+    /**
+     * Get webPreferences
+     *
+     * @return \Contentinum\Entity\WebPreferences
+     */
+    public function getWebPreferences()
+    {
+        return $this->webPreferences;
+    }    
+
 }
+

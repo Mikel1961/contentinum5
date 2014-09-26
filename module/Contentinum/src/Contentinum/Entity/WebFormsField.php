@@ -8,7 +8,7 @@ use ContentinumComponents\Entity\AbstractEntity;
 /**
  * WebFormsField
  *
- * @ORM\Table(name="web_forms_field", indexes={@ORM\Index(name="FORMREF", columns={"web_forms_id"})})
+ * @ORM\Table(name="web_forms_field", indexes={@ORM\Index(name="FORMSPARENT", columns={"web_forms_id"}), @ORM\Index(name="FORMSMEDIA", columns={"web_medias_id"})})
  * @ORM\Entity
  */
 class WebFormsField extends AbstractEntity
@@ -18,122 +18,125 @@ class WebFormsField extends AbstractEntity
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
      *
+     * @ORM\Column(name="resource", type="string", length=50, nullable=false)
+     */
+    private $resource;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="label", type="string", length=250, nullable=false)
      */
-    private $label = '';
+    private $label;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="fieldtyp", type="string", length=12, nullable=false)
+     * @ORM\Column(name="field_typ", type="string", length=250, nullable=false)
      */
-    private $fieldtyp = 'input';
+    private $fieldTyp;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="fieldname", type="string", length=50, nullable=false)
+     * @ORM\Column(name="field_name", type="string", length=50, nullable=false)
      */
-    private $fieldname = '';
+    private $fieldName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="fieldvalue", type="string", length=250, nullable=false)
+     * @ORM\Column(name="field_value", type="string", length=250, nullable=false)
      */
-    private $fieldvalue = '';
+    private $fieldValue;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="size", type="string", length=10, nullable=false)
+     * @ORM\Column(name="field_required", type="string", length=250, nullable=false)
      */
-    private $size = '';
+    private $fieldRequired;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="maxlength", type="string", length=10, nullable=false)
+     * @ORM\Column(name="attributes", type="text", length=65535, nullable=false)
      */
-    private $maxlength = '';
+    private $attributes;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", nullable=false)
+     * @ORM\Column(name="description", type="text", length=65535, nullable=false)
      */
-    private $description = '';
+    private $description;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="select_options", type="text", nullable=false)
+     * @ORM\Column(name="select_options", type="text", length=65535, nullable=false)
      */
-    private $selectOptions = '';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="images", type="string", length=250, nullable=false)
-     */
-    private $images = '';
+    private $selectOptions;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="item_rang", type="integer", nullable=false)
      */
-    private $itemRang = '0';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="status", type="string", length=8, nullable=false)
-     */
-    private $status = 'no';
+    private $itemRang;
 
     /**
      * @var string
      *
      * @ORM\Column(name="publish", type="string", length=10, nullable=false)
      */
-    private $publish = 'no';
+    private $publish;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="created_by", type="integer", nullable=false)
      */
-    private $createdBy = 0;
+    private $createdBy;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="update_by", type="integer", nullable=false)
      */
-    private $updateBy = 0;
+    private $updateBy;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="register_date", type="datetime", nullable=false)
      */
-    private $registerDate = '0000-00-00 00:00:00';
+    private $registerDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="up_date", type="datetime", nullable=false)
      */
-    private $upDate = '0000-00-00 00:00:00';
-
+    private $upDate;
+    
+    /**
+     * @var \Contentinum\Entity\WebMedias
+     *
+     * @ORM\ManyToOne(targetEntity="Contentinum\Entity\WebMedias")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="web_medias_id", referencedColumnName="id")
+     * })
+     */
+    private $webMedias;
+    
     /**
      * @var \Contentinum\Entity\WebForms
      *
@@ -142,17 +145,18 @@ class WebFormsField extends AbstractEntity
      *   @ORM\JoinColumn(name="web_forms_id", referencedColumnName="id")
      * })
      */
-    private $webForms;
-
+    private $webForms;    
+    
+    
     /**
      * Construct
      * @param array $options
      */
     public function __construct (array $options = null)
     {
-    	if (is_array($options)) {
-    		$this->setOptions($options);
-    	}
+        if (is_array($options)) {
+            $this->setOptions($options);
+        }
     }
     
     /** (non-PHPdoc)
@@ -160,7 +164,7 @@ class WebFormsField extends AbstractEntity
      */
     public function getEntityName()
     {
-    	return get_class($this);
+        return get_class($this);
     }
     
     /** (non-PHPdoc)
@@ -168,7 +172,7 @@ class WebFormsField extends AbstractEntity
      */
     public function getPrimaryKey()
     {
-    	return 'id';
+        return 'id';
     }
     
     /** (non-PHPdoc)
@@ -176,7 +180,7 @@ class WebFormsField extends AbstractEntity
      */
     public function getPrimaryValue()
     {
-    	return $this->id;
+        return $this->id;
     }
     
     /** (non-PHPdoc)
@@ -184,419 +188,304 @@ class WebFormsField extends AbstractEntity
      */
     public function getProperties()
     {
-    	return get_object_vars($this);
+        return get_object_vars($this);
     }
     
     /**
      * @param number $id
      *
-     * @return WebFormsField
+     * @return Accounts
      */
     public function setId($id)
     {
-    	$this->id = $id;
+        $this->id = $id;
     
-    	return $this;
+        return $this;
     }
-
+    
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
-
-    /**
-     * Set label
-     *
-     * @param string $label
-     * @return WebFormsField
+    
+	/**
+     * @return the $resource
      */
-    public function setLabel($label)
+    public function getResource()
     {
-        $this->label = $label;
-
-        return $this;
+        return $this->resource;
     }
 
-    /**
-     * Get label
-     *
-     * @return string 
+	/**
+     * @param string $resource
+     */
+    public function setResource($resource)
+    {
+        $this->resource = $resource;
+    }
+
+	/**
+     * @return the $label
      */
     public function getLabel()
     {
         return $this->label;
     }
 
-    /**
-     * Set fieldtyp
-     *
-     * @param string $fieldtyp
-     * @return WebFormsField
+	/**
+     * @param string $label
      */
-    public function setFieldtyp($fieldtyp)
+    public function setLabel($label)
     {
-        $this->fieldtyp = $fieldtyp;
-
-        return $this;
+        $this->label = $label;
     }
 
-    /**
-     * Get fieldtyp
-     *
-     * @return string 
+	/**
+     * @return the $fieldTyp
      */
-    public function getFieldtyp()
+    public function getFieldTyp()
     {
-        return $this->fieldtyp;
+        return $this->fieldTyp;
     }
 
-    /**
-     * Set fieldname
-     *
-     * @param string $fieldname
-     * @return WebFormsField
+	/**
+     * @param string $fieldTyp
      */
-    public function setFieldname($fieldname)
+    public function setFieldTyp($fieldTyp)
     {
-        $this->fieldname = $fieldname;
-
-        return $this;
+        $this->fieldTyp = $fieldTyp;
     }
 
-    /**
-     * Get fieldname
-     *
-     * @return string 
+	/**
+     * @return the $fieldName
      */
-    public function getFieldname()
+    public function getFieldName()
     {
-        return $this->fieldname;
+        return $this->fieldName;
     }
 
-    /**
-     * Set fieldvalue
-     *
-     * @param string $fieldvalue
-     * @return WebFormsField
+	/**
+     * @param string $fieldName
      */
-    public function setFieldvalue($fieldvalue)
+    public function setFieldName($fieldName)
     {
-        $this->fieldvalue = $fieldvalue;
-
-        return $this;
+        $this->fieldName = $fieldName;
     }
 
-    /**
-     * Get fieldvalue
-     *
-     * @return string 
+	/**
+     * @return the $fieldValue
      */
-    public function getFieldvalue()
+    public function getFieldValue()
     {
-        return $this->fieldvalue;
+        return $this->fieldValue;
     }
 
-    /**
-     * Set size
-     *
-     * @param string $size
-     * @return WebFormsField
+	/**
+     * @param string $fieldValue
      */
-    public function setSize($size)
+    public function setFieldValue($fieldValue)
     {
-        $this->size = $size;
-
-        return $this;
+        $this->fieldValue = $fieldValue;
     }
 
-    /**
-     * Get size
-     *
-     * @return string 
+	/**
+     * @return the $fieldRequired
      */
-    public function getSize()
+    public function getFieldRequired()
     {
-        return $this->size;
+        return $this->fieldRequired;
     }
 
-    /**
-     * Set maxlength
-     *
-     * @param string $maxlength
-     * @return WebFormsField
+	/**
+     * @param string $fieldRequired
      */
-    public function setMaxlength($maxlength)
+    public function setFieldRequired($fieldRequired)
     {
-        $this->maxlength = $maxlength;
-
-        return $this;
+        $this->fieldRequired = $fieldRequired;
     }
 
-    /**
-     * Get maxlength
-     *
-     * @return string 
+	/**
+     * @return the $attributes
      */
-    public function getMaxlength()
+    public function getAttributes()
     {
-        return $this->maxlength;
+        return $this->attributes;
     }
 
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return WebFormsField
+	/**
+     * @param string $attributes
      */
-    public function setDescription($description)
+    public function setAttributes($attributes)
     {
-        $this->description = $description;
-
-        return $this;
+        $this->attributes = $attributes;
     }
 
-    /**
-     * Get description
-     *
-     * @return string 
+	/**
+     * @return the $description
      */
     public function getDescription()
     {
         return $this->description;
     }
 
-    /**
-     * Set selectOptions
-     *
-     * @param string $selectOptions
-     * @return WebFormsField
+	/**
+     * @param string $description
      */
-    public function setSelectOptions($selectOptions)
+    public function setDescription($description)
     {
-        $this->selectOptions = $selectOptions;
-
-        return $this;
+        $this->description = $description;
     }
 
-    /**
-     * Get selectOptions
-     *
-     * @return string 
+	/**
+     * @return the $selectOptions
      */
     public function getSelectOptions()
     {
         return $this->selectOptions;
     }
 
-    /**
-     * Set images
-     *
-     * @param string $images
-     * @return WebFormsField
+	/**
+     * @param string $selectOptions
      */
-    public function setImages($images)
+    public function setSelectOptions($selectOptions)
     {
-        $this->images = $images;
-
-        return $this;
+        $this->selectOptions = $selectOptions;
     }
 
-    /**
-     * Get images
-     *
-     * @return string 
-     */
-    public function getImages()
-    {
-        return $this->images;
-    }
-
-    /**
-     * Set itemRang
-     *
-     * @param integer $itemRang
-     * @return WebFormsField
-     */
-    public function setItemRang($itemRang)
-    {
-        $this->itemRang = $itemRang;
-
-        return $this;
-    }
-
-    /**
-     * Get itemRang
-     *
-     * @return integer 
+	/**
+     * @return the $itemRang
      */
     public function getItemRang()
     {
         return $this->itemRang;
     }
 
-    /**
-     * Set status
-     *
-     * @param string $status
-     * @return WebFormsField
+	/**
+     * @param number $itemRang
      */
-    public function setStatus($status)
+    public function setItemRang($itemRang)
     {
-        $this->status = $status;
-
-        return $this;
+        $this->itemRang = $itemRang;
     }
 
-    /**
-     * Get status
-     *
-     * @return string 
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * Set publish
-     *
-     * @param string $publish
-     * @return WebFormsField
-     */
-    public function setPublish($publish)
-    {
-        $this->publish = $publish;
-
-        return $this;
-    }
-
-    /**
-     * Get publish
-     *
-     * @return string 
+	/**
+     * @return the $publish
      */
     public function getPublish()
     {
         return $this->publish;
     }
 
-    /**
-     * Set createdBy
-     *
-     * @param integer $createdBy
-     * @return WebFormsField
+	/**
+     * @param string $publish
      */
-    public function setCreatedBy($createdBy)
+    public function setPublish($publish)
     {
-        $this->createdBy = $createdBy;
-
-        return $this;
+        $this->publish = $publish;
     }
 
-    /**
-     * Get createdBy
-     *
-     * @return integer 
+	/**
+     * @return the $createdBy
      */
     public function getCreatedBy()
     {
         return $this->createdBy;
     }
 
-    /**
-     * Set updateBy
-     *
-     * @param integer $updateBy
-     * @return WebFormsField
+	/**
+     * @param number $createdBy
      */
-    public function setUpdateBy($updateBy)
+    public function setCreatedBy($createdBy)
     {
-        $this->updateBy = $updateBy;
-
-        return $this;
+        $this->createdBy = $createdBy;
     }
 
-    /**
-     * Get updateBy
-     *
-     * @return integer 
+	/**
+     * @return the $updateBy
      */
     public function getUpdateBy()
     {
         return $this->updateBy;
     }
 
-    /**
-     * Set registerDate
-     *
-     * @param \DateTime $registerDate
-     * @return WebFormsField
+	/**
+     * @param number $updateBy
      */
-    public function setRegisterDate($registerDate)
+    public function setUpdateBy($updateBy)
     {
-        $this->registerDate = $registerDate;
-
-        return $this;
+        $this->updateBy = $updateBy;
     }
 
-    /**
-     * Get registerDate
-     *
-     * @return \DateTime 
+	/**
+     * @return the $registerDate
      */
     public function getRegisterDate()
     {
         return $this->registerDate;
     }
 
-    /**
-     * Set upDate
-     *
-     * @param \DateTime $upDate
-     * @return WebFormsField
+	/**
+     * @param DateTime $registerDate
      */
-    public function setUpDate($upDate)
+    public function setRegisterDate($registerDate)
     {
-        $this->upDate = $upDate;
-
-        return $this;
+        $this->registerDate = $registerDate;
     }
 
-    /**
-     * Get upDate
-     *
-     * @return \DateTime 
+	/**
+     * @return the $upDate
      */
     public function getUpDate()
     {
         return $this->upDate;
     }
 
-    /**
-     * Set webForms
-     *
-     * @param \Contentinum\Entity\WebForms $webForms
-     * @return WebFormsField
+	/**
+     * @param DateTime $upDate
      */
-    public function setWebForms(\Contentinum\Entity\WebForms $webForms = null)
+    public function setUpDate($upDate)
     {
-        $this->webForms = $webForms;
-
-        return $this;
+        $this->upDate = $upDate;
     }
 
-    /**
-     * Get webForms
-     *
-     * @return \Contentinum\Entity\WebForms 
+	/**
+     * @return the $webMedias
+     */
+    public function getWebMedias()
+    {
+        return $this->webMedias;
+    }
+
+	/**
+     * @param \Contentinum\Entity\WebMedias $webMedias
+     */
+    public function setWebMedias($webMedias)
+    {
+        $this->webMedias = $webMedias;
+    }
+
+	/**
+     * @return the $webForms
      */
     public function getWebForms()
     {
         return $this->webForms;
     }
+
+	/**
+     * @param \Contentinum\Entity\WebForms $webForms
+     */
+    public function setWebForms($webForms)
+    {
+        $this->webForms = $webForms;
+    }
+    
+
+
 }
+
