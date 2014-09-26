@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data version="1.0.0">
+	<de_DE name="Germany"></de_DE>
+	<de_AT name="Austria"></de_AT>	
+	<de_BE name="Belgium/German"></de_BE>	
+	<de_CH name="Switzerland/German"></de_CH>	
+	<en_GB name="United Kingdom"></en_GB>	
+	<en_US name="United States"></en_US>	
+	<fr_CH name="Switzerland/French"></fr_CH>
+	<it_CH name="Switzerland/Italien"></it_CH>	
+	<fr_FR name="Frank"></fr_FR>	
+	<fr_BE name="Belgium/French"></fr_BE>	
+	<fr_CA name="Canada/French"></fr_CA>	
+	<fr_FR name="France"></fr_FR>	
+	<fr_LU name="Luxembourg/French"></fr_LU>	
+	<fr_MC name="Monaco"></fr_MC>	
+	<fr_SN name="Senegal/French"></fr_SN>	
+	<it_IT name="Italy"></it_IT>
+</data>
