@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data version="1.0.0">
+	<index name="Public"></index>
+	<memberresource name="Not Publicly"></memberresource>
+	<intranetresource name="Intranet"></intranetresource>
+	<authorresource name="Author Resource [authorresource]"></authorresource>
+	<publisherresource name="Publisher Resource [publisherresource]"></publisherresource>
+	<managerresource name="Manager Resource [managerresource]"></managerresource>
+	<adminresource name="Administrator Resource [adminresource]"></adminresource>
+</data>
