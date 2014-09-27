@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data version="1.0.0">
+    <none name="No style"></none>
 	<columns name="Columns"></columns>
-	<tabs name="Tabs"></tabs>	
+	<columnsequalizer name="Columns Equalizer"></columnsequalizer>
+	<tabs name="Horizontal Tabs"></tabs>	
+	<verticaltabs name="Vertical Tabs"></verticaltabs>
 	<contentslider name="Content Slider"></contentslider>
 	<accordion name="Accordion"></accordion>
 </data>
