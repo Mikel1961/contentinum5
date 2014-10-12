@@ -32,7 +32,17 @@ if ($this->currentFolder) {
 }
 $attrData = ' data-action="/mcwork/medias/upload' . $up . '"';
 $attrData .= ' data-maxfilesize="' . ini_get('upload_max_filesize') . '"';
+$attrData .= ' data-currentfolder="' . $this->currentFolder .'"';
 ?>
+
+<div id="clNewFolder" class="row collapse">
+    <div class="small-9 columns">
+        <input id="new-folder" type="text"><span class="errNewFolder"> </span>
+        </div>
+        <div class="small-3 columns">
+        <a id="btnNewFolder" href="#" class="button postfix"><?php echo $this->translate('New Folder'); ?></a>
+    </div>
+</div>
 <div class="box"><div class="box-title toolbar">
 <h3><i class="fa fa-recorder"></i> <?php echo $this->translate($this->mcworkContent( $this->page, $this->pagecontent,'subheadline')); ?> </h3>
 <ul class="button-group right">
@@ -45,7 +55,7 @@ $attrData .= ' data-maxfilesize="' . ini_get('upload_max_filesize') . '"';
 </ul>
 </div><div class="box-content nopadding"><div id="foldermediasfiles"><section id="filescrollarea">
 <?php
-echo $this->mediasTableView($this->entries, $this->mediatable);
+echo $this->mediasTableView($this->entries, $this->mediatable, $this->inusemedias);
 ?>
 </section></div>
 <?php

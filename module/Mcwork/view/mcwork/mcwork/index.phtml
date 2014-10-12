@@ -61,7 +61,23 @@ $getAssignTags = function ($mediaId, $assigntags)
 		}
 	}
 	return $tags;
-}
+};
+
+$getAssignGroups = function ($mediaId, $assigngroup)
+{
+    $str = '';
+    $i = 1;
+	if (isset($assigngroup[$mediaId])){
+		foreach ($assigngroup[$mediaId] as $value){
+		    if ($i > 1){
+		        $str .= ',';
+		    }
+		    $str .= $value;
+		    $i++;
+		}
+	}
+	return $str;
+};
 
 
 ?>
@@ -81,35 +97,38 @@ $getAssignTags = function ($mediaId, $assigntags)
 <?php
 $mcUnserialize = new HandleSerializeDatabase();
 foreach ($this->entries as $entry){
-    $mediaAlternate = $mcUnserialize->execUnserialize($entry->mediaAlternate);   
-    $mediaMetas = $mcUnserialize->execUnserialize($entry->mediaMetas);
-    $data = ' data-ident="' . $entry->id . '"';
-    $data .= ' data-name="' . $entry->mediaName . '"';
-    $data .= ' data-src="'. $alternate($mediaAlternate,'mobile') . '"';
-    $data .= ' data-alt="'. $metas($mediaMetas, 'alt') . '"';
-    $data .= ' data-title="'. $metas($mediaMetas, 'title') . '"';
-    $data .= ' data-caption="'. $metas($mediaMetas, 'caption') . '"';
-    $data .= ' data-headline="'. $metas($mediaMetas, 'headline') . '"';
-    $data .= ' data-description="'. $metas($mediaMetas, 'description') . '"';
-    $data .= ' data-linkname="'. $metas($mediaMetas, 'linkname') . '"';
-    $data .= ' data-mediatype="'. $entry->mediaType . '"';
-    $data .= ' data-mediatags="'. $getAssignTags($entry->id, $this->assigntags) . '"';
-    
-    echo '<li><a class="loadedititem" href="#"'.$data.'>';
-    if ( preg_match('/image\//', $entry->mediaType)  ){
-        echo '<img src="' . $alternate($mediaAlternate,'mobile') . '" />';
-    } else {
-        switch ($entry->mediaType){
-            case 'application/pdf' :
-                echo '<p><i class="fa fa-file-pdf-o fa-5x pdf-color"></i></p>';
-            break;
-            default:
-                echo '<p><i class="fa fa-file fa-5x"></i></p>';
-            break;
-                    
+    if ('_nomedia' != $entry->mediaType){
+        $mediaAlternate = $mcUnserialize->execUnserialize($entry->mediaAlternate);   
+        $mediaMetas = $mcUnserialize->execUnserialize($entry->mediaMetas);
+        $data = ' data-ident="' . $entry->id . '"';
+        $data .= ' data-name="' . $entry->mediaName . '"';
+        $data .= ' data-src="'. $alternate($mediaAlternate,'mobile') . '"';
+        $data .= ' data-alt="'. $metas($mediaMetas, 'alt') . '"';
+        $data .= ' data-title="'. $metas($mediaMetas, 'title') . '"';
+        $data .= ' data-caption="'. $metas($mediaMetas, 'caption') . '"';
+        $data .= ' data-headline="'. $metas($mediaMetas, 'headline') . '"';
+        $data .= ' data-description="'. $metas($mediaMetas, 'description') . '"';
+        $data .= ' data-linkname="'. $metas($mediaMetas, 'linkname') . '"';
+        $data .= ' data-mediatype="'. $entry->mediaType . '"';
+        $data .= ' data-mediagroups="'. $getAssignGroups($entry->id, $this->assigngrps) . '"';
+        $data .= ' data-mediatags="'. $getAssignTags($entry->id, $this->assigntags) . '"';
+        
+        echo '<li><a class="loadedititem" href="#"'.$data.'>';
+        if ( preg_match('/image\//', $entry->mediaType)  ){
+            echo '<img src="' . $alternate($mediaAlternate,'mobile') . '" alt="'. $entry->mediaName .'" />';
+        } else {
+            switch ($entry->mediaType){
+                case 'application/pdf' :
+                    echo '<p><i class="fa fa-file-pdf-o fa-5x pdf-color"></i></p>';
+                break;
+                default:
+                    echo '<p><i class="fa fa-file fa-5x"></i></p>';
+                break;
+                        
+            }
         }
+        echo '<p>' . $entry->mediaName . '</p></a></li>';
     }
-    echo '<p>' . $entry->mediaName . '</p></a></li>';
 }
 ?>
 </ul>

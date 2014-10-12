@@ -32,10 +32,28 @@ if ($this->insertError) {
     $html .= $this->translate($this->insertError);
     $html .= ' <a href="#" class="close">&times;</a></div>';
 }
+
+if ( is_array($this->btnconfiguration) ){
+    
+    $btn = $this->btnconfiguration;
+    if (isset($btn['cancel'])){
+        $btn['cancel']['attribs']['data-back'] = $this->abortation; 
+    }
+    
+} else {
+
+    $btn = array(
+        'save' => array(),
+        'cancel' => array('label' => 'Cancel', 'attribs' => array('data-back' => $this->abortation )),
+    );
+}
+
+$button = $this->mcworkToolbar($btn,true,$this->formbuttons->toArray());
+
 $html .= $this->renderForm($this->form);
 $html .= $this->translate($this->mcworkContent($this->page, $this->pagecontent, 'content'));
 if (isset($this->widget)) {
-    $content = str_replace('{TEMPLATE_HEADER}', $this->translate($this->mcworkContent($this->page, $this->pagecontent, 'subheadline')), $this->widget);
+    $content = str_replace('{TEMPLATE_HEADER}', $this->translate($this->mcworkContent($this->page, $this->pagecontent, 'subheadline')) . $button, $this->widget);
     echo str_replace('{TEMPLATE_CONTENT}', $html, $content);
 } else {
     echo $this->translate($this->mcworkContent($this->page, $this->pagecontent, 'subheadline'));
