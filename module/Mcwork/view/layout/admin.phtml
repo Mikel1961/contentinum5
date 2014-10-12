@@ -30,7 +30,7 @@ $apps = $this->navigation('appsmenu')
     ->getPages();
 $container->findBy('label', 'Mcwork_Controller_Apps')->addPages($apps);
 
-echo $this->ContentinumMenue($container)
+echo $this->navigationcontentinum($container)
     ->setAcl($this->acl)
     ->setRole($this->role)
     ->setUlClass('right');
