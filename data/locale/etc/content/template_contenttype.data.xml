@@ -5,4 +5,5 @@
 	<CONTENT name="Content"></CONTENT>
 	<NEWSCONTENT name="News"></NEWSCONTENT>
 	<CALENDARCONTENT name="Calendar"></CALENDARCONTENT>
+	<NAVIGATION name="Navigation"></NAVIGATION>
 </data>

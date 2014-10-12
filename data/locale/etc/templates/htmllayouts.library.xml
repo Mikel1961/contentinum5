@@ -36,33 +36,39 @@
 	</default>
 	<foundation name="Layout Foundation based">
 		<sequence>
+		   <!-- 
 			<action row="20" set="div">
 				<param type="class">
 					<value>row</value>
 				</param>
 			</action>
+			
 			<action row="40" set="div">
 				<param type="class">
-					<value>large-12 columns</value>
+					<value>warpper</value>
 				</param>
 			</action>
-
+            -->
+               
 			<action row="100" set="assign">
 				<param>
 					<value>allcontent</value>
 				</param>
 			</action>
-
+			<action></action>
+            <!-- 
 			<action row="120" set="boxend">
 				<param>
 					<value>div</value>
 				</param>
 			</action>
+			
 			<action row="140" set="boxend">
 				<param>
 					<value>div</value>
 				</param>
 			</action>
+			-->
 		</sequence>
 		<header>
 			<styles>

@@ -27,12 +27,11 @@ return array(
                 )
             ),
             'alternate_sizes' => array(
-                'max' => '2600',
+                'max' => '1440',
                 'thumbnail' => '200',
-                'mobile' => '360',
-                's' => '800',
-                'l' => '1200',
-                'xl' => '1920'
+                'mobile' => '480',
+                'std' => '516',
+                'l' => '1024',
             ),
             'file_icons' => array(
                      'file' => 'fa-file-o',

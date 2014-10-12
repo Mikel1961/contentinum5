@@ -3,8 +3,8 @@
 	<index name="Public"></index>
 	<memberresource name="Not Publicly"></memberresource>
 	<intranetresource name="Intranet"></intranetresource>
-	<authorresource name="Author Resource [authorresource]"></authorresource>
-	<publisherresource name="Publisher Resource [publisherresource]"></publisherresource>
-	<managerresource name="Manager Resource [managerresource]"></managerresource>
-	<adminresource name="Administrator Resource [adminresource]"></adminresource>
+	<authorresource name="Author Resource"></authorresource>
+	<publisherresource name="Publisher Resource"></publisherresource>
+	<managerresource name="Manager Resource"></managerresource>
+	<adminresource name="Administrator Resource"></adminresource>
 </data>
