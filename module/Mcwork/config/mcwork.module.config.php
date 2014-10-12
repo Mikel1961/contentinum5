@@ -34,7 +34,12 @@ return array(
                                 'label' => 'PageAttribute',
                                 'uri' => '/mcwork/pageattribute',
                                 'resource' => 'authorresource'
-                            )                            
+                            ),
+                            array(
+                                'label' => 'Links',
+                                'uri' => '/mcwork/links',
+                                'resource' => 'authorresource'
+                            )                           
                         )
                     ), // end pages
                     

@@ -157,6 +157,152 @@
 			<targetentities></targetentities>
 		</app>
 	</mcwork_pages_delete>
+	
+	<mcwork_links>
+		<title>Links</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>Links</headline>
+		<columnright></columnright>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
+		<content></content>
+		<footer></footer>
+		<template>content/listlinks</template>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
+			<worker><![CDATA[ContentinumComponents\Mapper\Worker]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebPagesParameter]]></entity>
+			<findBy>
+				<onlylink>1</onlylink>
+			</findBy>
+		</app>
+	</mcwork_links>
+	<mcwork_links_add>
+		<title>add_Links</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>add_Links</headline>
+		<columnright></columnright>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller></controller>
+			<worker><![CDATA[Mcwork\Model\Save\Links]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebPagesParameter]]></entity>
+			<targetentities>
+				<webPreferences><![CDATA[Contentinum\Entity\WebPreferences]]></webPreferences>		
+			</targetentities>
+			<form><![CDATA[Mcwork\Form\LinksForm]]></form>
+			<formaction><![CDATA[/mcwork/links/add]]></formaction>
+			<formattributes>
+				<data-rules>links</data-rules>
+				<data-process>add</data-process>
+			</formattributes>
+			<formbuttons>
+				<save></save>
+				<saveplus><attribs><data-request>add</data-request></attribs></saveplus>
+				<cancel>
+				   <label>Cancel</label>
+				   <attribs>
+				      <data-back>/mcwork/dashboard</data-back>
+				   </attribs>
+				</cancel>
+			</formbuttons>				
+			<settoroute><![CDATA[/mcwork/links]]></settoroute>
+			<populate>
+			    <webPreferences>1</webPreferences>
+				<resource>index</resource>
+				<robots>index,follow</robots>
+				<publish>yes</publish>
+				<language>de</language>
+			</populate>
+		</app>
+	</mcwork_links_add>
+	<mcwork_links_edit>
+		<title>edit_Links</title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline>edit_Links</headline>
+		<columnright></columnright>
+		<subheadline>
+			<![CDATA[<i class="fa fa-recorder"></i>]]>
+		</subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar>1</toolbar>
+		<tableedit>1</tableedit>
+		<template_widget>
+			<![CDATA[<div class="box"><div class="box-title toolbar"> {TEMPLATE_HEADER} </div><div class="box-content nopadding"> {TEMPLATE_CONTENT} </div></div>]]>
+		</template_widget>
+		<app>
+			<controller></controller>
+			<worker><![CDATA[Mcwork\Model\Save\Links]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebPagesParameter]]></entity>
+			<targetentities>
+				<webPreferences><![CDATA[Contentinum\Entity\WebPreferences]]></webPreferences>		
+			</targetentities>
+			<setexclude>
+				<field>id</field>
+			</setexclude>
+			<form><![CDATA[Mcwork\Form\LinksForm]]></form>
+			<formaction><![CDATA[/mcwork/links/edit]]></formaction>
+			<formattributes>
+				<data-rules>links</data-rules>
+				<data-process>edit</data-process>
+			</formattributes>			
+			<settoroute><![CDATA[/mcwork/links]]></settoroute>
+		</app>
+	</mcwork_links_edit>
+	<mcwork_links_delete>
+		<action>contenthandle</action>
+		<title></title>
+		<bodyTagAttribs></bodyTagAttribs>
+		<headline></headline>
+		<columnright></columnright>
+		<subheadline></subheadline>
+		<content></content>
+		<footer></footer>
+		<toolbar></toolbar>
+		<tableedit></tableedit>
+		<template_widget></template_widget>
+		<hasEntries>
+		    <navigation>
+				<tablename>Contentinum\Entity\WebNavigationTree</tablename>
+				<column>webPages</column>
+			</navigation>	
+		</hasEntries>
+		<request>
+			<xhtmlrequest>1</xhtmlrequest>
+		</request>
+		<response>
+			<redirect>mcwork/links</redirect>
+		</response>
+		<app>
+			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
+			<ctrlmethod>deleteRow</ctrlmethod>
+			<worker><![CDATA[Mcwork\Model\Delete\Trash]]></worker>
+			<entitymanager><![CDATA[doctrine.entitymanager.orm_default]]></entitymanager>
+			<entity><![CDATA[Contentinum\Entity\WebPagesParameter]]></entity>
+			<targetentities></targetentities>
+		</app>
+	</mcwork_links_delete>	
+	
+	
 	<mcwork_pageattribute>
 		<title>PageAttribute</title>
 		<bodyTagAttribs></bodyTagAttribs>
@@ -2558,7 +2704,7 @@
 		</template_widget>
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
-			<worker><![CDATA[Mcwork\Model\AdministrateCaches]]></worker>
+			<worker><![CDATA[Mcwork\Model\Cache\Content]]></worker>
 			<storage><![CDATA[ContentinumComponents\Storage\StorageManager]]></storage>
 			<entity><![CDATA[Mcwork\Entity\CacheFiles]]></entity>
 		</app>
@@ -2571,7 +2717,7 @@
 		<app>
 			<controller><![CDATA[Mcwork\Controller\McworkappController]]></controller>
 			<ctrlmethod>emptyCache</ctrlmethod>
-			<worker><![CDATA[Mcwork\Model\AdministrateCaches]]></worker>
+			<worker><![CDATA[Mcwork\Model\Cache\Content]]></worker>
 			<storage><![CDATA[ContentinumComponents\Storage\StorageManager]]></storage>
 			<entity><![CDATA[Mcwork\Entity\CacheFiles]]></entity>
 			<targetentities></targetentities>
