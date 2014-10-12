@@ -32,11 +32,11 @@ use ContentinumComponents\Mapper\Worker;
 use Zend\Config\Config;
 
 /**
- * All public pages services
+ * Contributions services
  *
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
-class PublicServiceFactory extends WebsiteServiceFactory
+class ContributionServiceFactory extends WebsiteServiceFactory
 {
 
     /**
@@ -44,7 +44,7 @@ class PublicServiceFactory extends WebsiteServiceFactory
      * 
      * @var string
      */
-    const CONTENTINUM_DATABASE = 'mcwork_public_pages';
+    const CONTENTINUM_DATABASE = 'mcwork_contribution_pages';
 
     /**
      * Name cache factory
@@ -65,12 +65,15 @@ class PublicServiceFactory extends WebsiteServiceFactory
         $key = $config['cache'];
         if (! ($result = $cache->getItem($key))) {
             $worker = new Worker($sl->get($config['entitymanager']));
-            $repos = $worker->getStorage()->getRepository($config['entity']);
-            if (isset($config['findBy'])) {
-                $entries = $repos->findBy($config['findBy']);
-            } else {
-                $entries = $repos->findAll();
-            }
+            
+            $sql = 'SELECT main FROM ' . $config['entity'] . ' main';
+            $sql .= ' WHERE (main.onlylink = 0 OR main.onlylink = 9)';
+            $sql .= ' ORDER BY main.label ASC';
+            
+            $em = $worker->getStorage();
+            $query = $em->createQuery($sql);
+            $entries = $query->getResult();
+            
             $tmp = array();
             foreach ($entries as $entry) {
                 $tmp[$entry->id] = array(

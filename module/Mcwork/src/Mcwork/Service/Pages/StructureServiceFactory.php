@@ -30,15 +30,24 @@ namespace Mcwork\Service\Pages;
 use Contentinum\Service\TemplateServiceFactory;
 
 /**
- * Mcwork page structures
- * 
+ * Mcwork backend page structure
+ *
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class StructureServiceFactory extends TemplateServiceFactory
 {
-	/**
-	 * Cache key mcwork page structure
-	 * @var string
-	 */
+
+    /**
+     * Cache key mcwork page structure
+     * 
+     * @var string
+     */
     const CONTENTINUM_TEMPLATE = 'mcwork_pages';
+
+    /**
+     * Name cache factory
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CACHE = 'Mcwork\Cache\Structures';
 }

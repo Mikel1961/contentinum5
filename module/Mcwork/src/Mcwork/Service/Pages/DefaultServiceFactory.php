@@ -32,11 +32,11 @@ use ContentinumComponents\Mapper\Worker;
 use Zend\Config\Config;
 
 /**
- * All public pages services
+ * Default pages services
  *
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
-class PublicServiceFactory extends WebsiteServiceFactory
+class DefaultServiceFactory extends WebsiteServiceFactory
 {
 
     /**
@@ -44,7 +44,7 @@ class PublicServiceFactory extends WebsiteServiceFactory
      * 
      * @var string
      */
-    const CONTENTINUM_DATABASE = 'mcwork_public_pages';
+    const CONTENTINUM_DATABASE = 'mcwork_default_pages';
 
     /**
      * Name cache factory
