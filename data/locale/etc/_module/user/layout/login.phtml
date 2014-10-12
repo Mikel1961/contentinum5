@@ -1,0 +1,23 @@
+<?php
+
+echo $this->doctype();
+echo "\n<html" . $this->htmlTagAttribs . ">\n";
+?>
+<head>
+<meta charset="utf-8">
+<?php
+echo $this->headTitle()->setAutoEscape(false) . "\n";
+echo $this->headMeta() . "\n";
+echo $this->plugin('HeadLink');
+echo $this->plugin('HeadStyle');
+echo $this->plugin('HeadScript');
+?>
+</head>
+<body <?php echo $this->bodyTagAttribs; ?>>
+<h1>Login Data</h1>
+<?php
+echo $this->content;
+echo $this->plugin('InlineScript');
+?>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<?php
+echo $this->doctype();
+echo "\n<html" . $this->htmlTagAttribs . ">\n";
+?>
+<head>
+<?php
+echo "<meta charset=\"" . $this->charset . "\">\n";
+echo $this->headTitle()->setAutoEscape(false) . "\n";
+echo $this->headMeta() . "\n";
+echo $this->plugin('HeadLink') . "\n";
+echo $this->plugin('HeadStyle');
+echo $this->plugin('HeadScript') . "\n";
+?>
+</head>
+<?php
+echo "<body" . $this->bodyTagAttribs . ">";
+echo $this->content;
+echo "\n" . $this->plugin('InlineScript');
+?>
+</body>
+</html>
