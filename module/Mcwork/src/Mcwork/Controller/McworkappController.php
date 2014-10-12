@@ -57,6 +57,12 @@ class McworkappController extends AbstractBackendController
      * @var array
      */
     protected $services = array();
+    
+    /**
+     * Database query conditions 
+     * @var array
+     */
+    protected $findBy = array();
 
     /**
      * Get the worker method
@@ -127,6 +133,22 @@ class McworkappController extends AbstractBackendController
 	}
 
 	/**
+     * @return the $findBy
+     */
+    public function getFindBy()
+    {
+        return $this->findBy;
+    }
+
+	/**
+     * @param multitype: $findBy
+     */
+    public function setFindBy(array $findBy)
+    {
+        $this->findBy = $findBy;
+    }
+
+	/**
      * Page application
      *
      * @see \ContentinumComponents\Controller\AbstractBackendController::application()
@@ -143,9 +165,12 @@ class McworkappController extends AbstractBackendController
         $this->adminlayout($this->layout(), $mcworkpages, $page, $role, $acl, $this->getServiceLocator()
             ->get('viewHelperManager'));
         if ($this->worker) {
-            $entries = $this->worker->getStorage()
-                ->getRepository($this->entity->getEntityName())
-                ->findAll();
+            $repository = $this->worker->getStorage()->getRepository($this->entity->getEntityName());
+            if ( ! empty($this->findBy)){
+                $entries = $repository->findBy($this->findBy);
+            } else {
+                $entries = $repository->findAll();
+            }
         }
         
         if (true == ($log = $this->getLogger())) {
@@ -155,7 +180,9 @@ class McworkappController extends AbstractBackendController
         return $this->buildView(array(
             'page' => $page,
             'pagecontent' => $content,
-            'entries' => $entries
+            'entries' => $entries,
+            'acl' => $acl,
+            'role' => $role,
         ), $content, $mcworkpages);
     }
 
@@ -194,7 +221,10 @@ class McworkappController extends AbstractBackendController
         return $this->buildView(array(
             'page' => $page,
             'pagecontent' => $content,
-            'entries' => $entry
+            'entries' => $entry,
+            'acl' => $acl,
+            'role' => $role,  
+            'category' => $this->params()->fromRoute('id', 0)          
         ), $content, $mcworkpages);
     }
 
