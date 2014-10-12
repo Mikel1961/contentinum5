@@ -27,26 +27,21 @@
  */
 use ContentinumComponents\Html\HtmlTable;
 use ContentinumComponents\Html\Table\FactoryTable;
-
 // prepare content, create a table
 $tableFactory = new HtmlTable(new FactoryTable());
-
+$ctrlpath = 'users';
 // set table tag attributes
-$tableFactory->setAttributes('class', 'table table-hover table-nomargin table-striped dataTable dataTable-tools');
+$tableFactory->setAttributes('class', 'table tblNoSort');// table-hover table-nomargin table-striped dataTable dataTable-tools');
+$tableFactory->setAttributes('id', 'mcworkTables');
 $i = 0;
 $iClass = 0;
 $headlines = array(
     '#' => array(),
-    'Account' => array(),
-    'Ident' => array(
-        'head' => array(
-            'class' => 'hide-for-small text-right'
-        ),
-        'body' => array(
-            'class' => 'hide-for-small text-right'
-        )
-    ),
-    'Last change' => array(
+    'Username' => array(),
+    'Role' => array(),
+    'Verify' => array(),
+    'Last Login' => array(),
+    'Edit' => array(
         'head' => array(
             'class' => 'hide-for-small text-right'
         ),
@@ -78,28 +73,42 @@ $tableFactory->setHeadline($columns);
 $i = 0;
 foreach ($this->entries as $entry) {
     $i ++;
-    $tableedit = '';
-    if (isset($this->tableeditcontent)) {
-        $links = array();
-        $links = array(
-            'edit' => array(
-                'href' => '/mcwork/accounts/edit/' . $entry->id
-            ),
-            'delete' => array(
-                'href' => '/mcwork/accounts/delete/' . $entry->id,
-                'attribs' => array(
-                    'data-name' => $entry->organisation,
-                    'data-ident' => 'row' . $i
-                )
-            )
-        );
-        $tableedit = $this->mcworkToolbar($links, true, $this->tableeditcontent->toArray());
-    }
     $rowContent = array();
-    $rowContent[] = '<input id="row' . $i . '" type="checkbox" value="' . $entry->id . '" name="cb[]">';
-    $rowContent[] = $entry->organisation . $tableedit;
-    $rowContent[] = $entry->accountName;
-    $rowContent[] = $entry->upDate->format('d F Y H:i:s');
+    $rowContent[] = '<input id="row' . $i . '" type="checkbox" value="' . $entry->id . '" name="cb[]" data-name="' .  $entry->username . '" />';
+    $rowContent[] = $entry->username . '<br /><em>' . $entry->contacts->firstName . ' '. $entry->contacts->lastName . '</em>';
+    $rowContent[] = $entry->userRoles->name;
+    $rowContent[] = $this->mcworkPublishItem($entry->publish,$entry->id,'user_categories');
+    $rowContent[] = ('0000-00-00 00:00:00' == $entry->lastLogin) ? $this->translate('Never Login') : $entry->lastLogin;
+    
+    $props = array(
+        'edit' => array(
+            'href' => '/mcwork/' . $ctrlpath . '/edit/' . $entry->id,
+            'attribs' => array(
+                'title' => 'Edit item',
+                'class' => 'button tiny'
+            )
+        ),
+        'delete' => array(
+            'href' => '/mcwork/' . $ctrlpath . '/delete',
+            'attribs' => array(
+                'data-name' => $entry->username,
+                'data-ident' => 'row' . $i,
+                'title' => 'Delete item',
+                'class' => 'button tiny alert deleteitem'
+            )
+        ),
+        'info' => array(
+            'attribs' => array(
+                'data-update' => $entry->upDate->format('d F Y, H:i:s'),
+                'data-registerdate' => $entry->registerDate->format('d F Y, H:i:s'),
+                'data-role' => $this->role,
+                'title' => 'Delete item',
+                'class' => 'button tiny infotip'
+            )
+        )
+    );    
+    
+    $rowContent[] = $this->mcworkToolbar($props, true, $this->toolbarcontent->toArray() );
     $tableFactory->setHtmlContent($rowContent);
 }
 $html = $tableFactory->display();
@@ -108,13 +117,13 @@ $toolbar = '';
 if (isset($this->toolbarcontent)) {
     $links = array(
         'add' => array(
-            'href' => '/mcwork/accounts/add'
+            'href' => '/mcwork/' . $ctrlpath . '/add'
         ),
         'edit' => array(
-            'href' => '/mcwork/accounts/edit'
+            'href' => '/mcwork/' . $ctrlpath . '/edit'
         ),
         'delete' => array(
-            'href' => '/mcwork/accounts/delete'
+            'href' => '/mcwork/' . $ctrlpath . '/delete'
         )
     );
     $toolbar = $this->mcworkToolbar($links, true, $this->toolbarcontent->toArray());

@@ -29,24 +29,17 @@ use ContentinumComponents\Html\HtmlTable;
 use ContentinumComponents\Html\Table\FactoryTable;
 // prepare content, create a table
 $tableFactory = new HtmlTable(new FactoryTable());
-$ctrlpath = 'redirects';
+$ctrlpath = 'fieldtypes';
 // set table tag attributes
-$tableFactory->setAttributes('class', 'table table-hover table-nomargin table-striped dataTable dataTable-tools');
+$tableFactory->setAttributes('class', 'table tblNoSort');// table-hover table-nomargin table-striped dataTable dataTable-tools');
+$tableFactory->setAttributes('id', 'mcworkTables');
 $i = 0;
 $iClass = 0;
 $headlines = array(
     '#' => array(),
-    'Linkname' => array(),
-    'Redirect' => array(),
-    'Status' => array(
-        'head' => array(
-            'class' => 'hide-for-small'
-        ),
-        'body' => array(
-            'class' => 'hide-for-small'
-        )
-    ),
-    'Last change' => array(
+    'Fieldtype' => array(),
+    'Scope' => array(),
+    'Edit' => array(
         'head' => array(
             'class' => 'hide-for-small text-right'
         ),
@@ -79,49 +72,40 @@ $tableFactory->setHeadline($columns);
 $i = 0;
 foreach ($this->entries as $entry) {
     $i ++;
-    $tableedit = '';
-    if (isset($this->tableeditcontent)) {
-        $links = array();
-        $links = array(
-            'edit' => array(
-                'href' => '/mcwork/' . $ctrlpath . '/edit/' . $entry->id
-            ),
-            'delete' => array(
-                'href' => '/mcwork/' . $ctrlpath . '/delete/' . $entry->id,
-                'attribs' => array(
-                    'data-name' => $entry->webPagesId->label,
-                    'data-ident' => 'row' . $i
-                )
-            )
-        );
-        $tableedit = $this->mcworkToolbar($links, true, $this->tableeditcontent->toArray());
-    }
-    $tbl = array(
+    $rowContent = array();
+    $rowContent[] = '<input id="row' . $i . '" type="checkbox" value="' . $entry->id . '" name="cb[]" data-name="' .  $entry->name . '" />';
+    $rowContent[] = '<a href="/mcwork/fieldmetas/category/'.$entry->id.'">' .  $entry->name . '</a>';
+    $rowContent[] = $entry->typescope;
+    
+    $props = array(
         'edit' => array(
-            'label' => 'Edit',
             'href' => '/mcwork/' . $ctrlpath . '/edit/' . $entry->id,
             'attribs' => array(
                 'title' => 'Edit item',
-                'class' => 'small button'
+                'class' => 'button tiny'
             )
         ),
         'delete' => array(
-            'label' => 'Delete',
             'href' => '/mcwork/' . $ctrlpath . '/delete',
             'attribs' => array(
-                'data-name' => $entry->webPagesId->label,
+                'data-name' => $entry->name,
                 'data-ident' => 'row' . $i,
                 'title' => 'Delete item',
-                'class' => 'small button alert deleteitem'
+                'class' => 'button tiny alert deleteitem'
+            )
+        ),
+        'info' => array(
+            'attribs' => array(
+                'data-update' => $entry->upDate->format('d F Y, H:i:s'),
+                'data-registerdate' => $entry->registerDate->format('d F Y, H:i:s'),
+                'data-role' => $this->role,
+                'title' => 'Delete item',
+                'class' => 'button tiny infotip'
             )
         )
-    );
-    $rowContent = array();
-    $rowContent[] = '<input id="row' . $i . '" type="checkbox" value="' . $entry->id . '" name="cb[]">';
-    $rowContent[] = $entry->webPagesId->label . $this->mcworkTableEdit($tbl);
-    $rowContent[] = $entry->redirect;
-    $rowContent[] = $entry->statuscode;
-    $rowContent[] = $entry->upDate->format('d F Y H:i:s'); // date ( "d.m.Y H:i:s", $entry->registerDate );
+    );    
+    
+    $rowContent[] = $this->mcworkToolbar($props, true, $this->toolbarcontent->toArray() );
     $tableFactory->setHtmlContent($rowContent);
 }
 $html = $tableFactory->display();

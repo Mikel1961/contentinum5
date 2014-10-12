@@ -27,26 +27,38 @@
  */
 use ContentinumComponents\Html\HtmlTable;
 use ContentinumComponents\Html\Table\FactoryTable;
+
 // prepare content, create a table
 $tableFactory = new HtmlTable(new FactoryTable());
-$ctrlpath = 'pages';
+$ctrlpath = 'formfields';
 // set table tag attributes
-$tableFactory->setAttributes('class', 'table table-hover table-nomargin table-striped dataTable dataTable-tools');
+$tableFactory->setAttributes('class', 'table tblNoSort');// table-hover table-nomargin table-striped dataTable dataTable-tools');
+$tableFactory->setAttributes('id', 'mcworkTables');
 $i = 0;
-$iClass = 0;
+$iClass = 0;//sorting_disabled
 $headlines = array(
     '#' => array(),
-    'Linkname' => array(),
-    'Url' => array(),
-    'Host' => array(
+    'Field' => array(),
+    'Sequence' => array(),
+    'Rang' => array(
         'head' => array(
-            'class' => 'hide-for-small'
+            'class' => 'text-center'
         ),
         'body' => array(
-            'class' => 'hide-for-small'
-        )
+            'class' => 'text-center'
+        )    
     ),
-    'Last change' => array(
+    'Form' => array(),
+    'Access' => array(),
+    'Publish' => array(
+        'head' => array(
+            'class' => 'text-center'
+        ),
+        'body' => array(
+            'class' => 'text-center'
+        )        
+    ),
+    'Edit' => array(
         'head' => array(
             'class' => 'hide-for-small text-right'
         ),
@@ -77,67 +89,106 @@ foreach ($headlines as $column => $attributes) {
 }
 $tableFactory->setHeadline($columns);
 $i = 0;
+$defaults = $this->toolbarcontent->toArray();
+$editDefaults = $defaults;
+$defaults['attribute']['class'] = 'button-group left';
+
+$rangSelect = count($this->entries);
+
 foreach ($this->entries as $entry) {
     $i ++;
-    $tableedit = '';
-    if (isset($this->tableeditcontent)) {
-        $links = array();
-        $links = array(
-            'edit' => array(
-                'href' => '/mcwork/' . $ctrlpath . '/edit/' . $entry->id
-            ),
-            'delete' => array(
-                'href' => '/mcwork/' . $ctrlpath . '/delete/' . $entry->id,
-                'attribs' => array(
-                    'data-name' => $entry->label,
-                    'data-ident' => 'row' . $i
-                )
-            )
-        );
-        $tableedit = $this->mcworkToolbar($links, true, $this->tableeditcontent->toArray());
-    }
     $tbl = array(
+        'up' => array(
+            'attribs' => array(
+                'data-group' => $entry->webForms->id,
+                'data-category' => $entry->id,
+                'data-rang' => $entry->itemRang,
+                'data-categoryname' => 'Categories\Form',
+                'data-move' => 'moveup',
+                'class' => 'button tiny moveitem'
+            )
+        ),        
+        'down' => array(
+            'attribs' => array(
+                'data-group' => $entry->webForms->id,
+                'data-category' => $entry->id,
+                'data-rang' => $entry->itemRang,
+                'data-categoryname' => 'Categories\Form',
+                'data-move' => 'movedown',
+                'class' => 'button tiny moveitem'
+            )
+        ), 
+    );
+    if (1 == $i){
+        unset($tbl['up']);
+    }
+    if ($i == $rangSelect){
+        unset($tbl['down']);
+    }
+    $rowContent = array();
+    $rowContent[] = '<input id="row' . $i . '" type="checkbox" value="' . $entry->id . '" name="cb[]">';
+    $rowContent[] = $entry->label;
+    $rowContent[] = $this->mcworkToolbar($tbl, true, $defaults);  
+    $rowContent[] = $this->mcworkSelectRang($entry->webForms->id,$entry->id,$entry->itemRang, $rangSelect, 'Categories\Form');
+    $rowContent[] = $entry->webForms->headline; 
+    
+    $rowContent[] = $entry->resource;
+    $rowContent[] = $this->mcworkPublishItem($entry->publish,$entry->id,'form_categories');
+    $props = array(
         'edit' => array(
-            'label' => 'Edit',
-            'href' => '/mcwork/' . $ctrlpath . '/edit/' . $entry->id,
+            'href' => '/mcwork/' . $ctrlpath . '/edit/' . $entry->id . '/' . $this->category,
             'attribs' => array(
                 'title' => 'Edit item',
-                'class' => 'small button'
+                'class' => 'button tiny'
             )
         ),
         'delete' => array(
-            'label' => 'Delete',
             'href' => '/mcwork/' . $ctrlpath . '/delete',
             'attribs' => array(
                 'data-name' => $entry->label,
                 'data-ident' => 'row' . $i,
                 'title' => 'Delete item',
-                'class' => 'small button alert deleteitem'
+                'class' => 'button tiny alert deleteitem'
             )
-        )
-    );
-    $rowContent = array();
-    $rowContent[] = '<input id="row' . $i . '" type="checkbox" value="' . $entry->id . '" name="cb[]">';
-    $rowContent[] = $entry->label . $this->mcworkTableEdit($tbl);
-    $rowContent[] = $entry->url;
-    $rowContent[] = $entry->webPreferences->host;
-    $rowContent[] = $entry->upDate->format('d F Y H:i:s'); // date ( "d.m.Y H:i:s", $entry->registerDate );
+        ),
+        'info' => array(
+            'attribs' => array(
+                'data-update' => $entry->upDate->format('d F Y, H:i:s'),
+                'data-registerdate' => $entry->registerDate->format('d F Y, H:i:s'),
+                'data-role' => $this->role,
+                'title' => 'Delete item',
+                'class' => 'button tiny infotip'
+            )
+        )        
+    );    
+    $rowContent[] = $this->mcworkToolbar($props, true, $editDefaults );
     $tableFactory->setHtmlContent($rowContent);
 }
-$html = $tableFactory->display();
+$table = $tableFactory->display();
+if (true === $this->onlytable){
+    echo $table;
+    exit();
+}
+$html = '<div id="setDataTable"> '. $table . ' </div>';
 $html .= $this->translate($this->mcworkContent($this->page, $this->pagecontent, 'content'));
 $toolbar = '';
 if (isset($this->toolbarcontent)) {
     $links = array(
         'add' => array(
-            'href' => '/mcwork/' . $ctrlpath . '/add'
+            'href' => '/mcwork/' . $ctrlpath . '/add/' . $this->category
         ),
         'edit' => array(
-            'href' => '/mcwork/' . $ctrlpath . '/edit'
+            'href' => '/mcwork/' . $ctrlpath . '/edit',
+            'attribs' => array(
+                'data-category' => $this->category
+            ),            
         ),
         'delete' => array(
             'href' => '/mcwork/' . $ctrlpath . '/delete'
-        )
+        ),
+        'back' => array(
+            'href' => ($this->category > 1) ? '/mcwork/' . $ctrlpath . '/category/1' : '/mcwork/form'
+        )        
     );
     $toolbar = $this->mcworkToolbar($links, true, $this->toolbarcontent->toArray());
 }

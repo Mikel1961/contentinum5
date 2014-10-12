@@ -29,30 +29,23 @@ use ContentinumComponents\Html\HtmlTable;
 use ContentinumComponents\Html\Table\FactoryTable;
 // prepare content, create a table
 $tableFactory = new HtmlTable(new FactoryTable());
-$ctrlpath = 'preferences';
+$ctrlpath = 'pagecontent';
 // set table tag attributes
-$tableFactory->setAttributes('class', 'table table-hover table-nomargin table-striped dataTable dataTable-tools');
+$tableFactory->setAttributes('class', 'table');// table-hover table-nomargin table-striped dataTable dataTable-tools');
+//$tableFactory->setAttributes('id', 'mcworkTables');
 $i = 0;
 $iClass = 0;
 $headlines = array(
     '#' => array(),
-    'Hostname' => array(),
-    'Title' => array(),
-    'Standard' => array(
+    'Contribution' => array(),
+    'Sequence' => array(),
+    'Rang' => array(
         'head' => array(
-            'class' => 'hide-for-small'
+            'class' => 'text-center'
         ),
         'body' => array(
-            'class' => 'hide-for-small'
-        )
-    ),
-    'Last change' => array(
-        'head' => array(
-            'class' => 'hide-for-small text-right'
-        ),
-        'body' => array(
-            'class' => 'hide-for-small text-right'
-        )
+            'class' => 'text-center'
+        )    
     )
 )
 ;
@@ -77,74 +70,63 @@ foreach ($headlines as $column => $attributes) {
 }
 $tableFactory->setHeadline($columns);
 $i = 0;
+
+$defaults = $this->toolbarcontent->toArray();
+$defaults['attribute']['class'] = 'button-group left';
+
+$rangSelect = count($this->entries);
+
 foreach ($this->entries as $entry) {
     $i ++;
-    $tableedit = '';
-    if (isset($this->tableeditcontent)) {
-        $links = array();
-        $links = array(
-            'edit' => array(
-                'href' => '/mcwork/' . $ctrlpath . '/edit/' . $entry->id
-            ),
-            'delete' => array(
-                'href' => '/mcwork/' . $ctrlpath . '/delete/' . $entry->id,
-                'attribs' => array(
-                    'data-name' => $entry->host,
-                    'data-ident' => 'row' . $i
-                )
-            )
-        );
-        $tableedit = $this->mcworkToolbar($links, true, $this->tableeditcontent->toArray());
-    }
     $tbl = array(
-        'edit' => array(
-            'label' => 'Edit',
-            'href' => '/mcwork/' . $ctrlpath . '/edit/' . $entry->id,
+        'up' => array(
             'attribs' => array(
-                'title' => 'Edit item',
-                'class' => 'small button'
+                'data-group' => $entry->webPages->id,
+                'data-category' => $entry->id,
+                'data-rang' => $entry->itemRang,
+                'data-categoryname' => 'Categories\Page',
+                'data-move' => 'moveup',
+                'class' => 'button tiny moveitem'
             )
         ),
-        'delete' => array(
-            'label' => 'Delete',
-            'href' => '/mcwork/' . $ctrlpath . '/delete',
+        'down' => array(
             'attribs' => array(
-                'data-name' => $entry->host,
-                'data-ident' => 'row' . $i,
-                'title' => 'Delete item',
-                'class' => 'small button alert deleteitem'
+                'data-group' => $entry->webPages->id,
+                'data-category' => $entry->id,
+                'data-rang' => $entry->itemRang,
+                'data-categoryname' => 'Categories\Page',
+                'data-move' => 'movedown',
+                'class' => 'button tiny moveitem'
             )
-        )
+        ),
     );
-    if ('_default' == $entry->host) {
-        unset($tbl['delete']);
+    if (1 == $i){
+        unset($tbl['up']);
     }
+    if ($i == $rangSelect){
+        unset($tbl['down']);
+    }    
+    //$page = $entry->webPages->label;
     $rowContent = array();
-    if ('_default' == $entry->host) {
-        $rowContent[] = '#';
-    } else {
-        $rowContent[] = '<input id="row' . $i . '" type="checkbox" value="' . $entry->id . '" name="cb[]">';
-    }
-    $rowContent[] = $entry->host . $this->mcworkTableEdit($tbl);
-    $rowContent[] = $entry->title;
-    $rowContent[] = $entry->standardDomain;
-    $rowContent[] = $entry->upDate->format('d F Y H:i:s'); // date ( "d.m.Y H:i:s", $entry->registerDate );
+    $rowContent[] = '<input id="row' . $i . '" type="checkbox" value="' . $entry->id . '" name="cb[]">';
+    $rowContent[] = $entry->webContentgroup->webContent->title;
+    $rowContent[] = $this->mcworkToolbar($tbl, true, $defaults);
+    $rowContent[] = $this->mcworkSelectRang($entry->webPages->id,$entry->id,$entry->itemRang, $rangSelect, 'Categories\Page');  
     $tableFactory->setHtmlContent($rowContent);
 }
-$html = $tableFactory->display();
+$table = $tableFactory->display();
+if (true === $this->onlytable){
+    echo $table;
+    exit();
+}
+$html = '<div id="setDataTable"> '. $table . ' </div>';
 $html .= $this->translate($this->mcworkContent($this->page, $this->pagecontent, 'content'));
 $toolbar = '';
 if (isset($this->toolbarcontent)) {
     $links = array(
-        'add' => array(
-            'href' => '/mcwork/' . $ctrlpath . '/add'
+        'back' => array(
+            'href' => '/mcwork/pagecontent'
         ),
-        'edit' => array(
-            'href' => '/mcwork/' . $ctrlpath . '/edit'
-        ),
-        'delete' => array(
-            'href' => '/mcwork/' . $ctrlpath . '/delete'
-        )
     );
     $toolbar = $this->mcworkToolbar($links, true, $this->toolbarcontent->toArray());
 }

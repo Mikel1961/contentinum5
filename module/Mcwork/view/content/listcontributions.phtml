@@ -29,24 +29,25 @@ use ContentinumComponents\Html\HtmlTable;
 use ContentinumComponents\Html\Table\FactoryTable;
 // prepare content, create a table
 $tableFactory = new HtmlTable(new FactoryTable());
-$ctrlpath = 'mediametas';
+$ctrlpath = 'contribution';
 // set table tag attributes
-$tableFactory->setAttributes('class', 'table table-hover table-nomargin table-striped dataTable');
+$tableFactory->setAttributes('class', 'table tblNoSort');// table-hover table-nomargin table-striped dataTable dataTable-tools');
+$tableFactory->setAttributes('id', 'mcworkTables');
 $i = 0;
 $iClass = 0;
 $headlines = array(
     '#' => array(),
-    'Media' => array(),
-    'Name' => array(),
-    'Metas' => array(
+    'Page' => array(),
+    'Title' => array(),
+    'Publish' => array(
         'head' => array(
-            'class' => 'hide-for-small'
+            'class' => 'text-center'
         ),
         'body' => array(
-            'class' => 'hide-for-small'
-        )
+            'class' => 'text-center'
+        )    
     ),
-    'Last change' => array(
+    'Edit' => array(
         'head' => array(
             'class' => 'hide-for-small text-right'
         ),
@@ -54,7 +55,8 @@ $headlines = array(
             'class' => 'hide-for-small text-right'
         )
     )
-);
+)
+;
 $ihead = count($headlines);
 foreach ($headlines as $column => $attributes) {
     $columns[] = $this->translate($column);
@@ -75,107 +77,59 @@ foreach ($headlines as $column => $attributes) {
     $i ++;
 }
 $tableFactory->setHeadline($columns);
-$getUnserializeDatas = new ContentinumComponents\Tools\HandleSerializeDatabase();
-$imagesTypes = $this->customconfig->default->Medias->images_types->toArray();
 $i = 0;
-foreach ($this->entries as $entry) {
-    if (1 !== $entry->id){
+foreach ($this->entries as $entry) {   
     $i ++;
-    $tableedit = '';
-    if (isset($this->tableeditcontent)) {
-        $links = array();
-        $links = array(
-            'edit' => array(
-                'href' => '/mcwork/' . $ctrlpath . '/edit/' . $entry->id
-            ),
-            'delete' => array(
-                'href' => '/mcwork/' . $ctrlpath . '/delete/' . $entry->id,
-                'attribs' => array(
-                    'data-name' => $entry->webMediasId->mediaName,
-                    'data-ident' => 'row' . $i
-                )
-            )
-        );
-        $tableedit = $this->mcworkToolbar($links, true, $this->tableeditcontent->toArray());
-    }
-    $tbl = array(
+    $rowContent = array();
+    $rowContent[] = '<input data-name="'. $entry['title'] .'" id="row' . $i . '" type="checkbox" value="' . $entry['id'] . '" name="cb[]">';
+    $rowContent[] = '<a href="/mcwork/pagecontent/category/'.$entry['pageid'].'">'.$entry['label'].' <i class="fa fa-pencil"> </i></a>';
+    $rowContent[] = $entry['title'];
+    $rowContent[] = $this->mcworkPublishItem($entry['publish'],$entry['id'],'Save\Contribution');
+    
+    $props = array(
         'edit' => array(
-            'label' => 'Edit',
-            'href' => '/mcwork/' . $ctrlpath . '/edit/' . $entry->id,
+            'href' => '/mcwork/' . $ctrlpath . '/edit/' . $entry['id'],
             'attribs' => array(
                 'title' => 'Edit item',
-                'class' => 'small button'
+                'class' => 'button tiny'
             )
         ),
         'delete' => array(
-        		'label' => 'Delete',
-        		'href' => '/mcwork/' . $ctrlpath . '/delete',
-        		'attribs' => array(
-        				'data-name' => $entry->webMediasId->mediaName,
-        				'data-ident' => 'row' . $i,
-        				'title' => 'Delete item',
-        				'class' => 'small button alert deleteitem'
-        		)
-        )        
+            'href' => '/mcwork/' . $ctrlpath . '/delete',
+            'attribs' => array(
+                'data-name' => $entry['title'],
+                'data-ident' => 'row' . $i,
+                'title' => 'Delete item',
+                'class' => 'button tiny alert deleteitem'
+            )
+        ),
+        'info' => array(
+            'attribs' => array(
+                'data-update' => $entry['register_date'], //         $entry->upDate->format('d F Y, H:i:s'),
+                'data-registerdate' => $entry['up_date'], // $entry->registerDate->format('d F Y, H:i:s'),
+                'data-role' => $this->role,
+                'title' => 'Delete item',
+                'class' => 'button tiny infotip'
+            )
+        )
     );
     
-    
-    if ('1' == $entry->webMediasId->mediaInUse){
-    	unset($tbl['delete']);
-    }    
-    
-    $rowContent = array();
-    $rowContent[] = '<input id="row' . $i . '" type="checkbox" value="' . $entry->id . '" name="cb[]">';
-    
-    $media = 'File';
-    $mediaAlternate = '';
-    if (isset($imagesTypes[$entry->webMediasId->mediaType])) {
-        
-        if (null != ($method = $entry->webMediasId->decodeMetas)) {
-            $mediaAlternate = $getUnserializeDatas->execUnserialize($entry->webMediasId->mediaAlternate, $method);
-        }
-        $media = 'Broken array!';
-        if (is_array($mediaAlternate)) {
-            if (isset($mediaAlternate['thumbnail']['mediaLink'])) {
-                $media = '<img src="' . $mediaAlternate['thumbnail']['mediaLink'] . '" alt="">';
-            }
-        }
-    } else {
-        switch ($entry->webMediasId->mediaType) {
-            default:
-                $media = 'File';
-        }
-    }
-    $rowContent[] = $media;
-    $rowContent[] = $entry->webMediasId->mediaName . $this->mcworkTableEdit($tbl);
-    $str = '';
-    if (null != ($method = $entry->decodeMetas)) {
-        $mediaMetas = $getUnserializeDatas->execUnserialize($entry->mediaMetas, $method);
-        if (is_array($mediaMetas)) {
-            $si = 1;
-            foreach ($mediaMetas as $key => $value) {
-                if (strlen($value) > 1) {
-                    if ($si > 1) {
-                        $str .= '<br />';
-                    }
-                    $str .= $key . '="' . $value . '"';
-                    $si ++;
-                }
-            }
-        }
-    }
-    $rowContent[] = $str;
-    $rowContent[] = $entry->upDate->format('d F Y H:i:s');
+    $rowContent[] = $this->mcworkToolbar($props, true, $this->toolbarcontent->toArray() );
     $tableFactory->setHtmlContent($rowContent);
-    }
 }
 $html = $tableFactory->display();
 $html .= $this->translate($this->mcworkContent($this->page, $this->pagecontent, 'content'));
 $toolbar = '';
 if (isset($this->toolbarcontent)) {
     $links = array(
+        'add' => array(
+            'href' => '/mcwork/' . $ctrlpath . '/add'
+        ),
         'edit' => array(
             'href' => '/mcwork/' . $ctrlpath . '/edit'
+        ),
+        'delete' => array(
+            'href' => '/mcwork/' . $ctrlpath . '/delete'
         )
     );
     $toolbar = $this->mcworkToolbar($links, true, $this->toolbarcontent->toArray());

@@ -29,23 +29,25 @@ use ContentinumComponents\Html\HtmlTable;
 use ContentinumComponents\Html\Table\FactoryTable;
 // prepare content, create a table
 $tableFactory = new HtmlTable(new FactoryTable());
-
+$ctrlpath = 'preferences';
 // set table tag attributes
-$tableFactory->setAttributes('class', 'table table-hover table-nomargin table-striped dataTable dataTable-tools');
+$tableFactory->setAttributes('class', 'table tblNoSort');
+$tableFactory->setAttributes('id', 'mcworkTables');
 $i = 0;
 $iClass = 0;
 $headlines = array(
     '#' => array(),
-    'Fieldtypes' => array(),
-    'Scope' => array(
+    'Hostname' => array(),
+    'Title' => array(),
+    'Standard' => array(
         'head' => array(
-            'class' => 'hide-for-small'
+            'class' => 'text-center hide-for-small'
         ),
         'body' => array(
-            'class' => 'hide-for-small'
+            'class' => 'text-center hide-for-small'
         )
     ),
-    'Last change' => array(
+    'Edit' => array(
         'head' => array(
             'class' => 'hide-for-small text-right'
         ),
@@ -53,8 +55,7 @@ $headlines = array(
             'class' => 'hide-for-small text-right'
         )
     )
-)
-;
+);
 $ihead = count($headlines);
 foreach ($headlines as $column => $attributes) {
     $columns[] = $this->translate($column);
@@ -78,28 +79,46 @@ $tableFactory->setHeadline($columns);
 $i = 0;
 foreach ($this->entries as $entry) {
     $i ++;
-    $tableedit = '';
-    if (isset($this->tableeditcontent)) {
-        $links = array();
-        $links = array(
-            'edit' => array(
-                'href' => '/mcwork/fieldmetas/edit/' . $entry->id
-            ),
-            'delete' => array(
-                'href' => '/mcwork/fieldmetas/delete',
-                'attribs' => array(
-                    'data-name' => $entry->name,
-                    'data-ident' => 'row' . $i
-                )
-            )
-        );
-        $tableedit = $this->mcworkToolbar($links, true, $this->tableeditcontent->toArray());
-    }
     $rowContent = array();
-    $rowContent[] = '<input id="row' . $i . '" type="checkbox" value="' . $entry->id . '" name="cb[]">';
-    $rowContent[] = $entry->name . ' (<em>' . $entry->fieldTypes->name . '</em>)' . $tableedit;
-    $rowContent[] = $entry->datascope;
-    $rowContent[] = $entry->upDate->format('d F Y H:i:s');
+    if ('_default' == $entry->host) {
+        $rowContent[] = '#';
+    } else {
+        $rowContent[] = '<input id="row' . $i . '" type="checkbox" value="' . $entry->id . '" name="cb[]">';
+    }
+    $rowContent[] = $entry->host;
+    $rowContent[] = $entry->title;
+    $rowContent[] = $entry->standardDomain;
+    $props = array(
+        'edit' => array(
+            'href' => '/mcwork/' . $ctrlpath . '/edit/' . $entry->id,
+            'attribs' => array(
+                'title' => 'Edit item',
+                'class' => 'button tiny'
+            )
+        ),
+        'delete' => array(
+            'href' => '/mcwork/' . $ctrlpath . '/delete',
+            'attribs' => array(
+                'data-name' => $entry->host,
+                'data-ident' => 'row' . $i,
+                'title' => 'Delete item',
+                'class' => 'button tiny alert deleteitem'
+            )
+        ),
+        'info' => array(
+            'attribs' => array(
+                'data-update' => $entry->upDate->format('d F Y, H:i:s'),
+                'data-registerdate' => $entry->registerDate->format('d F Y, H:i:s'),
+                'data-role' => $this->role,
+                'title' => 'Delete item',
+                'class' => 'button tiny infotip'
+            )
+        )
+    );
+    if ('_default' == $entry->host) {
+        unset($props['delete']);
+    }    
+    $rowContent[] = $this->mcworkToolbar($props, true, $this->toolbarcontent->toArray() );
     $tableFactory->setHtmlContent($rowContent);
 }
 $html = $tableFactory->display();
@@ -108,13 +127,13 @@ $toolbar = '';
 if (isset($this->toolbarcontent)) {
     $links = array(
         'add' => array(
-            'href' => '/mcwork/fieldmetas/add'
+            'href' => '/mcwork/' . $ctrlpath . '/add'
         ),
         'edit' => array(
-            'href' => '/mcwork/fieldmetas/edit'
+            'href' => '/mcwork/' . $ctrlpath . '/edit'
         ),
         'delete' => array(
-            'href' => '/mcwork/fieldmetas/delete'
+            'href' => '/mcwork/' . $ctrlpath . '/delete'
         )
     );
     $toolbar = $this->mcworkToolbar($links, true, $this->toolbarcontent->toArray());

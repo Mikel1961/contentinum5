@@ -27,26 +27,29 @@
  */
 use ContentinumComponents\Html\HtmlTable;
 use ContentinumComponents\Html\Table\FactoryTable;
+
 // prepare content, create a table
 $tableFactory = new HtmlTable(new FactoryTable());
-
+$ctrlpath = 'contacts';
 // set table tag attributes
-$tableFactory->setAttributes('class', 'table table-hover table-nomargin table-striped dataTable dataTable-tools');
+$tableFactory->setAttributes('class', 'table tblNoSort');// table-hover table-nomargin table-striped dataTable dataTable-tools');
+$tableFactory->setAttributes('id', 'mcworkTables');
 $i = 0;
-$iClass = 0;
+$iClass = 0;//sorting_disabled
 $headlines = array(
     '#' => array(),
-    'Login Username' => array(),
-		/*
-		'Contact data' => array (
-				'head' => array (
-						'class' => 'hide-for-small text-right' 
-				),
-				'body' => array (
-						'class' => 'hide-for-small text-right' 
-				) 
-		),*/
-		'Last change' => array(
+    'Name' => array(),
+    'E-Mail' => array(),
+    'Member' => array(),
+    'Publish' => array(
+        'head' => array(
+            'class' => 'text-center'
+        ),
+        'body' => array(
+            'class' => 'text-center'
+        )        
+    ),
+    'Edit' => array(
         'head' => array(
             'class' => 'hide-for-small text-right'
         ),
@@ -77,50 +80,70 @@ foreach ($headlines as $column => $attributes) {
 }
 $tableFactory->setHeadline($columns);
 $i = 0;
+
 foreach ($this->entries as $entry) {
     $i ++;
-    $tableedit = '';
-    if (isset($this->tableeditcontent)) {
-        $links = array();
-        $links = array(
-            'edit' => array(
-                'href' => '/mcwork/users/edit/' . $entry->id
-            ),
-            'delete' => array(
-                'href' => '/mcwork/users/delete/' . $entry->id,
-                'attribs' => array(
-                    'data-name' => $entry->loginUsername,
-                    'data-ident' => 'row' . $i
-                )
-            )
-        );
-        $tableedit = $this->mcworkToolbar($links, true, $this->tableeditcontent->toArray());
-    }
     $rowContent = array();
-    $rowContent[] = '<input id="row' . $i . '" type="checkbox" value="' . $entry->id . '" name="cb[]">';
-    $str = $entry->loginUsername;
-    $str .= ' (<i>' . $entry->contact->firstName . ' ' . $entry->contact->lastName . '</i>)';
-    $str .= $tableedit;
-    $rowContent[] = $str;
-    // $rowContent [] = '';
-    $rowContent[] = $entry->upDate->format('d F Y H:i:s');
+    $rowContent[] = '<input id="row' . $i . '" type="checkbox" value="' . $entry->id . '" name="cb[]" data-name="'.$entry->firstName . ' ' . $entry->lastName.'">';
+    $rowContent[] = $entry->lastName . ', ' . $entry->firstName;
+    $rowContent[] = $entry->contactEmail; 
+    $rowContent[] = $entry->accounts->organisation;
+    $rowContent[] = $this->mcworkPublishItem($entry->publish,$entry->id,'Categories\Account');
+    $props = array(
+        'edit' => array(
+            'href' => '/mcwork/' . $ctrlpath . '/edit/' . $entry->id . '/' . $this->category,
+            'attribs' => array(
+                'title' => 'Edit item',
+                'class' => 'button tiny'
+            )
+        ),
+        'delete' => array(
+            'href' => '/mcwork/' . $ctrlpath . '/delete',
+            'attribs' => array(
+                'data-name' => $entry->firstName . ' ' . $entry->lastName,
+                'data-ident' => 'row' . $i,
+                'title' => 'Delete item',
+                'class' => 'button tiny alert deleteitem'
+            )
+        ),
+        'info' => array(
+            'attribs' => array(
+                'data-update' => $entry->upDate->format('d F Y, H:i:s'),
+                'data-registerdate' => $entry->registerDate->format('d F Y, H:i:s'),
+                'data-role' => $this->role,
+                'title' => 'Delete item',
+                'class' => 'button tiny infotip'
+            )
+        )        
+    );    
+    $rowContent[] = $this->mcworkToolbar($props, true, $this->toolbarcontent->toArray() );
     $tableFactory->setHtmlContent($rowContent);
 }
-
-$html = $tableFactory->display();
+$table = $tableFactory->display();
+if (true === $this->onlytable){
+    echo $table;
+    exit();
+}
+$html = '<div id="setDataTable"> '. $table . ' </div>';
 $html .= $this->translate($this->mcworkContent($this->page, $this->pagecontent, 'content'));
 $toolbar = '';
 if (isset($this->toolbarcontent)) {
     $links = array(
         'add' => array(
-            'href' => '/mcwork/users/add'
+            'href' => '/mcwork/' . $ctrlpath . '/add/' . $this->category
         ),
         'edit' => array(
-            'href' => '/mcwork/users/edit'
+            'href' => '/mcwork/' . $ctrlpath . '/edit',
+            'attribs' => array(
+                'data-category' => $this->category
+            ),            
         ),
         'delete' => array(
-            'href' => '/mcwork/users/delete'
-        )
+            'href' => '/mcwork/' . $ctrlpath . '/delete'
+        ),
+        'back' => array(
+            'href' => ($this->category > 1) ? '/mcwork/' . $ctrlpath . '/category/1' : '/mcwork/accounts'
+        )        
     );
     $toolbar = $this->mcworkToolbar($links, true, $this->toolbarcontent->toArray());
 }

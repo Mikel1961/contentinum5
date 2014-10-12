@@ -29,25 +29,49 @@ use ContentinumComponents\Html\HtmlTable;
 use ContentinumComponents\Html\Table\FactoryTable;
 // prepare content, create a table
 $tableFactory = new HtmlTable(new FactoryTable());
-$ctrlpath = 'mediablockmetas';
+$ctrlpath = 'pagecontent';
 // set table tag attributes
-$tableFactory->setAttributes('class', 'table table-hover table-nomargin table-striped dataTable dataTable-tools');
+$tableFactory->setAttributes('class', 'table tblNoSort');// table-hover table-nomargin table-striped dataTable dataTable-tools');
+$tableFactory->setAttributes('id', 'mcworkTables');
 $i = 0;
 $iClass = 0;
 $headlines = array(
     '#' => array(),
-    'Mediablock' => array(),
-    'Template' => array(),
-    /*
-    'Status' => array(
+    'Linkname' => array(),
+    'Contribution' => array(),//'Publish Contribution'
+    'Sequence' => array(
         'head' => array(
-            'class' => 'hide-for-small'
+            'class' => 'text-center'
         ),
         'body' => array(
-            'class' => 'hide-for-small'
-        )
-    ),*/
-    'Last change' => array(
+            'class' => 'text-center'
+        )    
+    ),
+    'Content type' => array(
+        'head' => array(
+            'class' => 'text-center'
+        ),
+        'body' => array(
+            'class' => 'text-center'
+        )    
+    ),
+    'Style' => array(
+        'head' => array(
+            'class' => 'text-center'
+        ),
+        'body' => array(
+            'class' => 'text-center'
+        )    
+    ),
+    'Publish' => array(
+        'head' => array(
+            'class' => 'text-center'
+        ),
+        'body' => array(
+            'class' => 'text-center'
+        )    
+    ),    
+    'Edit' => array(
         'head' => array(
             'class' => 'hide-for-small text-right'
         ),
@@ -78,56 +102,61 @@ foreach ($headlines as $column => $attributes) {
 }
 $tableFactory->setHeadline($columns);
 $i = 0;
-foreach ($this->entries as $entry) {
+$groupIdent = false;
+$parent = '';
+$title = '';
+foreach ($this->entries as $entry) {    
     $i ++;
-    $tableedit = '';
-    if (isset($this->tableeditcontent)) {
-        $links = array();
-        $links = array(
-            'edit' => array(
-                'href' => '/mcwork/' . $ctrlpath . '/edit/' . $entry->id
-            ),
-            'delete' => array(
-                'href' => '/mcwork/' . $ctrlpath . '/delete/' . $entry->id,
-                'attribs' => array(
-                    'data-name' => $entry->headline,
-                    'data-ident' => 'row' . $i
-                )
-            )
-        );
-        $tableedit = $this->mcworkToolbar($links, true, $this->tableeditcontent->toArray());
-    }
-    $tbl = array(
-        'edit' => array(
-            'label' => 'Edit',
-            'href' => '/mcwork/' . $ctrlpath . '/edit/' . $entry->id,
-            'attribs' => array(
-                'title' => 'Edit item',
-                'class' => 'small button'
-            )
-        ),
-        'delete' => array(
-            'label' => 'Delete',
-            'href' => '/mcwork/' . $ctrlpath . '/delete',
-            'attribs' => array(
-                'data-name' => $entry->headline,
-                'data-ident' => 'row' . $i,
-                'title' => 'Delete item',
-                'class' => 'small button alert deleteitem'
-            )
-        )
-    );
+    
+
+    
     $rowContent = array();
-    $rowContent[] = '<input id="row' . $i . '" type="checkbox" value="' . $entry->id . '" name="cb[]">';
-    $rowContent[] = $entry->headline . $this->mcworkTableEdit($tbl);
-    $template = $entry->htmlwidgets;
-    if (isset($this->htmlwidgets->$template)){
-        $template = $this->htmlwidgets->$template->name;
+    $rowContent[] = '<input id="row' . $i . '" type="checkbox" value="' . $entry['id'] . '" name="cb[]">';
+    $rowContent[] = $entry['label'];
+    $wci = 0;
+    $str = '';
+    foreach ($entry['entries'] as $webContent){
+        if ($wci == 1){
+            $ln = '/mcwork/contentgroup/edit/'. $webContent['groupId'];
+            $str = '<em>'. $this->translate('Contributory group') .'</em><br /><a href="'.$ln.'">Style: '. $webContent['group_style'] .' <i class="fa fa-pencil"> </i></a><br />' . $str;
+            $str .= '<br />';
+        }
+        if ($wci > 1){
+            $str .= '<br />';
+        }
+        $str .= $webContent['title'];
+        $str .= ' <span>' . $this->mcworkPublishItem($webContent['wcpublish'],$webContent['wcid'],'Save\Contribution') . '</span>';
+        $wci++;
     }
     
-    $rowContent[] = $template;
-    //$rowContent[] = '&nbsp;';
-    $rowContent[] = $entry->upDate->format('d F Y H:i:s'); // date ( "d.m.Y H:i:s", $entry->registerDate );
+    $rowContent[] = $str;
+    
+    
+    $rowContent[] = '<a href="/mcwork/pagecontent/category/'. $entry['wppid'] .'">' . $this->translate('Assort') . ' <i class="fa fa-pencil"> </i></a></a>';
+    $rowContent[] = $entry['adjustments'];
+
+    
+    $rowContent[] = $entry['htmlwidgets'];
+    $rowContent[] = $this->mcworkPublishItem($entry['publish'],$entry['id'],'Categories\Page');
+    $props = array(
+        'edit' => array(
+            'href' => '/mcwork/' . $ctrlpath . '/edit/' . $entry['id'],
+            'attribs' => array(
+                'title' => 'Edit item',
+                'class' => 'button tiny'
+            )
+        ),
+        'info' => array(
+            'attribs' => array(
+                'data-update' => $entry['register_date'], //         $entry->upDate->format('d F Y, H:i:s'),
+                'data-registerdate' => $entry['up_date'], // $entry->registerDate->format('d F Y, H:i:s'),
+                'data-role' => $this->role,
+                'title' => 'Delete item',
+                'class' => 'button tiny infotip'
+            )
+        )        
+    );    
+    $rowContent[] = $this->mcworkToolbar($props, true, $this->toolbarcontent->toArray() );
     $tableFactory->setHtmlContent($rowContent);
 }
 $html = $tableFactory->display();
@@ -135,9 +164,6 @@ $html .= $this->translate($this->mcworkContent($this->page, $this->pagecontent, 
 $toolbar = '';
 if (isset($this->toolbarcontent)) {
     $links = array(
-        'add' => array(
-            'href' => '/mcwork/' . $ctrlpath . '/add'
-        ),
         'edit' => array(
             'href' => '/mcwork/' . $ctrlpath . '/edit'
         ),

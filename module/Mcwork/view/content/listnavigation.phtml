@@ -29,22 +29,19 @@ use ContentinumComponents\Html\HtmlTable;
 use ContentinumComponents\Html\Table\FactoryTable;
 // prepare content, create a table
 $tableFactory = new HtmlTable(new FactoryTable());
-
+$ctrlpath = 'navigation';
 // set table tag attributes
-$tableFactory->setAttributes('class', 'table table-hover table-nomargin table-bordered');
+$tableFactory->setAttributes('class', 'table tblNoSort');// table-hover table-nomargin table-striped dataTable dataTable-tools');
+$tableFactory->setAttributes('id', 'mcworkTables');
 $i = 0;
 $iClass = 0;
+$Identifier = array('std' => 'Navigation root', 'sub' => 'Navigation branch', 'helper' => 'Helper navigation' );
+
 $headlines = array(
-    'Filename' => array(),
-    'Size' => array(
-        'head' => array(
-            'class' => 'hide-for-small text-right'
-        ),
-        'body' => array(
-            'class' => 'hide-for-small text-right'
-        )
-    ),
-    'Last write access' => array(
+    '#' => array(),
+    'Navigation structure' => array(),
+    'Kind of navigation' => array(),
+    'Edit' => array(
         'head' => array(
             'class' => 'hide-for-small text-right'
         ),
@@ -76,57 +73,69 @@ foreach ($headlines as $column => $attributes) {
 $tableFactory->setHeadline($columns);
 $i = 0;
 foreach ($this->entries as $entry) {
-    if ('.' != $entry->filename && '..' != $entry->filename) {
-        
-        $tbl = array(
-            'display' => array(
-                'label' => 'Display',
-                'href' => '/mcwork/logs/display/' . $entry->filename,
-                'attribs' => array(
-                    'class' => 'small button'
-                )
-            ),
-            'download' => array(
-                'label' => 'Download',
-                'href' => '/mcwork/logs/download/' . $entry->filename,
-                'attribs' => array(
-                    'class' => 'small button'
-                )
-            ),
-            'clear' => array(
-                'label' => 'Clear',
-                'href' => '/mcwork/logs/clear/' . $entry->filename,
-                'attribs' => array(
-                    'title' => 'Empty log file content',
-                    'class' => 'small button'
-                )
-            ),
-            'delete' => array(
-                'label' => 'Delete',
-                'href' => '/mcwork/logs/delete/' . $entry->filename,
-                'attribs' => array(
-                    'title' => 'Delete log file content',
-                    'class' => 'small button'
-                )
-            )
-        );
-        
-        $i ++;
-        $rowContent = array();
-        if (! $entry->writable) {
-            unset($tbl['clear'], $tbl['delete']);
-        }
-        $rowContent[] = $entry->filename . $this->mcworkTableEdit($tbl);
-        $rowContent[] = $this->filesize($entry->size);
-        $rowContent[] = date("d.m.Y H:i:s", $entry->time);
-        $tableFactory->setHtmlContent($rowContent);
+    $i ++;
+    $rowContent = array();
+    if (1 === $entry->id){
+        $rowContent[] = '<i class="fa fa-lock fa-2x alizarin-color"> </i>';
+    } else {
+        $rowContent[] = '<input id="row' . $i . '" type="checkbox" value="' . $entry->id . '" name="cb[]" data-name="' .  $entry->title . '" />';
     }
+    $rowContent[] = '<a href="/mcwork/menue/category/'.$entry->id.'">' .  $entry->title . '</a>';
+    $rowContent[] = $this->translate($Identifier[$entry->menue]);
+    
+    $props = array(
+        'edit' => array(
+            'href' => '/mcwork/' . $ctrlpath . '/edit/' . $entry->id,
+            'attribs' => array(
+                'title' => 'Edit item',
+                'class' => 'button tiny'
+            )
+        ),
+        'delete' => array(
+            'href' => '/mcwork/' . $ctrlpath . '/delete',
+            'attribs' => array(
+                'data-name' => $entry->title,
+                'data-ident' => 'row' . $i,
+                'title' => 'Delete item',
+                'class' => 'button tiny alert deleteitem'
+            )
+        ),
+        'info' => array(
+            'attribs' => array(
+                'data-update' => $entry->upDate->format('d F Y, H:i:s'),
+                'data-registerdate' => $entry->registerDate->format('d F Y, H:i:s'),
+                'data-role' => $this->role,
+                'title' => 'Delete item',
+                'class' => 'button tiny infotip'
+            )
+        )
+    );    
+    if (1 === $entry->id){
+        unset($props['delete']);
+    }
+    $rowContent[] = $this->mcworkToolbar($props, true, $this->toolbarcontent->toArray() );
+    $tableFactory->setHtmlContent($rowContent);
 }
 $html = $tableFactory->display();
 $html .= $this->translate($this->mcworkContent($this->page, $this->pagecontent, 'content'));
+$toolbar = '';
+if (isset($this->toolbarcontent)) {
+    $links = array(
+        'add' => array(
+            'href' => '/mcwork/' . $ctrlpath . '/add'
+        ),
+        'edit' => array(
+            'href' => '/mcwork/' . $ctrlpath . '/edit'
+        ),
+        'delete' => array(
+            'href' => '/mcwork/' . $ctrlpath . '/delete'
+        )
+    );
+    $toolbar = $this->mcworkToolbar($links, true, $this->toolbarcontent->toArray());
+}
 // output, display content
 if (isset($this->widget)) {
-    $content = str_replace('{TEMPLATE_HEADER}', $this->translate($this->mcworkContent($this->page, $this->pagecontent, 'subheadline')), $this->widget);
+    $content = str_replace('{TEMPLATE_HEADER}', $this->translate($this->mcworkContent($this->page, $this->pagecontent, 'subheadline')) . $toolbar, $this->widget);
     echo str_replace('{TEMPLATE_CONTENT}', $html, $content);
 } else {
     echo $this->translate($this->mcworkContent($this->page, $this->pagecontent, 'subheadline'));
