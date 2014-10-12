@@ -14,9 +14,10 @@ return array(
     'factories' => array(
         'Mcwork\Controller\App' => function ($sl)
         {
-            $app = new Contentinum\Service\ContentinumApp();
+            $app = new Contentinum\Service\App\Contentinum();
             $params = $sl->getServiceLocator()->get('Mcwork\Pages');
             $app->setOptions($params->toArray());
+            $app->cutUri();
             $customer = $sl->getServiceLocator()->get('Contentinum\Customer');
             if (true === $app->isPageAvailable()) {
                 if (true === $app->setAppData()) {
@@ -46,6 +47,11 @@ return array(
                         $worker = new $workerName();
                         $worker->setStorage(new $storage());
                     }
+                    
+                    if (false != ($findBy = $app->getOptions('findBy'))) {
+                        $ctrl->setFindBy($findBy);
+                    }
+                    
                     $ctrl->setEntity(new $entityName());
                     $ctrl->setWorker($worker);
                     $ctrl->setConfiguration($customer);
@@ -61,8 +67,9 @@ return array(
             $params = $sl->getServiceLocator()->get('Mcwork\Pages');
             $customer = $sl->getServiceLocator()->get('Contentinum\Customer');
             $page = substr($uripath, 1, strlen($uripath));
-            $app = new Contentinum\Service\ContentinumApp();
+            $app = new Contentinum\Service\App\Contentinum();
             $app->setOptions($params->toArray());
+            $app->cutUri();
             if (true === $app->isPageAvailable()) {
                 if (true === $app->setAppData()) {
                     $worker = null;
@@ -74,6 +81,7 @@ return array(
                     }
                     $entityName = $app->getOptions('entity');
                     $worker->setEntity(new $entityName());
+                    $worker->setSl($sl->getServiceLocator());
                     $targetEntities = $app->getOptions('targetentities');
                     if (is_array($targetEntities) && ! empty($targetEntities)) {
                         foreach ($targetEntities as $key => $tEntity) {
@@ -94,10 +102,16 @@ return array(
                     $ctrl->setConfiguration($customer);
                     $ctrl->setFormAction($app->getOptions('formaction'));
                     $ctrl->setToRoute($app->getOptions('settoroute'));
+                    if ( false != ( $formButtons = $app->getOptions('formbuttons')  ) ){
+                        $ctrl->setFormButtons($formButtons);
+                    }                    
                     $populate = $app->getOptions('populate');
                     if (is_array($populate) && ! empty($populate)) {
                         $ctrl->setAddPopulate($populate);
                     }
+                    if ( false != ( $populateFromRoute = $app->getOptions('populateFromRoute')  ) ){
+                        $ctrl->setPopulateFromRoute($populateFromRoute);
+                    }                    
                     return $ctrl;
                 }
             }
@@ -108,7 +122,7 @@ return array(
             $params = $sl->getServiceLocator()->get('Mcwork\Pages');
             $customer = $sl->getServiceLocator()->get('Contentinum\Customer');
             $page = substr($uripath, 1, strlen($uripath));
-            $app = new Contentinum\Service\ContentinumApp();
+            $app = new Contentinum\Service\App\Contentinum();
             $app->setOptions($params->toArray());
             $app->cutUri();
             if (true === $app->isPageAvailable()) {
@@ -123,6 +137,7 @@ return array(
                     $entityName = $app->getOptions('entity');
                     $worker->setConfiguration($customer);
                     $worker->setEntity(new $entityName());
+                    $worker->setSl($sl->getServiceLocator());
                     $targetEntities = $app->getOptions('targetentities');
                     if (is_array($targetEntities) && ! empty($targetEntities)) {
                         foreach ($targetEntities as $key => $tEntity) {
@@ -132,7 +147,11 @@ return array(
                     $formName = $app->getOptions('form');
                     $formFactory = new $formName($worker);
                     $decorators = $sl->getServiceLocator()->get('Mcwork\FormDecorators');
-                    $formFactory->setDecorators($decorators->default->toArray());
+                    $decorators = $decorators->default->toArray();
+                    if ( false != ( $formAttribs = $app->getOptions('formattributes')  ) ){
+                        $decorators['deco-form']['form-attributtes'] = array_merge($decorators['deco-form']['form-attributtes'],$formAttribs);
+                    }
+                    $formFactory->setDecorators($decorators);
                     $formFactory->setServiceLocator($sl->getServiceLocator());    
                     $ctrl = new Mcwork\Controller\EditFormController($formFactory);
                     if (false != ($unserialize = $app->getOptions('unserialize'))) {
@@ -142,22 +161,26 @@ return array(
                     $ctrl->setConfiguration($customer);
                     $ctrl->setFormAction($app->getOptions('formaction'));
                     $ctrl->setToRoute($app->getOptions('settoroute'));
-                    
+                    if ( false != ( $formButtons = $app->getOptions('formbuttons')  ) ){
+                        $ctrl->setFormButtons($formButtons);
+                    }                    
                     if (false != ($setexclude = $app->getOptions('setexclude'))) {
                         $ctrl->setExclude($setexclude);
                     }
+                    if (false != ($notpopulate = $app->getOptions('notpopulate'))) {
+                        $ctrl->setNotPopulate($notpopulate);
+                    }                    
                     return $ctrl;
                 }
             }
         },
-        
         'Mcwork\Controller\DeleteItem' => function ($sl)
         {
             $uripath = str_replace('/', '_', $_SERVER['REQUEST_URI']);
             $params = $sl->getServiceLocator()->get('Mcwork\Pages');
             $customer = $sl->getServiceLocator()->get('Contentinum\Customer');
             $page = substr($uripath, 1, strlen($uripath));
-            $app = new Contentinum\Service\ContentinumApp();
+            $app = new Contentinum\Service\App\Contentinum();
             $app->setOptions($params->toArray());
             $app->cutUri();
             if (true === $app->isPageAvailable()) {
@@ -195,7 +218,7 @@ return array(
             $uripath = str_replace('/', '_', $_SERVER['REQUEST_URI']);
             $params = $sl->getServiceLocator()->get('Mcwork\Pages');
             $page = substr($uripath, 1, strlen($uripath));
-            $app = new Contentinum\Service\ContentinumApp();
+            $app = new Contentinum\Service\App\Contentinum();
             $app->setOptions($params->toArray());
             $app->cutUri();
             if (true === $app->isPageAvailable()) {
@@ -232,7 +255,7 @@ return array(
             $uripath = str_replace('/', '_', $_SERVER['REQUEST_URI']);
             $params = $sl->getServiceLocator()->get('Mcwork\Pages');
             $page = substr($uripath, 1, strlen($uripath));
-            $app = new Contentinum\Service\ContentinumApp();
+            $app = new Contentinum\Service\App\Contentinum();
             $app->setOptions($params->toArray());
             $app->cutUri();
             if (true === $app->isPageAvailable()) {
@@ -270,6 +293,7 @@ return array(
         	$ctrl->setEntity(new Contentinum\Entity\WebMedias());
         	$worker = new \ContentinumComponents\Mapper\Worker($sl->getServiceLocator()->get('doctrine.entitymanager.orm_default'));
         	$worker->setLogger($sl->getServiceLocator()->get('Contentinum\Logs\Applog'));
+        	$ctrl->setConfiguration($sl->getServiceLocator()->get('Contentinum\Customer'));
         	$ctrl->setWorker($worker);
         	return $ctrl;
         },        
