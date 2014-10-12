@@ -29,72 +29,109 @@ namespace Mcwork\Controller;
 
 use ContentinumComponents\Controller\AbstractFormController;
 use Zend\View\Model\ViewModel;
+use Zend\Json\Json;
 
 /**
  * form controller backend add a data record in database
- * 
+ *
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class AddFormController extends AbstractFormController
 {
-	/**
-	 * Construct
-	 * @param AbstractForms $addForm
-	 */	
-	public function __construct($addForm) 
-	{
-		parent::__construct($addForm);
 
-	}
-	
-	/**
-	 * Create and prepare form
-	 */
-	public function prepare()
-	{
-	    
-	    $this->form = $this->formFactory->getForm();
-		$this->form->setAttribute('action', $this->formAction);
-		$this->form->setAttribute('method', $this->formMethod);
-		$this->formTagAttributes();
-	}
-	
-	/**
-	 * Validate form entries and update database entry
-	 * @see \Contentinum\Controller\AbstractFormController::process()
-	 */
-	public function process() 
-	{
-		$model = new ViewModel ( array (
-				'form' => $this->form 
-		) );
-		
-		try {
-			$msg = $this->worker->save ( $this->form->getData (), $this->entity);
-			$model->setVariable ( 'success', true );
-			// insert database sucessfully, back to list if set toRoute
-			if (null !== $this->toRoute){
-				return $this->redirect()->toUrl($this->toRoute);
-			}			
-			
-		} catch ( \Exception $e ) {
-			$model->setVariable ( 'insertError', true );
-			$msg = $e->getMessage();
-		} 
+    /**
+     * Construct
+     * 
+     * @param AbstractForms $addForm
+     */
+    public function __construct($addForm)
+    {
+        parent::__construct($addForm);
+    }
 
-		
-		$model->setVariable('messages', $msg);
-		return $model;
-	}
-	
-	/**
-	 * Populate entries in form fields from configuration file
-	 */
-	protected function populate()
-	{
-		if (is_array($this->addPopulate) && ! empty($this->addPopulate)){
-			$this->form->populateValues($this->addPopulate);
-		}
-	}	
-	
+    /**
+     * Create and prepare form
+     */
+    public function prepare()
+    {
+        $action = '';
+        if (is_array($this->populateFromRoute) && ! empty($this->populateFromRoute)) {
+            foreach ($this->populateFromRoute as $formRoute => $key) {
+                $action .= '/' . $this->params()->fromRoute($formRoute);
+            }
+        }
+        
+        $this->form = $this->formFactory->getForm();
+        $this->form->setAttribute('action', $this->formAction . $action);
+        $this->form->setAttribute('method', $this->formMethod);
+        $this->formTagAttributes();
+    }
+
+    /**
+     * Validate form entries and update database entry
+     * 
+     * @see \Contentinum\Controller\AbstractFormController::process()
+     */
+    public function process()
+    {
+        try {
+            $msg = $this->worker->save($this->form->getData(), $this->entity);
+            $viewVariable = 'success';
+            $viewValue = true;
+            // insert database sucessfully, back to list if set toRoute
+            if (null !== $this->toRoute && false === $this->getXmlHttpRequest()) {            
+                $ln = '';
+                if (is_array($this->populateFromRoute) && ! empty($this->populateFromRoute)) {
+                    foreach ($this->populateFromRoute as $formRoute => $key) {
+                        $ln .= '/' . $this->params()->fromRoute($formRoute);
+                    }
+                }
+                return $this->redirect()->toUrl($this->toRoute . $ln);
+            } else {
+                echo true;
+                exit();
+            }
+        } catch (\Exception $e) {
+            $viewVariable = 'insertError';
+            $viewValue = true;
+            $msg = $e->getMessage();
+        }
+        
+        if (false === $this->getXmlHttpRequest()) {
+            $model = new ViewModel(array(
+                'form' => $this->form
+            ));
+            $model->setVariable($viewVariable, $viewValue);
+            $model->setVariable('messages', $msg);
+            return $model;
+        } else {
+            echo Json::encode(array(
+                'error' => $msg
+            ));
+            exit();
+        }
+    }
+
+    /**
+     * Populate entries in form fields from configuration file
+     */
+    protected function populate()
+    {
+        $populate = false;
+        if (is_array($this->populateFromRoute) && ! empty($this->populateFromRoute)) {
+            foreach ($this->populateFromRoute as $formRoute => $key) {
+                $populate[$key] = $this->params()->fromRoute($formRoute);
+            }
+        }
+        if (is_array($this->addPopulate) && ! empty($this->addPopulate)) {
+            if (false !== $populate) {
+                $populate = array_merge($this->addPopulate, $populate);
+            } else {
+                $populate = $this->addPopulate;
+            }
+        }
+        if (false !== $populate) {
+            $this->form->populateValues($populate);
+        }
+    }
 }

@@ -28,8 +28,8 @@
 namespace Mcwork\Controller;
 
 use ContentinumComponents\Controller\AbstractFormController;
-use ContentinumComponents\Tools\HandleSerializeDatabase;
 use Zend\View\Model\ViewModel;
+use Zend\Json\Json;
 
 /**
  * form controller backend edit a data record
@@ -62,10 +62,17 @@ class EditFormController extends AbstractFormController
 
     /**
      * Unserialize populate datas
-     * 
+     *
      * @var boolean array
      */
     protected $unserialize = false;
+
+    /**
+     * Exclude form fields from populate values
+     * 
+     * @var unknown
+     */
+    protected $notPopulate = false;
 
     /**
      * Construct
@@ -103,8 +110,13 @@ class EditFormController extends AbstractFormController
             $this->formFactory->setExclude($this->exclude);
         }
         
+        $action = '';
+        if (false !== ($cat = $this->params()->fromRoute('cat', false))) {
+            $action = '/' . $cat;
+        }
+        
         $this->form = $this->formFactory->getForm();
-        $this->form->setAttribute('action', $this->formAction . '/' . $this->id);
+        $this->form->setAttribute('action', $this->formAction . '/' . $this->id . $action);
         $this->form->setAttribute('method', $this->formMethod);
         $this->formTagAttributes();
     }
@@ -115,24 +127,10 @@ class EditFormController extends AbstractFormController
     protected function populate()
     {
         $datas = $this->worker->fetchPopulateValues($this->id);
-        
-        if (false !== $this->unserialize && isset($this->unserialize['fields'])) {
-            if (isset($datas['decodeMetas']) && strlen($datas['decodeMetas']) > 1) {
-                $method = $datas['decodeMetas'];
-                $decode = new HandleSerializeDatabase($method);
-                if (is_string($this->unserialize['fields'])) {
-                    $datas = array_merge($datas,$decode->execUnserialize($datas[$this->unserialize['fields']]));                
-                }
-            } elseif (is_array($this->unserialize['fields'])) {
-                if (isset($datas['decodeMetas']) && strlen($datas['decodeMetas']) > 1) {
-                    $method = $datas['decodeMetas'];
-                    $decode = new HandleSerializeDatabase($method);
-                    foreach ($this->unserialize['fields'] as $field) {
-                        if (isset($datas[$field])) {
-                            $datas[$field] = $decode->execUnserialize($datas[$field]);
-                        }
-                    }
-                    
+        if (false !== $this->notPopulate) {
+            foreach ($this->notPopulate as $field) {
+                if (isset($datas[$field])) {
+                    unset($datas[$field]);
                 }
             }
         }
@@ -146,24 +144,40 @@ class EditFormController extends AbstractFormController
      */
     protected function process()
     {
-        $model = new ViewModel(array(
-            'form' => $this->form
-        ));
-        
         try {
             $msg = $this->worker->save($this->form->getData(), $this->worker->fetchPopulateValues($this->id, false));
-            $model->setVariable('success', true);
+            $viewVariable = 'success';
+            $viewValue = true;
             // insert database sucessfully, back to list if set toRoute
-            if (null !== $this->toRoute) {
-                return $this->redirect()->toUrl($this->toRoute);
+            if (null !== $this->toRoute && false === $this->getXmlHttpRequest()) {
+                $url = '';
+                if (false !== ($cat = $this->params()->fromRoute('cat', false))) {
+                    $url = '/' . $cat;
+                }
+                return $this->redirect()->toUrl($this->toRoute . $url);
+            } else {
+                echo true;
+                exit();
             }
         } catch (\Exception $e) {
-            $model->setVariable('insertError', true);
+            $viewVariable = 'insertError';
+            $viewValue = true;
             $msg = $e->getMessage();
         }
         
-        $model->setVariable('messages', $msg);
-        return $model;
+        if (false === $this->getXmlHttpRequest()) {
+            $model = new ViewModel(array(
+                'form' => $this->form
+            ));
+            $model->setVariable($viewVariable, $viewValue);
+            $model->setVariable('messages', $msg);
+            return $model;
+        } else {
+            echo Json::encode(array(
+                'error' => $msg
+            ));
+            exit();
+        }
     }
 
     /**
@@ -248,39 +262,24 @@ class EditFormController extends AbstractFormController
         $this->unserialize = $unserialize;
     }
 
-    public function findSerializeError($data1)
+    /**
+     *
+     * @return the $notPopulate
+     */
+    public function getNotPopulate()
     {
-        echo "<pre>";
-        $data2 = preg_replace('!s:(\d+):"(.*?)";!e', "'s:'.strlen('$2').':\"$2\";'", $data1);
-        $max = (strlen($data1) > strlen($data2)) ? strlen($data1) : strlen($data2);
-        
-        echo $data1 . PHP_EOL;
-        echo $data2 . PHP_EOL;
-        
-        for ($i = 0; $i < $max; $i ++) {
-            
-            if (@$data1{$i} !== @$data2{$i}) {
-                
-                echo "Diffrence ", @$data1{$i}, " != ", @$data2{$i}, PHP_EOL;
-                echo "\t-> ORD number ", ord(@$data1{$i}), " != ", ord(@$data2{$i}), PHP_EOL;
-                echo "\t-> Line Number = $i" . PHP_EOL;
-                
-                $start = ($i - 20);
-                $start = ($start < 0) ? 0 : $start;
-                $length = 40;
-                
-                $point = $max - $i;
-                if ($point < 20) {
-                    $rlength = 1;
-                    $rpoint = - $point;
-                } else {
-                    $rpoint = $length - 20;
-                    $rlength = 1;
-                }
-                
-                echo "\t-> Section Data1  = ", substr_replace(substr($data1, $start, $length), "<b style=\"color:green\">{$data1 {$i}}</b>", $rpoint, $rlength), PHP_EOL;
-                echo "\t-> Section Data2  = ", substr_replace(substr($data2, $start, $length), "<b style=\"color:red\">{$data2 {$i}}</b>", $rpoint, $rlength), PHP_EOL;
-            }
+        return $this->notPopulate;
+    }
+
+    /**
+     *
+     * @param \Mcwork\Controller\unknown $notPopulate
+     */
+    public function setNotPopulate($notPopulate)
+    {
+        if (is_string($notPopulate)) {
+            $notPopulate[] = $notPopulate;
         }
+        $this->notPopulate = $notPopulate;
     }
 }
