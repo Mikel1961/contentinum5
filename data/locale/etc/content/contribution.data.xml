@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.0.1">
+	<content name="Display content"></content>
+	<contentmedialeft name="Contribution with media left"></contentmedialeft>
+	<contentmediaright name="Contribution with media right"></contentmediaright>
+	<contentmediacenter name="Contribution with media center"></contentmediacenter>
+	<contentblockmediaright name="Contribution block with media right"></contentblockmediaright>
+	<contentblockmedialeft name="Contribution block with media left"></contentblockmedialeft>
+	<topbar name="Navigation Topbar"></topbar>
+	<navigation name="Navigation"></navigation>
+</layout>

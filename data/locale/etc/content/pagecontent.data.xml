@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.0.1">
+    <none name="Display content"></none>
+	<content name="Standard content"></content>
+	<headergrid name="Header"></headergrid>
+	<headersection name="Header section"></headersection>
+	<contentgrid name="Content row"></contentgrid>
+	<contentsection name="Content section"></contentsection>
+	<footergrid name="Footer"></footergrid>
+	<footersection name="Footer section"></footersection>
+</layout>
