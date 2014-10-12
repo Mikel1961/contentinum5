@@ -25,20 +25,29 @@
  * @link      https://github.com/Mikel1961/contentinum-components
  * @version   1.0.0
  */
-namespace Mcwork\Service;
+namespace Mcwork\Service\Form;
 
 use Contentinum\Service\ContentinumServiceFactory;
 
 /**
  * Backend form rules for javascripts
- * 
+ *
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class RulesServiceFactory extends ContentinumServiceFactory
 {
-	/**
-	 * Cache key form rules
-	 * @var string
-	 */
-	const CONTENTINUM_CFG_FILE = 'mcworkformrules';	
+
+    /**
+     * Cache key form rules
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CFG_FILE = 'mcwork_form_rules';
+
+    /**
+     * Name cache factory
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CACHE = 'Mcwork\Cache\Data';
 }

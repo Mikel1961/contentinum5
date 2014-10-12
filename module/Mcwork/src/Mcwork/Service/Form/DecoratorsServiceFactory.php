@@ -31,13 +31,23 @@ use Contentinum\Service\ContentinumServiceFactory;
 
 /**
  * Customer backend form and form elements decorators
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class DecoratorsServiceFactory extends ContentinumServiceFactory
 {
-	/**
-	 * Cache key custom decorators
-	 * @var string
-	 */
-	const CONTENTINUM_CFG_FILE = 'mcwork_form_decorators';	
+
+    /**
+     * Cache key custom decorators
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CFG_FILE = 'mcwork_form_decorators';
+
+    /**
+     * Name cache factory
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CACHE = 'Mcwork\Cache\Data';
 }

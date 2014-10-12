@@ -31,13 +31,23 @@ use Contentinum\Service\ContentinumServiceFactory;
 
 /**
  * Table row edit bar configuration
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class TableeditServiceFactory extends ContentinumServiceFactory
 {
-	/**
-	 * Cache key table row edit bar
-	 * @var string
-	 */
-	const CONTENTINUM_CFG_FILE = 'mcwork_tableedit';	
+
+    /**
+     * Cache key table row edit bar
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CFG_FILE = 'mcwork_tableedit';
+
+    /**
+     * Name cache factory
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CACHE = 'Mcwork\Cache\Data';
 }

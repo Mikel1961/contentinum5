@@ -28,7 +28,7 @@
 namespace Mcwork\Service\Medias;
 
 use Contentinum\Service\WebsiteServiceFactory;
-use Mcwork\Model\AdministrateMedias;
+use Mcwork\Model\Medias\Administrate;
 
 /**
  * Content of full media table to use in backend
@@ -37,24 +37,33 @@ use Mcwork\Model\AdministrateMedias;
  */
 class TableServiceFactory extends WebsiteServiceFactory
 {
+
     /**
      * Cache key media table
+     * 
      * @var string
      */
     const CONTENTINUM_DATABASE = 'mcwork_medias';
 
+    /**
+     * Name cache factory
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CACHE = 'Mcwork\Cache\Structures';
 
     /**
      * (non-PHPdoc)
+     * 
      * @see \Contentinum\Service\WebsiteServiceFactory::queryDbCacheResult()
      */
     protected function queryDbCacheResult($config, $sl)
     {
         $result = array();
-        $cache = $sl->get('Contentinum\Cache\Filesystem7200');
+        $cache = $sl->get(static::CONTENTINUM_CACHE);
         $key = $config['cache'];
         if (! ($result = $cache->getItem($key))) {
-            $worker = new AdministrateMedias($sl->get($config['entitymanager']));
+            $worker = new Administrate($sl->get($config['entitymanager']));
             $worker->setEntity($config['entity']);
             $datas = $worker->fetchMediaTable(array(
                 'id',
@@ -62,11 +71,11 @@ class TableServiceFactory extends WebsiteServiceFactory
                 'mediaSource',
                 'mediaType',
                 'mediaAlternate',
-                'mediaInUse',
+                'mediaSizes',
                 'resource'
             ));
             foreach ($datas as $row) {
-                $result[$row['mediaSource']]['mediaInUse'] = $row['mediaInUse'];
+                $result[$row['mediaSource']]['mediaSizes'] = $row['mediaSizes'];
                 $result[$row['mediaSource']]['id'] = $row['id'];
                 $result[$row['mediaSource']]['mediaName'] = $row['mediaName'];
                 $result[$row['mediaSource']]['mediaType'] = $row['mediaType'];

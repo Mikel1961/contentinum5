@@ -31,13 +31,23 @@ use Contentinum\Service\ContentinumServiceFactory;
 
 /**
  * Toolbar configuration
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class ToolbarServiceFactory extends ContentinumServiceFactory
 {
-	/**
-	 * Cache key toolbar configuration
-	 * @var string
-	 */
-	const CONTENTINUM_CFG_FILE = 'mcwork_toolbar';	
+
+    /**
+     * Cache key toolbar configuration
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CFG_FILE = 'mcwork_toolbar';
+
+    /**
+     * Name cache factory
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CACHE = 'Mcwork\Cache\Data';
 }

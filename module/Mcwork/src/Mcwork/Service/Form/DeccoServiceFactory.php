@@ -40,14 +40,14 @@ class DeccoServiceFactory implements FactoryInterface
 
     /**
      * Cache key standard decorators
-     * 
+     *
      * @var string
      */
     const CONFIGURE_KEY = 'mcwork_form';
 
     /**
      * Get form decorators configuration
-     * 
+     *
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      * @return array
      */

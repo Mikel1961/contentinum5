@@ -31,13 +31,23 @@ use Contentinum\Service\ContentinumServiceFactory;
 
 /**
  * Register cache keys to administrate in backend
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class RegisterServiceFactory extends ContentinumServiceFactory
 {
-	/**
-	 * Cache key cache register
-	 * @var string
-	 */
-	const CONTENTINUM_CFG_FILE = 'mcwork_cache_register';	
+
+    /**
+     * Cache key cache register
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CFG_FILE = 'mcwork_cache_register';
+
+    /**
+     * Name cache factory
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CACHE = 'Mcwork\Cache\Data';
 }

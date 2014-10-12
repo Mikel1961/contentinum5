@@ -31,13 +31,23 @@ use Contentinum\Service\ContentinumServiceFactory;
 
 /**
  * List of plugins that are available
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class PluginsServiceFactory extends ContentinumServiceFactory
 {
-	/**
-	 * Cache key plugins service
-	 * @var string
-	 */
-	const CONTENTINUM_CFG_FILE = 'mcwork_plugins';	
+
+    /**
+     * Cache key plugins service
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CFG_FILE = 'mcwork_plugins';
+
+    /**
+     * Name cache factory
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CACHE = 'Mcwork\Cache\Data';
 }

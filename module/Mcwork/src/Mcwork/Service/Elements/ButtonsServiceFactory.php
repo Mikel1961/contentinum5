@@ -31,13 +31,23 @@ use Contentinum\Service\ContentinumServiceFactory;
 
 /**
  * Buttons configuration backend
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class ButtonsServiceFactory extends ContentinumServiceFactory
 {
-	/**
-	 * Cache key buttons configuration
-	 * @var string
-	 */
-	const CONTENTINUM_CFG_FILE = 'mcwork_buttons';	
+
+    /**
+     * Cache key buttons configuration
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CFG_FILE = 'mcwork_buttons';
+
+    /**
+     * Name cache factory
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CACHE = 'Mcwork\Cache\Data';
 }

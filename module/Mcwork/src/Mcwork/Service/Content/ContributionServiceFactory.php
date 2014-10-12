@@ -33,39 +33,55 @@ use Zend\Config\Config;
 
 /**
  * Get list of all contributions
+ * 
  * @author Michael Jochum, michael.jochum@jochum-mediaservices.de
  */
 class ContributionServiceFactory extends WebsiteServiceFactory
 {
-    
-    const CONTENTINUM_DATABASE = 'public_contributions';
-    
+
+    /**
+     * Cache key cache register
+     *
+     * @var string
+     */
+    const CONTENTINUM_DATABASE = 'mcwork_public_contributions';
+
+    /**
+     * Name cache factory
+     * 
+     * @var string
+     */
+    const CONTENTINUM_CACHE = 'Mcwork\Cache\Structures';
+
     /**
      * Get result from cache or execute database query
-     * 
+     *
      * (non-PHPdoc)
+     * 
      * @see \Contentinum\Service\WebsiteServiceFactory::queryDbCacheResult()
      */
     protected function queryDbCacheResult($config, $sl)
     {
         $result = array();
-        $cache = $sl->get('Contentinum\Cache\Filesystem7200');
+        $cache = $sl->get(static::CONTENTINUM_CACHE);
         $key = $config['cache'];
         if (! ($result = $cache->getItem($key))) {
             $worker = new Worker($sl->get($config['entitymanager']));
             $repos = $worker->getStorage()->getRepository($config['entity']);
-            if (isset($config['findBy'])){
+            if (isset($config['findBy'])) {
                 $entries = $repos->findBy($config['findBy']);
             } else {
                 $entries = $repos->findAll();
             }
             $tmp = array();
-            foreach ($entries as $entry){
-                $tmp[$entry->id] = array('name' => $entry->title);
+            foreach ($entries as $entry) {
+                $tmp[$entry->id] = array(
+                    'name' => $entry->title
+                );
             }
             $result = new Config($tmp);
             $cache->setItem($key, $result);
-        }  
+        }
         return $result;
-    }    
+    }
 }
