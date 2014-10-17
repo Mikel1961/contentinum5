@@ -40,6 +40,30 @@ table {
 	background-color: transparent;
 }
 
+#mcworkTables figure { margin: 0; text-align: center; width: 240px; overflow: hidden; }
+
+.exlporer-element {
+	float: left;
+	margin: 0 0.5em 0.5em 0;
+}
+
+.exlporer-element a {
+	display: block;
+}
+
+.exlporer-element figcaption {
+	background: #e9e9e9;
+	color: #444444;
+	padding: 2px;
+	height: 30px;
+	overflow: hidden;
+}
+
+.exlporer-element figcaption:hover {
+	background: #444444;
+	color: #e9e9e9;
+}
+
 .turquoise {
 	background: #1ABC9C
 }
@@ -49,7 +73,7 @@ table {
 }
 
 .emerald {
-	background: #2ECC71
+	background: #82bb54
 }
 
 .nephritis {
@@ -97,7 +121,7 @@ table {
 }
 
 .alizarin {
-	background: #E74C3C
+	background: #c60f13
 }
 
 .pomegranate {
@@ -130,7 +154,7 @@ table {
 }
 
 .emerald-color {
-	color: #2ECC71
+	color: #82bb54
 }
 
 .nephritis-color {
@@ -178,7 +202,7 @@ table {
 }
 
 .alizarin-color {
-	color: #E74C3C
+	color: #c60f13
 }
 
 .pomegranate-color {
@@ -205,6 +229,10 @@ table {
 	color:#BB0706;
 }
 
+.display-block {
+	display: block;
+}
+
 .row {
 	max-width: 100%;
 }
@@ -222,12 +250,66 @@ form.custom .custom.dropdown {
 #contentinumUpload {
 	height: 200px;
 }
+
 /*
 .prefix, .postfix {
 	height: 3em;
 	line-height: 3em;
 	
 }*/
+
+p.formElement {
+	padding: 0.8em 0;
+	margin-bottom: 0;
+}
+
+p.formElement.elmNoPadd {
+	padding-bottom: 0;
+}
+
+p.formElement input {
+	margin-bottom: 0;
+}
+
+p.formElement.error label {
+	font-weight: bold;
+	color: #E74C3C;
+}
+
+p.formElement.valid label {
+	font-weight: bold;
+	color: #2ECC71;
+}
+
+p.formElement.error input {
+	border-color: #E74C3C;
+}
+
+p.formElement.valid input {
+	border-color: #2ECC71;
+}
+
+.validation-valid,
+.validation-error,
+.server-error {
+	background: #E74C3C;
+	color: #FFFFFF;
+	padding: 6px 0 6px 4px;
+	display: block;
+}
+
+.validation-valid {
+	background: #2ECC71;
+}
+
+#fileUpload {
+	border: 1px #F6F6F6 solid;
+
+}
+#fieldwebMediasId {
+	padding-bottom: 0;
+}
+
 .nopadding {
 	padding: 0 !important;
 }

@@ -192,6 +192,12 @@ tr:hover .tableEdit {
 	display: inline;
 }
 
+
+.dataTables_paginate > span > a.current {
+	background: #c60f13;
+	color: #FFFFFF;
+}
+
 .chzn-container .chzn-drop {
 	-webkit-border-radius: 0;
 	-moz-border-radius: 0;
