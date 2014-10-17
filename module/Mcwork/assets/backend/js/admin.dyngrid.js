@@ -40,7 +40,7 @@
 var McworkMediaAttribute = {
     lng : false,
     element : false,
-    url : '/mcwork/medias/savemetas',
+    url : '/mcwork/medias/application/mediametas',
     tabActive : 'mediametas',
     requestDebug : 0,	
 	requestType : 'POST',
@@ -209,13 +209,13 @@ var McworkMediaAttribute = {
 	init : function(){
 			switch(this.tabActive) {
 			case 'mediametas':
-				this.url = '/mcwork/medias/savemetas';
+				this.url = '/mcwork/medias/application/mediametas';
 				break;
 			case 'mediagroup':
 				this.url = '/mcwork/medias/application/additemgrp';
 				break;	
 			case 'mediatags':
-				this.url = '/mcwork/medias/savemetas';
+				this.url = '/mcwork/medias/application/mediatags';
 				break;
 			case 'removefromgrp':
 				this.url = '/mcwork/medias/application/removeitemgrp';
@@ -295,8 +295,8 @@ var McworkMediaAttribute = {
 	buildModal : function(){
 		var header = this.modalHeader;
 		header['content'][1] = '<h4>' + Mcwork.translate('heads', 'filename') + ': ' +  this.mediaAttributesData.name + '<span id="server-process">  </span></h4><hr />';
-		delete header;
 		var html = $().setHtml(header,{},{});
+		delete header;
 
 		var body = this.modalBody;
 		
@@ -413,7 +413,7 @@ var McworkMediaAttribute = {
 		});  
 
 		if( typeof t !== 'undefined' ) { 
-			$("#tag").tagging( "reset" );
+			//$("#tag").tagging( "reset" );
 		}
 		
 		var t = $("#tag").tagging();	
@@ -543,25 +543,32 @@ var McworkMediaAttribute = {
 								$('#' + app.tabActive  +  '-process').html( Mcwork.iconsuccess(Mcwork.icon_success) );
 								switch(app.tabActive){
 									case 'mediametas':
-									    $('#server-process').html( Mcwork.iconsuccess(Mcwork.icon_success)  +  ' ' + app.lngmsg.server.success_edit);
+									    $('#server-process').html( Mcwork.iconsuccess(Mcwork.icon_success)  +  ' ' + Mcwork.translate('server', 'success_edit'));
 									    
 									    delete postDatas['serverdebug'];
 									    delete postDatas['stage']; 
 									    delete postDatas['dbident'];
 									    
-									    Mcwork.setAttributes(postDatas,app.element);
+									    var attributes = {};
+										$.each(postDatas, function( index, value ) {
+											if ( McworkMediaAttribute.mediaAttributes.hasOwnProperty(index) ){
+												attributes[McworkMediaAttribute.mediaAttributes[index]] = value;
+											}
+										});
+									    
+									    Mcwork.setAttributes(attributes,app.element);
 									    
 									    break;
 									case 'mediatags':
 									    
-									    $('#server-process').html( Mcwork.iconsuccess(Mcwork.icon_success)  +  ' ' + app.lngmsg.server.success_edit);
+									    $('#server-process').html( Mcwork.iconsuccess(Mcwork.icon_success)  +  ' ' + Mcwork.translate('server', 'success_edit'));
 									    app.mediaAttributesData.mediatags = tagsArray.join(", ");
 										$(app.element).attr('data-mediatags',tagsArray.join(", "));
 										
 									break;
 									case 'mediagroup':
 									    
-									    $('#server-process').html( Mcwork.iconsuccess(Mcwork.icon_success)  +  ' ' + app.lngmsg.server.success_edit);
+									    $('#server-process').html( Mcwork.iconsuccess(Mcwork.icon_success)  +  ' ' + Mcwork.translate('server', 'success_edit'));
 		    							$('#addtogroup option').each(function() {
 		    							    if ( $(this).val() == mediagroup ) {
 		    							        $(this).remove();
@@ -583,17 +590,24 @@ var McworkMediaAttribute = {
 							
 								
 							} else {
+								var msg = 'unknownerror';
 								var obj = jQuery.parseJSON(data);
 								if (obj.error) {
-									Mcwork.modalError(Mcwork.translate('errors', 'runtimeerror'), Mcwork.translate('text', 'message'), Mcwork.translate('server', obj.error));
+									msg = obj.error;
 								}
+								Mcwork.modalError(Mcwork.translate('errors', 'runtimeerror'), Mcwork.translate('text', 'message'), Mcwork.translate('server', msg));
 							}
 						},
+						error: function (xhr, ajaxOptions, thrownError) {									
+								var msg = 'Response Status: ' + xhr.status + ' ' + thrownError;
+								Mcwork.modalError(Mcwork.translate('errors', 'server'), Mcwork.translate('text', 'message'), Mcwork.translate('server', msg));
+						}							
 				});				
 			}
 		});
 		
 		$("#cancel-button").click(function(){
+			$("#tag").tagging( "reset" );
 			app.availableTags = {};
             app.allMediaGroups = {};
             app.mediaAttributesData = {};
